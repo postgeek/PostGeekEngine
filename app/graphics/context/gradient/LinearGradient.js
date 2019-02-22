@@ -1,22 +1,12 @@
-import ColorStop from './ColorStop';
+import Gradient from './Gradient';
 
-export default class Gradient {
+export default class LinearGradient extends Gradient {
   constructor(context, x0, y0, x1, y1) {
-    this.context = context;
+    super(context);
     this.x0 = x0;
     this.y0 = y0;
     this.x1 = x1;
     this.y1 = y1;
-
-    this.colors = {};
-  }
-
-  AddColorStop(offset, color) {
-    this.colors.push(new ColorStop(offset, color));
-  }
-
-  GetColorStops() {
-    return this.colors;
   }
 
   BuildGradient() {
