@@ -1,5 +1,8 @@
-export default class Rectangle {
-  constructor(x, y, width, height) {
+import GraphicObject from '../GraphicObject';
+
+export default class Rectangle extends GraphicObject {
+  constructor(context, x, y, width, height) {
+    super(context);
     this.x = x;
     this.y = y;
     this.width = width;
@@ -38,12 +41,11 @@ export default class Rectangle {
     this.height = value;
   }
 
-  draw(context) {
-    const myContext = context;
-    myContext.beginPath();
-    myContext.lineWidth = '6';
-    myContext.strokeStyle = 'red';
-    myContext.rect(this.x, this.y, this.width, this.height);
-    myContext.stroke();
+  draw() {
+    this.Context.beginPath();
+    this.Context.lineWidth = '6';
+    this.Context.strokeStyle = 'red';
+    this.Context.rect(this.x, this.y, this.width, this.height);
+    this.Context.stroke();
   }
 }

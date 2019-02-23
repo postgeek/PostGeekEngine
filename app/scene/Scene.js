@@ -2,11 +2,20 @@ import BaseClassConstructedError from '../errorHandling/errors/BaseClassConstruc
 import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
 
 export default class Scene {
-  constructor() {
+  constructor(game) {
+    this.game = game;
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
     this.create();
+  }
+
+  get Game() {
+    return this.game;
+  }
+
+  set Game(value) {
+    this.game = value;
   }
 
   create() {

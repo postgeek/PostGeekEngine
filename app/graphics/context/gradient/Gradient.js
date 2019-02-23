@@ -28,6 +28,7 @@ export default class Gradient {
   }
 
   /**
+  * Gets the array of {@Link ColorStop}.
   *
   * @returns {ColorStop|Array} the array of {@link ColorStop} colorstops for the gradient.
   */
@@ -35,6 +36,9 @@ export default class Gradient {
     return this.colors;
   }
 
+  /**
+  * Builds the gradient for the {@Link CanvasRenderingContext2D}.
+  */
   BuildGradient() {
     throw new MethodNotImplementedError(this);
   }

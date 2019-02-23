@@ -1,5 +1,8 @@
-export default class Circle {
-  constructor(x, y, radius) {
+import GraphicObject from '../GraphicObject';
+
+export default class Circle extends GraphicObject {
+  constructor(context, x, y, radius) {
+    super(context);
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -29,12 +32,11 @@ export default class Circle {
     this.width = value;
   }
 
-  draw(context) {
-    const myContext = context;
-    myContext.beginPath();
-    myContext.lineWidth = '6';
-    myContext.strokeStyle = 'lightblue';
-    myContext.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    myContext.stroke();
+  draw() {
+    this.Context.beginPath();
+    this.Context.lineWidth = '6';
+    this.Context.strokeStyle = 'lightblue';
+    this.Context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    this.Context.stroke();
   }
 }

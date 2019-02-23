@@ -22,8 +22,8 @@ export default class RadialGradient extends Gradient {
   }
 
   BuildGradient() {
-    const gradient = this.context.createLinearGradient(
-      this.x0, this.y0, this.x1, this.y1,
+    const gradient = this.context.createRadialGradient(
+      this.x0, this.y0, this.r0, this.x1, this.y1, this.r1,
     );
     for (let i = 0; i < this.colors.length; i += 1) {
       const offSet = this.colors[i].Offset;

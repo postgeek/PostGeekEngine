@@ -19,9 +19,7 @@ export default class Game {
     this.config = config;
     this.UPDATE_RATE = 25;
     this.INTERVAL_TIME = (1000 / this.UPDATE_RATE);
-  }
 
-  start() {
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
 
@@ -44,7 +42,9 @@ export default class Game {
     // (this way we don't need focus on the canvas, which is preferable)
     window.addEventListener('keydown', this.Keyboard, false);
     window.addEventListener('keyup', this.Keyboard, false);
+  }
 
+  start() {
     this.init();
   }
 

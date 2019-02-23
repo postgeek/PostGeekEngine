@@ -1,5 +1,8 @@
-export default class DrawingContext {
+import DrawingStyle from '../context/DrawingStyle';
+
+export default class GeometryStyle extends DrawingStyle {
   constructor(config) {
+    super(config);
     if ('lineWidth' in config) {
       this.LineWidth = config.lineWidth;
     }
@@ -17,12 +20,6 @@ export default class DrawingContext {
     }
     if ('lineDashOffset' in config.lineDashOffset) {
       this.LineDashOffset = config.lineDashOffset;
-    }
-    if ('fillStyle' in config.fillStyle) {
-      this.FillStyle = config.fillStyle;
-    }
-    if ('strokeStyle' in config) {
-      this.StrokeStyle = config.strokeStyle;
     }
   }
 
@@ -72,21 +69,5 @@ export default class DrawingContext {
 
   set LineDashOffset(value) {
     this.lineDashOffset = value;
-  }
-
-  get FillStyle() {
-    return this.fillStyle;
-  }
-
-  set FillStyle(value) {
-    this.fillStyle = value;
-  }
-
-  get StrokeStyle() {
-    return this.strokeStyle;
-  }
-
-  set StrokeStyle(value) {
-    this.strokeStyle = value;
   }
 }
