@@ -2,18 +2,6 @@ import MethodNotImplementedError from './errorHandling/errors/MethodNotImplement
 import Mouse from './input/Mouse';
 import Keyboard from './input/Keyboard';
 
-// shim layer with setTimeout fallback
-window.requestAnimFrame = (function requestAnimFrame() {
-  return window.requestAnimationFrame
-      || window.webkitRequestAnimationFrame
-      || window.mozRequestAnimationFrame
-      || window.oRequestAnimationFrame
-      || window.msRequestAnimationFrame
-      || function callbackFunction(/* function */ callback) {
-        window.setTimeout(callback, 1000 / 24);
-      };
-}());
-
 export default class Game {
   constructor(config) {
     this.config = config;
@@ -50,18 +38,18 @@ export default class Game {
 
   init() {
     this.animate();
-    setInterval(this.gameLoop, this.INTERVAL_TIME);
+    setInterval(() => this.gameLoop, this.INTERVAL_TIME);
   }
 
   // The game loop takes care of polling for input and updating the game
   gameLoop() {
-    this.Game.pollInput();
-    this.Game.update();
+    this.pollInput();
+    this.update();
   }
 
   animate(timeStamp) {
-    window.requestAnimFrame(window.Game.animate);
-    window.Game.draw();
+    this.requestAnimFrame(this.animate);
+    this.draw();
   }
 
   pollInput() {
@@ -79,4 +67,20 @@ export default class Game {
     this.context.fillRect(0, 0, 1550, 750);
     // jsGameStateManager.getGameState(currentState).draw(context);
   }
+
+  requestAnimFrame(callback) {
+
+    // shim layer with setTimeout fallback
+    let func = window.requestAnimationFrame
+        || window.webkitRequestAnimationFrame
+        || window.mozRequestAnimationFrame
+        || window.oRequestAnimationFrame
+        || window.msRequestAnimationFrame;
+  
+    if (!func) {
+      func = callback => setTimeout(callback, 1000 / 24);
+    }
+  
+    func(callback.bind(this));
+  };
 }
