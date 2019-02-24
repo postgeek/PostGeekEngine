@@ -38,7 +38,7 @@ export default class Game {
 
   init() {
     this.animate();
-    setInterval(() => this.gameLoop, this.INTERVAL_TIME);
+    setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
   }
 
   // The game loop takes care of polling for input and updating the game
@@ -69,18 +69,17 @@ export default class Game {
   }
 
   requestAnimFrame(callback) {
-
     // shim layer with setTimeout fallback
     let func = window.requestAnimationFrame
         || window.webkitRequestAnimationFrame
         || window.mozRequestAnimationFrame
         || window.oRequestAnimationFrame
         || window.msRequestAnimationFrame;
-  
+
     if (!func) {
       func = callback => setTimeout(callback, 1000 / 24);
     }
-  
+
     func(callback.bind(this));
-  };
+  }
 }
