@@ -1,16 +1,10 @@
-export default class Point {
+import GraphicObject from '../GraphicObject';
+
+export default class Point extends GraphicObject {
   constructor(context, x, y) {
-    this.Context = context;
+    super(context);
     this.X = x;
     this.Y = y;
-  }
-
-  get Context() {
-    return this.context;
-  }
-
-  set Context(value) {
-    this.context = value;
   }
 
   get X() {
