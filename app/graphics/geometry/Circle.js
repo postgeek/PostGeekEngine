@@ -3,9 +3,9 @@ import GraphicObject from '../GraphicObject';
 export default class Circle extends GraphicObject {
   constructor(context, x, y, radius) {
     super(context);
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
+    this.X = x;
+    this.Y = y;
+    this.Radius = radius;
   }
 
   get X() {
@@ -25,18 +25,19 @@ export default class Circle extends GraphicObject {
   }
 
   get Radius() {
-    return this.width;
+    return this.radius;
   }
 
   set Radius(value) {
-    this.width = value;
+    this.radius = value;
   }
 
   draw() {
     this.Context.beginPath();
     this.Context.lineWidth = '6';
     this.Context.strokeStyle = 'lightblue';
-    this.Context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    this.Context.arc(this.X, this.Y, this.Radius, 0, 2 * Math.PI);
     this.Context.stroke();
+    this.Context.closePath();
   }
 }
