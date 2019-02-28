@@ -1,11 +1,11 @@
 export default class Keyboard {
+  /**
+   * Represents input from the keyboard.
+   * @constructor
+   */
   constructor() {
     this.KEY_COUNT = 256;
 
-    // 3 possible states for a key
-    // RELEASED - Not down
-    // PRESSED  - Is currently being held down
-    // ONCE     - Is currently being held down for the first time
     this.keyStates = Object.freeze({
       RELEASED: { id: 0, value: 'RELEASED' }, // Not down
       PRESSED: { id: 1, value: 'PRESSED' }, // Down but not first time
@@ -13,19 +13,21 @@ export default class Keyboard {
     });
 
     this.currentKeys = new Array(this.KEY_COUNT);
+
+    // Fill the array with the possible keyboard keys
+    // TODO: Validate that this is fin
     this.keyState = new Array(this.KEY_COUNT);
     for (let i = 0; i < this.KEY_COUNT; i += 1) {
       this.keyState[i] = this.keyStates.RELEASED;
     }
   }
 
+  /**
+  * Polls the input from the keyboard
+  */
   poll() {
     for (let i = 0; i < this.KEY_COUNT; i += 1) {
-      // Set the key state
       if (this.currentKeys[i]) {
-        // If the key is down now, but was not
-        // down last frame, set it to ONCE,
-        // otherwise, set it to PRESSED
         if (this.keyState[i] === this.keyStates.RELEASED) {
           this.keyState[i] = this.keyStates.ONCE;
         } else {
@@ -37,6 +39,10 @@ export default class Keyboard {
     }
   }
 
+  /**
+   * Handles the possible keyboard events
+   * @param {KeyboardEvent} evt The KeyboardEvent
+   */
   handleEvent(evt) {
     switch (evt.type) {
       case 'keydown':
@@ -49,6 +55,10 @@ export default class Keyboard {
     }
   }
 
+  /**
+   * Handles the key down event
+   * @param {KeyboardEvent} e The KeyboardEvent
+   */
   keyDown(e) {
     const keyCode = e.keyCode ? e.keyCode : e.charCode;
     if (keyCode >= 0 && keyCode < this.KEY_COUNT) {
@@ -57,6 +67,10 @@ export default class Keyboard {
     this.typedKey = keyCode;
   }
 
+  /**
+   * Handles the key up event
+   * @param {KeyboardEvent} e The KeyboardEvent
+   */
   keyUp(e) {
     const keyCode = e.keyCode ? e.keyCode : e.charCode;
     if (keyCode >= 0 && keyCode < this.KEY_COUNT) {
@@ -65,19 +79,35 @@ export default class Keyboard {
     this.typedKey = keyCode;
   }
 
+  /**
+   * Handles the key down held event
+   * @param {KeyCode} keyCode The key code for the key to check.
+   */
   KeyDownHeld(keyCode) {
     return this.keyState[keyCode] === this.keyStates.ONCE
         || this.keyState[keyCode] === this.keyStates.PRESSED;
   }
 
+  /**
+   * Handles the key down held event
+   * @param {KeyCode} keyCode The key code for the key to check.
+   */
   KeyDownOnce(keyCode) {
     return this.keyState[keyCode] === this.keyStates.ONCE;
   }
 
+  /**
+   * Gets the character key for the last typed key.
+   * @return {String} the character code representation.
+   */
   GetKeyCharacter() {
     return String.fromCharCode(this.typedKey);
   }
 
+  /**
+   * Gets the key state for the provided key code.
+   * @return {Enum} the key's current state
+   */
   GetKeyState(keyCode) {
     return this.keyState[keyCode];
   }
