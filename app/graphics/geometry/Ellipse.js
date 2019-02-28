@@ -1,10 +1,9 @@
 import GraphicObject from '../GraphicObject';
 
 export default class Ellipse extends GraphicObject {
-  constructor(context, x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
+  constructor(context, point, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
     super(context);
-    this.X = x;
-    this.Y = y;
+    this.Point = point;
     this.RadiusX = radiusX;
     this.RadiusY = radiusY;
     this.Rotation = rotation;
@@ -13,20 +12,12 @@ export default class Ellipse extends GraphicObject {
     this.Anticlockwise = anticlockwise;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   get RadiusX() {

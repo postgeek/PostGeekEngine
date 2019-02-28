@@ -1,9 +1,18 @@
 import GraphicObject from '../GraphicObject';
 
 export default class Text extends GraphicObject {
-  constructor(context, x, y, text) {
-    super(context, x, y);
+  constructor(context, point, text) {
+    super(context);
+    this.Point = point;
     this.Text = text;
+  }
+
+  get Point() {
+    return this.point;
+  }
+
+  set Point(value) {
+    this.Point = value;
   }
 
   get Text() {

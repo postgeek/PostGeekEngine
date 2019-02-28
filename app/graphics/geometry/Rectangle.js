@@ -1,28 +1,19 @@
 import GraphicObject from '../GraphicObject';
 
 export default class Rectangle extends GraphicObject {
-  constructor(context, x, y, width, height) {
+  constructor(context, point, width, height) {
     super(context);
-    this.X = x;
-    this.Y = y;
+    this.Point = point;
     this.Width = width;
     this.Height = height;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   get Width() {

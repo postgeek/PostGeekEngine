@@ -1,27 +1,18 @@
 import GraphicObject from '../GraphicObject';
 
 export default class Circle extends GraphicObject {
-  constructor(context, x, y, radius) {
+  constructor(context, point, radius) {
     super(context);
-    this.X = x;
-    this.Y = y;
+    this.Point = point;
     this.Radius = radius;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   get Radius() {
