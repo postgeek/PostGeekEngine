@@ -1,40 +1,34 @@
-export default class Circle {
-  constructor(x, y, radius) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
+import GraphicObject from '../GraphicObject';
+
+export default class Circle extends GraphicObject {
+  constructor(context, point, radius) {
+    super(context);
+    this.Point = point;
+    this.Radius = radius;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   get Radius() {
-    return this.width;
+    return this.radius;
   }
 
   set Radius(value) {
-    this.width = value;
+    this.radius = value;
   }
 
-  draw(context) {
-    const myContext = context;
-    myContext.beginPath();
-    myContext.lineWidth = '6';
-    myContext.strokeStyle = 'lightblue';
-    myContext.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    myContext.stroke();
+  draw() {
+    this.Context.beginPath();
+    this.Context.lineWidth = '6';
+    this.Context.strokeStyle = 'lightblue';
+    this.Context.arc(this.X, this.Y, this.Radius, 0, 2 * Math.PI);
+    this.Context.stroke();
+    this.Context.closePath();
   }
 }

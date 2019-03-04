@@ -1,25 +1,19 @@
-export default class Rectangle {
-  constructor(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+import GraphicObject from '../GraphicObject';
+
+export default class Rectangle extends GraphicObject {
+  constructor(context, point, width, height) {
+    super(context);
+    this.Point = point;
+    this.Width = width;
+    this.Height = height;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   get Width() {
@@ -38,12 +32,12 @@ export default class Rectangle {
     this.height = value;
   }
 
-  draw(context) {
-    const myContext = context;
-    myContext.beginPath();
-    myContext.lineWidth = '6';
-    myContext.strokeStyle = 'red';
-    myContext.rect(this.x, this.y, this.width, this.height);
-    myContext.stroke();
+  draw() {
+    this.Context.beginPath();
+    this.Context.lineWidth = '6';
+    this.Context.strokeStyle = 'red';
+    this.Context.rect(this.X, this.Y, this.Width, this.Height);
+    this.Context.stroke();
+    this.Context.closePath();
   }
 }

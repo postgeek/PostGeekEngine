@@ -6,8 +6,11 @@ export default class DemoGame extends Game {
     super({
       debug: false,
     });
+  }
 
-    this.demoScene = new DemoScene();
+  start() {
+    this.demoScene = new DemoScene(this);
+    super.start();
   }
 
 
