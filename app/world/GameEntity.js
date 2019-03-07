@@ -12,6 +12,10 @@ class GameEntity {
     this.Height = height;
   }
 
+  /**
+  * Returns the game entities point
+  * @return {../physics/Point} The point.
+  */
   get Point() {
     return this.point;
   }
@@ -20,6 +24,10 @@ class GameEntity {
     this.point = value;
   }
 
+  /**
+  * Returns the game entities width
+  * @return {number} The width.
+  */
   get Width() {
     return this.width;
   }
@@ -28,6 +36,10 @@ class GameEntity {
     this.width = value;
   }
 
+  /**
+  * Returns the game entities height
+  * @return {number} The height.
+  */
   get Height() {
     return this.height;
   }
