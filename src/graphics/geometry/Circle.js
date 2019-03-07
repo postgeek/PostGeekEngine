@@ -27,7 +27,7 @@ export default class Circle extends GraphicObject {
     this.Context.beginPath();
     this.Context.lineWidth = '6';
     this.Context.strokeStyle = 'lightblue';
-    this.Context.arc(this.X, this.Y, this.Radius, 0, 2 * Math.PI);
+    this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
     this.Context.stroke();
     this.Context.closePath();
   }
