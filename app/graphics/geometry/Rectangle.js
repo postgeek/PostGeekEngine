@@ -36,7 +36,7 @@ export default class Rectangle extends GraphicObject {
     this.Context.beginPath();
     this.Context.lineWidth = '6';
     this.Context.strokeStyle = 'red';
-    this.Context.rect(this.X, this.Y, this.Width, this.Height);
+    this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     this.Context.stroke();
     this.Context.closePath();
   }
