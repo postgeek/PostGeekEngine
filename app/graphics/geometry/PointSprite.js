@@ -1,33 +1,24 @@
 import GraphicObject from '../GraphicObject';
 
 export default class PointSprite extends GraphicObject {
-  constructor(context, x, y) {
+  constructor(context, point) {
     super(context);
-    this.X = x;
-    this.Y = y;
+    this.Point = point;
   }
 
-  get X() {
-    return this.x;
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
-  }
-
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
+  set Point(value) {
+    this.point = value;
   }
 
   draw() {
     this.Context.beginPath();
     this.Context.lineWidth = '1';
     this.Context.strokeStyle = 'lightblue';
-    this.Context.arc(this.X, this.Y, 2, 0, 2 * Math.PI);
+    this.Context.arc(this.Point.X, this.Point.Y, 2, 0, 2 * Math.PI);
     this.Context.stroke();
     this.Context.closePath();
   }
