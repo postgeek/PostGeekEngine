@@ -1,4 +1,4 @@
-export default class Keyboard {
+class Keyboard {
   /**
    * Represents input from the keyboard.
    * @constructor
@@ -112,3 +112,4 @@ export default class Keyboard {
     return this.keyState[keyCode];
   }
 }
+export default Keyboard;
