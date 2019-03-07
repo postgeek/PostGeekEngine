@@ -1,4 +1,8 @@
-import DemoGame from './DemoGame';
+import start from 'Game';
+import DemoScene from './DemoScene';
 
-window.Game = new DemoGame();
-window.Game.start(); // I'd like to be able to remove this line but for now wtv
+start({
+  debug: true,
+  canvas: document.getElementById('canvas'),
+  initialScene: { key: "demoScene", scene: DemoScene }
+});

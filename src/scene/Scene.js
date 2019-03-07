@@ -22,7 +22,7 @@ export default class Scene {
     throw new MethodNotImplementedError(this);
   }
 
-  draw(context) {
+  draw() {
     throw new MethodNotImplementedError(this);
   }
 

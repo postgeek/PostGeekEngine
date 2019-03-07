@@ -1,8 +1,32 @@
-import MethodNotImplementedError from './errorHandling/errors/MethodNotImplementedError';
+import InvalidOperationError from './errorHandling/errors/InvalidOperationError';
 import Mouse from './input/Mouse';
 import Keyboard from './input/Keyboard';
+import SceneManager from './managers/SceneManager';
 
-export default class Game {
+let game = null;
+
+function start(config) {
+  const game = new Game(config);
+  game.init();
+}
+
+function addScene({key, scene}) {
+  if (!game) {
+    throw new InvalidOperationError(this);
+  }
+
+  game.sceneManager.addScene({key, scene});
+}
+
+function startScene(key) {
+  if (!game) {
+    throw new InvalidOperationError(this);
+  }
+
+  game.sceneManager.startScene(key, game);
+}
+
+class Game {
   constructor(config) {
     this.config = config;
     this.UPDATE_RATE = 25;
@@ -11,11 +35,16 @@ export default class Game {
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
 
-    this.Canvas = document.getElementById('canvas');
+    this.Canvas = this.config.canvas;
+    this.sceneManager = new SceneManager();
+  }
+
+  init() {
     if (!this.Canvas || !this.Canvas.getContext) {
       // console.log('error getting the canvas or the canvas context');
       return;
     }
+
     this.context = this.Canvas.getContext('2d');
     if (!this.context) {
       // console.log('error getting the canvas 2d context');
@@ -30,13 +59,10 @@ export default class Game {
     // (this way we don't need focus on the canvas, which is preferable)
     window.addEventListener('keydown', this.Keyboard, false);
     window.addEventListener('keyup', this.Keyboard, false);
-  }
 
-  start() {
-    this.init();
-  }
+    this.sceneManager.addScene(this.config.initialScene);
+    this.sceneManager.startScene(this.config.initialScene.key, this);
 
-  init() {
     this.animate();
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
   }
@@ -58,10 +84,12 @@ export default class Game {
   }
 
   update() {
-    throw new MethodNotImplementedError(this);
+    this.sceneManager.runningScene.update();
   }
 
   draw() {
+    this.sceneManager.runningScene.draw();
+
     // Draw Background
     this.context.fillStyle = '#000000';
     this.context.fillRect(0, 0, 1550, 750);
@@ -83,3 +111,6 @@ export default class Game {
     func(callback.bind(this));
   }
 }
+
+export { addScene, startScene };
+export default start;

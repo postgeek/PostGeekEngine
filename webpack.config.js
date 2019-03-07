@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    app: './_Examples/demoGame/main.js',
+    app: './examples/demoGame/main.js',
   },
   resolve: {
     modules: [
