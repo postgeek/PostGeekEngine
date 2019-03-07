@@ -1,5 +1,6 @@
 import Gradient from './Gradient';
 
+/** @extends Gradient */
 class LinearGradient extends Gradient {
   constructor(context, point1, point2) {
     super(context);

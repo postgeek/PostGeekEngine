@@ -1,6 +1,17 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Ellipse extends GraphicObject {
+class Ellipse extends GraphicObject {
+  /**
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' 2D context.
+  * @param {Point} point the starting point for the Ellipse.
+  * @param {number} radiusX the x's radius.
+  * @param {number} radiusY the y's radius.
+  * @param {number} rotation the rotation.
+  * @param {number} startAngle
+  * @param {number} endAngle
+  * @param {boolean} anticlockwise whether the roation is anticlockwise or not.
+  */
   constructor(context, point, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
     super(context);
     this.Point = point;
@@ -55,8 +66,8 @@ export default class Ellipse extends GraphicObject {
   draw() {
     this.Context.beginPath();
     this.Context.ellipse(
-      this.X,
-      this.Y,
+      this.Point.X,
+      this.Point.Y,
       this.RadiusX,
       this.RadiusY,
       this.StartAngle,
@@ -67,3 +78,4 @@ export default class Ellipse extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default Ellipse;

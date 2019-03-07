@@ -1,8 +1,14 @@
-export default class GraphicObject {
+class GraphicObject {
+  /**
+  * Constructs a new GraphicObject.
+  */
   constructor(context) {
     this.Context = context;
   }
 
+  /**
+  * The canvas's context.
+  */
   get Context() {
     return this.context;
   }
@@ -11,3 +17,4 @@ export default class GraphicObject {
     this.context = value;
   }
 }
+export default GraphicObject;

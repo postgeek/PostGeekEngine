@@ -1,12 +1,16 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Circle extends GraphicObject {
+/** @extends GraphicObject */
+class Circle extends GraphicObject {
   constructor(context, point, radius) {
     super(context);
     this.Point = point;
     this.Radius = radius;
   }
 
+  /**
+  * The starting {@link Point}  of the circle.
+  */
   get Point() {
     return this.point;
   }
@@ -15,6 +19,9 @@ export default class Circle extends GraphicObject {
     this.point = value;
   }
 
+  /**
+  * The circle's radius.
+  */
   get Radius() {
     return this.radius;
   }
@@ -32,3 +39,4 @@ export default class Circle extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default Circle;

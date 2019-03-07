@@ -1,6 +1,7 @@
 import GraphicObject from '../GraphicObject';
 
-export default class BezierCurve extends GraphicObject {
+/** @extends GraphicObject */
+class BezierCurve extends GraphicObject {
   constructor(context, controlPoint1, controlPoint2, startPoint, endPoint) {
     super(context);
     this.ControlPoint1 = controlPoint1;
@@ -9,6 +10,9 @@ export default class BezierCurve extends GraphicObject {
     this.EndPoint = endPoint;
   }
 
+  /**
+  * The first control {@link Point} for the Bezier curve.
+  */
   get ControlPoint1() {
     return this.controlPoint1;
   }
@@ -17,6 +21,9 @@ export default class BezierCurve extends GraphicObject {
     this.controlPoint1 = value;
   }
 
+  /**
+  * The second control {@link Point} for the Bezier curve.
+  */
   get ControlPoint2() {
     return this.controlPoint2;
   }
@@ -25,6 +32,9 @@ export default class BezierCurve extends GraphicObject {
     this.contrlPoint2 = value;
   }
 
+  /**
+  * The starting {@link Point} for the Bezier curve.
+  */
   get StartPoint() {
     return this.startPoint;
   }
@@ -33,6 +43,9 @@ export default class BezierCurve extends GraphicObject {
     this.startPoint = value;
   }
 
+  /**
+  * The end {@link Point} of the Bezier curve.
+  */
   get EndPoint() {
     return this.endPoint;
   }
@@ -56,3 +69,4 @@ export default class BezierCurve extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default BezierCurve;
