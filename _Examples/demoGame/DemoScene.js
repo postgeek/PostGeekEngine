@@ -1,7 +1,7 @@
-import Scene from '../scene/Scene';
-import Rectangle from '../graphics/geometry/Rectangle';
-import Circle from '../graphics/geometry/Circle';
-import Text from '../graphics/text/Text';
+import Scene from 'scene/Scene';
+import Rectangle from 'graphics/geometry/Rectangle';
+import Circle from 'graphics/geometry/Circle';
+import Text from 'graphics/text/Text';
 
 export default class DemoScene extends Scene {
   constructor(game) {

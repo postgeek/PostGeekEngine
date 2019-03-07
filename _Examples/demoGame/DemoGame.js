@@ -1,4 +1,4 @@
-import Game from '../Game';
+import Game from 'Game';
 import DemoScene from './DemoScene';
 
 export default class DemoGame extends Game {

@@ -4,7 +4,7 @@
   "description": "ISO GameFramework",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./app --fix",
+    "lint": "eslint ./src --fix",
     "build": "webpack-dev-server --mode development"
   },
   "author": "Alexandre Sanscartier",

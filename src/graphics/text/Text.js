@@ -12,7 +12,7 @@ export default class Text extends GraphicObject {
   }
 
   set Point(value) {
-    this.Point = value;
+    this.point = value;
   }
 
   get Text() {
