@@ -1,6 +1,6 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Text extends GraphicObject {
+class Text extends GraphicObject {
   constructor(context, point, text) {
     super(context);
     this.Point = point;
@@ -38,7 +38,8 @@ export default class Text extends GraphicObject {
     this.Context.strokeStyle = 'lightblue';
     this.Context.fillStyle = 'darkblue';
     this.Context.font = '52px serif';
-    this.Context.strokeText(this.Text, this.X, this.Y);
-    this.Context.fillText(this.Text, this.X, this.Y);
+    this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
+    this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
   }
 }
+export default Text;

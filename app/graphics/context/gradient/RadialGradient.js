@@ -1,20 +1,23 @@
 import Gradient from './Gradient';
 
-export default class RadialGradient extends Gradient {
+/** @extends Gradient */
+class RadialGradient extends Gradient {
   /**
   * Constructor for the RadialGradient class
   *
-  * @param {Point} point1 the starting point of the start circle.
-  * @param {number} r0 The radius of the start circle. Must be non-negative and finite.
-  * @param {Point} point2 The starting point of the end circle.
-  * @param {number} r1 The radius of the end circle. Must be non-negative and finite.
+  * @param {CanvasRenderingContext2D} context the canvas' drawing context.
+  * @param {Point} startCirclePoint the starting point of the start circle.
+  * @param {number} startCircleRadius The radius of the start circle.
+  * Must be non-negative and finite.
+  * @param {Point} endCirclePoint The starting point of the end circle.
+  * @param {number} endCircleRadius The radius of the end circle. Must be non-negative and finite.
   */
-  constructor(context, point1, r0, point2, r1) {
+  constructor(context, startCirclePoint, startCircleRadius, endCirclePoint, endCircleRadius) {
     super(context);
-    this.Point1 = point1;
-    this.r0 = r0;
-    this.Point2 = point2;
-    this.r1 = r1;
+    this.Point1 = startCirclePoint;
+    this.r0 = startCircleRadius;
+    this.Point2 = endCirclePoint;
+    this.r1 = endCircleRadius;
   }
 
   BuildGradient() {
@@ -34,3 +37,4 @@ export default class RadialGradient extends Gradient {
     return gradient;
   }
 }
+export default RadialGradient;

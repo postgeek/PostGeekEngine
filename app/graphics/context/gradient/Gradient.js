@@ -2,7 +2,7 @@ import ColorStop from '../ColorStop';
 import BaseClassConstructedError from '../../../errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../../errorHandling/errors/MethodNotImplementedError';
 
-export default class Gradient {
+class Gradient {
   /**
   * Constructor for the Gradient class
   *
@@ -43,3 +43,4 @@ export default class Gradient {
     throw new MethodNotImplementedError(this);
   }
 }
+export default Gradient;

@@ -13,8 +13,7 @@ class GameEntity {
   }
 
   /**
-  * Returns the game entities point
-  * @return {../physics/Point} The point.
+  * The game entities point.
   */
   get Point() {
     return this.point;
@@ -25,8 +24,7 @@ class GameEntity {
   }
 
   /**
-  * Returns the game entities width
-  * @return {number} The width.
+  * The game entities width.
   */
   get Width() {
     return this.width;
@@ -37,8 +35,7 @@ class GameEntity {
   }
 
   /**
-  * Returns the game entities height
-  * @return {number} The height.
+  * The game entities height
   */
   get Height() {
     return this.height;
