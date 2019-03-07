@@ -1,6 +1,6 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Point extends GraphicObject {
+export default class PointSprite extends GraphicObject {
   constructor(context, x, y) {
     super(context);
     this.X = x;
