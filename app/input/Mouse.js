@@ -1,6 +1,5 @@
-export default class Mouse {
+class Mouse {
   /**
-   * Represents input from the mouse.
    * @constructor
    */
   constructor() {
@@ -95,3 +94,4 @@ export default class Mouse {
     || this.mouseState === this.mouseStates.PRESSED;
   }
 }
+export default Mouse;
