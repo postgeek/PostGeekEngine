@@ -6,7 +6,7 @@ import SceneManager from './managers/SceneManager';
 let game = null;
 
 function start(config) {
-  const game = new Game(config);
+  game = new Game(config);
   game.init();
 }
 
@@ -60,8 +60,8 @@ class Game {
     window.addEventListener('keydown', this.Keyboard, false);
     window.addEventListener('keyup', this.Keyboard, false);
 
-    this.sceneManager.addScene(this.config.initialScene);
-    this.sceneManager.startScene(this.config.initialScene.key, this);
+    addScene(this.config.initialScene);
+    startScene(this.config.initialScene.key, this);
 
     this.animate();
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
@@ -88,12 +88,12 @@ class Game {
   }
 
   draw() {
-    this.sceneManager.runningScene.draw();
-
     // Draw Background
     this.context.fillStyle = '#000000';
     this.context.fillRect(0, 0, 1550, 750);
     // jsGameStateManager.getGameState(currentState).draw(context);
+
+    this.sceneManager.runningScene.draw();
   }
 
   requestAnimFrame(callback) {
