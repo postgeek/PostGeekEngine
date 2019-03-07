@@ -89,7 +89,7 @@ export default class Keyboard {
   }
 
   /**
-   * Handles the key down held event
+   * Handles the key down once event
    * @param {KeyCode} keyCode The key code for the key to check.
    */
   KeyDownOnce(keyCode) {
