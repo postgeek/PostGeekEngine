@@ -1,12 +1,12 @@
-import { InvalidOperationErrorText } from '../ErrorTexts';
+import { InvalidStateOperationErrorText } from '../ErrorTexts';
 
 /**
 * Defines the class for the InvalidOperationError
 * Should be thrown in any method that is called in an invalid state.
 */
-export default class InvalidOperationError extends Error {
+export default class InvalidStateOperationError extends Error {
   constructor(caller) {
-    super(InvalidOperationErrorText);
+    super(InvalidStateOperationErrorText);
     this.caller = caller;
   }
 }

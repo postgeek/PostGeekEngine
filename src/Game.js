@@ -1,4 +1,4 @@
-import InvalidOperationError from './errorHandling/errors/InvalidOperationError';
+import InvalidStateOperationError from './errorHandling/errors/InvalidStateOperationError';
 import Mouse from './input/Mouse';
 import Keyboard from './input/Keyboard';
 import SceneManager from './managers/SceneManager';
@@ -10,17 +10,17 @@ function start(config) {
   game.init();
 }
 
-function addScene({key, scene}) {
+function addScene({ key, scene }) {
   if (!game) {
-    throw new InvalidOperationError(this);
+    throw new InvalidStateOperationError(this);
   }
 
-  game.sceneManager.addScene({key, scene});
+  game.sceneManager.addScene({ key, scene });
 }
 
 function startScene(key) {
   if (!game) {
-    throw new InvalidOperationError(this);
+    throw new InvalidStateOperationError(this);
   }
 
   game.sceneManager.startScene(key, game);
