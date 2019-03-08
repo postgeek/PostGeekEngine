@@ -1,5 +1,6 @@
 import GraphicObject from '../GraphicObject';
 
+/** @extends GraphicObject */
 class Ellipse extends GraphicObject {
   /**
   *
@@ -23,6 +24,9 @@ class Ellipse extends GraphicObject {
     this.Anticlockwise = anticlockwise;
   }
 
+  /**
+  * The point for the ellipse
+  */
   get Point() {
     return this.point;
   }
@@ -31,6 +35,9 @@ class Ellipse extends GraphicObject {
     this.point = value;
   }
 
+  /**
+  * The x radius for the ellipse.
+  */
   get RadiusX() {
     return this.radiusX;
   }
@@ -39,6 +46,9 @@ class Ellipse extends GraphicObject {
     this.radiusX = value;
   }
 
+  /**
+  * The y radius for the ellipse.
+  */
   get RadiusY() {
     return this.radiusY;
   }
@@ -47,6 +57,9 @@ class Ellipse extends GraphicObject {
     this.radiusY = value;
   }
 
+  /**
+  * The ellipse's end angle.
+  */
   get EndAngle() {
     return this.endAngle;
   }
@@ -55,6 +68,9 @@ class Ellipse extends GraphicObject {
     this.endAngle = value;
   }
 
+  /**
+  * The ellipse's angle direction.
+  */
   get Anticlockwise() {
     return this.anticlockwise;
   }
@@ -63,6 +79,9 @@ class Ellipse extends GraphicObject {
     this.anticlockwise = value;
   }
 
+  /**
+  * Draws the ellipse to the current context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.ellipse(

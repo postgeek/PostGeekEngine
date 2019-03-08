@@ -1,11 +1,21 @@
 import GraphicObject from '../GraphicObject';
 
-export default class PointSprite extends GraphicObject {
+/** @extends GraphicObject */
+class PointSprite extends GraphicObject {
+  /**
+  * Constructs a new PointSprite object.
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' context.
+  * @param {Point} point the point to draw onto the screen.
+  */
   constructor(context, point) {
     super(context);
     this.Point = point;
   }
 
+  /**
+  * The physical representation of the {@link Point}.
+  */
   get Point() {
     return this.point;
   }
@@ -14,6 +24,9 @@ export default class PointSprite extends GraphicObject {
     this.point = value;
   }
 
+  /**
+  * Draws the point onto the context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.lineWidth = '1';
@@ -23,3 +36,4 @@ export default class PointSprite extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default PointSprite;

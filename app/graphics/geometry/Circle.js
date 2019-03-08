@@ -2,6 +2,13 @@ import GraphicObject from '../GraphicObject';
 
 /** @extends GraphicObject */
 class Circle extends GraphicObject {
+  /**
+  * Constructs a new Circle object.
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' context.
+  * @param {Point} point the starting point of the circle.
+  * @param {number} radius the radius of the circle.
+  */
   constructor(context, point, radius) {
     super(context);
     this.Point = point;
@@ -30,6 +37,9 @@ class Circle extends GraphicObject {
     this.radius = value;
   }
 
+  /**
+  * Draws the Circle to the current context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.lineWidth = '6';

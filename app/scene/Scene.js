@@ -16,17 +16,12 @@ class Scene {
   }
 
   /**
-  * Gets the game.
-  * @returns {Game} the game.
+  * The reference to the game object.
   */
   get Game() {
     return this.game;
   }
 
-  /**
-  * Sets the game.
-  * @param {Game} value the game.
-  */
   set Game(value) {
     this.game = value;
   }

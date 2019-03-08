@@ -2,7 +2,7 @@ import MethodNotImplementedError from './errorHandling/errors/MethodNotImplement
 import Mouse from './input/Mouse';
 import Keyboard from './input/Keyboard';
 
-export default class Game {
+class Game {
   constructor(config) {
     this.config = config;
     this.UPDATE_RATE = 25;
@@ -83,3 +83,4 @@ export default class Game {
     func(callback.bind(this));
   }
 }
+export default Game;

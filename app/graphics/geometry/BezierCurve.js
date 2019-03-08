@@ -2,6 +2,15 @@ import GraphicObject from '../GraphicObject';
 
 /** @extends GraphicObject */
 class BezierCurve extends GraphicObject {
+  /**
+  * Constructs a new BezierCurve object.
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' context.
+  * @param {Point} controlPoint1 the curve's first control point.
+  * @param {Point} controlPoint2 the curve's second control point.
+  * @param {Point} startPoint the curve's starting point.
+  * @param {Point} endPoint the curve's end point.
+  */
   constructor(context, controlPoint1, controlPoint2, startPoint, endPoint) {
     super(context);
     this.ControlPoint1 = controlPoint1;
@@ -54,6 +63,9 @@ class BezierCurve extends GraphicObject {
     this.endPoint = value;
   }
 
+  /**
+  * Draws the bezier curve to the context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.moveTo(this.StartPoint.x, this.StartPoint.y);
