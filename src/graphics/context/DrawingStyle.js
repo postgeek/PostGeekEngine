@@ -1,4 +1,9 @@
-export default class DrawingStyle {
+class DrawingStyle {
+  /**
+  * Constructs a new DrawingStyle object.
+  *
+  * @param {config} config a configuration object, which respects the following:
+  */
   constructor(config) {
     if ('fillStyle' in config.fillStyle) {
       this.FillStyle = config.fillStyle;
@@ -20,6 +25,9 @@ export default class DrawingStyle {
     }
   }
 
+  /**
+  * The fill style for the canvas context.
+  */
   get FillStyle() {
     return this.fillStyle;
   }
@@ -28,6 +36,9 @@ export default class DrawingStyle {
     this.fillStyle = value;
   }
 
+  /**
+  * The stroke style for the canvas context.
+  */
   get StrokeStyle() {
     return this.strokeStyle;
   }
@@ -36,6 +47,9 @@ export default class DrawingStyle {
     this.strokeStyle = value;
   }
 
+  /**
+  * The shadow blur for the canvas context.
+  */
   get ShadowBlur() {
     return this.shadowBlur;
   }
@@ -44,6 +58,9 @@ export default class DrawingStyle {
     this.shadowBlur = value;
   }
 
+  /**
+  * The shadow color for the canvas context.
+  */
   get ShadowColor() {
     return this.shadowColor;
   }
@@ -52,6 +69,9 @@ export default class DrawingStyle {
     this.shadowColor = value;
   }
 
+  /**
+  * The shadow style's x offset.
+  */
   get ShadowOffsetX() {
     return this.shadowOffsetX;
   }
@@ -60,6 +80,9 @@ export default class DrawingStyle {
     this.shadowOffsetX = value;
   }
 
+  /**
+  *The shadow style's y offset.
+  */
   get ShadowOffsetY() {
     return this.shadowOffsetY;
   }
@@ -68,3 +91,4 @@ export default class DrawingStyle {
     this.shadowOffsetY = value;
   }
 }
+export default DrawingStyle;

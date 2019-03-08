@@ -1,36 +1,31 @@
-export default class GameEntity {
-  constructor(x, y, z, width, height) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.width = width;
-    this.height = height;
+class GameEntity {
+  /**
+  * Constructor for the GameEntity
+  *
+  * @param {Point} point game entities starting point
+  * @param {number} width the width of the game entity
+  * @param {number} height the height of the game entity
+  */
+  constructor(point, width, height) {
+    this.Point = point;
+    this.Width = width;
+    this.Height = height;
   }
 
-  get X() {
-    return this.x;
+  /**
+  * The game entities point.
+  */
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
+  set Point(value) {
+    this.point = value;
   }
 
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
-  }
-
-  get Z() {
-    return this.z;
-  }
-
-  set Z(value) {
-    this.z = value;
-  }
-
+  /**
+  * The game entities width.
+  */
   get Width() {
     return this.width;
   }
@@ -39,6 +34,9 @@ export default class GameEntity {
     this.width = value;
   }
 
+  /**
+  * The game entities height
+  */
   get Height() {
     return this.height;
   }
@@ -47,3 +45,4 @@ export default class GameEntity {
     this.height = value;
   }
 }
+export default GameEntity;

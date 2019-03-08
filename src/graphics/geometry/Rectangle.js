@@ -1,6 +1,15 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Rectangle extends GraphicObject {
+/** @extends GraphicObject */
+class Rectangle extends GraphicObject {
+  /**
+  * Constructs a new Rectangle object.
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' context.
+  * @param {Point} point the starting point of the rectangle.
+  * @param {number} width the width of the rectangle.
+  * @param {number} height the height of the rectangle.
+  */
   constructor(context, point, width, height) {
     super(context);
     this.Point = point;
@@ -8,6 +17,9 @@ export default class Rectangle extends GraphicObject {
     this.Height = height;
   }
 
+  /**
+  * The rectangle's starting {@link Point}.
+  */
   get Point() {
     return this.point;
   }
@@ -16,6 +28,9 @@ export default class Rectangle extends GraphicObject {
     this.point = value;
   }
 
+  /**
+  * The rectangle's width.
+  */
   get Width() {
     return this.width;
   }
@@ -24,6 +39,9 @@ export default class Rectangle extends GraphicObject {
     this.width = value;
   }
 
+  /**
+  * The rectangle's height.
+  */
   get Height() {
     return this.height;
   }
@@ -32,6 +50,9 @@ export default class Rectangle extends GraphicObject {
     this.height = value;
   }
 
+  /**
+  * Draws the rectangle to the current context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.lineWidth = '6';
@@ -41,3 +62,4 @@ export default class Rectangle extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default Rectangle;

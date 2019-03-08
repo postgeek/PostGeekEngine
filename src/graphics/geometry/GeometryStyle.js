@@ -1,6 +1,7 @@
 import DrawingStyle from '../context/DrawingStyle';
 
-export default class GeometryStyle extends DrawingStyle {
+/** @extends DrawingStyle */
+class GeometryStyle extends DrawingStyle {
   constructor(config) {
     super(config);
     if ('lineWidth' in config) {
@@ -23,6 +24,9 @@ export default class GeometryStyle extends DrawingStyle {
     }
   }
 
+  /**
+  * The line width style.
+  */
   get LineWidth() {
     return this.lineWidth;
   }
@@ -31,6 +35,9 @@ export default class GeometryStyle extends DrawingStyle {
     this.lineWidth = value;
   }
 
+  /**
+  * The line cap limit style.
+  */
   get LineCap() {
     return this.lineCap;
   }
@@ -39,6 +46,9 @@ export default class GeometryStyle extends DrawingStyle {
     this.lineCap = value;
   }
 
+  /**
+  * the line join style.
+  */
   get LineJoin() {
     return this.lineJoin;
   }
@@ -47,6 +57,9 @@ export default class GeometryStyle extends DrawingStyle {
     this.lineJoin = value;
   }
 
+  /**
+  * the miter limit style.
+  */
   get MiterLimit() {
     return this.miterLimit;
   }
@@ -55,6 +68,9 @@ export default class GeometryStyle extends DrawingStyle {
     this.miterLimit = value;
   }
 
+  /**
+  * the line dash style.
+  */
   get LineDash() {
     return this.lineDash;
   }
@@ -63,6 +79,9 @@ export default class GeometryStyle extends DrawingStyle {
     this.lineDash = value;
   }
 
+  /**
+  * the line dash offset.
+  */
   get LineDashOffset() {
     return this.lifeDashOffset;
   }
@@ -71,3 +90,4 @@ export default class GeometryStyle extends DrawingStyle {
     this.lineDashOffset = value;
   }
 }
+export default GeometryStyle;

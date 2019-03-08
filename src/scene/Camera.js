@@ -1,43 +1,37 @@
-export default class Camera {
-  constructor(x, y, z, width, height) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+class Camera {
+  /**
+  * Creates a new Camera object.
+  *
+  * @param {Point} point the starting point of the camera.
+  * @param {number} width the width of the camera.
+  * @param {number} height the height of the camera.
+  */
+  constructor(point, width, height) {
+    this.Point = point;
 
     this.dx = 0;
     this.dy = 0;
-    this.dz = 0;
 
-    this.scrollSpeed = 1;
+    this.ScrollSpeed = 1;
 
-    this.width = width;
-    this.height = height;
+    this.Width = width;
+    this.Height = height;
   }
 
-  get X() {
-    return this.x;
+  /**
+  * The cameras starting point (top left corner) on the canvas.
+  */
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
+  set Point(value) {
+    this.point = value;
   }
 
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
-  }
-
-  get Z() {
-    return this.z;
-  }
-
-  set Z(value) {
-    this.z = value;
-  }
-
+  /**
+  * The camera's width.
+  */
   get Width() {
     return this.width;
   }
@@ -46,6 +40,9 @@ export default class Camera {
     this.width = value;
   }
 
+  /**
+  * The camera's height.
+  */
   get Height() {
     return this.height;
   }
@@ -54,6 +51,9 @@ export default class Camera {
     this.height = value;
   }
 
+  /**
+  * The cameras scroll speed (in pixels).
+  */
   get ScrollSpeed() {
     return this.scrollSpeed;
   }
@@ -62,19 +62,32 @@ export default class Camera {
     this.scrollSpeed = value;
   }
 
+  /**
+  * Moves the camera to the left using the current scroll speed.
+  */
   moveLeft() {
-    this.dx -= this.scrollSpeed;
+    this.dx -= this.ScrollSpeed;
   }
 
+  /**
+  * Moves the camera to the right using the current scroll speed.
+  */
   moveRight() {
-    this.dx += this.scrollSpeed;
+    this.dx += this.ScrollSpeed;
   }
 
+  /**
+  * Moves the camera up using the current scroll speed.
+  */
   moveUp() {
-    this.dy -= this.scrollSpeed;
+    this.dy -= this.ScrollSpeed;
   }
 
+  /**
+  * Moves the camera down using the current scroll speed.
+  */
   moveDown() {
-    this.dy += this.scrollSpeed;
+    this.dy += this.ScrollSpeed;
   }
 }
+export default Camera;

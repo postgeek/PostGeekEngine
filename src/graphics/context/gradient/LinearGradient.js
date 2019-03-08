@@ -1,6 +1,7 @@
 import Gradient from './Gradient';
 
-export default class LinearGradient extends Gradient {
+/** @extends Gradient */
+class LinearGradient extends Gradient {
   constructor(context, point1, point2) {
     super(context);
     this.Point1 = point1;
@@ -19,3 +20,4 @@ export default class LinearGradient extends Gradient {
     return gradient;
   }
 }
+export default LinearGradient;

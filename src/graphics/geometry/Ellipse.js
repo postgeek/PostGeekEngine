@@ -1,6 +1,18 @@
 import GraphicObject from '../GraphicObject';
 
-export default class Ellipse extends GraphicObject {
+/** @extends GraphicObject */
+class Ellipse extends GraphicObject {
+  /**
+  *
+  * @param {CanvasRenderingContext2D} context the canvas' 2D context.
+  * @param {Point} point the starting point for the Ellipse.
+  * @param {number} radiusX the x's radius.
+  * @param {number} radiusY the y's radius.
+  * @param {number} rotation the rotation.
+  * @param {number} startAngle
+  * @param {number} endAngle
+  * @param {boolean} anticlockwise whether the roation is anticlockwise or not.
+  */
   constructor(context, point, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
     super(context);
     this.Point = point;
@@ -12,6 +24,9 @@ export default class Ellipse extends GraphicObject {
     this.Anticlockwise = anticlockwise;
   }
 
+  /**
+  * The point for the ellipse
+  */
   get Point() {
     return this.point;
   }
@@ -20,6 +35,9 @@ export default class Ellipse extends GraphicObject {
     this.point = value;
   }
 
+  /**
+  * The x radius for the ellipse.
+  */
   get RadiusX() {
     return this.radiusX;
   }
@@ -28,6 +46,9 @@ export default class Ellipse extends GraphicObject {
     this.radiusX = value;
   }
 
+  /**
+  * The y radius for the ellipse.
+  */
   get RadiusY() {
     return this.radiusY;
   }
@@ -36,6 +57,9 @@ export default class Ellipse extends GraphicObject {
     this.radiusY = value;
   }
 
+  /**
+  * The ellipse's end angle.
+  */
   get EndAngle() {
     return this.endAngle;
   }
@@ -44,6 +68,9 @@ export default class Ellipse extends GraphicObject {
     this.endAngle = value;
   }
 
+  /**
+  * The ellipse's angle direction.
+  */
   get Anticlockwise() {
     return this.anticlockwise;
   }
@@ -52,11 +79,14 @@ export default class Ellipse extends GraphicObject {
     this.anticlockwise = value;
   }
 
+  /**
+  * Draws the ellipse to the current context.
+  */
   draw() {
     this.Context.beginPath();
     this.Context.ellipse(
-      this.X,
-      this.Y,
+      this.Point.X,
+      this.Point.Y,
       this.RadiusX,
       this.RadiusY,
       this.StartAngle,
@@ -67,3 +97,4 @@ export default class Ellipse extends GraphicObject {
     this.Context.closePath();
   }
 }
+export default Ellipse;

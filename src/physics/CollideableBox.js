@@ -1,39 +1,37 @@
 import ICollideable from './ICollideable';
 
-export default class CollideableBox extends ICollideable {
-  constructor(x, y, z, width, height) {
+/**
+* @extends ICollideable
+*/
+class CollideableBox extends ICollideable {
+  /**
+  * Constructs a new CollideableBox object.
+  *
+  * @param {Point} point the starting point of the collideable box.
+  * @param {number} width the width of the collideable box.
+  * @param {number} height the height of the collideable box.
+  */
+  constructor(point, width, height) {
     super();
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.Point = point;
     this.width = width;
     this.height = height;
   }
 
-  get X() {
-    return this.x;
+  /**
+  * The point for the collideable box.
+  */
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
+  set Point(value) {
+    this.point = value;
   }
 
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
-  }
-
-  get Z() {
-    return this.z;
-  }
-
-  set Z(value) {
-    this.z = value;
-  }
-
+  /**
+  * The width of the collideable box.
+  */
   get Width() {
     return this.width;
   }
@@ -42,6 +40,9 @@ export default class CollideableBox extends ICollideable {
     this.width = value;
   }
 
+  /**
+  * The height of the collideable box.
+  */
   get Height() {
     return this.height;
   }
@@ -50,3 +51,4 @@ export default class CollideableBox extends ICollideable {
     this.height = value;
   }
 }
+export default CollideableBox;

@@ -1,28 +1,33 @@
-export default class Sprite {
-  constructor(x, y, width, height, spriteSheet) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.spriteSheet = spriteSheet;
+class Sprite {
+  /**
+  * Constructs a new Sprite object.
+  *
+  * @param {Point} point the starting point for the sprite.
+  * @param {number} width the width of the sprite.
+  * @param {number} height the height of the sprite.
+  * @param {image} spriteSheet the sprite sheet for the sprite.
+  */
+  constructor(point, width, height, spriteSheet) {
+    this.Point = point;
+    this.Width = width;
+    this.Height = height;
+    this.SpriteSheet = spriteSheet;
   }
 
-  get X() {
-    return this.x;
+  /**
+  * The sprite's starting point.
+  */
+  get Point() {
+    return this.point;
   }
 
-  set X(value) {
-    this.x = value;
+  set Point(value) {
+    this.point = value;
   }
 
-  get Y() {
-    return this.y;
-  }
-
-  set Y(value) {
-    this.y = value;
-  }
-
+  /**
+  * The sprite's width
+  */
   get Width() {
     return this.width;
   }
@@ -31,6 +36,9 @@ export default class Sprite {
     this.width = value;
   }
 
+  /**
+  * The sprite's height
+  */
   get Height() {
     return this.height;
   }
@@ -39,6 +47,9 @@ export default class Sprite {
     this.height = value;
   }
 
+  /**
+  * The sprite's sprite sheet.
+  */
   get SpriteSheet() {
     return this.spriteSheet;
   }
@@ -47,7 +58,12 @@ export default class Sprite {
     this.spriteSheet = value;
   }
 
+  /**
+  * Renders the Sprite on the screen.
+  * @param {CanvasRenderingContext2D} context the canvas' context.
+  */
   Render(context) {
     context.drawImage(this.spriteSheet, this.x, this.y, this.width, this.height);
   }
 }
+export default Sprite;
