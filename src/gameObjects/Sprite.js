@@ -1,4 +1,6 @@
-class Sprite {
+import GameObect from './GameObject';
+
+class Sprite extends GameObject {
   /**
   * Constructs a new Sprite object.
   *
@@ -8,7 +10,7 @@ class Sprite {
   * @param {image} spriteSheet the sprite sheet for the sprite.
   */
   constructor(point, width, height, spriteSheet) {
-    this.Point = point;
+    super(point);
     this.Width = width;
     this.Height = height;
     this.SpriteSheet = spriteSheet;
@@ -23,28 +25,6 @@ class Sprite {
 
   set Point(value) {
     this.point = value;
-  }
-
-  /**
-   *  The X coordinate of the sprite.
-   */
-  get X() {
-    return this.Point.X;
-  }
-
-  set X(value) {
-    this.Point.X = value;
-  }
-
-  /**
-  *  The Y coordinate of the sprite.
-  */
-  get Y() {
-    return this.Point.Y;
-  }
-
-  set Y(value) {
-    return this.Point.Y;
   }
 
   /**
