@@ -29,6 +29,28 @@ class Rectangle extends GraphicObject {
   }
 
   /**
+   *  The X coordinate of the rectangle.
+   */
+  get X() {
+    return this.Point.X;
+  }
+
+  set X(value) {
+    this.Point.X = value;
+  }
+
+  /**
+  *  The Y coordinate of the rectangle.
+  */
+  get Y() {
+    return this.Point.Y;
+  }
+
+  set Y(value) {
+    return this.Point.Y;
+  }
+
+  /**
   * The rectangle's width.
   */
   get Width() {
