@@ -26,6 +26,28 @@ class Sprite {
   }
 
   /**
+   *  The X coordinate of the sprite.
+   */
+  get X() {
+    return this.Point.X;
+  }
+
+  set X(value) {
+    this.Point.X = value;
+  }
+
+  /**
+  *  The Y coordinate of the sprite.
+  */
+  get Y() {
+    return this.Point.Y;
+  }
+
+  set Y(value) {
+    return this.Point.Y;
+  }
+
+  /**
   * The sprite's width
   */
   get Width() {
