@@ -42,7 +42,7 @@ class HSLColor {
    * The string represenation of the HSLColor.
    */
   toString() {
-    return `hsl(${this.Hue},${this.Saturation},${this.Lightness})`;
+    return `hsl(${this.Hue},${this.Saturation}%,${this.Lightness}%)`;
   }
 }
 export default HSLColor;

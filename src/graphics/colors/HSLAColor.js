@@ -26,7 +26,7 @@ class HSLAColor extends HSLColor {
    * The string represenation of the RGBAColor.
    */
   toString() {
-    return `hsla(${this.Hue},${this.Saturation},${this.Lightness},${this.Alpha})`;
+    return `hsla(${this.Hue},${this.Saturation}%,${this.Lightness}%,${this.Alpha})`;
   }
 }
 export default HSLAColor;
