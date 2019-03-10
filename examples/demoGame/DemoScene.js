@@ -12,13 +12,13 @@ export default class DemoScene extends Scene {
   }
 
   update() {
+    this.text.Text = `${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`;
+    // console.log(`${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`);
     // this.rectangle.Width += 1;
     // this.text.Point.X += 1;
   }
 
   draw() {
-    this.rectangle.draw();
-    this.circle.draw();
     this.text.draw();
   }
 }
