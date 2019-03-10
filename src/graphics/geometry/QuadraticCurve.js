@@ -1,7 +1,7 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class QuadraticCurve extends GraphicObject {
+/** @extends Shape */
+class QuadraticCurve extends Shape {
   /**
   * Constructs a new QuadraticCurve object.
   *
@@ -53,7 +53,7 @@ class QuadraticCurve extends GraphicObject {
   /**
   * draws the quadratic curve to the context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
     this.Context.moveTo(this.StartPoint.x, this.StartPoint.y);
     this.Context.quadraticCurveTo(

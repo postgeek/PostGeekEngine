@@ -52,6 +52,17 @@ class Text extends GraphicObject {
   }
 
   /**
+   * Defines the text style for the Text.
+   */
+  get TextStyle() {
+    return this.textStyle;
+  }
+
+  set TextStyle(value) {
+    this.textStyle = value;
+  }
+
+  /**
   * Measure the provided text.
   * https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics
   *
@@ -62,12 +73,13 @@ class Text extends GraphicObject {
   }
 
   draw() {
-    this.Context.lineWidth = '4';
-    this.Context.strokeStyle = 'lightblue';
-    this.Context.fillStyle = 'darkblue';
-    this.Context.font = '52px serif';
+    // Saves the context (this may be a costly method call so check if it is).
+    this.Context.save();
+    this.Context = this.TextStyle.apply(this.Context);
     this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
     this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+    // Restores the previously saved context.
+    this.Context.restore();
   }
 }
 export default Text;

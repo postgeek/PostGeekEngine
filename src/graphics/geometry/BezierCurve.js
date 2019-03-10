@@ -1,7 +1,7 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class BezierCurve extends GraphicObject {
+/** @extends Shape */
+class BezierCurve extends Shape {
   /**
   * Constructs a new BezierCurve object.
   *
@@ -66,7 +66,7 @@ class BezierCurve extends GraphicObject {
   /**
   * Draws the bezier curve to the context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
     this.Context.moveTo(this.StartPoint.x, this.StartPoint.y);
     this.Context.bezierCurveTo(

@@ -1,7 +1,7 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class Ellipse extends GraphicObject {
+/** @extends Shape */
+class Ellipse extends Shape {
   /**
   *
   * @param {CanvasRenderingContext2D} context the canvas' 2D context.
@@ -104,7 +104,7 @@ class Ellipse extends GraphicObject {
   /**
   * Draws the ellipse to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
     this.Context.ellipse(
       this.Point.X,

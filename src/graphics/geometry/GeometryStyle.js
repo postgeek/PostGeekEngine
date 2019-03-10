@@ -4,9 +4,6 @@ import DrawingStyle from '../context/DrawingStyle';
 class GeometryStyle extends DrawingStyle {
   constructor(config) {
     super(config);
-    if ('lineWidth' in config) {
-      this.LineWidth = config.lineWidth;
-    }
     if ('lineCap' in config) {
       this.LineCap = config.lineCap;
     }
@@ -19,20 +16,9 @@ class GeometryStyle extends DrawingStyle {
     if ('lineDash' in config) {
       this.LineDash = config.lineDash;
     }
-    if ('lineDashOffset' in config.lineDashOffset) {
+    if ('lineDashOffset' in config) {
       this.LineDashOffset = config.lineDashOffset;
     }
-  }
-
-  /**
-  * The line width style.
-  */
-  get LineWidth() {
-    return this.lineWidth;
-  }
-
-  set LineWidth(value) {
-    this.lineWidth = value;
   }
 
   /**
@@ -88,6 +74,26 @@ class GeometryStyle extends DrawingStyle {
 
   set LineDashOffset(value) {
     this.lineDashOffset = value;
+  }
+
+  apply(context) {
+    const newContext = super.apply(context);
+    if (this.LineCap) {
+      newContext.lineCap = this.LineCap;
+    }
+    if (this.LineJoin) {
+      newContext.lineJoin = this.LineJoin;
+    }
+    if (this.MiterLimit) {
+      newContext.miterLimit = this.MiterLimit;
+    }
+    if (this.LineDash) {
+      newContext.lineDash = this.LineDash;
+    }
+    if (this.LineDashOffset) {
+      newContext.lineDashOffset = this.LineDashOffset;
+    }
+    return newContext;
   }
 }
 export default GeometryStyle;

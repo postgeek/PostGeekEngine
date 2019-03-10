@@ -1,17 +1,14 @@
-import GraphicObject from '../GraphicObject';
-
 /**
  * Class that implements the basic pathing methods for the 2D context
  *
  */
-class PathBuilder extends GraphicObject {
+class PathBuilder {
   /**
   *  Constructs the PathBuild object
   *
   * @param {CanvasRenderingContext2D} context the canvas context.
   */
-  constructor(context) {
-    super(context);
+  constructor() {
     this.path = new Path2D();
   }
 

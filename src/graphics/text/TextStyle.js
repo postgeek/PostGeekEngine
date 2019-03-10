@@ -51,4 +51,21 @@ export default class TextStyle extends DrawingStyle {
   set Direction(value) {
     this.direction = value;
   }
+
+  apply(context) {
+    const newContext = super.apply(context);
+    if (this.Font) {
+      newContext.font = this.Font;
+    }
+    if (this.TextAlign) {
+      newContext.textAlign = this.TextAlign;
+    }
+    if (this.TextBaseLine) {
+      newContext.textBaseLine = this.TextBaseline;
+    }
+    if (this.Direction) {
+      newContext.direction = this.Direction;
+    }
+    return newContext;
+  }
 }
