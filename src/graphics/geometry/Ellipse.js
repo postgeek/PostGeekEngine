@@ -36,6 +36,28 @@ class Ellipse extends GraphicObject {
   }
 
   /**
+   *  The X coordinate of the ellipse.
+   */
+  get X() {
+    return this.Point.X;
+  }
+
+  set X(value) {
+    this.Point.X = value;
+  }
+
+  /**
+  *  The Y coordinate of the ellipse.
+  */
+  get Y() {
+    return this.Point.Y;
+  }
+
+  set Y(value) {
+    return this.Point.Y;
+  }
+
+  /**
   * The x radius for the ellipse.
   */
   get RadiusX() {

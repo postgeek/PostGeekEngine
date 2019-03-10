@@ -27,6 +27,28 @@ class Circle extends GraphicObject {
   }
 
   /**
+   *  The X coordinate of the circle.
+   */
+  get X() {
+    return this.Point.X;
+  }
+
+  set X(value) {
+    this.Point.X = value;
+  }
+
+  /**
+  *  The Y coordinate of the circle.
+  */
+  get Y() {
+    return this.Point.Y;
+  }
+
+  set Y(value) {
+    return this.Point.Y;
+  }
+
+  /**
   * The circle's radius.
   */
   get Radius() {

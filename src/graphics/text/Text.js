@@ -7,6 +7,9 @@ class Text extends GraphicObject {
     this.Text = text;
   }
 
+  /**
+   * The point coordinates for the text.
+   */
   get Point() {
     return this.point;
   }
@@ -15,6 +18,31 @@ class Text extends GraphicObject {
     this.point = value;
   }
 
+  /**
+   *  The X coordinate of the text.
+   */
+  get X() {
+    return this.Point.X;
+  }
+
+  set X(value) {
+    this.Point.X = value;
+  }
+
+  /**
+  *  The Y coordinate of the text.
+  */
+  get Y() {
+    return this.Point.Y;
+  }
+
+  set Y(value) {
+    return this.Point.Y;
+  }
+
+  /**
+   * The text to draw on the screen.
+   */
   get Text() {
     return this.text;
   }
