@@ -68,5 +68,9 @@ class Circle extends Shape {
     this.Context.stroke();
     this.Context.closePath();
   }
+
+  clone() {
+    return new Circle(this.Context, this.Point.clone(), this.Radius);
+  }
 }
 export default Circle;
