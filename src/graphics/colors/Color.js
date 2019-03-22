@@ -64,6 +64,8 @@ class Color {
     this.rgb = value;
   }
 
+  // https://htmlcolorcodes.com/color-names/
+  // Verify the data on this website
   /** @static */
   static get INDIANRED() {
     return new Color({
