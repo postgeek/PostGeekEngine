@@ -2,6 +2,7 @@ import InvalidStateOperationError from './errorHandling/errors/InvalidStateOpera
 import Mouse from './input/Mouse';
 import Keyboard from './input/Keyboard';
 import SceneManager from './managers/SceneManager';
+import MiddlewareManager from './managers/MiddlewareManager';
 
 let game = null;
 
@@ -37,6 +38,7 @@ class Game {
 
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
+    this.middlewareManager = new MiddlewareManager(this);
   }
 
   init() {
@@ -63,6 +65,12 @@ class Game {
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key, this);
 
+    if ('middleware' in this.config) {
+      for (const key in this.config.middleware) {
+        this.middlewareManager.addMiddleware(this.config.middleware[key]);
+      }
+    }
+
     this.animate();
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
   }
@@ -85,6 +93,7 @@ class Game {
 
   update() {
     this.sceneManager.runningScene.update();
+    this.middlewareManager.update();
   }
 
   draw() {
@@ -93,6 +102,7 @@ class Game {
     this.context.fillRect(0, 0, 1550, 750);
 
     this.sceneManager.runningScene.draw();
+    this.middlewareManager.draw();
   }
 
   requestAnimFrame(callback) {
