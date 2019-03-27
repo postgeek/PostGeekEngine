@@ -12,6 +12,7 @@ class Scene {
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
+    this.drawableObjects = [];
     this.create();
   }
 
@@ -27,6 +28,28 @@ class Scene {
   }
 
   /**
+   * Gets the drawing context associated with the scene.
+   */
+  get Context() {
+    return this.game.context;
+  }
+
+  /**
+   * Whether the current scene is the active scene.
+   */
+  get IsActive() {
+    return this.isActive;
+  }
+
+  set IsActive(value) {
+    this.isActive = value;
+  }
+
+  AddDrawableObject(drawableObject) {
+    this.drawableObjects.push(drawableObject);
+  }
+
+  /**
   * Creates the scene.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
   */
@@ -36,8 +59,7 @@ class Scene {
 
   /**
   * draws the scene to the canvas.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
-  * @param context the CanvasRenderingContext2D.
+  * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
     throw new MethodNotImplementedError(this);

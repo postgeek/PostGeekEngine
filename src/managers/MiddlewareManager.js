@@ -10,9 +10,8 @@ class MiddlewareManager {
    * @param {Middleware} middleware the middleware to add to the game engine.
    */
   addMiddleware(middleware) {
-    const middlewareToAdd = middleware;
-    middlewareToAdd.middlewareManager = this;
-    this.Middleware.push(middlewareToAdd);
+    middleware.init(this);
+    this.Middleware.push(middleware);
   }
 
   /**
