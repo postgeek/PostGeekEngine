@@ -4,6 +4,7 @@ import Rectangle from 'graphics/geometry/Rectangle';
 import Circle from 'graphics/geometry/Circle';
 import ParticleEmitter from 'graphics/particleSystem/ParticleEmitter';
 import Color from 'graphics/colors/Color';
+import { DefaultColours } from 'graphics/colors/ColorUtil';
 import Text from 'graphics/text/Text';
 import TextStyle from 'graphics/text/TextStyle';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
@@ -13,11 +14,24 @@ export default class DemoScene extends Scene {
     const printColor = Color.LIGHTBLUE;
     this.rectangle = new Rectangle(this.Game.context, new Point(20, 20), 150, 200);
     this.circle = new Circle(this.Game.context, new Point(100, 100), 20);
-    const circleStyle = new GeometryStyle({
-      lineWidth: 4,
+    let circleStyle = new GeometryStyle({
+      lineWidth: 1,
       strokeStyle: printColor.HSLAColor,
     });
     this.circle.GeometryStyle = circleStyle;
+
+    this.circles = [];
+    for (let i = 0; i < DefaultColours.length - 1; i += 1) {
+      const circle = new Rectangle(this.Game.context, new Point(i * 8, 0), 8, 400);
+      circleStyle = new GeometryStyle({
+        lineWidth: 1,
+        fillStyle: DefaultColours[i].Name,
+        strokeStyle: DefaultColours[i].Name,
+      });
+      console.log(`${DefaultColours[i].Name} ${i}`);
+      circle.GeometryStyle = circleStyle;
+      this.circles.push(circle);
+    }
 
     this.ParticleEmitter = new ParticleEmitter(this.Game.context, new Point(200, 200));
     this.ParticleEmitter.Sprite.GeometryStyle = circleStyle;
@@ -44,6 +58,9 @@ export default class DemoScene extends Scene {
   draw() {
     // this.text.draw();
     // this.circle.draw();
-    this.ParticleEmitter.draw();
+    for (let i = 0; i < this.circles.length - 1; i += 1) {
+      this.circles[i].draw();
+    }
+    // this.ParticleEmitter.draw();
   }
 }

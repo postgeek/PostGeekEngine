@@ -1039,7 +1039,7 @@ class Color {
   /** @static */
   static get BLANCHEDALMOND() {
     return new Color({
-      name: 'blanchealmond',
+      name: 'blanchedalmond',
       rgbaColor: new RGBAColor(255, 235, 205, 1),
       hslaColor: new HSLAColor(36, 100, 90, 1),
       hex: '#FFEBCD',

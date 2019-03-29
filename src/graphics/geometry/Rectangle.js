@@ -79,6 +79,7 @@ class Rectangle extends Shape {
     this.Context.beginPath();
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     this.Context.stroke();
+    this.Context.fill();
     this.Context.closePath();
   }
 }
