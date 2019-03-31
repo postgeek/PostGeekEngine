@@ -2,7 +2,6 @@ import Scene from 'scene/Scene';
 import Point from 'physics/Point';
 import Rectangle from 'graphics/geometry/Rectangle';
 import Circle from 'graphics/geometry/Circle';
-import ParticleEmitter from 'graphics/particleSystem/ParticleEmitter';
 import Color from 'graphics/colors/Color';
 import { DefaultColours } from 'graphics/colors/ColorUtil';
 import Text from 'graphics/text/Text';
@@ -11,15 +10,19 @@ import GeometryStyle from 'graphics/geometry/GeometryStyle';
 
 export default class DemoScene extends Scene {
   create() {
+    const circleJson = '{"point":{"x":100,"y":100},"radius":20,"geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1},"lineWidth":1}}';
+    const parsedCircleJson = JSON.parse(circleJson);
+
     const printColor = Color.LIGHTBLUE;
     this.rectangle = new Rectangle(this.Game.context, new Point(20, 20), 150, 200);
     this.circle = new Circle(this.Game.context, new Point(100, 100), 20);
     let circleStyle = new GeometryStyle({
       lineWidth: 1,
-      strokeStyle: printColor.HSLAColor,
+      strokeStyle: parsedCircleJson.strokeStyle,
     });
     this.circle.GeometryStyle = circleStyle;
-    console.log(JSON.stringify(circleStyle));
+    console.log(JSON.stringify(this.circle));
+    console.log(parsedCircleJson);
 
     this.circles = [];
     for (let i = 0; i < DefaultColours.length - 1; i += 1) {
@@ -32,10 +35,6 @@ export default class DemoScene extends Scene {
       circle.GeometryStyle = circleStyle;
       this.circles.push(circle);
     }
-
-    this.ParticleEmitter = new ParticleEmitter(this.Game.context, new Point(200, 200));
-    this.ParticleEmitter.Sprite.GeometryStyle = circleStyle;
-    this.ParticleEmitter.Start();
 
     this.text = new Text(this.Game.context, new Point(200, 200), 'Hello World!');
     const textStyle = new TextStyle({
@@ -52,8 +51,6 @@ export default class DemoScene extends Scene {
     // this.text.Text = `${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`;
     // console.log(`${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`);
     // this.rectangle.Width += 1;
-    // this.text.Point.X += 1;
-    this.ParticleEmitter.update();
   }
 
   draw() {
