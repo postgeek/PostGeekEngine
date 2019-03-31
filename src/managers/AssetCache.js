@@ -16,18 +16,20 @@ class AssetCache {
   }
 
   loadAsset(key) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       if (this.assetList[key].status === AssetLoadingStatus.NEW) {
         this.assetList[key].status = AssetLoadingStatus.LOADING;
-        this.assetLoader.load(this.assetList[key].path).then(value => {
+
+        try {
+          let value = await this.assetLoader.load(this.assetList[key].path);
           this.assetList[key].value = value;
           this.assetList[key].status = AssetLoadingStatus.LOADED;
-          resolve(this.assetList[key]);
-        })
-        .catch(() => {
+        } catch (e) {
           this.assetList[key].status = AssetLoadingStatus.ERROR;
           reject();
-        });
+        }
+
+        resolve(this.assetList[key]);
       }
     });
   }
