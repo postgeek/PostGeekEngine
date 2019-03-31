@@ -1,54 +1,64 @@
-import AssetLoader from "./AssetLoader";
-import Asset, { AssetLoadingStatus } from "./Asset";
+import AssetLoader from './AssetLoader';
+import Asset, { AssetLoadingStatus } from './Asset';
 
+/**
+const cache = new AssetCache();
+cache.registerAsset('key1', './assets/demo.json');
+cache.loadAsset('key1').then(asset => {
+const cachedAsset = cache.getAsset('key1');
+console.log(cachedAsset);
+console.log(asset);
+});
+*/
 class AssetCache {
   constructor() {
-    this.assetList = [];
+    this.assetDictionary = [];
     this.assetLoader = new AssetLoader();
   }
 
   get assets() {
-    return this.assetList;
+    return this.assetDictionary;
   }
 
   registerAsset(key, path) {
-    this.assetList[key] = new Asset(key, path);
+    this.assetDictionary[key] = new Asset(key, path);
   }
 
   loadAsset(key) {
     return new Promise(async (resolve, reject) => {
-      if (this.assetList[key].status === AssetLoadingStatus.NEW) {
-        this.assetList[key].status = AssetLoadingStatus.LOADING;
+      if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
+        this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
 
         try {
-          let value = await this.assetLoader.load(this.assetList[key].path);
-          this.assetList[key].value = value;
-          this.assetList[key].status = AssetLoadingStatus.LOADED;
+          const value = await this.assetLoader.load(this.assetDictionary[key].path);
+          this.assetDictionary[key].value = value;
+          this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
         } catch (e) {
-          this.assetList[key].status = AssetLoadingStatus.ERROR;
+          this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
           reject();
         }
 
-        resolve(this.assetList[key]);
+        resolve(this.assetDictionary[key]);
       }
     });
   }
 
   getAsset(key) {
-    const asset = this.assetList[key];
+    const asset = this.assetDictionary[key];
     if (asset.status === AssetLoadingStatus.LOADED) {
       return asset.value;
     }
+    return undefined;
   }
 
   removeAsset(key) {
-    delete this.assetList[key];
+    delete this.assetDictionary[key];
   }
 
   destroy() {
-    Object.keys(this.assetList).forEach(key => {
+    Object.keys(this.assetDictionary).forEach((key) => {
       this.removeAsset(key);
-    })
+    });
   }
 }
 
