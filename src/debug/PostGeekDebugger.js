@@ -42,7 +42,7 @@ class PostGeekDebugger extends Middleware {
     const circleTextY = new Text(this.ActiveScene.Context, new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 50), `Y : ${circle.Y}`);
 
     rectangle.draw();
-    circleTextX.draw();
+    circleTextX.draw(); // test
     circleTextY.draw();
   }
 }
