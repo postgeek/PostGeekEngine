@@ -187,6 +187,6 @@ describe('destroy', () => {
 
     // Assert
     expect(cache.assets).toBeDefined();
-    expect(cache.assets.length).toBe(0);
+    expect(Object.keys(cache.assets).length).toBe(0);
   })
 })

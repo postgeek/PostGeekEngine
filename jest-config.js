@@ -1,8 +1,8 @@
 module.exports = {
   'rootDir': './',
   'verbose': true,
-  'collectCoverage': false,
-  'collectCoverageFrom': ['./**/*.js'],
+  'collectCoverage': true,
+  'collectCoverageFrom': ['./src/**/*.js'],
   'coverageDirectory': '<rootDir>/coverage',
   'moduleFileExtensions': [
     'js'

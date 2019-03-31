@@ -44,8 +44,8 @@ class AssetCache {
   }
 
   destroy() {
-    this.assetList.forEach(key => {
-      this.remove(key);
+    Object.keys(this.assetList).forEach(key => {
+      this.removeAsset(key);
     })
   }
 }
