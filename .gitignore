@@ -1,3 +1,8 @@
 node_modules/
 docs/
 .DS_Store
+
+dist/*
+!dist/assets
+
+coverage/
