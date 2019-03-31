@@ -9,6 +9,7 @@ class Scene {
   */
   constructor(game) {
     this.game = game;
+    this.drawableObjects = [];
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
@@ -44,6 +45,17 @@ class Scene {
     this.isActive = value;
   }
 
+  RegisterGraphicObject(graphicObject) {
+    this.drawableObjects.push(graphicObject);
+  }
+
+  /**
+   * Gets the drawable objects for the scene
+   */
+  get DrawableObjects() {
+    return this.drawableObjects;
+  }
+
   /**
   * Creates the scene.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
@@ -57,7 +69,9 @@ class Scene {
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
-    throw new MethodNotImplementedError(this);
+    for (let i = 0; i < this.DrawableObjects.length; i += 1) {
+      this.DrawableObjects[i].draw();
+    }
   }
 
   /**

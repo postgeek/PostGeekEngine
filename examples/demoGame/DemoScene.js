@@ -6,10 +6,13 @@ import Text from 'graphics/text/Text';
 
 export default class DemoScene extends Scene {
   create() {
-    this.rectangle = new Rectangle(this, new Point(200, 200), 150, 200);
-    this.circle = new Circle(this, new Point(100, 100), 20);
-    this.circle = new Circle(this, new Point(200, 200), 20);
-    this.text = new Text(this, new Point(200, 200), 'Hello World!');
+    this.rectangle = new Rectangle(this.Context, new Point(200, 200), 150, 200);
+    this.circle = new Circle(this.Context, new Point(100, 100), 20);
+    this.text = new Text(this.Context, new Point(200, 200), 'Hello World!');
+
+    this.RegisterGraphicObject(this.rectangle);
+    this.RegisterGraphicObject(this.circle);
+    this.RegisterGraphicObject(this.text);
   }
 
   update() {
@@ -20,8 +23,6 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
-    // this.circle.draw();
-    // this.rectangle.draw();
-    // this.text.draw();
+    super.draw();
   }
 }

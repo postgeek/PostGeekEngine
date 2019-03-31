@@ -18,6 +18,19 @@ class PostGeekDebugger extends Middleware {
 
   draw() {
     this.Text.draw();
+    for (let i = 0; i < this.ActiveScene.DrawableObjects.length; i += 1) {
+      this.drawDebug(this.ActiveScene.DrawableObjects[i]);
+    }
+  }
+
+  drawDebug(graphicObject) {
+    switch (graphicObject.constructor.name) {
+      case 'Circle':
+        this.drawDebugCircle(graphicObject);
+        break;
+      default:
+        break;
+    }
   }
 
   drawDebugCircle(circle) {
@@ -25,9 +38,12 @@ class PostGeekDebugger extends Middleware {
     const rectSize = circle.Radius * 2;
     const rectangle = new Rectangle(this.ActiveScene.Context, rectPoint, rectSize, rectSize);
 
-    const circleText = new Text(this.ActiveScene.Context, new Point(100, 400), `X : ${circle.X}`);
+    const circleTextX = new Text(this.ActiveScene.Context, new Point(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
+    const circleTextY = new Text(this.ActiveScene.Context, new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 50), `Y : ${circle.Y}`);
+
     rectangle.draw();
-    circleText.draw();
+    circleTextX.draw();
+    circleTextY.draw();
   }
 }
 export default PostGeekDebugger;
