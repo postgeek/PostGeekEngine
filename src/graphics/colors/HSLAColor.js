@@ -28,5 +28,12 @@ class HSLAColor extends HSLColor {
   toString() {
     return `hsla(${this.Hue},${this.Saturation}%,${this.Lightness}%,${this.Alpha})`;
   }
+
+  static ParseJSON(hslaJSON) {
+    const {
+      hue, saturation, lightness, alpha,
+    } = hslaJSON;
+    return new HSLAColor(hue, saturation, lightness, alpha);
+  }
 }
 export default HSLAColor;

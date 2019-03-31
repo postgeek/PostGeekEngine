@@ -13,15 +13,12 @@ class Ellipse extends Shape {
   * @param {number} endAngle
   * @param {boolean} anticlockwise whether the roation is anticlockwise or not.
   */
-  constructor(context, point, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
+  constructor(context, point, radiusX, radiusY, rotation) {
     super(context);
     this.Point = point;
     this.RadiusX = radiusX;
     this.RadiusY = radiusY;
     this.Rotation = rotation;
-    this.StartAngle = startAngle;
-    this.EndAngle = endAngle;
-    this.Anticlockwise = anticlockwise;
   }
 
   /**
@@ -111,10 +108,11 @@ class Ellipse extends Shape {
       this.Point.Y,
       this.RadiusX,
       this.RadiusY,
-      this.StartAngle,
-      this.EndAngle,
-      this.Anticlockwise,
+      this.Rotation,
+      0,
+      2 * Math.PI,
     );
+    this.Context.fill();
     this.Context.stroke();
     this.Context.closePath();
   }

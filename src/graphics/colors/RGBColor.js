@@ -55,5 +55,12 @@ class RGBColor {
   toString() {
     return `rgb(${this.Red},${this.Blue},${this.Green})`;
   }
+
+  static ParseJSON(rgbJSON) {
+    const {
+      red, green, blue,
+    } = rgbJSON;
+    return new RGBColor(red, green, blue);
+  }
 }
 export default RGBColor;

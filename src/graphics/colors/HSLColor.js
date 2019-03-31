@@ -55,5 +55,12 @@ class HSLColor {
   toString() {
     return `hsl(${this.Hue},${this.Saturation}%,${this.Lightness}%)`;
   }
+
+  static ParseJSON(hslJSON) {
+    const {
+      hue, saturation, lightness,
+    } = hslJSON;
+    return new HSLColor(hue, saturation, lightness);
+  }
 }
 export default HSLColor;

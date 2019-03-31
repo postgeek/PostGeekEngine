@@ -28,5 +28,12 @@ class RGBAColor extends RGBColor {
   toString() {
     return `rgba(${this.Red},${this.Blue},${this.Green},${this.Alpha})`;
   }
+
+  static ParseJSON(rgbaJSON) {
+    const {
+      red, green, blue, alpha,
+    } = rgbaJSON;
+    return new RGBAColor(red, green, blue, alpha);
+  }
 }
 export default RGBAColor;

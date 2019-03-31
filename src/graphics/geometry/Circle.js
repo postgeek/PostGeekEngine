@@ -65,6 +65,7 @@ class Circle extends Shape {
   internalDraw() {
     this.Context.beginPath();
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
+    this.Context.fill();
     this.Context.stroke();
     this.Context.closePath();
   }
