@@ -7,6 +7,10 @@ class AssetCache {
     this.assetLoader = new AssetLoader();
   }
 
+  get assets() {
+    return this.assetList;
+  }
+
   registerAsset(key, path) {
     this.assetList[key] = new Asset(key, path);
   }
