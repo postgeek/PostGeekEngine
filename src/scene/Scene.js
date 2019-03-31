@@ -12,7 +12,6 @@ class Scene {
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
-    this.drawableObjects = [];
     this.create();
   }
 
@@ -43,10 +42,6 @@ class Scene {
 
   set IsActive(value) {
     this.isActive = value;
-  }
-
-  AddDrawableObject(drawableObject) {
-    this.drawableObjects.push(drawableObject);
   }
 
   /**

@@ -20,9 +20,6 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
-    for (let i = 0; i < this.drawableObjects.length; i += 1) {
-      this.drawableObjects[i].draw();
-    }
     // this.circle.draw();
     // this.rectangle.draw();
     // this.text.draw();

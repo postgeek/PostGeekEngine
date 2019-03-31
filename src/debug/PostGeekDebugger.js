@@ -1,8 +1,9 @@
+import Middleware from './Middleware';
 import Text from '../graphics/text/Text';
 import Rectangle from '../graphics/geometry/Rectangle';
 import Point from '../physics/Point';
 
-class PostGeekDebugger {
+class PostGeekDebugger extends Middleware {
   init(middlewareManager) {
     this.middlewareManager = middlewareManager;
     this.Text = new Text(this.middlewareManager.Game.context, new Point(20, 50), 'Debug mode enabled');
@@ -17,11 +18,6 @@ class PostGeekDebugger {
 
   draw() {
     this.Text.draw();
-    for (let i = 0; i < this.ActiveScene.drawableObjects.length; i += 1) {
-      this.drawDebugCircle(this.ActiveScene.drawableObjects[i]);
-      // this.ActiveScene.drawableObjects[i].draw();
-    }
-    // console.log('Drawing the PostGeekDebugger');
   }
 
   drawDebugCircle(circle) {

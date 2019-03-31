@@ -32,6 +32,9 @@ class MiddlewareManager {
     }
   }
 
+  /**
+   * Draws the middleware to the screen if necessary.
+   */
   draw() {
     for (let i = 0; i < this.Middleware.length; i += 1) {
       this.Middleware[i].draw();
