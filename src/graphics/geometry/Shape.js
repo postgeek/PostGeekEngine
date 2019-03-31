@@ -1,22 +1,12 @@
+import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
-class Shape {
+class Shape extends GraphicObject {
   /**
-  * Constructs a new GraphicObject.
+  * Constructs a new Shape.
   */
   constructor(context) {
-    this.Context = context;
-  }
-
-  /**
-  * The canvas's context.
-  */
-  get Context() {
-    return this.context;
-  }
-
-  set Context(value) {
-    this.context = value;
+    super(context);
   }
 
   /**
