@@ -1,3 +1,5 @@
+import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
+
 class HSLColor {
   constructor(hue, saturation, lightness) {
     this.Hue = hue;
@@ -13,6 +15,9 @@ class HSLColor {
   }
 
   set Hue(value) {
+    if (value < 0 || value > 360) {
+      throw new InvalidArguementError(this);
+    }
     this.hue = value;
   }
 
@@ -24,6 +29,9 @@ class HSLColor {
   }
 
   set Saturation(value) {
+    if (value < 0 || value > 100) {
+      throw new InvalidArguementError(this);
+    }
     this.saturation = value;
   }
 
@@ -35,6 +43,9 @@ class HSLColor {
   }
 
   set Lightness(value) {
+    if (value < 0 || value > 100) {
+      throw new InvalidArguementError(this);
+    }
     this.lightness = value;
   }
 

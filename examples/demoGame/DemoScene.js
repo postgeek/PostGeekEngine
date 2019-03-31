@@ -19,6 +19,7 @@ export default class DemoScene extends Scene {
       strokeStyle: printColor.HSLAColor,
     });
     this.circle.GeometryStyle = circleStyle;
+    console.log(JSON.stringify(circleStyle));
 
     this.circles = [];
     for (let i = 0; i < DefaultColours.length - 1; i += 1) {
@@ -28,7 +29,6 @@ export default class DemoScene extends Scene {
         fillStyle: DefaultColours[i].Name,
         strokeStyle: DefaultColours[i].Name,
       });
-      console.log(`${DefaultColours[i].Name} ${i}`);
       circle.GeometryStyle = circleStyle;
       this.circles.push(circle);
     }
@@ -45,6 +45,7 @@ export default class DemoScene extends Scene {
       font: '52px serif',
     });
     this.text.TextStyle = textStyle;
+    console.log(JSON.stringify(textStyle));
   }
 
   update() {

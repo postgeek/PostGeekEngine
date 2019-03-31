@@ -1,3 +1,5 @@
+import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
+
 class RGBColor {
   constructor(red, blue, green) {
     this.Red = red;
@@ -13,6 +15,9 @@ class RGBColor {
   }
 
   set Red(value) {
+    if (value < 0 || value > 255) {
+      throw new InvalidArguementError(this);
+    }
     this.red = value;
   }
 
@@ -24,6 +29,9 @@ class RGBColor {
   }
 
   set Blue(value) {
+    if (value < 0 || value > 255) {
+      throw new InvalidArguementError(this);
+    }
     this.blue = value;
   }
 
@@ -35,6 +43,9 @@ class RGBColor {
   }
 
   set Green(value) {
+    if (value < 0 || value > 255) {
+      throw new InvalidArguementError(this);
+    }
     this.green = value;
   }
 
