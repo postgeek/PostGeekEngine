@@ -1,7 +1,7 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class Rectangle extends GraphicObject {
+/** @extends Shape */
+class Rectangle extends Shape {
   /**
   * Constructs a new Rectangle object.
   *
@@ -75,12 +75,11 @@ class Rectangle extends GraphicObject {
   /**
   * Draws the rectangle to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
-    this.Context.lineWidth = '6';
-    this.Context.strokeStyle = 'red';
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     this.Context.stroke();
+    this.Context.fill();
     this.Context.closePath();
   }
 }

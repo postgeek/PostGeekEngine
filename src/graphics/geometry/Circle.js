@@ -1,7 +1,7 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class Circle extends GraphicObject {
+/** @extends Shape */
+class Circle extends Shape {
   /**
   * Constructs a new Circle object.
   *
@@ -62,13 +62,16 @@ class Circle extends GraphicObject {
   /**
   * Draws the Circle to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
-    this.Context.lineWidth = '6';
-    this.Context.strokeStyle = 'lightblue';
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
+    this.Context.fill();
     this.Context.stroke();
     this.Context.closePath();
+  }
+
+  clone() {
+    return new Circle(this.Context, this.Point.clone(), this.Radius);
   }
 }
 export default Circle;
