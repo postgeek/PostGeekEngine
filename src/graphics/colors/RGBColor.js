@@ -56,7 +56,7 @@ class RGBColor {
     return `rgb(${this.Red},${this.Blue},${this.Green})`;
   }
 
-  static ParseJSON(rgbJSON) {
+  static FromJSON(rgbJSON) {
     const {
       red, green, blue,
     } = rgbJSON;

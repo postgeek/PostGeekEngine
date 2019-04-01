@@ -19,11 +19,9 @@ class GraphicsJSONLoader {
     this.Context = context;
   }
 
-  LoadCircle(circleJSON) {
-    const parsedCircleJSON = JSON.parse(circleJSON);
-
-    const { radius, geometryStyle } = parsedCircleJSON;
-    const point = GraphicsJSONLoader.parsePoint(parsedCircleJSON.point);
+  CreateCircle(config) {
+    const { radius, geometryStyle } = config;
+    const point = GraphicsJSONLoader.parsePoint(config.point);
 
     const circle = new Circle(this.Context, point, radius);
     circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -31,15 +29,13 @@ class GraphicsJSONLoader {
     return circle;
   }
 
-  LoadBezierCurve(bezierCurveJson) {
-    const parsedBezierCurveJson = JSON.parse(bezierCurveJson);
+  CreateBezierCurve(config) {
+    const { geometryStyle } = config;
 
-    const { geometryStyle } = parsedBezierCurveJson;
-
-    const startPoint = GraphicsJSONLoader.parsePoint(parsedBezierCurveJson.startPoint);
-    const controlPoint1 = GraphicsJSONLoader.parsePoint(parsedBezierCurveJson.controlPoint1);
-    const controlPoint2 = GraphicsJSONLoader.parsePoint(parsedBezierCurveJson.controlPoint2);
-    const endPoint = GraphicsJSONLoader.parsePoint(parsedBezierCurveJson.endPoint);
+    const startPoint = GraphicsJSONLoader.parsePoint(config.startPoint);
+    const controlPoint1 = GraphicsJSONLoader.parsePoint(config.controlPoint1);
+    const controlPoint2 = GraphicsJSONLoader.parsePoint(config.controlPoint2);
+    const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
 
     const bezierCurve = new BezierCurve(
       this.Context, startPoint, controlPoint1, controlPoint2, endPoint,
@@ -49,13 +45,11 @@ class GraphicsJSONLoader {
     return bezierCurve;
   }
 
-  LoadEllipse(ellipseJSON) {
-    const parsedEllipseJSON = JSON.parse(ellipseJSON);
-
+  CreateEllipse(config) {
     const {
       radiusX, radiusY, Rotation, geometryStyle,
-    } = parsedEllipseJSON;
-    const point = GraphicsJSONLoader.parsePoint(parsedEllipseJSON.point);
+    } = config;
+    const point = GraphicsJSONLoader.parsePoint(config.point);
 
     const ellipse = new Ellipse(this.Context, point, radiusX, radiusY, Rotation);
     ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -63,11 +57,9 @@ class GraphicsJSONLoader {
     return ellipse;
   }
 
-  LoadRectangle(rectangleJSON) {
-    const parsedRectangleJSON = JSON.parse(rectangleJSON);
-
-    const { height, width, geometryStyle } = parsedRectangleJSON;
-    const point = GraphicsJSONLoader.parsePoint(parsedRectangleJSON.point);
+  CreateRectangle(config) {
+    const { height, width, geometryStyle } = config;
+    const point = GraphicsJSONLoader.parsePoint(config.point);
 
     const rectangle = new Rectangle(this.Context, point, width, height);
     rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -75,11 +67,9 @@ class GraphicsJSONLoader {
     return rectangle;
   }
 
-  LoadText(textJSON) {
-    const parsedTextJSON = JSON.parse(textJSON);
-
-    const { text, textStyle } = parsedTextJSON;
-    const point = GraphicsJSONLoader.parsePoint(parsedTextJSON.point);
+  CreateText(config) {
+    const { text, textStyle } = config;
+    const point = GraphicsJSONLoader.parsePoint(config.point);
 
     const textObject = new Text(this.Context, point, text);
     textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
@@ -124,15 +114,15 @@ class GraphicsJSONLoader {
     if (typeof colorStyle === 'object') {
       if ('hue' in colorStyle) {
         if ('alpha' in colorStyle) {
-          return HSLAColor.ParseJSON(colorStyle);
+          return HSLAColor.FromJSON(colorStyle);
         }
-        return HSLColor.ParseJSON(colorStyle);
+        return HSLColor.FromJSON(colorStyle);
       }
       if ('red' in colorStyle) {
         if ('alpha' in colorStyle) {
-          return RGBAColor.ParseJSON(colorStyle);
+          return RGBAColor.FromJSON(colorStyle);
         }
-        return RGBColor.ParseJSON(colorStyle);
+        return RGBColor.FromJSON(colorStyle);
       }
     }
     return colorStyle;

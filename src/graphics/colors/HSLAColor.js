@@ -29,7 +29,7 @@ class HSLAColor extends HSLColor {
     return `hsla(${this.Hue},${this.Saturation}%,${this.Lightness}%,${this.Alpha})`;
   }
 
-  static ParseJSON(hslaJSON) {
+  static FromJSON(hslaJSON) {
     const {
       hue, saturation, lightness, alpha,
     } = hslaJSON;

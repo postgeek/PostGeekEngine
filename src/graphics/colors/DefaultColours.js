@@ -31,4 +31,4 @@ const DefaultColours = [
   Color.GAINSBORO, Color.LIGHTGRAY, Color.SILVER, Color.DARKGRAY, Color.GRAY,
   Color.DIMGRAY, Color.LIGHTSLATEGRAY, Color.SLATEGRAY, Color.DARKSLATEGRAY, Color.BLACK,
 ];
-export { DefaultColours };
+export default DefaultColours;

@@ -56,7 +56,7 @@ class HSLColor {
     return `hsl(${this.Hue},${this.Saturation}%,${this.Lightness}%)`;
   }
 
-  static ParseJSON(hslJSON) {
+  static FromJSON(hslJSON) {
     const {
       hue, saturation, lightness,
     } = hslJSON;

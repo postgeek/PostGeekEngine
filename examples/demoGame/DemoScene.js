@@ -2,7 +2,7 @@ import Scene from 'scene/Scene';
 import Point from 'physics/Point';
 import Rectangle from 'graphics/geometry/Rectangle';
 import BezierCurve from 'graphics/geometry/BezierCurve';
-import { DefaultColours } from 'graphics/colors/ColorUtil';
+import DefaultColours from 'graphics/colors/DefaultColours';
 import Color from 'graphics/colors/Color';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
 import GraphicsJSONLoader from 'graphics/GraphicsJSONLoader';
@@ -16,11 +16,11 @@ export default class DemoScene extends Scene {
     const bezierCurveJson = '{"startPoint":{"x":50,"y":200},"controlPoint1":{"x":800,"y":480},"controlPoint2":{"x":100,"y":150},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
 
     const graphicsJSONLoader = new GraphicsJSONLoader(this.Game.context);
-    this.testCircle = graphicsJSONLoader.LoadCircle(circleJson);
-    this.testRectangle = graphicsJSONLoader.LoadRectangle(rectJson);
-    this.testEllipse = graphicsJSONLoader.LoadEllipse(ellipseJson);
-    this.testText = graphicsJSONLoader.LoadText(textJson);
-    this.testBezierCurve = graphicsJSONLoader.LoadBezierCurve(bezierCurveJson);
+    this.testCircle = graphicsJSONLoader.CreateCircle(JSON.parse(circleJson));
+    this.testRectangle = graphicsJSONLoader.CreateRectangle(JSON.parse(rectJson));
+    this.testEllipse = graphicsJSONLoader.CreateEllipse(JSON.parse(ellipseJson));
+    this.testText = graphicsJSONLoader.CreateText(JSON.parse(textJson));
+    this.testBezierCurve = graphicsJSONLoader.CreateBezierCurve(JSON.parse(bezierCurveJson));
 
     // constructor(context, controlPoint1, controlPoint2, startPoint, endPoint) {
     this.bezierCurve = new BezierCurve(
