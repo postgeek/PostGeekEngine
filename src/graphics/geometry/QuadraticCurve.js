@@ -10,22 +10,11 @@ class QuadraticCurve extends Shape {
   * @param {Point} startPoint the starting point for the quadratic curve.
   * @param {Point} endPoint the end point for the quadratic curve.
   */
-  constructor(context, controlPoint, startPoint, endPoint) {
+  constructor(context, startPoint, controlPoint, endPoint) {
     super(context);
-    this.ControlPoint = controlPoint;
     this.StartPoint = startPoint;
+    this.ControlPoint = controlPoint;
     this.EndPoint = endPoint;
-  }
-
-  /**
-  * the control {@link Point} for the quadratic curve.
-  */
-  get ControlPoint() {
-    return this.controlPoint1;
-  }
-
-  set ControlPoint(value) {
-    this.controlPoint1 = value;
   }
 
   /**
@@ -37,6 +26,17 @@ class QuadraticCurve extends Shape {
 
   set StartPoint(value) {
     this.startPoint = value;
+  }
+
+  /**
+  * the control {@link Point} for the quadratic curve.
+  */
+  get ControlPoint() {
+    return this.controlPoint;
+  }
+
+  set ControlPoint(value) {
+    this.controlPoint = value;
   }
 
   /**
@@ -55,12 +55,12 @@ class QuadraticCurve extends Shape {
   */
   internalDraw() {
     this.Context.beginPath();
-    this.Context.moveTo(this.StartPoint.x, this.StartPoint.y);
+    this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.quadraticCurveTo(
-      this.ControlPoint.x,
-      this.ControlPoint.y,
-      this.EndPoint,
-      this.EndPoint,
+      this.ControlPoint.X,
+      this.ControlPoint.Y,
+      this.EndPoint.X,
+      this.EndPoint.Y,
     );
     this.Context.stroke();
     this.Context.closePath();

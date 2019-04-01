@@ -2,6 +2,7 @@ import Circle from './geometry/Circle';
 import Rectangle from './geometry/Rectangle';
 import Ellipse from './geometry/Ellipse';
 import BezierCurve from './geometry/BezierCurve';
+import QuadraticCurve from './geometry/QuadraticCurve';
 import GeometryStyle from './geometry/GeometryStyle';
 
 import Text from './text/Text';
@@ -43,6 +44,21 @@ class GraphicsJSONLoader {
     bezierCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
     return bezierCurve;
+  }
+
+  CreateQuadraticCurve(config) {
+    const { geometryStyle } = config;
+
+    const startPoint = GraphicsJSONLoader.parsePoint(config.startPoint);
+    const controlPoint = GraphicsJSONLoader.parsePoint(config.controlPoint);
+    const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
+
+    const quadraticCurve = new QuadraticCurve(
+      this.Context, startPoint, controlPoint, endPoint,
+    );
+    quadraticCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+
+    return quadraticCurve;
   }
 
   CreateEllipse(config) {
