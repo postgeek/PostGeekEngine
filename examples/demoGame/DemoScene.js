@@ -1,6 +1,7 @@
 import Scene from 'scene/Scene';
 import Point from 'physics/Point';
 import Rectangle from 'graphics/geometry/Rectangle';
+import Transform from 'graphics/context/Transform';
 import QuadraticCurve from 'graphics/geometry/QuadraticCurve';
 import DefaultColours from 'graphics/colors/DefaultColours';
 import Color from 'graphics/colors/Color';
@@ -23,6 +24,8 @@ export default class DemoScene extends Scene {
     this.testText = graphicsJSONLoader.CreateText(JSON.parse(textJson));
     this.testBezierCurve = graphicsJSONLoader.CreateBezierCurve(JSON.parse(bezierCurveJson));
     this.testQuadraticCurve = graphicsJSONLoader.CreateQuadraticCurve(JSON.parse(quadraticCurveJson));
+
+    this.Transform = new Transform(this.Game.context);
 
     this.circles = [];
     let circleStyle;

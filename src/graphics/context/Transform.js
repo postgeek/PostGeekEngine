@@ -1,5 +1,5 @@
 
-class Transformation {
+class Transform {
   constructor(context) {
     this.Context = context;
   }
@@ -18,7 +18,7 @@ class Transformation {
   /**
    * Begin a new transformation.
    */
-  BeginTransform() {
+  Begin() {
     this.Context.save();
   }
 
@@ -54,7 +54,7 @@ class Transformation {
   /**
    * Ends the transformation.
    */
-  EndTransform() {
+  End() {
     this.Context.restore();
   }
-} export default Transformation;
+} export default Transform;
