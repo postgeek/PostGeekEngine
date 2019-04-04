@@ -65,8 +65,12 @@ class Circle extends Shape {
   internalDraw() {
     this.Context.beginPath();
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
-    this.Context.fill();
-    this.Context.stroke();
+    if (this.GeometryStyle.FillStyle !== undefined) {
+      this.Context.fill();
+    }
+    if (this.GeometryStyle.StrokeStyle !== undefined) {
+      this.Context.stroke();
+    }
     this.Context.closePath();
   }
 

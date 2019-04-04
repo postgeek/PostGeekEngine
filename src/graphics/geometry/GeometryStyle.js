@@ -1,4 +1,4 @@
-import DrawingStyle from '../context/DrawingStyle';
+import DrawingStyle from '../DrawingStyle';
 
 /** @extends DrawingStyle */
 class GeometryStyle extends DrawingStyle {
