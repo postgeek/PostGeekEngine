@@ -91,7 +91,7 @@ class PathBuilder {
   * @param {number} radius the radius to use for the arc.
   */
   ArcTo(controlPoint1, controlPoint2, radius) {
-    this.Path.artTo(
+    this.Path.arcTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,

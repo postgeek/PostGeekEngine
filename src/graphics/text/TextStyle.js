@@ -1,4 +1,4 @@
-import DrawingStyle from '../context/DrawingStyle';
+import DrawingStyle from '../DrawingStyle';
 
 /*
  * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_text
