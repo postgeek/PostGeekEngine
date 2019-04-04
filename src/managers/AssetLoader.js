@@ -1,6 +1,13 @@
 import InvalidArguementError from "../errorHandling/errors/InvalidArguementError";
 
+/**
+ * Loads assets using AJAX
+ */
 class AssetLoader {
+  /**
+   * Load a resource using AJAX
+   * @param {string} url The url of the asset
+   */
   load(url) {
     if (this.isValidUrl(url)) {
       return new Promise((resolve, reject) => {
@@ -23,9 +30,11 @@ class AssetLoader {
     throw new InvalidArguementError('url');
   }
 
+  /**
+   * Validate that the url is a relative or absolute paths.
+   * @param {string} url A url or path
+   */
   isValidUrl(url) {
-    // We only want relative or absolute paths.
-    // No external links or protocols.
     let regex = /^[^\/]+\/[^\/].*$|^\/[^\/].*$/;
     return regex.test(url);
   }
