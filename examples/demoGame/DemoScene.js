@@ -7,6 +7,8 @@ import DefaultColours from 'graphics/colors/DefaultColours';
 import Color from 'graphics/colors/Color';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
 import GraphicsJSONLoader from 'graphics/GraphicsJSONLoader';
+import AssetCache from 'managers/AssetCache';
+import { AssetType } from 'managers/Asset';
 
 export default class DemoScene extends Scene {
   create() {
@@ -45,8 +47,20 @@ export default class DemoScene extends Scene {
     this.maxScale = 3;
     this.minScale = 0.1;
 
-    console.log(this.testCircle.X);
-    console.log(this.testCircle.Y);
+    this.anim = 0;
+
+    this.cache = new AssetCache();
+    this.cache.registerAsset('key1', './assets/george.png');
+    this.image = new Image();
+    this.cache.loadAsset('key1').then((asset) => {
+      const cachedAsset = this.cache.getAsset('key1');
+      const imageURL = window.URL.createObjectURL(cachedAsset);
+      this.image.src = imageURL;
+    });
+    this.image.onload = () => {
+      console.log(this.image.height / 4);
+      console.log(this.image.width / 4);
+    };
   }
 
   update() {
@@ -57,15 +71,24 @@ export default class DemoScene extends Scene {
       this.scaleIncrement *= -1;
     }
     this.scale += this.scaleIncrement;
-    console.log(this.testCircle.X);
+
+    if (this.anim >= 3.9) {
+      this.anim = 0;
+    } else {
+      this.anim += 0.1;
+    }
   }
 
   draw() {
+    /*
     this.Transform.Begin();
     this.Transform.Translate((1 - this.scale) * this.testCircle.X, (1 - this.scale) * this.testCircle.Y);
     this.Transform.Scale(this.scale, this.scale);
     this.testCircle.draw();
     this.Transform.End();
+    */
+
+    this.Game.context.drawImage(this.image, 0, Math.floor(this.anim) * 48, 48, 48, 50, 50, 48, 48);
 
     this.testRectangle.draw();
     this.testText.draw();

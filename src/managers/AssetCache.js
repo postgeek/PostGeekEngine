@@ -30,7 +30,7 @@ class AssetCache {
         this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
 
         try {
-          const value = await this.assetLoader.load(this.assetDictionary[key].path);
+          const value = await this.assetLoader.load(this.assetDictionary[key]);
           this.assetDictionary[key].value = value;
           this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
         } catch (e) {
