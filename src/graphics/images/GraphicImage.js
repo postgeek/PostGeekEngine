@@ -25,4 +25,8 @@ class GraphicImage extends GraphicObject {
   draw() {
     this.Context.drawImage(this.Image, 0, 0);
   }
+
+  drawImageWithMask(point, x, y, width, height) {
+    this.Context.drawImage(this.Image, x, y, width, height, point.X, point.Y, width, height);
+  }
 } export default GraphicImage;

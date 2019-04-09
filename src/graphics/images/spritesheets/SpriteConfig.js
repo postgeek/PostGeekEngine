@@ -1,6 +1,26 @@
+import SpriteInfo from './SpriteInfo';
+
 class SpriteConfig {
   constructor(config) {
-    this.SpriteConfig = {};
+    this.spriteConfig = {};
+    if ('animations' in config) {
+      for (let i = 0; i < config.animations.length; i += 1) {
+        const animations = config.animations[i];
+        this.spriteConfig[animations.animationName] = [];
+        for (let k = 0; k < animations.sprites.length; k += 1) {
+          const spriteInfo = animations.sprites[k];
+          this.spriteConfig[animations.animationName].push(
+            new SpriteInfo(
+              spriteInfo.x,
+              spriteInfo.y,
+              spriteInfo.width,
+              spriteInfo.height,
+              spriteInfo.frame,
+            ),
+          );
+        }
+      }
+    }
   }
 
   get AnimationName() {
@@ -11,7 +31,7 @@ class SpriteConfig {
     this.animationName = value;
   }
 
-  getAnimation(animation) {
+  getAnimations(animation) {
     return this.spriteConfig[animation];
   }
 
@@ -19,4 +39,4 @@ class SpriteConfig {
     const animations = this.getAnimation(animation);
     return animations[frame];
   }
-}
+} export default SpriteConfig;

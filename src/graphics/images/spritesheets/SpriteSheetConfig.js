@@ -1,34 +1,45 @@
+import SpriteConfig from './SpriteConfig';
+
 class SpriteSheetConfig {
   constructor(config) {
-    this.spriteConfiguration = {};
-  }
-
-    get Width() {
-      return this.width;
+    this.spriteConfigurations = {};
+    if ('width' in config) {
+      this.Width = config.width;
     }
-
-    set Width(value) {
-      this.width = value;
+    if ('height' in config) {
+      this.Height = config.height;
     }
-
-    get Height() {
-      return this.height;
-    }
-
-    set Height(value) {
-      this.height = value;
-    }
-
-    getConfigurationForSprite(spriteName) {
-      return this.spriteConfiguration[spriteName];
-    }
-
-    get SpriteConfig() {
-      return this.spriteConfig;
-    }
-
-    set SpriteConfig(value) {
-      this.spriteConfig = value;
+    if ('spriteConfig' in config) {
+      const { spriteConfig } = config;
+      this.spriteConfigurations[spriteConfig.spriteName] = new SpriteConfig(spriteConfig);
     }
   }
-}
+
+  get Width() {
+    return this.width;
+  }
+
+  set Width(value) {
+    this.width = value;
+  }
+
+  get Height() {
+    return this.height;
+  }
+
+  set Height(value) {
+    this.height = value;
+  }
+
+  getConfigurationForSprite(spriteName) {
+    return this.spriteConfigurations[spriteName];
+  }
+
+  get SpriteConfig() {
+    return this.spriteConfig;
+  }
+
+  set SpriteConfig(value) {
+    this.spriteConfig = value;
+  }
+} export default SpriteSheetConfig;
