@@ -17,7 +17,7 @@ class Rectangle extends Shape {
   }
 
   /**
-  * The rectangle's starting {@link Point}.
+  * The rectangle's starting
   */
   get Point() {
     return this.point;

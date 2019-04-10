@@ -15,7 +15,8 @@ class Circle extends Shape {
   }
 
   /**
-  * The starting {@link Point}  of the circle.
+  * The starting {@link Point} of the circle.
+  * @return {Point} the top left corner for the circle.
   */
   get Point() {
     return this.point;
