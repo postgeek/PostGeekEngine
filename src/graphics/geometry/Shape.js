@@ -1,7 +1,6 @@
 import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
-/** @extends GraphicObject */
 class Shape extends GraphicObject {
   /**
    * The shape's styling when drawn to the screen.

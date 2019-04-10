@@ -1,6 +1,5 @@
 import DrawingStyle from '../DrawingStyle';
 
-/** @extends DrawingStyle */
 class GeometryStyle extends DrawingStyle {
   constructor(config) {
     super(config);

@@ -1,7 +1,6 @@
 import HSLColor from './HSLColor';
 import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
 
-/** @extends HSLColor */
 class HSLAColor extends HSLColor {
   constructor(hue, saturation, lightness, alpha) {
     super(hue, saturation, lightness);

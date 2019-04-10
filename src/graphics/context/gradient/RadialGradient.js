@@ -1,6 +1,5 @@
 import Gradient from './Gradient';
 
-/** @extends Gradient */
 class RadialGradient extends Gradient {
   /**
   * Constructor for the RadialGradient class

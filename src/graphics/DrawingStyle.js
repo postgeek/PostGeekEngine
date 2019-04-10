@@ -62,13 +62,17 @@ class DrawingStyle {
   }
 
   /**
-  * The line width style.
+  * gets The line width style.
   */
   get LineWidth() {
     return this.lineWidth;
   }
 
+  /**
+  * sets The line width style.
+  */
   set LineWidth(value) {
+    /** @private */
     this.lineWidth = value;
   }
 

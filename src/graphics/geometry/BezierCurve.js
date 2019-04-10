@@ -1,6 +1,5 @@
 import Shape from './Shape';
 
-/** @extends Shape */
 class BezierCurve extends Shape {
   /**
   * Constructs a new BezierCurve object.

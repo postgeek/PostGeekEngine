@@ -1,6 +1,5 @@
 import Gradient from './Gradient';
 
-/** @extends Gradient */
 class LinearGradient extends Gradient {
   /**
   * Constructs a new LinearGradient object.

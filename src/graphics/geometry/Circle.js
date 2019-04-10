@@ -1,6 +1,5 @@
 import Shape from './Shape';
 
-/** @extends Shape */
 class Circle extends Shape {
   /**
   * Constructs a new Circle object.

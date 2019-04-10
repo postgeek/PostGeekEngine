@@ -1,6 +1,5 @@
 import Shape from './Shape';
 
-/** @extends Shape */
 class Ellipse extends Shape {
   /**
   *
