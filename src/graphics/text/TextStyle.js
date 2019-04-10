@@ -3,6 +3,7 @@ import DrawingStyle from '../DrawingStyle';
 /*
  * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_text
  */
+/** @extends DrawingStyle */
 export default class TextStyle extends DrawingStyle {
   constructor(config) {
     super(config);
@@ -52,6 +53,13 @@ export default class TextStyle extends DrawingStyle {
     this.direction = value;
   }
 
+
+  /**
+   * apply - applies the text styling to the current context.
+   *
+   * @param  {CanvasRenderingContext2D} context the context to apply the styles for.
+   * @return {CanvasRenderingContext2D} returns the new context with the stylings applied.
+   */
   apply(context) {
     const newContext = super.apply(context);
     if (this.Font) {

@@ -1,14 +1,8 @@
 import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
+/** @extends GraphicObject */
 class Shape extends GraphicObject {
-  /**
-  * Constructs a new Shape.
-  */
-  constructor(context) {
-    super(context);
-  }
-
   /**
    * The shape's styling when drawn to the screen.
    */
