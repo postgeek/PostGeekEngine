@@ -1,5 +1,5 @@
 import AssetLoader from './AssetLoader';
-import Asset, { AssetLoadingStatus } from './Asset';
+import Asset, { AssetLoadingStatus, AssetType } from './Asset';
 
 /**
 const cache = new AssetCache();
@@ -21,7 +21,31 @@ class AssetCache {
   }
 
   registerAsset(key, path) {
-    this.assetDictionary[key] = new Asset(key, path);
+    const extension = this.getExtension(path);
+    const assetType = this.getAssetTypeFromExtension(extension);
+    this.assetDictionary[key] = new Asset(key, path, assetType);
+  }
+
+  getExtension(path) {
+    const fileParts = path.split('.');
+    return fileParts[fileParts.length - 1];
+  }
+
+  getAssetTypeFromExtension(extension) {
+    if (this.isTextFileExtension(extension)) {
+      return AssetType.TEXT;
+    }
+    if (this.isImageFileExtension(extension)) {
+      return AssetType.BLOB;
+    }
+  }
+
+  isTextFileExtension(extension) {
+    return extension === 'json';
+  }
+
+  isImageFileExtension(extension) {
+    return extension === 'png' || extension === 'jpeg';
   }
 
   loadAsset(key) {

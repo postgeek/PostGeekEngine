@@ -11,6 +11,8 @@ export default class DemoScene extends Scene {
     this.loaded = false;
     this.cache = new AssetCache();
     this.cache.registerAsset('key1', './assets/george.png');
+    this.cache.registerAsset('key2', './assets/json/george.json');
+    this.cache.loadAsset('key2');
     this.image = new Image();
     this.cache.loadAsset('key1').then((asset) => {
       const cachedAsset = this.cache.getAsset('key1');
@@ -18,85 +20,7 @@ export default class DemoScene extends Scene {
       this.image.src = imageURL;
     });
     this.image.onload = () => {
-      const spriteSheetConfig = new SpriteSheetConfig(
-        {
-          width: this.image.width,
-          height: this.image.height,
-          spriteConfig: {
-            spriteName: 'george',
-            animations: [{
-              animationName: 'WALK_DOWN',
-              sprites: [
-                {
-                  x: 0, y: 0, width: 48, height: 48, frame: 0,
-                },
-                {
-                  x: 0, y: 48, width: 48, height: 48, frame: 1,
-                },
-                {
-                  x: 0, y: 96, width: 48, height: 48, frame: 2,
-                },
-                {
-                  x: 0, y: 144, width: 48, height: 48, frame: 3,
-                },
-              ],
-            },
-            {
-              animationName: 'WALK_LEFT',
-              sprites: [
-                {
-                  x: 48, y: 0, width: 48, height: 48, frame: 0,
-                },
-                {
-                  x: 48, y: 48, width: 48, height: 48, frame: 1,
-                },
-                {
-                  x: 48, y: 96, width: 48, height: 48, frame: 2,
-                },
-                {
-                  x: 48, y: 144, width: 48, height: 48, frame: 3,
-                },
-              ],
-            },
-            {
-              animationName: 'WALK_UP',
-              sprites: [
-                {
-                  x: 96, y: 0, width: 48, height: 48, frame: 0,
-                },
-                {
-                  x: 96, y: 48, width: 48, height: 48, frame: 1,
-                },
-                {
-                  x: 96, y: 96, width: 48, height: 48, frame: 2,
-                },
-                {
-                  x: 96, y: 144, width: 48, height: 48, frame: 3,
-                },
-              ],
-            },
-            {
-              animationName: 'WALK_RIGHT',
-              sprites: [
-                {
-                  x: 144, y: 0, width: 48, height: 48, frame: 0,
-                },
-                {
-                  x: 144, y: 48, width: 48, height: 48, frame: 1,
-                },
-                {
-                  x: 144, y: 96, width: 48, height: 48, frame: 2,
-                },
-                {
-                  x: 144, y: 144, width: 48, height: 48, frame: 3,
-                },
-              ],
-            },
-            ],
-          },
-        },
-      );
-
+      const spriteSheetConfig = new SpriteSheetConfig(JSON.parse(this.cache.getAsset('key2')));
       this.spriteSheet = new SpriteSheet(this.Game.context, this.image, spriteSheetConfig);
       this.loaded = true;
 

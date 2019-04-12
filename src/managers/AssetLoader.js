@@ -1,4 +1,5 @@
 import InvalidArguementError from '../errorHandling/errors/InvalidArguementError';
+import { AssetType } from './Asset';
 
 class AssetLoader {
   load(asset) {
@@ -28,7 +29,13 @@ class AssetLoader {
   }
 
   extractAssetType(asset) {
-    return 'blob';
+    switch (asset.type) {
+      case AssetType.BLOB:
+        return 'blob';
+      case AssetType.TEXT:
+      default:
+        return 'text';
+    }
   }
 
   isValidUrl(url) {
