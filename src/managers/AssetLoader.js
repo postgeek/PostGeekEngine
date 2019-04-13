@@ -28,6 +28,14 @@ class AssetLoader {
     throw new InvalidArguementError('url');
   }
 
+
+  /**
+   * @todo Add all asset types here.
+   * extractAssetType - extract the asset type from the Asset to load the asset correctly
+   *
+   * @param  {type} asset The {@link Asset} to extract the type for
+   * @return {type}       the type to load in the XMLHTTPRequest
+   */
   extractAssetType(asset) {
     switch (asset.type) {
       case AssetType.BLOB:

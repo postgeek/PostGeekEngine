@@ -26,6 +26,14 @@ class AssetCache {
     this.assetDictionary[key] = new Asset(key, path, assetType);
   }
 
+
+  /**
+   * @todo Move to a utility class.
+   * getExtension - Gets the files extension
+   *
+   * @param  {type} path the path to the file
+   * @return {string}    the file's extension
+   */
   getExtension(path) {
     const fileParts = path.split('.');
     return fileParts[fileParts.length - 1];
@@ -40,10 +48,12 @@ class AssetCache {
     }
   }
 
+  /** @todo Move to a utility class or to the asset loader */
   isTextFileExtension(extension) {
     return extension === 'json';
   }
 
+  /** @todo Move to a utility class or to the asset loader */
   isImageFileExtension(extension) {
     return extension === 'png' || extension === 'jpeg';
   }
