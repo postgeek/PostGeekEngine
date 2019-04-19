@@ -17,7 +17,7 @@ class Transform {
   /**
    * Begin a new transformation.
    */
-  Begin() {
+  begin() {
     this.Context.save();
   }
 
@@ -26,7 +26,7 @@ class Transform {
    *
    * @param {Number} degree the number of degrees to rotate by.
    */
-  Rotate(degree) {
+  rotate(degree) {
     this.Context.rotate(degree * Math.PI / 180);
   }
 
@@ -36,7 +36,7 @@ class Transform {
    * @param  {type} x the amount of horizontal scaling to give the context.
    * @param  {type} y the amount of vertical scaling to give the context.
    */
-  Scale(x, y) {
+  scale(x, y) {
     this.Context.scale(x, y);
   }
 
@@ -46,7 +46,7 @@ class Transform {
    * @param  {type} x the amount of horizontal translation to give the context.
    * @param  {type} y the amount of vertical translation to give the context.
    */
-  Translate(x, y) {
+  translate(x, y) {
     this.Context.translate(x, y);
   }
 
@@ -57,7 +57,7 @@ class Transform {
    * @param  {type} x the amount of horizontal skewing to give the object.
    * @param  {type} y the amount of vertical skewing to give the object.
    */
-  Skew(x, y) {
+  skew(x, y) {
     this.Context.transform(1, x, y, 1, 1, 1);
   }
 
@@ -65,14 +65,14 @@ class Transform {
   /**
    * Reset - Resets the current transformation matrix.
    */
-  Reset() {
+  reset() {
     this.Context.resetTransform();
   }
 
   /**
    * Ends the transformation.
    */
-  End() {
+  end() {
     this.Context.restore();
   }
 } export default Transform;

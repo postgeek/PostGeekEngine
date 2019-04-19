@@ -100,7 +100,7 @@ class HSLColor {
   }
 
   /**
-   * Builds a new HSLColor
+   * Builds a new HSLColor from the provided JSON object
    *
    * @static
    * @param  {string} hslJSON  the json object containing the color properties
