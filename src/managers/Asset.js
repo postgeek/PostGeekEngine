@@ -3,6 +3,10 @@ const AssetType = Object.freeze({
   TEXT: Symbol('text'),
 });
 
+/**
+ * @constant
+ * The valid statuses for an asset.
+ */
 const AssetLoadingStatus = Object.freeze({
   NEW: Symbol('new'),
   LOADING: Symbol('loading'),
