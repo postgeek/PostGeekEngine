@@ -14,7 +14,7 @@ export default class DemoScene extends Scene {
     this.cache.registerAsset('key2', './assets/json/george.json');
     this.cache.loadAsset('key2');
     this.image = new Image();
-    this.cache.loadAsset('key1').then((asset) => {
+    this.cache.loadAsset('key1').then(() => {
       const cachedAsset = this.cache.getAsset('key1');
       const imageURL = window.URL.createObjectURL(cachedAsset);
       this.image.src = imageURL;

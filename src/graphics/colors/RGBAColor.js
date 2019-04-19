@@ -1,7 +1,6 @@
 import RGBColor from './RGBColor';
 import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
 
-/** @extends RGBColor */
 class RGBAColor extends RGBColor {
   constructor(red, blue, green, alpha) {
     super(red, blue, green);

@@ -1,6 +1,5 @@
 import Shape from './Shape';
 
-/** @extends Shape */
 class QuadraticCurve extends Shape {
   /**
   * Constructs a new QuadraticCurve object.

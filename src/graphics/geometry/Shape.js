@@ -3,13 +3,6 @@ import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImple
 
 class Shape extends GraphicObject {
   /**
-  * Constructs a new Shape.
-  */
-  constructor(context) {
-    super(context);
-  }
-
-  /**
    * The shape's styling when drawn to the screen.
    */
   get GeometryStyle() {
