@@ -55,7 +55,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set FillStyle(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {Object}
+     */
     this.fillStyle = value;
   }
 
@@ -76,7 +79,8 @@ class DrawingStyle {
    * @return {undefined}
    */
   set StrokeStyle(value) {
-    /** @private
+    /**
+     * @private
      * @type {Object}
      */
     this.strokeStyle = value;
@@ -99,7 +103,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set ShadowBlur(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {float}
+     */
     this.shadowBlur = value;
   }
 
@@ -120,7 +127,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set LineWidth(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {float}
+     */
     this.lineWidth = value;
   }
 
@@ -142,7 +152,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set ShadowColor(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {float}
+     */
     this.shadowColor = value;
   }
 
@@ -163,7 +176,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set ShadowOffsetX(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {float}
+     */
     this.shadowOffsetX = value;
   }
 
@@ -183,7 +199,10 @@ class DrawingStyle {
    * @return {undefined}
    */
   set ShadowOffsetY(value) {
-    /** @private */
+    /**
+     * @private
+     * @type {float}
+     */
     this.shadowOffsetY = value;
   }
 
