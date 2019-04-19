@@ -32,6 +32,9 @@ class Circle extends Shape {
    * @param  {Point} value the top left corner for the circle.
    */
   set Point(value) {
+    /**
+     * @private
+     */
     this.point = value;
   }
 
@@ -41,7 +44,6 @@ class Circle extends Shape {
   get X() {
     return this.Point.X;
   }
-
 
   /**
    *  Sets the X coordinate of the circle
@@ -83,6 +85,9 @@ class Circle extends Shape {
    * @param {Number} value the new radius
    */
   set Radius(value) {
+    /**
+     * @private
+     */
     this.radius = value;
   }
 
