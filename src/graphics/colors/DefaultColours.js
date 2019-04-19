@@ -1,5 +1,9 @@
 import Color from './Color';
 
+
+/**
+ * @type {Color[]}
+ */
 const DefaultColours = [
   Color.INDIANRED, Color.LIGHTCORAL, Color.SALMON, Color.DARKSALMON, Color.LIGHTSALMON,
   Color.CRIMSON, Color.RED, Color.FIREBRICK, Color.DARKRED, Color.PINK, Color.LIGHTPINK,

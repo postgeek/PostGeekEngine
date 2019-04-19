@@ -1,3 +1,4 @@
+import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 
@@ -5,6 +6,12 @@ import HSLAColor from './HSLAColor';
  * Defines a color for use in various drawing
  */
 class Color {
+  /**
+   * Builds a new color object
+   *
+   * @param  {type} config the configuration for the color
+   * @return {undefined}
+   */
   constructor(config) {
     if ('name' in config) {
       this.Name = config.name;
@@ -69,50 +76,112 @@ class Color {
     this.hex = value;
   }
 
+  /**
+   * Gets the hue, saturation, lightness value for the color.
+   *
+   * @return {HSLColor} The HSL object
+   */
   get HSLColor() {
     return this.hsl;
   }
 
+  /**
+   * Specifies the hue, saturation, lightness value for the color
+   *
+   * @param  {HSLColor} value the HSLColor object
+   * @return {undefined}
+   */
   set HSLColor(value) {
     /** @private */
     this.hsl = value;
   }
 
+  /**
+   * Gets the hue, saturation, lightness, alpha value for the color.
+   *
+   * @return {HSLAColor} the HSLAColor object
+   */
   get HSLAColor() {
     return this.hsla;
   }
 
+  /**
+   * Specifies the hue, saturation, lightness value for the color
+   *
+   * @param  {HSLAColor} value the HSLAColor object
+   * @return {undefined}
+   */
   set HSLAColor(value) {
     /** @private */
     this.hsla = value;
+    this.Alpha = value.Alpha;
   }
 
   /**
-   * The red blue green value of the colour.
+   * Gets the red blue green value of the color.
+   *
+   * @return {RGBColor} the RGBColor object
    */
   get RGBColor() {
     return this.rgb;
   }
 
+  /**
+   * Specifies the red blue green value of the color.
+   *
+   * @param  {RBGColor} value the RGBColor object
+   * @return {undefined}
+   */
   set RGBColor(value) {
     /** @private */
     this.rgb = value;
   }
 
   /**
-   * The red blue green value of the colour.
+   * Gets the red, blue, green, alpha value of the color.
+   *
+   * @return {RGBAColor} the RGBAColor object
    */
   get RGBAColor() {
     return this.rgba;
   }
 
+  /**
+   * Specifies the red, blue, green, alpha value of the color.
+   *
+   * @param  {RGBAColor} value the RGBAColor object
+   * @return {undefined}
+   */
   set RGBAColor(value) {
     /** @private */
     this.rgba = value;
+    this.Alpha = value.Alpha;
+  }
+
+  /**
+   * Gets the color's alpha value (opacity)
+   *
+   * @return {float} The color's alpha
+   */
+  get Alpha() {
+    return this.alpha;
+  }
+
+  /**
+   * Specifies the color's alpha value (opacity)
+   *
+   * @param  {float} value the alpha value to set (between 0 - 1)
+   * @return {undefined}
+   */
+  set Alpha(value) {
+    if (value < 0 || value > 1) {
+      throw new InvalidArguementError(this);
+    }
+    /** @private */
+    this.alpha = value;
   }
 
   // https://htmlcolorcodes.com/color-names/
-  // Verify the data on this website
   /** @static */
   static get INDIANRED() {
     return new Color({
