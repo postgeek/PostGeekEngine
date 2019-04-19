@@ -1,6 +1,9 @@
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 
+/**
+ * Defines a color for use in various drawing
+ */
 class Color {
   constructor(config) {
     if ('name' in config) {
@@ -9,8 +12,14 @@ class Color {
     if ('hex' in config) {
       this.Hex = config.hex;
     }
+    if ('hslColor' in config) {
+      this.HSLColor = config.hslColor;
+    }
     if ('hslaColor' in config) {
       this.HSLAColor = config.hslaColor;
+    }
+    if ('rgbColor' in config) {
+      this.RGBColor = config.rgbColor;
     }
     if ('rgbaColor' in config) {
       this.RGBAColor = config.rgbaColor;
@@ -21,47 +30,85 @@ class Color {
   }
 
   /**
-   * Gets the colours HTML name (if available).
+   * Gets the color's HTML name (if available).
+   *
+   * @return {string} the HTML name of the color
    */
   get Name() {
     return this.name;
   }
 
+  /**
+   * Specifies the name of the color
+   *
+   * @param  {string} value   the name of the color
+   * @return {undefined}
+   */
   set Name(value) {
+    /** @private */
     this.name = value;
   }
 
   /**
-   * The hexadecimal value of the colour.
+   * Gets the hex value for the color
+   *
+   * @return {string} A string representation of the hex color
    */
   get Hex() {
     return this.hex;
   }
 
+  /**
+   * Specifies the hex value for the color
+   *
+   * @param  {string} value A string representation of the hex color
+   * @return {undefined}
+   */
   set Hex(value) {
+    /** @private */
     this.hex = value;
   }
 
-  /**
-   * The hue, saturation, and lightness level of the colour.
-   */
-  get HSLAColor() {
+  get HSLColor() {
     return this.hsl;
   }
 
-  set HSLAColor(value) {
+  set HSLColor(value) {
+    /** @private */
     this.hsl = value;
+  }
+
+  get HSLAColor() {
+    return this.hsla;
+  }
+
+  set HSLAColor(value) {
+    /** @private */
+    this.hsla = value;
+  }
+
+  /**
+   * The red blue green value of the colour.
+   */
+  get RGBColor() {
+    return this.rgb;
+  }
+
+  set RGBColor(value) {
+    /** @private */
+    this.rgb = value;
   }
 
   /**
    * The red blue green value of the colour.
    */
   get RGBAColor() {
-    return this.rgb;
+    return this.rgba;
   }
 
   set RGBAColor(value) {
-    this.rgb = value;
+    /** @private */
+    this.rgba = value;
   }
 
   // https://htmlcolorcodes.com/color-names/
