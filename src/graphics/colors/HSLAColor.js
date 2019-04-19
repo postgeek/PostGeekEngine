@@ -8,10 +8,10 @@ class HSLAColor extends HSLColor {
   /**
    * Builds a new HSLAColor object
    *
-   * @param  {float} hue        the hue level for the color
-   * @param  {float} saturation the satuation level for the color
-   * @param  {float} lightness  the lightness level for the color
-   * @param  {float} alpha      the alpha level for the color
+   * @param  {float} hue        the hue level for the color (value between 0 - 360)
+   * @param  {float} saturation the satuation level for the color (value between 0 - 100)
+   * @param  {float} lightness  the lightness level for the color (value between 0 - 100)
+   * @param  {float} alpha      the alpha level for the color (value between 0 - 1)
    * @return {undefined}
    */
   constructor(hue, saturation, lightness, alpha) {
@@ -30,7 +30,7 @@ class HSLAColor extends HSLColor {
 
   /**
    * Specifies the alpha level of the color (opacity).
-   *
+   * @throws {InvalidArguementError} throws error when value is not between 0 and 1 (inclusively).
    * @param  {float} value The alpha level of the color (opacity).
    * @return {undefined}
    */
@@ -52,9 +52,10 @@ class HSLAColor extends HSLColor {
   }
 
   /**
-   * @static Builds a new HSLAColor
+   * Builds a new HSLAColor
    *
-   * @param  {type} hslaJSON  the json object containing the color properties
+   * @static
+   * @param  {string} hslaJSON  the json object containing the color properties
    * @return {HSLAColor}      the newly created HSLAColor
    */
   static FromJSON(hslaJSON) {
