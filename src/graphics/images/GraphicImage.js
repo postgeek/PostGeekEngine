@@ -1,3 +1,4 @@
+import UndefinedError from '../../errorHandling/errors/UndefinedError';
 import GraphicObject from '../GraphicObject';
 
 class GraphicImage extends GraphicObject {
@@ -15,10 +16,16 @@ class GraphicImage extends GraphicObject {
   }
 
   get Height() {
+    if (this.Image === undefined) {
+      throw new UndefinedError(this);
+    }
     return this.Image.height;
   }
 
   get Width() {
+    if (this.Image === undefined) {
+      throw new UndefinedError(this);
+    }
     return this.Image.width;
   }
 

@@ -1,4 +1,4 @@
-// import { isPowerOfTwo } from '../../../utils/MathUtils';
+import { isPowerOfTwo } from '../../../utils/MathUtils';
 
 class SpriteInfo {
   constructor(x, y, width, height, frame) {
@@ -30,9 +30,9 @@ class SpriteInfo {
   }
 
   set Width(value) {
-    // if (!isPowerOfTwo(value)) {
-    // console.log(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
-    // }
+    if (!isPowerOfTwo(value)) {
+      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+    }
     this.width = value;
   }
 
@@ -41,9 +41,9 @@ class SpriteInfo {
   }
 
   set Height(value) {
-    // if (!isPowerOfTwo(value)) {
-    // console.log(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
-    // }
+    if (!isPowerOfTwo(value)) {
+      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+    }
     this.height = value;
   }
 
