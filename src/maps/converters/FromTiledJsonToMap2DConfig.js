@@ -11,7 +11,7 @@ function FromTiledJsonToMap2DConfig(json) {
         data : layer.data
       };
     }),
-    tilesets: json.tilesets.amp(tileset => {
+    tilesets: json.tilesets.map(tileset => {
       return {
         columnCount: tileset.columns,
         firstGid: tileset.firstgid,
