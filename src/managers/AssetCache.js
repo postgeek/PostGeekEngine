@@ -1,5 +1,5 @@
 import AssetLoader from './AssetLoader';
-import Asset, { AssetLoadingStatus } from './Asset';
+import Asset, { AssetLoadingStatus, AssetType } from './Asset';
 
 /**
  * @example
@@ -34,7 +34,41 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    this.assetDictionary[key] = new Asset(key, path);
+    const extension = this.getExtension(path);
+    const assetType = this.getAssetTypeFromExtension(extension);
+    this.assetDictionary[key] = new Asset(key, path, assetType);
+  }
+
+
+  /**
+   * @todo Move to a utility class.
+   * getExtension - Gets the files extension
+   *
+   * @param  {type} path the path to the file
+   * @return {string}    the file's extension
+   */
+  getExtension(path) {
+    const fileParts = path.split('.');
+    return fileParts[fileParts.length - 1];
+  }
+
+  getAssetTypeFromExtension(extension) {
+    if (this.isTextFileExtension(extension)) {
+      return AssetType.TEXT;
+    }
+    if (this.isImageFileExtension(extension)) {
+      return AssetType.BLOB;
+    }
+  }
+
+  /** @todo Move to a utility class or to the asset loader */
+  isTextFileExtension(extension) {
+    return extension === 'json';
+  }
+
+  /** @todo Move to a utility class or to the asset loader */
+  isImageFileExtension(extension) {
+    return extension === 'png' || extension === 'jpeg';
   }
 
   /**
@@ -48,7 +82,7 @@ class AssetCache {
         this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
 
         try {
-          const value = await this.assetLoader.load(this.assetDictionary[key].path);
+          const value = await this.assetLoader.load(this.assetDictionary[key]);
           this.assetDictionary[key].value = value;
           this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
         } catch (e) {
