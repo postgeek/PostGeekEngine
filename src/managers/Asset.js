@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const AssetType = Object.freeze({
   BLOB: Symbol('blob'),
   TEXT: Symbol('text'),
@@ -17,6 +18,18 @@ class Asset {
       type = assetType;
     }
 
+=======
+/**
+ * An asset object for the Asset Cache.
+ */
+class Asset {
+  /**
+   * @constructor
+   * @param {string} key The key used to reference the key
+   * @param {string} path The path to the asset
+   */
+  constructor(key, path) {
+>>>>>>> develop
     this.key = key;
     this.path = path;
     this.value = null;
@@ -25,6 +38,20 @@ class Asset {
   }
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * @constant
+ * The valid statuses for an asset.
+ */
+const AssetLoadingStatus = Object.freeze({
+  NEW:   Symbol("new"),
+  LOADING:  Symbol("loading"),
+  LOADED: Symbol("loaded"),
+  ERROR: Symbol("error")
+});
+
+>>>>>>> develop
 export default Asset;
 export {
   AssetLoadingStatus,

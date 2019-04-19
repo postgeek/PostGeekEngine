@@ -1,10 +1,21 @@
 import InvalidArguementError from '../errorHandling/errors/InvalidArguementError';
 import { AssetType } from './Asset';
 
+/**
+ * Loads assets using AJAX
+ */
 class AssetLoader {
+<<<<<<< HEAD
   load(asset) {
     const url = asset.path;
     const responseType = this.extractAssetType(asset);
+=======
+  /**
+   * Load a resource using AJAX
+   * @param {string} url The url of the asset
+   */
+  load(url) {
+>>>>>>> develop
     if (this.isValidUrl(url)) {
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -28,6 +39,7 @@ class AssetLoader {
     throw new InvalidArguementError('url');
   }
 
+<<<<<<< HEAD
 
   /**
    * @todo Add all asset types here.
@@ -50,6 +62,14 @@ class AssetLoader {
     // We only want relative or absolute paths.
     // No external links or protocols.
     const regex = /^[^\/]+\/[^\/].*$|^\/[^\/].*$/;
+=======
+  /**
+   * Validate that the url is a relative or absolute paths.
+   * @param {string} url A url or path
+   */
+  isValidUrl(url) {
+    let regex = /^[^\/]+\/[^\/].*$|^\/[^\/].*$/;
+>>>>>>> develop
     return regex.test(url);
   }
 }
