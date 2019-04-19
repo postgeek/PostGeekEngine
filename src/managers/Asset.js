@@ -1,17 +1,6 @@
-class Asset {
-  constructor(key, path) {
-    this.key = key;
-    this.path = path;
-    this.value = null;
-    this.status = AssetLoadingStatus.NEW;
-  }
-}
-
 const AssetType = Object.freeze({
-  NEW: Symbol('new'),
-  LOADING: Symbol('loading'),
-  LOADED: Symbol('loaded'),
-  ERROR: Symbol('error'),
+  BLOB: Symbol('blob'),
+  TEXT: Symbol('text'),
 });
 
 const AssetLoadingStatus = Object.freeze({
@@ -21,7 +10,23 @@ const AssetLoadingStatus = Object.freeze({
   ERROR: Symbol('error'),
 });
 
+class Asset {
+  constructor(key, path, assetType) {
+    let type = AssetType.BLOB;
+    if (assetType !== undefined) {
+      type = assetType;
+    }
+
+    this.key = key;
+    this.path = path;
+    this.value = null;
+    this.status = AssetLoadingStatus.NEW;
+    this.type = type;
+  }
+}
+
 export default Asset;
 export {
   AssetLoadingStatus,
+  AssetType,
 };

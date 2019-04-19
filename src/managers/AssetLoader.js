@@ -1,5 +1,9 @@
 import InvalidArguementError from '../errorHandling/errors/InvalidArguementError';
+import { AssetType } from './Asset';
 
+/**
+ * Loads assets using AJAX
+ */
 class AssetLoader {
   load(asset) {
     const url = asset.path;
@@ -27,8 +31,22 @@ class AssetLoader {
     throw new InvalidArguementError('url');
   }
 
+
+  /**
+   * @todo Add all asset types here.
+   * extractAssetType - extract the asset type from the Asset to load the asset correctly
+   *
+   * @param  {type} asset The {@link Asset} to extract the type for
+   * @return {type}       the type to load in the XMLHTTPRequest
+   */
   extractAssetType(asset) {
-    return 'blob';
+    switch (asset.type) {
+      case AssetType.BLOB:
+        return 'blob';
+      case AssetType.TEXT:
+      default:
+        return 'text';
+    }
   }
 
   isValidUrl(url) {
