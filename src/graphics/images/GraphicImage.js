@@ -6,25 +6,41 @@ import GraphicObject from '../GraphicObject';
  * @extends GraphicObject
  */
 class GraphicImage extends GraphicObject {
+  /**
+   * Builds a new graphic image
+   *
+   * @param  {CanvasRenderingContext2D} context the canvas rendering context
+   * @param  {Image} image   the image to draw on screen
+   */
   constructor(context, image) {
     super(context);
     this.Image = image;
   }
 
   /**
-   * The image associated to the GraphicImage
+   * Gets The image
+   *
+   * @return {Image}  The image to draw on screen.
    */
   get Image() {
     return this.image;
   }
 
+  /**
+   * Specifies the image to draw on screen.
+   *
+   * @param  {Image} value The image to draw on screen.
+   * @return {undefined}
+   */
   set Image(value) {
+    /** @private */
     this.image = value;
   }
 
   /**
    * get Height - gets the height for the image.
    *
+   * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The height of the image.
    */
   get Height() {
@@ -37,6 +53,7 @@ class GraphicImage extends GraphicObject {
   /**
    * get Width - gets the width for the image.
    *
+   * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The width of the image.
    */
   get Width() {

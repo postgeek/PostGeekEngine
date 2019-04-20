@@ -6,18 +6,28 @@ import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImple
  */
 class Shape extends GraphicObject {
   /**
-   * The shape's styling when drawn to the screen.
+   * Get the shape's styling when drawn to the screen.
+   *
+   * @return {GeometryStyle} the shape's styling when drawn to the screen.
    */
   get GeometryStyle() {
     return this.geometryStyle;
   }
 
+  /**
+   * Specifies the shape's styling when drawn to the screen.
+   *
+   * @param  {GeometryStyle} value the shape's styling when drawn to the screen.
+   * @return {undefined}
+   */
   set GeometryStyle(value) {
+    /** @private */
     this.geometryStyle = value;
   }
 
   /**
    * The shapes internal draw method all classes that extend this must override this method.
+   * @throws {MethodNotImplementedError} throws the method not implimented if not overriden
    */
   draw() {
     throw new MethodNotImplementedError(this);

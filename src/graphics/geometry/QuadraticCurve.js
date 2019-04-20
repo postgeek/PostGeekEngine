@@ -34,6 +34,7 @@ class QuadraticCurve extends Shape {
    * @return {undefined}
    */
   set StartPoint(value) {
+    /** @private */
     this.startPoint = value;
   }
 
@@ -52,6 +53,7 @@ class QuadraticCurve extends Shape {
    * @return {undefined}
    */
   set ControlPoint(value) {
+    /** @private */
     this.controlPoint = value;
   }
 
@@ -70,6 +72,7 @@ class QuadraticCurve extends Shape {
    * @return {undefined}
    */
   set EndPoint(value) {
+    /** @private */
     this.endPoint = value;
   }
 

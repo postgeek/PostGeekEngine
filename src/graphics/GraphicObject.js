@@ -25,9 +25,7 @@ class GraphicObject {
    * @return {undefined}
    */
   set Context(value) {
-    /**
-     * @private
-     */
+    /** @private */
     this.context = value;
   }
 }
