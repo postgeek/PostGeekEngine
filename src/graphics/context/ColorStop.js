@@ -11,8 +11,8 @@ class ColorStop {
   * @param {Color} color a HTML compliant color.
   */
   constructor(offset, color) {
-    this.offset = offset;
-    this.color = color;
+    this.Offset = offset;
+    this.Color = color;
   }
 
   /**

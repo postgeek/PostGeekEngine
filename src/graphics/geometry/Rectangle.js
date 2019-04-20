@@ -1,5 +1,8 @@
 import Shape from './Shape';
 
+/**
+ * Defines a rectangle that will be drawn on screen
+ */
 class Rectangle extends Shape {
   /**
   * Constructs a new Rectangle object.
@@ -74,7 +77,7 @@ class Rectangle extends Shape {
   /**
   * Draws the rectangle to the current context.
   */
-  internalDraw() {
+  draw() {
     this.Context.beginPath();
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     this.Context.stroke();

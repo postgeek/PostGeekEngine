@@ -9,7 +9,6 @@ class GraphicObject {
     this.Context = context;
   }
 
-
   /**
    * Gets the canvas' drawing context
    *
@@ -20,7 +19,7 @@ class GraphicObject {
   }
 
   /**
-   * Specifies the context to use for the graphic object
+   * Specifies the canvas context to use for the graphic object
    *
    * @param  {CanvasRenderingContext2D} value description
    * @return {undefined}
