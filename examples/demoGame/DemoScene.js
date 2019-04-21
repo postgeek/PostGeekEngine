@@ -33,6 +33,7 @@ export default class DemoScene extends Scene {
     if (this.maxAnimations <= this.animation) {
       this.animation = 0;
     }
+    // console.log(`${this.Game.Mouse.X} ${this.Game.Mouse.Y}`);
   }
 
   draw() {
