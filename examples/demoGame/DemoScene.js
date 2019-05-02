@@ -23,21 +23,12 @@ export default class DemoScene extends Scene {
       const spriteSheetConfig = new SpriteSheetConfig(JSON.parse(this.cache.getAsset('key2')));
       this.spriteSheet = new SpriteSheet(this.Game.context, this.image, spriteSheetConfig);
       this.loaded = true;
-
-      this.maxAnimations = this.spriteSheet.getAnimationLengthForSpriteAnimation('george', 'WALK_DOWN');
     };
   }
 
   update() {
-    this.animation += 1;
-    if (this.maxAnimations <= this.animation) {
-      this.animation = 0;
-    }
   }
 
   draw() {
-    if (this.loaded) {
-      this.spriteSheet.drawSpriteInfo(this.Point, 'george', 'WALK_DOWN', this.animation);
-    }
   }
 }

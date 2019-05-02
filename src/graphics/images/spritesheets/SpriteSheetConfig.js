@@ -1,5 +1,6 @@
-import SpriteConfig from './SpriteConfig';
-
+/**
+ * Defines the configuration object for a SpriteSheet
+ */
 class SpriteSheetConfig {
   constructor(config) {
     this.spriteConfigurations = {};
@@ -8,10 +9,6 @@ class SpriteSheetConfig {
     }
     if ('height' in config) {
       this.Height = config.height;
-    }
-    if ('spriteConfig' in config) {
-      const { spriteConfig } = config;
-      this.spriteConfigurations[spriteConfig.spriteName] = new SpriteConfig(spriteConfig);
     }
   }
 
@@ -29,17 +26,5 @@ class SpriteSheetConfig {
 
   set Height(value) {
     this.height = value;
-  }
-
-  getConfigurationForSprite(spriteName) {
-    return this.spriteConfigurations[spriteName];
-  }
-
-  get SpriteConfig() {
-    return this.spriteConfig;
-  }
-
-  set SpriteConfig(value) {
-    this.spriteConfig = value;
   }
 } export default SpriteSheetConfig;
