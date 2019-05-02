@@ -3,14 +3,20 @@ import GraphicObject from '../GraphicObject';
 
 /**
  * Class that defines an image that will be drawn onto the canvas.
- * @extends GraphicObject
  */
 class GraphicImage extends GraphicObject {
   /**
+<<<<<<< HEAD
    * Builds a new graphic image
    *
    * @param  {CanvasRenderingContext2D} context the canvas rendering context
    * @param  {Image} image   the image to draw on screen
+=======
+   * Constructs a new GraphicImage
+   *
+   * @param  {CanvasRenderingContext2D} context the canvas' rendering context
+   * @param  {Image} image  The image associated to the GraphicImage
+>>>>>>> develop
    */
   constructor(context, image) {
     super(context);
@@ -18,18 +24,28 @@ class GraphicImage extends GraphicObject {
   }
 
   /**
+<<<<<<< HEAD
    * Gets The image
    *
    * @return {Image}  The image to draw on screen.
+=======
+   * Gets the image associated to the GraphicImage
+>>>>>>> develop
    */
   get Image() {
     return this.image;
   }
 
   /**
+<<<<<<< HEAD
    * Specifies the image to draw on screen.
    *
    * @param  {Image} value The image to draw on screen.
+=======
+   * Specifies the image associated to the GraphicImage
+   *
+   * @param  {Image} value the image associated to the GraphicImage
+>>>>>>> develop
    * @return {undefined}
    */
   set Image(value) {
@@ -38,7 +54,7 @@ class GraphicImage extends GraphicObject {
   }
 
   /**
-   * get Height - gets the height for the image.
+   * Gets the height for the image.
    *
    * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The height of the image.
@@ -51,7 +67,7 @@ class GraphicImage extends GraphicObject {
   }
 
   /**
-   * get Width - gets the width for the image.
+   * Gets the width for the image.
    *
    * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The width of the image.
@@ -64,26 +80,33 @@ class GraphicImage extends GraphicObject {
   }
 
   /**
-   * draw - Draws the image on screen at 0,0.
+   * Draws the image on screen at 0,0.
    */
   draw() {
     this.Context.drawImage(this.Image, 0, 0);
   }
 
-
   /**
-   * drawImageWithMask - draws and image within an image.
+   * Draws and image within an image.
    *
-   * @param  {Point} point   The coordinates in the destination canvas at which
+   * @param  {Point} destrinationPoint   The coordinates in the destination canvas at which
    * to place the top-left corner of the source image.
-   * @param  {Number} x      The x-axis coordinate of the top left corner of the
-   * sub-rectangle of the source image to draw into the destination context.
-   * @param  {Number} y      The y-axis coordinate of the top left corner of the
-   * sub-rectangle of the source image to draw into the destination context.
-   * @param  {Number} width  the image's width
-   * @param  {Number} height the image's height
+   * @param  {Point} subRectanglePoint   The coordinates of the top left corner of
+   * the sub-rectangle of the source image to draw into the destination context.
+   * @param  {Number} width  the sub-image's width
+   * @param  {Number} height the sub-image's height
    */
-  drawImageWithMask(point, x, y, width, height) {
-    this.Context.drawImage(this.Image, x, y, width, height, point.X, point.Y, width, height);
+  drawImageWithMask(destrinationPoint, subRectanglePoint, width, height) {
+    this.Context.drawImage(
+      this.Image,
+      subRectanglePoint.X,
+      subRectanglePoint.Y,
+      width,
+      height,
+      destrinationPoint.X,
+      destrinationPoint.Y,
+      width,
+      height,
+    );
   }
 } export default GraphicImage;
