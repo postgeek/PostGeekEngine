@@ -1,4 +1,4 @@
-function FromTiledJsonToMap2DConfig(json) {
+function FromTiledJsonToMap2DConfig(json, tilesetImg) {
   let config = {
     rowCount: json.height,
     columnCount: json.width,
@@ -27,6 +27,10 @@ function FromTiledJsonToMap2DConfig(json) {
   };
 
   return config;
+}
+
+function parseTileSetImg() {
+  
 }
 
 export default FromTiledJsonToMap2DConfig;

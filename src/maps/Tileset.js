@@ -38,7 +38,7 @@ class Tileset {
     rect.GeometryStyle = this.defaultRectStyle;
     rect.draw();
 
-    const text = new Text(this.Map.Game.context, new Point(x + 5, y + 10), gid);
+    const text = new Text(this.Map.Game.context, new Point(x + 3, y + 10), gid);
     text.TextStyle = this.defaultTextStyle;
     text.draw();
   }
