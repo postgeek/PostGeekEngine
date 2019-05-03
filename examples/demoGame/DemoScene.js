@@ -3,6 +3,8 @@ import Point from 'physics/Point';
 import SpriteSheet from 'graphics/images/spritesheets/SpriteSheet';
 import SpriteSheetConfig from 'graphics/images/spritesheets/SpriteSheetConfig';
 import AssetCache from 'managers/AssetCache';
+import FromTiledJsonToMap2DConfig from 'maps/converters/FromTiledJsonToMap2DConfig';
+import Map2D from 'maps/Map2D';
 
 export default class DemoScene extends Scene {
   create() {
@@ -10,14 +12,21 @@ export default class DemoScene extends Scene {
     this.animation = 0;
     this.loaded = false;
     this.cache = new AssetCache();
-    this.cache.registerAsset('key1', './assets/george.png');
-    this.cache.registerAsset('key2', './assets/json/george.json');
-    this.cache.loadAsset('key2');
     this.image = new Image();
-    this.cache.loadAsset('key1').then(() => {
-      const cachedAsset = this.cache.getAsset('key1');
-      const imageURL = window.URL.createObjectURL(cachedAsset);
-      this.image.src = imageURL;
+
+    this.cache.registerAsset('map', './assets/demo_map.json');
+    this.cache.loadAsset('map').then(() => {
+      const mapConfig = JSON.parse(this.cache.getAsset('map'));
+
+      this.cache.registerAsset('tilesetImg', './assets/' + mapConfig.tilesets[0].image);
+      this.cache.loadAsset('tilesetImg').then(() => {
+        const tilesetImg = new Image();
+        tilesetImg.src = window.URL.createObjectURL(this.cache.getAsset('tilesetImg'));
+        tilesetImg.onload = () => {
+          const map2DConfig = FromTiledJsonToMap2DConfig(mapConfig, tilesetImg);
+          this.Map = new Map2D(this.Game, map2DConfig)
+        };
+      });
     });
     this.image.onload = () => {
       const spriteSheetConfig = new SpriteSheetConfig(JSON.parse(this.cache.getAsset('key2')));
@@ -30,5 +39,8 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
+    if(this.Map !== undefined) {
+      this.Map.draw();
+    }
   }
 }
