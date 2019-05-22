@@ -1,7 +1,9 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class Circle extends GraphicObject {
+/**
+ * Represents a circle on the canvas
+ */
+class Circle extends Shape {
   /**
   * Constructs a new Circle object.
   *
@@ -16,13 +18,23 @@ class Circle extends GraphicObject {
   }
 
   /**
-  * The starting {@link Point}  of the circle.
+  * The starting {@link Point} of the circle.
+  * @return {Point} the top left corner for the circle.
   */
   get Point() {
     return this.point;
   }
 
+
+  /**
+   * Sets the starting {@link Point} of the circle
+   *
+   * @param  {Point} value the top left corner for the circle.
+   */
   set Point(value) {
+    /**
+     * @private
+     */
     this.point = value;
   }
 
@@ -33,6 +45,11 @@ class Circle extends GraphicObject {
     return this.Point.X;
   }
 
+  /**
+   *  Sets the X coordinate of the circle
+   *
+   * @param  {Number} value the circle's new X coordinate
+   */
   set X(value) {
     this.Point.X = value;
   }
@@ -44,6 +61,12 @@ class Circle extends GraphicObject {
     return this.Point.Y;
   }
 
+
+  /**
+   * Sets the Y coordinate of the circle
+   *
+   * @param  {Number} value the new Y coordinate
+   */
   set Y(value) {
     return this.Point.Y;
   }
@@ -55,20 +78,42 @@ class Circle extends GraphicObject {
     return this.radius;
   }
 
+
+  /**
+   * Sets the circle's radius
+   *
+   * @param {Number} value the new radius
+   */
   set Radius(value) {
+    /**
+     * @private
+     */
     this.radius = value;
   }
 
   /**
   * Draws the Circle to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
-    this.Context.lineWidth = '6';
-    this.Context.strokeStyle = 'lightblue';
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
-    this.Context.stroke();
+    if (this.GeometryStyle.FillStyle !== undefined) {
+      this.Context.fill();
+    }
+    if (this.GeometryStyle.StrokeStyle !== undefined) {
+      this.Context.stroke();
+    }
     this.Context.closePath();
+  }
+
+
+  /**
+   *  Clones the current circle into a new Circle object
+   *
+   * @return {Circle}  the new circle with the same parameters as the old one
+   */
+  clone() {
+    return new Circle(this.Context, this.Point.clone(), this.Radius);
   }
 }
 export default Circle;

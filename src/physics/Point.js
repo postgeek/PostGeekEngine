@@ -30,5 +30,9 @@ class Point {
   set Y(value) {
     this.y = value;
   }
+
+  clone() {
+    return new Point(this.X, this.Y);
+  }
 }
 export default Point;

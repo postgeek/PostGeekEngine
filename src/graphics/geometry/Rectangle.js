@@ -1,7 +1,6 @@
-import GraphicObject from '../GraphicObject';
+import Shape from './Shape';
 
-/** @extends GraphicObject */
-class Rectangle extends GraphicObject {
+class Rectangle extends Shape {
   /**
   * Constructs a new Rectangle object.
   *
@@ -18,7 +17,7 @@ class Rectangle extends GraphicObject {
   }
 
   /**
-  * The rectangle's starting {@link Point}.
+  * The rectangle's starting
   */
   get Point() {
     return this.point;
@@ -75,12 +74,11 @@ class Rectangle extends GraphicObject {
   /**
   * Draws the rectangle to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
-    this.Context.lineWidth = '6';
-    this.Context.strokeStyle = 'red';
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     this.Context.stroke();
+    this.Context.fill();
     this.Context.closePath();
   }
 }

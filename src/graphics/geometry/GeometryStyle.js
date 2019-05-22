@@ -1,12 +1,8 @@
-import DrawingStyle from '../context/DrawingStyle';
+import DrawingStyle from '../DrawingStyle';
 
-/** @extends DrawingStyle */
 class GeometryStyle extends DrawingStyle {
   constructor(config) {
     super(config);
-    if ('lineWidth' in config) {
-      this.LineWidth = config.lineWidth;
-    }
     if ('lineCap' in config) {
       this.LineCap = config.lineCap;
     }
@@ -19,20 +15,9 @@ class GeometryStyle extends DrawingStyle {
     if ('lineDash' in config) {
       this.LineDash = config.lineDash;
     }
-    if ('lineDashOffset' in config.lineDashOffset) {
+    if ('lineDashOffset' in config) {
       this.LineDashOffset = config.lineDashOffset;
     }
-  }
-
-  /**
-  * The line width style.
-  */
-  get LineWidth() {
-    return this.lineWidth;
-  }
-
-  set LineWidth(value) {
-    this.lineWidth = value;
   }
 
   /**
@@ -88,6 +73,33 @@ class GeometryStyle extends DrawingStyle {
 
   set LineDashOffset(value) {
     this.lineDashOffset = value;
+  }
+
+
+  /**
+   * apply - Applies the geometry styling to the current context.
+   *
+   * @param  {CanvasRenderingContext2D} context the context to apply the styles for.
+   * @return {CanvasRenderingContext2D} returns the new context with the stylings applied.
+   */
+  apply(context) {
+    const newContext = super.apply(context);
+    if (this.LineCap) {
+      newContext.lineCap = this.LineCap;
+    }
+    if (this.LineJoin) {
+      newContext.lineJoin = this.LineJoin;
+    }
+    if (this.MiterLimit) {
+      newContext.miterLimit = this.MiterLimit;
+    }
+    if (this.LineDash) {
+      newContext.lineDash = this.LineDash;
+    }
+    if (this.LineDashOffset) {
+      newContext.lineDashOffset = this.LineDashOffset;
+    }
+    return newContext;
   }
 }
 export default GeometryStyle;

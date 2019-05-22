@@ -5,11 +5,14 @@ class DrawingStyle {
   * @param {config} config a configuration object, which respects the following:
   */
   constructor(config) {
-    if ('fillStyle' in config.fillStyle) {
+    if ('fillStyle' in config) {
       this.FillStyle = config.fillStyle;
     }
     if ('strokeStyle' in config) {
       this.StrokeStyle = config.strokeStyle;
+    }
+    if ('lineWidth' in config) {
+      this.LineWidth = config.lineWidth;
     }
     if ('shadowBlur' in config) {
       this.ShadowBlur = config.shadowBlur;
@@ -59,6 +62,21 @@ class DrawingStyle {
   }
 
   /**
+  * gets The line width style.
+  */
+  get LineWidth() {
+    return this.lineWidth;
+  }
+
+  /**
+  * sets The line width style.
+  */
+  set LineWidth(value) {
+    /** @private */
+    this.lineWidth = value;
+  }
+
+  /**
   * The shadow color for the canvas context.
   */
   get ShadowColor() {
@@ -89,6 +107,32 @@ class DrawingStyle {
 
   set ShadowOffsetY(value) {
     this.shadowOffsetY = value;
+  }
+
+  apply(context) {
+    const newContext = context;
+    if (this.FillStyle) {
+      newContext.fillStyle = this.FillStyle;
+    }
+    if (this.StrokeStyle) {
+      newContext.strokeStyle = this.StrokeStyle;
+    }
+    if (this.LineWidth) {
+      newContext.lineWidth = this.LineWidth;
+    }
+    if (this.ShadowBlur) {
+      newContext.shadowBlur = this.ShadowBlur;
+    }
+    if (this.ShadowColor) {
+      newContext.shadowColor = this.ShadowColor;
+    }
+    if (this.ShadowOffsetX) {
+      newContext.shadowOffsetX = this.ShadowOffsetX;
+    }
+    if (this.ShadowOffsetY) {
+      newContext.shadowOffsetY = this.ShadowOffsetY;
+    }
+    return newContext;
   }
 }
 export default DrawingStyle;

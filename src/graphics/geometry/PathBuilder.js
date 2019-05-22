@@ -1,17 +1,14 @@
-import GraphicObject from '../GraphicObject';
-
 /**
  * Class that implements the basic pathing methods for the 2D context
  *
  */
-class PathBuilder extends GraphicObject {
+class PathBuilder {
   /**
   *  Constructs the PathBuild object
   *
   * @param {CanvasRenderingContext2D} context the canvas context.
   */
-  constructor(context) {
-    super(context);
+  constructor() {
     this.path = new Path2D();
   }
 
@@ -94,7 +91,7 @@ class PathBuilder extends GraphicObject {
   * @param {number} radius the radius to use for the arc.
   */
   ArcTo(controlPoint1, controlPoint2, radius) {
-    this.Path.artTo(
+    this.Path.arcTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,

@@ -6,11 +6,22 @@ import MiddlewareManager from './managers/MiddlewareManager';
 
 let game = null;
 
+/**
+ * start - starts a new Game
+ *
+ * @param  {String} config the config to use when initializing the game
+ */
 function start(config) {
   game = new Game(config);
   game.init();
 }
 
+/**
+ * addScene - adds a scene to the sceneManager
+ *
+ * @param  {String} key   the key for the scene
+ * @param  {Scene} scene  the Scene object to add
+ */
 function addScene({ key, scene }) {
   if (!game) {
     throw new InvalidStateOperationError(this);
@@ -19,6 +30,12 @@ function addScene({ key, scene }) {
   game.sceneManager.addScene({ key, scene });
 }
 
+
+/**
+ * startScene - starts the scene corresponding to the provided key
+ *
+ * @param  {String} key the key associated to a scene
+ */
 function startScene(key) {
   if (!game) {
     throw new InvalidStateOperationError(this);
@@ -28,6 +45,11 @@ function startScene(key) {
 }
 
 class Game {
+  /**
+   * constructor - Constructs a new Game object
+   *
+   * @param  {String} config the configuration for the Game
+   */
   constructor(config) {
     this.config = config;
     this.UPDATE_RATE = 25;
@@ -41,6 +63,10 @@ class Game {
     this.middlewareManager = new MiddlewareManager(this);
   }
 
+
+  /**
+   * init - Initializes all the necessary objects
+   */
   init() {
     if (!this.Canvas || !this.Canvas.getContext) {
       // console.log('error getting the canvas or the canvas context');
@@ -75,27 +101,47 @@ class Game {
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
   }
 
-  // The game loop takes care of polling for input and updating the game
+  /**
+   * gameLoop - The game loop takes care of polling for input and updating the game
+   */
   gameLoop() {
     this.pollInput();
     this.update();
   }
 
+
+  /**
+   * animate - Draws the canvas onto the screen
+   *
+   * @param  {type} timeStamp the delta between now and the last animate method call
+   */
   animate(timeStamp) {
     this.requestAnimFrame(this.animate);
     this.draw();
   }
 
+
+  /**
+   * pollInput - Polls the input from the provided input devices
+   */
   pollInput() {
     this.Mouse.poll();
     this.Keyboard.poll();
   }
 
+
+  /**
+   * update - Updates the current running scene. This method updates the backend of all obejcts
+   */
   update() {
     this.sceneManager.runningScene.update();
     this.middlewareManager.update();
   }
 
+
+  /**
+   * draw - Draws the scene to the current canvas
+   */
   draw() {
     // Draw Background
     this.context.fillStyle = '#000000';
@@ -105,6 +151,12 @@ class Game {
     this.middlewareManager.draw();
   }
 
+
+  /**
+   * requestAnimFrame - Method that allows us to draw everytime the browser allows us to.
+   *
+   * @param  {type} callback The callback method to run
+   */
   requestAnimFrame(callback) {
     // shim layer with setTimeout fallback
     let func = window.requestAnimationFrame

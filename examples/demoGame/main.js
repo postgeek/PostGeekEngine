@@ -1,6 +1,7 @@
 import start from 'Game';
 import DemoScene from './DemoScene';
 import PostGeekDebugger from '../../src/debug/PostGeekDebugger';
+import ShapeDemoScene from './ShapeDemoScene';
 
 start({
   debug: true,
