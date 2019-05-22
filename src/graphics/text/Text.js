@@ -1,10 +1,17 @@
 import GraphicObject from '../GraphicObject';
+import TextStyle from './TextStyle';
 
 class Text extends GraphicObject {
   constructor(context, point, text) {
     super(context);
     this.Point = point;
     this.Text = text;
+    this.TextStyle = new TextStyle({
+      fillStyle: 'darkblue',
+      strokeStyle: 'lightblue',
+      lineWidth: 4,
+      font: '24px serif',
+    });
   }
 
   /**

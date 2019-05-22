@@ -3,9 +3,9 @@ import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
 class Shape extends GraphicObject {
-  constructor() {
-    super();
-    this.geometryStyle = new GeometryStyle({
+  constructor(context) {
+    super(context);
+    this.GeometryStyle = new GeometryStyle({
       lineWidth: 1,
       fillStyle: 'white',
       strokeStyle: 'black',
