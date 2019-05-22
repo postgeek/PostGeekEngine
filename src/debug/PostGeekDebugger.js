@@ -57,7 +57,7 @@ class PostGeekDebugger extends Middleware {
     circleTextY.TextStyle = this.debugTextStyle;
 
     rectangle.draw();
-    circleTextX.draw(); // test
+    circleTextX.draw();
     circleTextY.draw();
   }
 }

@@ -83,8 +83,12 @@ class Text extends GraphicObject {
     // Saves the context (this may be a costly method call so check if it is).
     this.Context.save();
     this.Context = this.TextStyle.apply(this.Context);
-    this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
-    this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+    if (this.GeometryStyle.FillStyle !== undefined) {
+      this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+    }
+    if (this.GeometryStyle.StrokeStyle !== undefined) {
+      this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
+    }
     // Restores the previously saved context.
     this.Context.restore();
   }
