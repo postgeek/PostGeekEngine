@@ -6,12 +6,6 @@ import GraphicObject from '../GraphicObject';
  */
 class GraphicImage extends GraphicObject {
   /**
-<<<<<<< HEAD
-   * Builds a new graphic image
-   *
-   * @param  {CanvasRenderingContext2D} context the canvas rendering context
-   * @param  {Image} image   the image to draw on screen
-=======
    * Constructs a new GraphicImage
    *
    * @param  {CanvasRenderingContext2D} context the canvas' rendering context
@@ -24,28 +18,18 @@ class GraphicImage extends GraphicObject {
   }
 
   /**
-<<<<<<< HEAD
-   * Gets The image
+   * Gets the image associated to the GraphicImage
    *
    * @return {Image}  The image to draw on screen.
-=======
-   * Gets the image associated to the GraphicImage
->>>>>>> develop
    */
   get Image() {
     return this.image;
   }
 
   /**
-<<<<<<< HEAD
-   * Specifies the image to draw on screen.
-   *
-   * @param  {Image} value The image to draw on screen.
-=======
    * Specifies the image associated to the GraphicImage
    *
    * @param  {Image} value the image associated to the GraphicImage
->>>>>>> develop
    * @return {undefined}
    */
   set Image(value) {
