@@ -1,7 +1,17 @@
+import GeometryStyle from './GeometryStyle';
 import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
 class Shape extends GraphicObject {
+  constructor() {
+    super();
+    this.geometryStyle = new GeometryStyle({
+      lineWidth: 1,
+      fillStyle: 'white',
+      strokeStyle: 'black',
+    });
+  }
+
   /**
    * The shape's styling when drawn to the screen.
    */
