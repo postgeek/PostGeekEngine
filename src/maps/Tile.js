@@ -1,14 +1,16 @@
-class Tile {
-  constructor(map, config) {
-    this.Map = map;
-    this.GID = config.gid;
-    this.TileSet = config.tileSet;
-    this.Row = config.row;
-    this.Colunm = config.col;
-  }
+import Frame from '../graphics/images/spritesheets/Frame';
+import Point from '../physics/Point';
 
-  draw() {
-    this.TileSet.drawTile(this.GID, this.Row, this.Colunm);
+class Tile extends Frame {
+  constructor(tileset, config) {
+    super(tileset, { 
+      id: config.gid,
+      Point: new Point(config.col * tileset.TileWidth, config.row * tileset.TileHeight),
+      Width: tileset.TileWidth, 
+      Height: tileset.TileHeight 
+    });
+
+    this.GID = config.gid;
   }
 }
 

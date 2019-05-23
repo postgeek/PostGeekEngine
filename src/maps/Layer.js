@@ -1,22 +1,22 @@
-import Tile from "./Tile";
+import Point from '../physics/Point';
 
 class Layer {
   constructor(map, config) {
     this.Map = map;
     this.Id = config.id;
     this.Name = config.name;
-
-    // TODO: Find the correct tile set
-    this.Tiles = config.data.map((gid, index) => {
-      const tileSet = map.TileSets[0];
-      const row = Math.floor(index / map.ColumnCount);
-      const col = index % map.ColumnCount;
-      return new Tile(map, {gid, tileSet, row, col});
-    });
+    this.Data = config.data;
   }
 
   draw () {
-    this.Tiles.map(tile => tile.draw());
+    this.Data.map((gid, index) => {
+      const tileset = this.Map.Tilesets.find(tileset => tileset.hasTile(gid));
+      if (tileset !== undefined) {
+        const row = Math.floor(index / this.Map.ColumnCount);
+        const col = index % this.Map.ColumnCount;
+        tileset.drawTile(gid, new Point(col * this.Map.TileWidth, row * this.Map.TileHeight));
+      }
+    });
   }
 }
 

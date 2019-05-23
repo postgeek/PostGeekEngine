@@ -1,15 +1,42 @@
 import Layer from "./Layer";
 import Tileset from "./Tileset";
+import AssetCache from "../managers/AssetCache";
 
 class Map2D {
   constructor(game, config) {
     this.Game = game;
+    this.Config = config;
     this.RowCount = config.rowCount;
     this.ColumnCount = config.columnCount;
     this.TileHeight = config.tileHeight;
     this.TileWidth = config.tileWidth;
-    this.TileSets = config.tilesets.map(tileset => new Tileset(this, tileset));
-    this.Layers = config.layers.map(layer => new Layer(this, layer));
+    this.Tilesets = [];
+    this.Layers = []
+    this.cache = new AssetCache();
+  }
+
+  async load() {
+    this.Tilesets = await Promise.all(this.Config.tilesets.map(async tileset => {
+      const img = await this.loadTileset(tileset);
+      return new Tileset(this, tileset, img);
+    }));
+
+    this.Layers = this.Config.layers.map(layer => new Layer(this, layer));
+  }
+
+  loadTileset(tileset) {
+    return new Promise(async (resolve) => {
+      const tileSetId = `${tileset.name}.TilesetImg`;
+
+      this.cache.registerAsset(tileSetId, tileset.imagePath);
+      await this.cache.loadAsset(tileSetId);
+
+      const tilesetImg = new Image();
+      tilesetImg.src = window.URL.createObjectURL(this.cache.getAsset(tileSetId));
+      tilesetImg.onload = () => {
+        resolve(tilesetImg);
+      };
+    });
   }
 
   draw() {

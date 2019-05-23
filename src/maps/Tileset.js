@@ -1,11 +1,10 @@
-import Rectangle from 'graphics/geometry/Rectangle';
-import GeometryStyle from 'graphics/geometry/GeometryStyle';
-import Text from 'graphics/text/Text';
-import TextStyle from 'graphics/text/TextStyle';
-import Point from 'physics/Point';
+import SpriteSheet from '../graphics/images/spritesheets/SpriteSheet';
+import Tile from './Tile';
 
-class Tileset {
-  constructor(map, config) {
+class Tileset extends SpriteSheet {
+  constructor(map, config, image) {
+    super(map.Game.context, image, { width: config.width, height: config.height });
+
     this.Map = map;
     this.ColumnCount = config.columnCount;
     this.FirstGid = config.firstGid;
@@ -15,32 +14,34 @@ class Tileset {
     this.Name = config.name;
     this.TileCount = config.tileCount;
     this.TileHeight = config.tileHeight; 
-    this.TileWidth = config.tileWidth; 
+    this.TileWidth = config.tileWidth;
 
-    this.defaultRectStyle = new GeometryStyle({
-      lineWidth: 1,
-      fillStyle: 'black',
-      strokeStyle: 'white',
-    });
-
-    this.defaultTextStyle = new TextStyle({
-      lineWidth: 1,
-      fillStyle: 'white',
-      font: "10px serif"
-    });
+    this.Tiles = this.createTiles(this.TileCount, this.ColumnCount, this.FirstGid);
   }
 
-  drawTile(gid, row, col) {
-    const x = col * this.TileWidth;
-    const y = row * this.TileHeight;
+  hasTile(gid) {
+    const lastGid = this.FirstGid + this.TileCount;
+    return gid >= this.FirstGid && gid < lastGid;
+  }
 
-    const rect = new Rectangle(this.Map.Game.context, new Point(x, y), this.TileWidth, this.TileHeight);
-    rect.GeometryStyle = this.defaultRectStyle;
-    rect.draw();
+  createTiles(tileCount, columnCount, firstGid) {
+    const tiles = [];
+    for (let index = 0; index < tileCount; index++) {
+      // Row and column position in sprite sheet
+      const row = Math.floor(index / columnCount);
+      const col = index % columnCount;
+      const gid = firstGid + index;
+      tiles.push([gid, new Tile(this, {gid, row, col})]);
+    }
 
-    const text = new Text(this.Map.Game.context, new Point(x + 3, y + 10), gid);
-    text.TextStyle = this.defaultTextStyle;
-    text.draw();
+    return new Map(tiles);
+  }
+
+  drawTile(gid, drawPoint) {
+    const tile = this.Tiles.get(gid);
+    if (tile !== undefined) {
+      tile.drawAtPoint(drawPoint);
+    }
   }
 }
 
