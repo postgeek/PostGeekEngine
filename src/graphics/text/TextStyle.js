@@ -1,9 +1,5 @@
 import DrawingStyle from '../DrawingStyle';
 
-/*
- * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_text
- */
-/** @extends DrawingStyle */
 export default class TextStyle extends DrawingStyle {
   constructor(config) {
     super(config);

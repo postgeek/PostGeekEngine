@@ -15,11 +15,29 @@ import RGBColor from './colors/RGBColor';
 
 import Point from '../physics/Point';
 
+/**
+ * The graphic objects JSON loader
+ */
 class GraphicsJSONLoader {
+  /**
+   * Constructs a new graphic JSON loader
+   *
+   * @param  {CanvasRenderingContext2D} context the canvas' drawing context
+   */
   constructor(context) {
+    /**
+     * @private
+     */
     this.Context = context;
   }
 
+
+  /**
+   * Creates a circle with the supplied properties
+   *
+   * @param  {string} config The JSON configuration for the circle
+   * @return {Circle}        The newly created circle
+   */
   CreateCircle(config) {
     const { radius, geometryStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
@@ -30,6 +48,12 @@ class GraphicsJSONLoader {
     return circle;
   }
 
+  /**
+   * Creates a bezier curve with the supplied properties
+   *
+   * @param  {string} config  The JSON configuration for the bezier curve
+   * @return {BezierCurve}    The newly created bezier curve
+   */
   CreateBezierCurve(config) {
     const { geometryStyle } = config;
 
@@ -46,6 +70,12 @@ class GraphicsJSONLoader {
     return bezierCurve;
   }
 
+  /**
+   * Creates a quadratic curve with the supplied properties
+   *
+   * @param  {string} config  The JSON configuration for the bezier curve
+   * @return {QuadraticCurve} The newly created quadratic curve
+   */
   CreateQuadraticCurve(config) {
     const { geometryStyle } = config;
 
@@ -61,6 +91,13 @@ class GraphicsJSONLoader {
     return quadraticCurve;
   }
 
+
+  /**
+   * Creates a new ellipse with the supplied properties
+   *
+   * @param  {string} config  The JSON configuration for the ellipse
+   * @return {Ellipse}        The newly created ellipse
+   */
   CreateEllipse(config) {
     const {
       radiusX, radiusY, Rotation, geometryStyle,
@@ -73,6 +110,12 @@ class GraphicsJSONLoader {
     return ellipse;
   }
 
+  /**
+   * Creates a new rectangle with the supplied properties
+   *
+   * @param  {string} config  The JSON configuration for the rectangle
+   * @return {Rectangle}      The newly created rectangle
+   */
   CreateRectangle(config) {
     const { height, width, geometryStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
@@ -83,6 +126,12 @@ class GraphicsJSONLoader {
     return rectangle;
   }
 
+  /**
+   * Creates a new text with the supplied properties
+   *
+   * @param  {string} config  The JSON configuration for the text
+   * @return {Text}           The newly created text
+   */
   CreateText(config) {
     const { text, textStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
@@ -93,11 +142,25 @@ class GraphicsJSONLoader {
     return textObject;
   }
 
+
+  /**
+   * @static parse the point
+   *
+   * @param  {string} pointJson The JSON for the point
+   * @return {Point}            The created Point object
+   */
   static parsePoint(pointJson) {
     const { x, y } = pointJson;
     return new Point(x, y);
   }
 
+
+  /**
+   * @static parse the text styling
+   *
+   * @param  {string} textStyle The JSON for the text styling
+   * @return {TextStyle}        The created TextStyle object
+   */
   static parseTextStyle(textStyle) {
     const parsedTextStyle = textStyle;
     const { strokeStyle, fillStyle } = parsedTextStyle;
@@ -112,6 +175,12 @@ class GraphicsJSONLoader {
     return new TextStyle(parsedTextStyle);
   }
 
+  /**
+   * @static parse the geometry styling
+   *
+   * @param  {string} geometryStyle   The JSON for the geometry styling
+   * @return {GeometryStyle}          The created GeometryStyle object
+   */
   static parseGeometryStyle(geometryStyle) {
     const parsedGeometryStyle = geometryStyle;
     const { strokeStyle, fillStyle } = parsedGeometryStyle;
@@ -126,6 +195,12 @@ class GraphicsJSONLoader {
     return new GeometryStyle(parsedGeometryStyle);
   }
 
+  /**
+   * @static parse the color
+   *
+   * @param  {string} colorStyle   The JSON for the color styling
+   * @return {GeometryStyle}       The created Color object
+   */
   static parseColor(colorStyle) {
     if (typeof colorStyle === 'object') {
       if ('hue' in colorStyle) {

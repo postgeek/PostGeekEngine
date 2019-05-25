@@ -10,6 +10,7 @@ class GraphicImage extends GraphicObject {
    *
    * @param  {CanvasRenderingContext2D} context the canvas' rendering context
    * @param  {Image} image  The image associated to the GraphicImage
+>>>>>>> develop
    */
   constructor(context, image) {
     super(context);
@@ -18,6 +19,8 @@ class GraphicImage extends GraphicObject {
 
   /**
    * Gets the image associated to the GraphicImage
+   *
+   * @return {Image}  The image to draw on screen.
    */
   get Image() {
     return this.image;
@@ -30,12 +33,14 @@ class GraphicImage extends GraphicObject {
    * @return {undefined}
    */
   set Image(value) {
+    /** @private */
     this.image = value;
   }
 
   /**
    * Gets the height for the image.
    *
+   * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The height of the image.
    */
   get Height() {
@@ -48,6 +53,7 @@ class GraphicImage extends GraphicObject {
   /**
    * Gets the width for the image.
    *
+   * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The width of the image.
    */
   get Width() {

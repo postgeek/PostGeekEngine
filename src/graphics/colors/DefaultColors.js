@@ -1,6 +1,10 @@
 import Color from './Color';
 
-const DefaultColours = [
+
+/**
+ * @type {Color[]}
+ */
+const DefaultColors = [
   Color.INDIANRED, Color.LIGHTCORAL, Color.SALMON, Color.DARKSALMON, Color.LIGHTSALMON,
   Color.CRIMSON, Color.RED, Color.FIREBRICK, Color.DARKRED, Color.PINK, Color.LIGHTPINK,
   Color.HOTPINK, Color.DEEPPINK, Color.MEDIUMVIOLETRED, Color.PALEVIOLETRED, Color.CORAL,
@@ -31,4 +35,4 @@ const DefaultColours = [
   Color.GAINSBORO, Color.LIGHTGRAY, Color.SILVER, Color.DARKGRAY, Color.GRAY,
   Color.DIMGRAY, Color.LIGHTSLATEGRAY, Color.SLATEGRAY, Color.DARKSLATEGRAY, Color.BLACK,
 ];
-export default DefaultColours;
+export default DefaultColors;

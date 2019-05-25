@@ -9,4 +9,3 @@ Notes
 - Change the asset loader and cache so that loading an asset is seemless to the user.
 - Notify observers that all assets have been loaded. (Example to start the scene)
 - Something like Assets.load(key, path); or Assets.put(key, path) or Assets.add(key, path)
->>>>>>> develop
