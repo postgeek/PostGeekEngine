@@ -44,7 +44,7 @@ export default class DesignSystemScene extends Scene {
     this.paragraph2.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
 
     this.textArea.Text.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    this.textArea.Border.GeometryStyle = DesignSystemScene.createGeometryStyle(1, strokeStyle);
+    this.textArea.Border.GeometryStyle = DesignSystemScene.createGeometryStyle(3, strokeStyle);
 
     console.log(this.paragraph1.determineFontHeight());
   }
