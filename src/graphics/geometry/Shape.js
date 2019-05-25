@@ -3,8 +3,8 @@ import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
 class Shape extends GraphicObject {
-  constructor() {
-    super();
+  constructor(context) {
+    super(context);
     this.geometryStyle = new GeometryStyle({
       lineWidth: 1,
       fillStyle: 'white',

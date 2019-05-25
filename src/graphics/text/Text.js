@@ -72,6 +72,18 @@ class Text extends GraphicObject {
     return this.Context.measureText(this.Text);
   }
 
+  determineFontHeight() {
+    const body = document.getElementsByTagName('body')[0];
+    const dummy = document.createElement('div');
+    const dummyText = document.createTextNode('M');
+    dummy.appendChild(dummyText);
+    dummy.setAttribute('style', `font:${this.TextStyle.font};`);
+    body.appendChild(dummy);
+    const result = dummy.offsetHeight;
+    body.removeChild(dummy);
+    return result;
+  }
+
   draw() {
     // Saves the context (this may be a costly method call so check if it is).
     this.Context.save();
