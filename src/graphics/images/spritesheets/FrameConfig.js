@@ -1,12 +1,23 @@
 import { isPowerOfTwo } from '../../../utils/MathUtils';
 
-class SpriteInfo {
-  constructor(x, y, width, height, frame) {
+/**
+ * Defines the configuration object for a Sprite
+ */
+class FrameConfig {
+  constructor(id, x, y, width, height) {
+    this.Id = id;
     this.X = x;
     this.Y = y;
     this.Width = width;
     this.Height = height;
-    this.Frame = frame;
+  }
+
+  get Id() {
+    return this.id;
+  }
+
+  set Id(value) {
+    this.id = value;
   }
 
   get X() {
@@ -46,12 +57,4 @@ class SpriteInfo {
     }
     this.height = value;
   }
-
-  get Frame() {
-    return this.frame;
-  }
-
-  set Frame(value) {
-    this.frame = value;
-  }
-} export default SpriteInfo;
+} export default FrameConfig;

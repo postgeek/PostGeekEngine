@@ -89,7 +89,9 @@ class QuadraticCurve extends Shape {
       this.EndPoint.X,
       this.EndPoint.Y,
     );
-    this.Context.stroke();
+    if (this.GeometryStyle.StrokeStyle !== undefined) {
+      this.Context.stroke();
+    }
     this.Context.closePath();
   }
 }

@@ -7,7 +7,7 @@ class Circle extends Shape {
   /**
   * Constructs a new Circle object.
   *
-  * @param {CanvasRenderingContext2D} context the canvas' context.
+  * @param {Scene} parent the scene to add the circle to.
   * @param {Point} point the starting point of the circle.
   * @param {number} radius the radius of the circle.
   */

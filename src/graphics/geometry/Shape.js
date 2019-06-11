@@ -1,3 +1,4 @@
+import GeometryStyle from './GeometryStyle';
 import GraphicObject from '../GraphicObject';
 import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
 
@@ -5,6 +6,15 @@ import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImple
  * Defines a shape that can be drawn on screen
  */
 class Shape extends GraphicObject {
+  constructor(context) {
+    super(context);
+    this.GeometryStyle = new GeometryStyle({
+      lineWidth: 1,
+      fillStyle: 'white',
+      strokeStyle: 'black',
+    });
+  }
+
   /**
    * Get the shape's styling when drawn to the screen.
    *

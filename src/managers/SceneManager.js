@@ -1,10 +1,10 @@
 class SceneManager {
-  constructor(){
+  constructor() {
     this.scenes = [];
     this.runningScene = null;
   }
 
-  addScene({key, scene}) {
+  addScene({ key, scene }) {
     this.scenes[key] = scene;
   }
 
@@ -14,7 +14,8 @@ class SceneManager {
 
   startScene(key, game) {
     const scene = this.getScene(key);
-    this.runningScene = new (scene)(game)
+    this.runningScene = new (scene)(game);
+    this.runningScene.IsActive = true;
   }
 
   get RunningScene() {
