@@ -1,5 +1,8 @@
 import Gradient from './Gradient';
 
+/**
+ * Defines a radial gradient
+ */
 class RadialGradient extends Gradient {
   /**
   * Constructor for the RadialGradient class
@@ -13,20 +16,105 @@ class RadialGradient extends Gradient {
   */
   constructor(context, startCirclePoint, startCircleRadius, endCirclePoint, endCircleRadius) {
     super(context);
-    this.Point1 = startCirclePoint;
-    this.r0 = startCircleRadius;
-    this.Point2 = endCirclePoint;
-    this.r1 = endCircleRadius;
+    this.StartCirclePoint = startCirclePoint;
+    this.StartCircleRadius = startCircleRadius;
+    this.EndCirclePoint = endCirclePoint;
+    this.EndCircleRadius = endCircleRadius;
   }
 
-  BuildGradient() {
+  /**
+   * Gets the gradient's starting circle point
+   *
+   * @return {Point} the gradient's starting circle point
+   */
+  get StartCirclePoint() {
+    return this.startCirclePoint;
+  }
+
+  /**
+   * Specifies the gradient's starting circle point
+   *
+   * @param  {Point} value the gradient's new starting circle point
+   * @return {undefined}
+   */
+  set StartCirclePoint(value) {
+    /** @private */
+    this.startCirclePoint = value;
+  }
+
+  /**
+   * Gets the start circle's radius
+   *
+   * @return {float} the start circle's radius
+   */
+  get StartCircleRadius() {
+    return this.startCircleRadius;
+  }
+
+  /**
+   * Specifies the start circle's radius
+   *
+   * @param  {float} value the start circle's radius
+   * @return {undefined}
+   */
+  set StartCircleRadius(value) {
+    /** @private */
+    this.startCircleRadius = value;
+  }
+
+  /**
+   * Gets the gradient's ending circle point
+   *
+   * @return {Point} the gradient's ending circle point
+   */
+  get EndCirclePoint() {
+    return this.endCirclePoint;
+  }
+
+  /**
+   * Specifies the gradient's ending circle point
+   *
+   * @param  {Point} value the gradient's new ending circle point
+   * @return {undefined}
+   */
+  set EndCirclePoint(value) {
+    /** @private */
+    this.endCirclePoint = value;
+  }
+
+  /**
+   * Gets the end circle's radius
+   *
+   * @return {float} the end circle's radius
+   */
+  get EndCircleRadius() {
+    return this.endCircleRadius;
+  }
+
+  /**
+   * Specifies the end circle's radius
+   *
+   * @param  {float} value the end circle's new radius
+   * @return {undefined}
+   */
+  set EndCircleRadius(value) {
+    /** @private */
+    this.endCircleRadius = value;
+  }
+
+  /**
+   * Builds the radial gradient
+   *
+   * @return {CanvasGradient} The created canvas graident
+   */
+  buildGradient() {
     const gradient = this.context.createRadialGradient(
-      this.Point1.X,
-      this.Point1.Y,
-      this.r0,
-      this.Point2.X,
-      this.Point2.Y,
-      this.r1,
+      this.StartCirclePoint.X,
+      this.StartCirclePoint.Y,
+      this.StartCircleRadius,
+      this.EndCirclePoint.X,
+      this.EndCirclePoint.Y,
+      this.EndCircleRadius,
     );
     for (let i = 0; i < this.colors.length; i += 1) {
       const offSet = this.colors[i].Offset;

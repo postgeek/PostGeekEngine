@@ -3,7 +3,7 @@ import Point from 'physics/Point';
 import Rectangle from 'graphics/geometry/Rectangle';
 import Transform from 'graphics/context/Transform';
 import QuadraticCurve from 'graphics/geometry/QuadraticCurve';
-import DefaultColours from 'graphics/colors/DefaultColours';
+import DefaultColors from 'graphics/colors/DefaultColors';
 import Color from 'graphics/colors/Color';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
 import GraphicsJSONLoader from 'graphics/GraphicsJSONLoader';
@@ -31,12 +31,12 @@ export default class ShapeDemoScene extends Scene {
 
     this.circles = [];
     let circleStyle;
-    for (let i = 0; i < DefaultColours.length - 1; i += 1) {
+    for (let i = 0; i < DefaultColors.length - 1; i += 1) {
       const circle = new Rectangle(this.Game.context, new Point(i * 8, 0), 8, 400);
       circleStyle = new GeometryStyle({
         lineWidth: 1,
-        fillStyle: DefaultColours[i].Name,
-        strokeStyle: DefaultColours[i].Name,
+        fillStyle: DefaultColors[i].Name,
+        strokeStyle: DefaultColors[i].Name,
       });
       circle.GeometryStyle = circleStyle;
       this.circles.push(circle);

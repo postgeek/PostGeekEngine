@@ -9,6 +9,7 @@ class PathBuilder {
   * @param {CanvasRenderingContext2D} context the canvas context.
   */
   constructor() {
+    /** @private */
     this.path = new Path2D();
   }
 

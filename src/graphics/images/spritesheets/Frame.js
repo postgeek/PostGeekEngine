@@ -24,7 +24,7 @@ class Frame {
   }
 
   /**
-   * Gets the sprite configuration object
+   * Gets the frame configuration object
    *
    * @return {FrameConfig} the spritesheet's configuration object
    */

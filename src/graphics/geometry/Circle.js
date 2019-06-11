@@ -94,7 +94,7 @@ class Circle extends Shape {
   /**
   * Draws the Circle to the current context.
   */
-  internalDraw() {
+  draw() {
     this.Context.beginPath();
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
     if (this.GeometryStyle.FillStyle !== undefined) {
