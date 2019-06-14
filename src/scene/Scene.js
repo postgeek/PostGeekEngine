@@ -31,7 +31,7 @@ class Scene {
    * Gets the drawing context associated with the scene.
    */
   get Context() {
-    return this.game.context;
+    return this.game.renderingContext.Context;
   }
 
   /**

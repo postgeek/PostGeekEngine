@@ -15,10 +15,12 @@ class PostGeekDebugger extends Middleware {
     this.debugTextStyle = new TextStyle({
       strokeStyle: 'orange',
       fillStyle: 'red',
-      lineWidth: 4,
-      font: '28px serif',
+      lineWidth: 1,
+      font: '48px serif',
     });
-    this.Text = new Text(this.middlewareManager.Game.context, new Point(20, 50), 'Debug mode enabled');
+    var context = this.middlewareManager.Game.renderingContext.Context;
+    this.Text = new Text(context, new Point(20, 50), 'Debug mode enabled');
+    this.Text.TextStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
     this.ActiveScene = this.middlewareManager.Game.sceneManager.runningScene;
@@ -30,9 +32,6 @@ class PostGeekDebugger extends Middleware {
 
   draw() {
     this.Text.draw();
-    for (let i = 0; i < this.ActiveScene.DrawableObjects.length; i += 1) {
-      this.drawDebug(this.ActiveScene.DrawableObjects[i]);
-    }
   }
 
   drawDebug(graphicObject) {

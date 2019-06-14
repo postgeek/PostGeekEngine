@@ -9,8 +9,8 @@ class Text extends GraphicObject {
     this.TextStyle = new TextStyle({
       fillStyle: 'darkblue',
       strokeStyle: 'lightblue',
-      lineWidth: 4,
-      font: '24px serif',
+      lineWidth: 2,
+      font: '88px serif',
     });
   }
 
@@ -83,10 +83,10 @@ class Text extends GraphicObject {
     // Saves the context (this may be a costly method call so check if it is).
     this.Context.save();
     this.Context = this.TextStyle.apply(this.Context);
-    if (this.GeometryStyle.FillStyle !== undefined) {
+    if (this.TextStyle.FillStyle !== undefined) {
       this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
     }
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
+    if (this.TextStyle.StrokeStyle !== undefined) {
       this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
     }
     // Restores the previously saved context.
