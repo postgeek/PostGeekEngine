@@ -74,7 +74,7 @@ class Rectangle extends Shape {
   /**
   * Draws the rectangle to the current context.
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
     if (this.GeometryStyle.FillStyle !== undefined) {

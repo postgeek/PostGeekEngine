@@ -8,45 +8,61 @@ import Color from 'graphics/colors/Color';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
 import TextStyle from 'graphics/text/TextStyle';
 import Text from 'graphics/text/Text';
-import TextArea from 'graphics/text/TextArea';
+import TextArea from 'graphics/ui/TextArea';
 
 export default class DesignSystemScene extends Scene {
   create() {
+    this.components = [];
+
     const fillStyle = Color.MIDNIGHTBLUE.RGBAColor;
     const strokeStyle = Color.WHITE.RGBAColor;
+    const font = 'Rockwell';
 
-    this.heading1 = new Text(this.Game.context, new Point(100, 100), 'Hello World!');
-    this.heading2 = new Text(this.Game.context, new Point(100, 160), 'Hello World!');
-    this.heading3 = new Text(this.Game.context, new Point(100, 220), 'Hello World!');
-    this.heading4 = new Text(this.Game.context, new Point(100, 280), 'Hello World!');
-    this.heading5 = new Text(this.Game.context, new Point(100, 340), 'Hello World!');
+    const heading1Font = `52px ${font}`;
+    const heading2Font = `48px ${font}`;
+    const heading3Font = `44px ${font}`;
+    const heading4Font = `40px ${font}`;
+    const heading5Font = `36px ${font}`;
 
-    this.paragraph1 = new Text(this.Game.context, new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
-    this.paragraph2 = new Text(this.Game.context, new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraphFont = `14px ${font}`;
 
-    this.textArea = new TextArea(this.Game.context, new Point(500, 200), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.', 200, 200);
+    const heading1 = new Text(this.Game.context, new Point(100, 100), 'Heading 1');
+    const heading2 = new Text(this.Game.context, new Point(100, 160), 'Heading 2');
+    const heading3 = new Text(this.Game.context, new Point(100, 220), 'Heading 3');
+    const heading4 = new Text(this.Game.context, new Point(100, 280), 'Heading 4');
+    const heading5 = new Text(this.Game.context, new Point(100, 340), 'Heading 5');
 
-    const heading1Font = '52px Rockwell';
-    const heading2Font = '48px Rockwell';
-    const heading3Font = '44px Rockwell';
-    const heading4Font = '40px Rockwell';
-    const heading5Font = '36px Rockwell';
+    const paragraph1 = new Text(this.Game.context, new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraph2 = new Text(this.Game.context, new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
-    const paragraphFont = '14px Rockwell';
+    const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
+    const textArea = new TextArea(this.Game.context, new Point(500, 200),
+      'Lorem ipsum dolor sit amet, elit rutrum fusce pulvinar, lorem fermentum pellentesque mauris. Risus commodo tristique per quis, hendrerit a morbi. Nunc quis. Condimentum amet quisque ligula, consectetuer sodales placerat cras etiam egestas ultrices. Ligula lobortis non non varius, sociosqu viverra vel in aliquet phasellus tortor, lacus tincidunt molestie consectetuer vitae ullamcorper sit.',
+      300, 200, textAreaStyle);
 
-    this.heading1.TextStyle = DesignSystemScene.createTextStyle(heading1Font, 4, fillStyle, strokeStyle);
-    this.heading2.TextStyle = DesignSystemScene.createTextStyle(heading2Font, 4, fillStyle, strokeStyle);
-    this.heading3.TextStyle = DesignSystemScene.createTextStyle(heading3Font, 4, fillStyle, strokeStyle);
-    this.heading4.TextStyle = DesignSystemScene.createTextStyle(heading4Font, 4, fillStyle, strokeStyle);
-    this.heading5.TextStyle = DesignSystemScene.createTextStyle(heading5Font, 4, fillStyle, strokeStyle);
+    heading1.TextStyle = DesignSystemScene.createTextStyle(heading1Font, 4, fillStyle, strokeStyle);
+    heading2.TextStyle = DesignSystemScene.createTextStyle(heading2Font, 4, fillStyle, strokeStyle);
+    heading3.TextStyle = DesignSystemScene.createTextStyle(heading3Font, 4, fillStyle, strokeStyle);
+    heading4.TextStyle = DesignSystemScene.createTextStyle(heading4Font, 4, fillStyle, strokeStyle);
+    heading5.TextStyle = DesignSystemScene.createTextStyle(heading5Font, 4, fillStyle, strokeStyle);
 
-    this.paragraph1.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    this.paragraph2.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
+    paragraph1.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
+    paragraph2.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
 
-    this.textArea.Text.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    this.textArea.Border.GeometryStyle = DesignSystemScene.createGeometryStyle(3, strokeStyle);
+    textArea.Border.GeometryStyle = DesignSystemScene.createGeometryStyle(3, strokeStyle);
 
-    console.log(this.paragraph1.determineFontHeight());
+    this.addComponentToSystem(heading1);
+    this.addComponentToSystem(heading2);
+    this.addComponentToSystem(heading3);
+    this.addComponentToSystem(heading4);
+    this.addComponentToSystem(heading5);
+    this.addComponentToSystem(paragraph1);
+    this.addComponentToSystem(paragraph2);
+    this.addComponentToSystem(textArea);
+  }
+
+  addComponentToSystem(drawableObject) {
+    this.components.push(drawableObject);
   }
 
   static createTextStyle(font, lineWidth, fillStyle, strokeStyle) {
@@ -69,15 +85,8 @@ export default class DesignSystemScene extends Scene {
   }
 
   draw() {
-    this.heading1.draw();
-    this.heading2.draw();
-    this.heading3.draw();
-    this.heading4.draw();
-    this.heading5.draw();
-
-    this.paragraph1.draw();
-    this.paragraph2.draw();
-
-    this.textArea.draw();
+    for (let i = 0; i < this.components.length; i += 1) {
+      this.components[i].draw();
+    }
   }
 }

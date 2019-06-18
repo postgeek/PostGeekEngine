@@ -39,7 +39,7 @@ class Shape extends GraphicObject {
    * The shapes internal draw method all classes that extend this must override this method.
    * @throws {MethodNotImplementedError} throws the method not implimented if not overriden
    */
-  draw() {
+  internalDraw() {
     throw new MethodNotImplementedError(this);
   }
 
@@ -54,9 +54,9 @@ class Shape extends GraphicObject {
   /**
    * Ensures that the necessary methods are called in the right order
    */
-  internalDraw() {
+  draw() {
     this.preDraw();
-    this.draw();
+    this.internalDraw();
     this.postDraw();
   }
 

@@ -5,8 +5,9 @@ import { BaseClassConstructedErrorText } from '../ErrorTexts';
 * Should be thrown in every base class that shouldn't be constructed directly
 */
 class BaseClassConstructedError extends Error {
-  constructor() {
+  constructor(caller) {
     super(BaseClassConstructedErrorText);
+    this.caller = caller;
   }
 }
 export default BaseClassConstructedError;

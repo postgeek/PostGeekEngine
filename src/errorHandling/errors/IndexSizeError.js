@@ -5,8 +5,9 @@ import { IndexSizeErrorText } from '../ErrorTexts';
 * Should be thrown whenever an invalid index size is attempted to be set
 */
 class IndexSizeError extends Error {
-  constructor() {
+  constructor(caller) {
     super(IndexSizeErrorText);
+    this.caller = caller;
   }
 }
 export default IndexSizeError;

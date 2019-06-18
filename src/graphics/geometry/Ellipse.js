@@ -143,7 +143,7 @@ class Ellipse extends Shape {
   * Draws the ellipse to the current context.
   * @return {undefined}
   */
-  draw() {
+  internalDraw() {
     this.Context.beginPath();
     this.Context.ellipse(
       this.Point.X,

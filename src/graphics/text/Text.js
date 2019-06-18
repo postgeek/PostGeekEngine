@@ -69,9 +69,18 @@ class Text extends GraphicObject {
   * @param {TextMetrics} textMetrics the textMetrics for the current text.
   */
   measureText() {
-    return this.Context.measureText(this.Text);
+    this.Context.save();
+    this.Context = this.TextStyle.apply(this.Context);
+    const textMetrics = this.Context.measureText(this.Text);
+    this.Context.restore();
+    return textMetrics;
   }
 
+  /**
+   * Determines the approximate font height of the text
+   * @link //TODO link to the stackoverflow
+   * @return {Number} The height of the text.
+   */
   determineFontHeight() {
     const body = document.getElementsByTagName('body')[0];
     const dummy = document.createElement('div');
@@ -87,9 +96,11 @@ class Text extends GraphicObject {
   draw() {
     // Saves the context (this may be a costly method call so check if it is).
     this.Context.save();
+
     this.Context = this.TextStyle.apply(this.Context);
     this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
     this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+
     // Restores the previously saved context.
     this.Context.restore();
   }
