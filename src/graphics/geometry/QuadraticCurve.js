@@ -81,7 +81,6 @@ class QuadraticCurve extends Shape {
   * @return {undefined}
   */
   draw() {
-    this.Context.beginPath();
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.quadraticCurveTo(
       this.ControlPoint.X,
@@ -89,10 +88,6 @@ class QuadraticCurve extends Shape {
       this.EndPoint.X,
       this.EndPoint.Y,
     );
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
-    }
-    this.Context.closePath();
   }
 }
 export default QuadraticCurve;

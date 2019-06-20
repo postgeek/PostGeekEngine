@@ -144,7 +144,6 @@ class Ellipse extends Shape {
   * @return {undefined}
   */
   draw() {
-    this.Context.beginPath();
     this.Context.ellipse(
       this.Point.X,
       this.Point.Y,
@@ -154,13 +153,6 @@ class Ellipse extends Shape {
       0,
       2 * Math.PI,
     );
-    if (this.GeometryStyle.FillStyle !== undefined) {
-      this.Context.fill();
-    }
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
-    }
-    this.Context.closePath();
   }
 }
 export default Ellipse;

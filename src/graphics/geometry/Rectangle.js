@@ -122,15 +122,7 @@ class Rectangle extends Shape {
   * @return {undefined}
   */
   draw() {
-    this.Context.beginPath();
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
-    if (this.GeometryStyle.FillStyle !== undefined) {
-      this.Context.fill();
-    }
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
-    }
-    this.Context.closePath();
   }
 }
 export default Rectangle;

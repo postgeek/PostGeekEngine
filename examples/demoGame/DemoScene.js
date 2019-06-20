@@ -4,9 +4,6 @@ import Rectangle from 'graphics/geometry/Rectangle';
 import Circle from 'graphics/geometry/Circle';
 import GeometryStyle from 'graphics/geometry/GeometryStyle';
 import Text from 'graphics/text/Text';
-import SpriteSheet from 'graphics/images/spritesheets/SpriteSheet';
-import SpriteSheetConfig from 'graphics/images/spritesheets/SpriteSheetConfig';
-import AssetCache from 'managers/AssetCache';
 
 export default class DemoScene extends Scene {
   create() {
@@ -14,7 +11,7 @@ export default class DemoScene extends Scene {
     this.circle = new Circle(this.Context, new Point(100, 100), 20);
     this.text = new Text(this.Context, new Point(200, 150), 'Hello World!');
 
-    var circleStyle = new GeometryStyle({
+    const circleStyle = new GeometryStyle({
       lineWidth: 4,
       fillStyle: 'white',
       strokeStyle: 'red',
@@ -23,7 +20,7 @@ export default class DemoScene extends Scene {
     this.rectangle.GeometryStyle = circleStyle;
     this.circle.GeometryStyle = circleStyle;
   }
-  
+
   draw() {
     this.rectangle.internalDraw();
     this.circle.internalDraw();

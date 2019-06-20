@@ -105,7 +105,6 @@ class BezierCurve extends Shape {
   * Draws the bezier curve to the context.
   */
   draw() {
-    this.Context.beginPath();
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.bezierCurveTo(
       this.ControlPoint1.X,
@@ -115,10 +114,6 @@ class BezierCurve extends Shape {
       this.EndPoint.X,
       this.EndPoint.Y,
     );
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
-    }
-    this.Context.closePath();
   }
 }
 export default BezierCurve;

@@ -49,6 +49,7 @@ class Shape extends GraphicObject {
   preDraw() {
     this.Context.save();
     this.Context = this.GeometryStyle.apply(this.Context);
+    this.Context.beginPath();
   }
 
   /**
@@ -61,9 +62,17 @@ class Shape extends GraphicObject {
   }
 
   /**
+   * Fills the shape on the screen.
    * Restores the previously saved context.
    */
   postDraw() {
+    if (this.GeometryStyle.FillStyle !== undefined) {
+      this.Context.fill();
+    }
+    if (this.GeometryStyle.StrokeStyle !== undefined) {
+      this.Context.stroke();
+    }
+    this.Context.closePath();
     this.Context.restore();
   }
 }
