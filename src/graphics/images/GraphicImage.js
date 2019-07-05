@@ -10,7 +10,6 @@ class GraphicImage extends GraphicObject {
    *
    * @param  {CanvasRenderingContext2D} context the canvas' rendering context
    * @param  {Image} image  The image associated to the GraphicImage
->>>>>>> develop
    */
   constructor(context, image) {
     super(context);

@@ -3,7 +3,7 @@ import Tile from './Tile';
 
 class Tileset extends SpriteSheet {
   constructor(map, config, image) {
-    super(map.Game.context, image, { width: config.width, height: config.height });
+    super(map.Game.renderingContext.Context, image, { width: config.width, height: config.height });
 
     this.Map = map;
     this.ColumnCount = config.columnCount;
