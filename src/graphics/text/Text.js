@@ -1,10 +1,17 @@
 import GraphicObject from '../GraphicObject';
+import TextStyle from './TextStyle';
 
 class Text extends GraphicObject {
   constructor(context, point, text) {
     super(context);
     this.Point = point;
     this.Text = text;
+    this.TextStyle = new TextStyle({
+      fillStyle: 'darkblue',
+      strokeStyle: 'lightblue',
+      lineWidth: 2,
+      font: '88px serif',
+    });
   }
 
   /**
@@ -76,8 +83,12 @@ class Text extends GraphicObject {
     // Saves the context (this may be a costly method call so check if it is).
     this.Context.save();
     this.Context = this.TextStyle.apply(this.Context);
-    this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
-    this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+    if (this.TextStyle.FillStyle !== undefined) {
+      this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+    }
+    if (this.TextStyle.StrokeStyle !== undefined) {
+      this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
+    }
     // Restores the previously saved context.
     this.Context.restore();
   }

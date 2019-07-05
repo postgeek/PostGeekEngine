@@ -80,16 +80,34 @@ class Mouse {
   }
 
   /**
+   * Gets the horizontal position of the mouse on the canvas
+   *
+   * @return {float} The mouse's horizontal position
+   */
+  get X() {
+    return this.dx;
+  }
+
+  /**
+   * Gets the vertical position of the mouse on the canvas
+   *
+   * @return {float} The mouse's vertical position
+   */
+  get Y() {
+    return this.dy;
+  }
+
+  /**
    * Checks if the mouse button is down for the first time.
    */
-  mouseButtonDownOnce() {
+  buttonDownOnce() {
     return this.mouseState === this.mouseStates.ONCE;
   }
 
   /**
    * Checks if the mouse button is down.
    */
-  mouseButtonPressed() {
+  buttonPressed() {
     return this.mouseState === this.mouseStates.ONCE
     || this.mouseState === this.mouseStates.PRESSED;
   }
