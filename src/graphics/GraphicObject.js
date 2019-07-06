@@ -1,3 +1,4 @@
+import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
 /**
  * Defines a graphic object that is drawn to the screen
  */
@@ -27,6 +28,38 @@ class GraphicObject {
   set Context(value) {
     /** @private */
     this.context = value;
+  }
+
+  /**
+   * The shapes internal draw method all classes that extend this must override this method.
+   * @throws {MethodNotImplementedError} throws the method not implimented if not overriden
+   */
+  internalDraw() {
+    throw new MethodNotImplementedError(this);
+  }
+
+  /**
+   * Saves the current context to the stack and applies the new styling.
+   */
+  preDraw() {
+    this.Context.save();
+  }
+
+  /**
+   * Fills the shape on the screen.
+   * Restores the previously saved context.
+   */
+  postDraw() {
+    this.Context.restore();
+  }
+
+  /**
+   * Ensures that the necessary methods are called in the right order
+   */
+  draw() {
+    this.preDraw();
+    this.internalDraw();
+    this.postDraw();
   }
 }
 export default GraphicObject;

@@ -1,4 +1,4 @@
-import ColorStop from '../ColorStop';
+import ColorStop from './ColorStop';
 import BaseClassConstructedError from '../../../errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../../errorHandling/errors/MethodNotImplementedError';
 

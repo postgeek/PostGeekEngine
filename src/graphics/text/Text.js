@@ -79,9 +79,7 @@ class Text extends GraphicObject {
     return this.Context.measureText(this.Text);
   }
 
-  draw() {
-    // Saves the context (this may be a costly method call so check if it is).
-    this.Context.save();
+  internalDraw() {
     this.Context = this.TextStyle.apply(this.Context);
     if (this.TextStyle.FillStyle !== undefined) {
       this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
@@ -89,8 +87,6 @@ class Text extends GraphicObject {
     if (this.TextStyle.StrokeStyle !== undefined) {
       this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
     }
-    // Restores the previously saved context.
-    this.Context.restore();
   }
 }
 export default Text;

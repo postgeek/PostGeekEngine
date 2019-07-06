@@ -121,7 +121,7 @@ class Rectangle extends Shape {
   * Draws the rectangle to the current context.
   * @return {undefined}
   */
-  draw() {
+  internalDraw() {
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
   }
 }

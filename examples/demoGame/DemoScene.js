@@ -22,8 +22,8 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
-    this.rectangle.internalDraw();
-    this.circle.internalDraw();
+    this.rectangle.draw();
+    this.circle.draw();
     this.text.draw();
   }
 

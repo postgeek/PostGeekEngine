@@ -39,7 +39,7 @@ class Shape extends GraphicObject {
    * The shapes internal draw method all classes that extend this must override this method.
    * @throws {MethodNotImplementedError} throws the method not implimented if not overriden
    */
-  draw() {
+  internalDraw() {
     throw new MethodNotImplementedError(this);
   }
 
@@ -47,18 +47,9 @@ class Shape extends GraphicObject {
    * Saves the current context to the stack and applies the new styling.
    */
   preDraw() {
-    this.Context.save();
+    super.preDraw();
     this.Context = this.GeometryStyle.apply(this.Context);
     this.Context.beginPath();
-  }
-
-  /**
-   * Ensures that the necessary methods are called in the right order
-   */
-  internalDraw() {
-    this.preDraw();
-    this.draw();
-    this.postDraw();
   }
 
   /**
@@ -73,7 +64,7 @@ class Shape extends GraphicObject {
       this.Context.stroke();
     }
     this.Context.closePath();
-    this.Context.restore();
+    super.postDraw();
   }
 }
 export default Shape;

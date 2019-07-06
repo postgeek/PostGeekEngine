@@ -104,7 +104,7 @@ class BezierCurve extends Shape {
   /**
   * Draws the bezier curve to the context.
   */
-  draw() {
+  internalDraw() {
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.bezierCurveTo(
       this.ControlPoint1.X,

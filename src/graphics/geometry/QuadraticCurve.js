@@ -80,7 +80,7 @@ class QuadraticCurve extends Shape {
   * draws the quadratic curve to the context.
   * @return {undefined}
   */
-  draw() {
+  internalDraw() {
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.quadraticCurveTo(
       this.ControlPoint.X,
