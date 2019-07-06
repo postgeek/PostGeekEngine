@@ -1,5 +1,5 @@
 import HSLColor from './HSLColor';
-import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 
 /**
  * Defines color class that contains hue, saturation, lightness, alpha levels

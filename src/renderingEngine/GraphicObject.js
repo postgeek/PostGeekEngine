@@ -1,4 +1,4 @@
-import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
+import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
 /**
  * Defines a graphic object that is drawn to the screen
  */

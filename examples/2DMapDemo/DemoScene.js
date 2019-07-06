@@ -1,6 +1,6 @@
 import Scene from 'scene/Scene';
-import Point from 'physics/Point';
-import AssetCache from 'managers/AssetCache';
+import Point from 'physicsEngine/Point';
+import AssetCache from 'core/managers/AssetCache';
 import FromTiledJsonToMap2DConfig from 'maps/converters/FromTiledJsonToMap2DConfig';
 import Map2D from 'maps/Map2D';
 
@@ -20,7 +20,7 @@ export default class DemoScene extends Scene {
       this.Map = new Map2D(this.Game, map2DConfig);
       this.Map.load().then(() => {
         this.mapLoaded = true;
-      })
+      });
     });
   }
 
@@ -28,7 +28,7 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
-    if(this.mapLoaded) {
+    if (this.mapLoaded) {
       this.Map.draw();
     }
   }

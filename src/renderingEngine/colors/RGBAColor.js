@@ -1,5 +1,5 @@
 import RGBColor from './RGBColor';
-import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 
 /**
  * Defines color class that contains red, blue, green, alpha levels

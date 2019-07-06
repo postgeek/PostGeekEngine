@@ -1,9 +1,9 @@
-import InvalidStateOperationError from './errorHandling/errors/InvalidStateOperationError';
-import Mouse from './input/Mouse';
-import Keyboard from './input/Keyboard';
-import SceneManager from './managers/SceneManager';
-import MiddlewareManager from './managers/MiddlewareManager';
-import RenderingContext2D from './graphics/context/RenderingContext2D';
+import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
+import Mouse from './inputEngine/Mouse';
+import Keyboard from './inputEngine/Keyboard';
+import SceneManager from './core/managers/SceneManager';
+import MiddlewareManager from './core/managers/MiddlewareManager';
+import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
 
 let game = null;
 

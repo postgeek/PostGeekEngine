@@ -1,14 +1,14 @@
 import Scene from 'scene/Scene';
-import Point from 'physics/Point';
-import Rectangle from 'graphics/geometry/Rectangle';
-import Transform from 'graphics/context/Transform';
-import QuadraticCurve from 'graphics/geometry/QuadraticCurve';
-import DefaultColors from 'graphics/colors/DefaultColors';
-import Color from 'graphics/colors/Color';
-import GeometryStyle from 'graphics/geometry/GeometryStyle';
-import GraphicsJSONLoader from 'graphics/GraphicsJSONLoader';
-import AssetCache from 'managers/AssetCache';
-import { AssetType } from 'managers/Asset';
+import Point from 'physicsEngine/Point';
+import Rectangle from 'renderingEngine/geometry/Rectangle';
+import Transform from 'renderingEngine/context/Transform';
+import QuadraticCurve from 'renderingEngine/geometry/QuadraticCurve';
+import DefaultColors from 'renderingEngine/colors/DefaultColors';
+import Color from 'renderingEngine/colors/Color';
+import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
+import GraphicsJSONLoader from 'renderingEngine/GraphicsJSONLoader';
+import AssetCache from 'core/managers/AssetCache';
+import { AssetType } from 'core/managers/Asset';
 
 export default class ShapeDemoScene extends Scene {
   create() {
@@ -88,7 +88,7 @@ export default class ShapeDemoScene extends Scene {
     this.Transform.End();
     */
 
-    this.Game.context.drawImage(this.image, 0, Math.floor(this.anim) * 48, 48, 48, 50, 50, 48, 48);
+    // this.Game.context.drawImage(this.image, 0, Math.floor(this.anim) * 48, 48, 48, 50, 50, 48, 48);
 
     this.testRectangle.draw();
     this.testText.draw();

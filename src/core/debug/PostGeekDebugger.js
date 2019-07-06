@@ -1,9 +1,9 @@
 import Middleware from './Middleware';
-import Text from '../renderingEngine/text/Text';
-import Rectangle from '../renderingEngine/geometry/Rectangle';
-import GeometryStyle from '../renderingEngine/geometry/GeometryStyle';
-import TextStyle from '../renderingEngine/text/TextStyle';
-import Point from '../physicsEngine/Point';
+import Text from '../../renderingEngine/text/Text';
+import Rectangle from '../../renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
+import TextStyle from '../../renderingEngine/text/TextStyle';
+import Point from '../../physicsEngine/Point';
 
 class PostGeekDebugger extends Middleware {
   init(middlewareManager) {

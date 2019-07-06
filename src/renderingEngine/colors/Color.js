@@ -1,4 +1,4 @@
-import InvalidArguementError from '../../errorHandling/errors/InvalidArguementError';
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 

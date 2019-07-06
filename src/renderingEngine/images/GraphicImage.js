@@ -1,4 +1,4 @@
-import UndefinedError from '../../errorHandling/errors/UndefinedError';
+import UndefinedError from '../../core/errorHandling/errors/UndefinedError';
 import GraphicObject from '../GraphicObject';
 
 /**

@@ -1,7 +1,7 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
-import PostGeekDebugger from '../src/debug/PostGeekDebugger';
+import PostGeekDebugger from '../src/core/debug/PostGeekDebugger';
 
 Window.Main = class Main {
   static start2DMapDemo() {
@@ -21,4 +21,4 @@ Window.Main = class Main {
       initialScene: { key: 'shapeDemoScene', scene: ShapeDemoScene },
     });
   }
-}
+};

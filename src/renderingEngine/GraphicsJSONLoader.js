@@ -13,7 +13,7 @@ import HSLColor from './colors/HSLColor';
 import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
-import Point from '../physics/Point';
+import Point from '../physicsEngine/Point';
 
 /**
  * The graphic objects JSON loader

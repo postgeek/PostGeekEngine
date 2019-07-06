@@ -1,6 +1,6 @@
 import GeometryStyle from './GeometryStyle';
 import GraphicObject from '../GraphicObject';
-import MethodNotImplementedError from '../../errorHandling/errors/MethodNotImplementedError';
+import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
 
 /**
  * Defines a shape that can be drawn on screen

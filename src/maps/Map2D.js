@@ -1,6 +1,6 @@
 import Layer from "./Layer";
 import Tileset from "./Tileset";
-import AssetCache from "../managers/AssetCache";
+import AssetCache from "../core/managers/AssetCache";
 
 class Map2D {
   constructor(game, config) {

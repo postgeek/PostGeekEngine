@@ -1,4 +1,4 @@
-import InvalidArguementError from '../../errorHandling/errors/IndexSizeError';
+import InvalidArguementError from '../../core/errorHandling/errors/IndexSizeError';
 import DrawingStyle from '../DrawingStyle';
 
 /**

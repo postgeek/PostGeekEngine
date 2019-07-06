@@ -1,4 +1,4 @@
-import SpriteSheet from '../graphics/images/spritesheets/SpriteSheet';
+import SpriteSheet from '../renderingEngine/images/spritesheets/SpriteSheet';
 import Tile from './Tile';
 
 class Tileset extends SpriteSheet {
@@ -13,7 +13,7 @@ class Tileset extends SpriteSheet {
     this.ImageWidth = config.imageWidth;
     this.Name = config.name;
     this.TileCount = config.tileCount;
-    this.TileHeight = config.tileHeight; 
+    this.TileHeight = config.tileHeight;
     this.TileWidth = config.tileWidth;
 
     this.Tiles = this.createTiles(this.TileCount, this.ColumnCount, this.FirstGid);
@@ -31,7 +31,7 @@ class Tileset extends SpriteSheet {
       const row = Math.floor(index / columnCount);
       const col = index % columnCount;
       const gid = firstGid + index;
-      tiles.push([gid, new Tile(this, {gid, row, col})]);
+      tiles.push([gid, new Tile(this, { gid, row, col })]);
     }
 
     return new Map(tiles);
