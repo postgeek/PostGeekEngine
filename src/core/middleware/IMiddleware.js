@@ -1,6 +1,6 @@
 import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
 
-class Middleware {
+class IMiddleware {
   init() {
     throw new MethodNotImplementedError(this);
   }
@@ -12,4 +12,4 @@ class Middleware {
   draw() {
     throw new MethodNotImplementedError(this);
   }
-} export default Middleware;
+} export default IMiddleware;

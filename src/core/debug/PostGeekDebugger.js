@@ -1,11 +1,11 @@
-import Middleware from './Middleware';
+import IMiddleware from '../middleware/IMiddleware';
 import Text from '../../renderingEngine/text/Text';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
 import Point from '../../physicsEngine/Point';
 
-class PostGeekDebugger extends Middleware {
+class PostGeekDebugger extends IMiddleware {
   init(middlewareManager) {
     this.middlewareManager = middlewareManager;
     this.debugGeometryStyle = new GeometryStyle({
