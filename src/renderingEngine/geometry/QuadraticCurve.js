@@ -81,10 +81,6 @@ class QuadraticCurve extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-<<<<<<< HEAD:src/graphics/geometry/QuadraticCurve.js
-    this.Context.beginPath();
-=======
->>>>>>> develop:src/renderingEngine/geometry/QuadraticCurve.js
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.quadraticCurveTo(
       this.ControlPoint.X,

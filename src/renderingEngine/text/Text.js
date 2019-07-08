@@ -100,18 +100,6 @@ class Text extends GraphicObject {
     return result;
   }
 
-<<<<<<< HEAD:src/graphics/text/Text.js
-  draw() {
-    // Saves the context (this may be a costly method call so check if it is).
-    this.Context.save();
-
-    this.Context = this.TextStyle.apply(this.Context);
-    this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
-    this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
-
-    // Restores the previously saved context.
-    this.Context.restore();
-=======
   internalDraw() {
     this.Context = this.TextStyle.apply(this.Context);
     if (this.TextStyle.FillStyle !== undefined) {
@@ -120,7 +108,6 @@ class Text extends GraphicObject {
     if (this.TextStyle.StrokeStyle !== undefined) {
       this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
     }
->>>>>>> develop:src/renderingEngine/text/Text.js
   }
 }
 export default Text;

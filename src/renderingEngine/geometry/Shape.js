@@ -8,11 +8,7 @@ import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNot
 class Shape extends GraphicObject {
   constructor(context) {
     super(context);
-<<<<<<< HEAD:src/graphics/geometry/Shape.js
-    this.geometryStyle = new GeometryStyle({
-=======
     this.GeometryStyle = new GeometryStyle({
->>>>>>> develop:src/renderingEngine/geometry/Shape.js
       lineWidth: 1,
       fillStyle: 'white',
       strokeStyle: 'black',

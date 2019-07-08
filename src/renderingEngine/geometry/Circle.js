@@ -95,10 +95,6 @@ class Circle extends Shape {
   * Draws the Circle to the current context.
   */
   internalDraw() {
-<<<<<<< HEAD:src/graphics/geometry/Circle.js
-    this.Context.beginPath();
-=======
->>>>>>> develop:src/renderingEngine/geometry/Circle.js
     this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
   }
 

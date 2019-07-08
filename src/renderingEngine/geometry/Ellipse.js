@@ -144,10 +144,6 @@ class Ellipse extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-<<<<<<< HEAD:src/graphics/geometry/Ellipse.js
-    this.Context.beginPath();
-=======
->>>>>>> develop:src/renderingEngine/geometry/Ellipse.js
     this.Context.ellipse(
       this.Point.X,
       this.Point.Y,

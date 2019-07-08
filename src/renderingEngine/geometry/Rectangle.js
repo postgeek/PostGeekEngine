@@ -75,19 +75,7 @@ class Rectangle extends Shape {
   * Draws the rectangle to the current context.
   */
   internalDraw() {
-<<<<<<< HEAD:src/graphics/geometry/Rectangle.js
-    this.Context.beginPath();
     this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
-    if (this.GeometryStyle.FillStyle !== undefined) {
-      this.Context.fill();
-    }
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
-    }
-    this.Context.closePath();
-=======
-    this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
->>>>>>> develop:src/renderingEngine/geometry/Rectangle.js
   }
 }
 export default Rectangle;
