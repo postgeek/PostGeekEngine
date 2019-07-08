@@ -53,7 +53,6 @@ class Shape extends GraphicObject {
   }
 
   /**
-<<<<<<< HEAD:src/graphics/geometry/Shape.js
    * Ensures that the necessary methods are called in the right order
    */
   draw() {
@@ -63,9 +62,7 @@ class Shape extends GraphicObject {
   }
 
   /**
-=======
    * Fills the shape on the screen.
->>>>>>> develop:src/renderingEngine/geometry/Shape.js
    * Restores the previously saved context.
    */
   postDraw() {

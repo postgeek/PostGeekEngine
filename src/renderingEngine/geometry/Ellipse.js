@@ -145,8 +145,8 @@ class Ellipse extends Shape {
   */
   internalDraw() {
     this.Context.ellipse(
-      this.Point.X,
-      this.Point.Y,
+      this.X,
+      this.Y,
       this.RadiusX,
       this.RadiusY,
       this.Rotation,

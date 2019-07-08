@@ -19,7 +19,7 @@ export default class ShapeDemoScene extends Scene {
     const bezierCurveJson = '{"startPoint":{"x":50,"y":200},"controlPoint1":{"x":800,"y":480},"controlPoint2":{"x":100,"y":150},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
     const quadraticCurveJson = '{"controlPoint":{"x":50,"y":200},"startPoint":{"x":800,"y":480},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
 
-    const graphicsJSONLoader = new GraphicsJSONLoader(this.Game.context);
+    const graphicsJSONLoader = new GraphicsJSONLoader(this.Game.renderingContext.context);
     this.testCircle = graphicsJSONLoader.CreateCircle(JSON.parse(circleJson));
     this.testRectangle = graphicsJSONLoader.CreateRectangle(JSON.parse(rectJson));
     this.testEllipse = graphicsJSONLoader.CreateEllipse(JSON.parse(ellipseJson));
@@ -27,7 +27,7 @@ export default class ShapeDemoScene extends Scene {
     this.testBezierCurve = graphicsJSONLoader.CreateBezierCurve(JSON.parse(bezierCurveJson));
     this.testQuadraticCurve = graphicsJSONLoader.CreateQuadraticCurve(JSON.parse(quadraticCurveJson));
 
-    this.Transform = new Transform(this.Game.context);
+    this.Transform = new Transform(this.Game.renderingContext.context);
 
     this.circles = [];
     let circleStyle;
@@ -61,12 +61,10 @@ export default class ShapeDemoScene extends Scene {
       console.log(this.image.height / 4);
       console.log(this.image.width / 4);
     };
+    console.log(this.testEllipse);
   }
 
   update() {
-    // this.text.Text = `${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`;
-    // console.log(`${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`);
-    // this.rectangle.Width += 1;
     if (this.scale >= this.maxScale || this.scale <= this.minScale) {
       this.scaleIncrement *= -1;
     }
@@ -80,26 +78,10 @@ export default class ShapeDemoScene extends Scene {
   }
 
   draw() {
-    /*
-    this.Transform.Begin();
-    this.Transform.Translate((1 - this.scale) * this.testCircle.X, (1 - this.scale) * this.testCircle.Y);
-    this.Transform.Scale(this.scale, this.scale);
-    this.testCircle.draw();
-    this.Transform.End();
-    */
-
-    // this.Game.context.drawImage(this.image, 0, Math.floor(this.anim) * 48, 48, 48, 50, 50, 48, 48);
-
     this.testRectangle.draw();
     this.testText.draw();
     this.testEllipse.draw();
     this.testBezierCurve.draw();
     this.testQuadraticCurve.draw();
-    // this.text.draw();
-    // this.circle.draw();
-    // for (let i = 0; i < this.circles.length - 1; i += 1) {
-    //  this.circles[i].draw();
-    // }
-    // this.ParticleEmitter.draw();
   }
 }
