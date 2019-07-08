@@ -1,7 +1,9 @@
-import InvalidStateOperationError from './errorHandling/errors/InvalidStateOperationError';
-import Mouse from './input/Mouse';
-import Keyboard from './input/Keyboard';
-import SceneManager from './managers/SceneManager';
+import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
+import Mouse from './inputEngine/Mouse';
+import Keyboard from './inputEngine/Keyboard';
+import SceneManager from './core/managers/SceneManager';
+import MiddlewareManager from './core/managers/MiddlewareManager';
+import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
 
 let game = null;
 
@@ -59,6 +61,7 @@ class Game {
 
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
+    this.middlewareManager = new MiddlewareManager(this);
   }
 
 
@@ -71,11 +74,13 @@ class Game {
       return;
     }
 
-    this.context = this.Canvas.getContext('2d');
-    if (!this.context) {
+    const context = this.Canvas.getContext('2d');
+    if (!context) {
       // console.log('error getting the canvas 2d context');
       return;
     }
+
+    this.renderingContext = new RenderingContext2D(context);
 
     this.Canvas.addEventListener('mousemove', this.Mouse, false);
     this.Canvas.addEventListener('mouseup', this.Mouse, false);
@@ -88,6 +93,12 @@ class Game {
 
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key, this);
+
+    if ('middleware' in this.config) {
+      for (const key in this.config.middleware) {
+        this.middlewareManager.addMiddleware(this.config.middleware[key]);
+      }
+    }
 
     this.animate();
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
@@ -127,6 +138,7 @@ class Game {
    */
   update() {
     this.sceneManager.runningScene.update();
+    this.middlewareManager.update();
   }
 
 
@@ -135,10 +147,11 @@ class Game {
    */
   draw() {
     // Draw Background
-    this.context.fillStyle = '#000000';
-    this.context.fillRect(0, 0, 1550, 750);
+    this.renderingContext.Context.fillStyle = '#000000';
+    this.renderingContext.Context.fillRect(0, 0, 1550, 750);
 
     this.sceneManager.runningScene.draw();
+    this.middlewareManager.draw();
   }
 
 

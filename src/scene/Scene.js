@@ -1,5 +1,5 @@
-import BaseClassConstructedError from '../errorHandling/errors/BaseClassConstructedError';
-import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
+import BaseClassConstructedError from '../core/errorHandling/errors/BaseClassConstructedError';
+import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
 
 class Scene {
   /**
@@ -9,6 +9,7 @@ class Scene {
   */
   constructor(game) {
     this.game = game;
+    this.drawableObjects = [];
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
@@ -27,6 +28,35 @@ class Scene {
   }
 
   /**
+   * Gets the drawing context associated with the scene.
+   */
+  get Context() {
+    return this.game.renderingContext.Context;
+  }
+
+  /**
+   * Whether the current scene is the active scene.
+   */
+  get IsActive() {
+    return this.isActive;
+  }
+
+  set IsActive(value) {
+    this.isActive = value;
+  }
+
+  RegisterGraphicObject(graphicObject) {
+    this.drawableObjects.push(graphicObject);
+  }
+
+  /**
+   * Gets the drawable objects for the scene
+   */
+  get DrawableObjects() {
+    return this.drawableObjects;
+  }
+
+  /**
   * Creates the scene.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
   */
@@ -36,11 +66,12 @@ class Scene {
 
   /**
   * draws the scene to the canvas.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
-  * @param context the CanvasRenderingContext2D.
+  * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
-    throw new MethodNotImplementedError(this);
+    for (let i = 0; i < this.DrawableObjects.length; i += 1) {
+      this.DrawableObjects[i].draw();
+    }
   }
 
   /**
