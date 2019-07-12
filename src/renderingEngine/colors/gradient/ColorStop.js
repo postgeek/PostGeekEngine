@@ -1,4 +1,4 @@
-import InvalidArguementError from '../../../errorHandling/errors/IndexSizeError';
+import InvalidArguementError from '../../../core/errorHandling/errors/IndexSizeError';
 
 /**
  * Defines a color stop in a gradient

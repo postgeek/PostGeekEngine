@@ -1,6 +1,6 @@
 import ColorStop from './ColorStop';
-import BaseClassConstructedError from '../../../errorHandling/errors/BaseClassConstructedError';
-import MethodNotImplementedError from '../../../errorHandling/errors/MethodNotImplementedError';
+import BaseClassConstructedError from '../../../core/errorHandling/errors/BaseClassConstructedError';
+import MethodNotImplementedError from '../../../core/errorHandling/errors/MethodNotImplementedError';
 
 /**
  * Defines a new gradient class
