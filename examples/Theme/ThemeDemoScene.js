@@ -1,4 +1,4 @@
-import Scene from 'scene/Scene';
+import Scene from 'gameEngine/scene/Scene';
 import Point from 'physicsEngine/Point';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Circle from 'renderingEngine/geometry/Circle';

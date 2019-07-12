@@ -1,8 +1,8 @@
-import Scene from 'scene/Scene';
+import Scene from 'gameEngine/scene/Scene';
 import Point from 'physicsEngine/Point';
 import AssetCache from 'core/managers/AssetCache';
-import FromTiledJsonToMap2DConfig from 'maps/converters/FromTiledJsonToMap2DConfig';
-import Map2D from 'maps/Map2D';
+import FromTiledJsonToMap2DConfig from 'gameEngine/maps/converters/FromTiledJsonToMap2DConfig';
+import Map2D from 'gameEngine/maps/Map2D';
 
 export default class DemoScene extends Scene {
   create() {

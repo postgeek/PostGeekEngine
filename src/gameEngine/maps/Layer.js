@@ -1,4 +1,4 @@
-import Point from '../physicsEngine/Point';
+import Point from '../../physicsEngine/Point';
 
 class Layer {
   constructor(map, config) {
@@ -8,7 +8,7 @@ class Layer {
     this.Data = config.data;
   }
 
-  draw () {
+  draw() {
     this.Data.map((gid, index) => {
       // A gid of zero means that there is no data to show
       if (gid === 0) return;

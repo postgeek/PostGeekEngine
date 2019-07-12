@@ -1,6 +1,6 @@
-import Layer from "./Layer";
-import Tileset from "./Tileset";
-import AssetCache from "../core/managers/AssetCache";
+import Layer from './Layer';
+import Tileset from './Tileset';
+import AssetCache from '../../core/managers/AssetCache';
 
 class Map2D {
   constructor(game, config) {
@@ -11,12 +11,12 @@ class Map2D {
     this.TileHeight = config.tileHeight;
     this.TileWidth = config.tileWidth;
     this.Tilesets = [];
-    this.Layers = []
+    this.Layers = [];
     this.cache = new AssetCache();
   }
 
   async load() {
-    this.Tilesets = await Promise.all(this.Config.tilesets.map(async tileset => {
+    this.Tilesets = await Promise.all(this.Config.tilesets.map(async (tileset) => {
       const img = await this.loadTileset(tileset);
       return new Tileset(this, tileset, img);
     }));
