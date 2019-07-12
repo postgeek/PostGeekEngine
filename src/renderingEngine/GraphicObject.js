@@ -42,6 +42,7 @@ class GraphicObject {
    * Saves the current context to the stack and applies the new styling.
    */
   preDraw() {
+    console.log(this.Context);
     this.Context.save();
   }
 

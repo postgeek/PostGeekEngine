@@ -107,10 +107,10 @@ class BezierCurve extends Shape {
   internalDraw() {
     this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
     this.Context.bezierCurveTo(
-      this.ControlPoint1.X,
-      this.ControlPoint1.Y,
-      this.ControlPoint2.X,
-      this.ControlPoint2.Y,
+      this.firstControlPoint.X,
+      this.firstControlPoint.Y,
+      this.secondControlPoint.X,
+      this.secondControlPoint.Y,
       this.EndPoint.X,
       this.EndPoint.Y,
     );
