@@ -1,4 +1,4 @@
-import { isPowerOfTwo } from '../../../utils/MathUtils';
+import { isPowerOfTwo } from '../../../core/utils/MathUtils';
 
 /**
  * Defines the configuration object for a Sprite
