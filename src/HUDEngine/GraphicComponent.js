@@ -1,4 +1,4 @@
-import GraphicObject from '../../GraphicObject';
+import GraphicObject from '../renderingEngine/GraphicObject';
 
 class GraphicComponent extends GraphicObject {
 

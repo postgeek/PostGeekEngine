@@ -8,7 +8,7 @@ import Color from 'renderingEngine/colors/Color';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Text from 'renderingEngine/text/Text';
-import TextArea from 'renderingEngine/ui/components/TextArea';
+import TextArea from 'HUDEngine/components/TextArea';
 
 export default class DesignSystemScene extends Scene {
   create() {

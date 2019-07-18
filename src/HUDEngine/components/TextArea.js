@@ -1,6 +1,6 @@
-import Text from '../../text/Text';
-import Rectangle from '../../geometry/Rectangle';
-import GraphicComponent from './GraphicComponent';
+import Text from '../../renderingEngine/text/Text';
+import Rectangle from '../../renderingEngine/geometry/Rectangle';
+import GraphicComponent from '../GraphicComponent';
 
 class TextArea extends GraphicComponent {
   constructor(context, point, text, width, height, textStyle) {
