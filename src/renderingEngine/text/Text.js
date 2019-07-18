@@ -76,7 +76,28 @@ class Text extends GraphicObject {
   * @param {TextMetrics} textMetrics the textMetrics for the current text.
   */
   measureText() {
-    return this.Context.measureText(this.Text);
+    this.Context.save();
+    this.Context = this.TextStyle.apply(this.Context);
+    const textMetrics = this.Context.measureText(this.Text);
+    this.Context.restore();
+    return textMetrics;
+  }
+
+  /**
+   * Determines the approximate font height of the text
+   * @link //TODO link to the stackoverflow
+   * @return {Number} The height of the text.
+   */
+  determineFontHeight() {
+    const body = document.getElementsByTagName('body')[0];
+    const dummy = document.createElement('div');
+    const dummyText = document.createTextNode('M');
+    dummy.appendChild(dummyText);
+    dummy.setAttribute('style', `font:${this.TextStyle.font};`);
+    body.appendChild(dummy);
+    const result = dummy.offsetHeight;
+    body.removeChild(dummy);
+    return result;
   }
 
   internalDraw() {

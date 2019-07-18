@@ -61,12 +61,10 @@ export default class ShapeDemoScene extends Scene {
       console.log(this.image.height / 4);
       console.log(this.image.width / 4);
     };
+    console.log(this.testEllipse);
   }
 
   update() {
-    // this.text.Text = `${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`;
-    // console.log(`${this.Game.Keyboard.GetKeyCharacter()} ${this.Game.Keyboard.GetKeyCharacter().charCodeAt()}`);
-    // this.rectangle.Width += 1;
     if (this.scale >= this.maxScale || this.scale <= this.minScale) {
       this.scaleIncrement *= -1;
     }
@@ -80,26 +78,10 @@ export default class ShapeDemoScene extends Scene {
   }
 
   draw() {
-    /*
-    this.Transform.Begin();
-    this.Transform.Translate((1 - this.scale) * this.testCircle.X, (1 - this.scale) * this.testCircle.Y);
-    this.Transform.Scale(this.scale, this.scale);
-    this.testCircle.draw();
-    this.Transform.End();
-    */
-
-    // this.Game.context.drawImage(this.image, 0, Math.floor(this.anim) * 48, 48, 48, 50, 50, 48, 48);
-
     this.testRectangle.draw();
     this.testText.draw();
     this.testEllipse.draw();
     this.testBezierCurve.draw();
     this.testQuadraticCurve.draw();
-    // this.text.draw();
-    // this.circle.draw();
-    // for (let i = 0; i < this.circles.length - 1; i += 1) {
-    //  this.circles[i].draw();
-    // }
-    // this.ParticleEmitter.draw();
   }
 }

@@ -1,4 +1,4 @@
-import SpriteSheet from '../renderingEngine/images/spritesheets/SpriteSheet';
+import SpriteSheet from '../../renderingEngine/images/spritesheets/SpriteSheet';
 import Tile from './Tile';
 
 class Tileset extends SpriteSheet {
