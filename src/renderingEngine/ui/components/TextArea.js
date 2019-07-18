@@ -1,8 +1,8 @@
-import Text from '../text/Text';
-import Rectangle from '../geometry/Rectangle';
-import GraphicObject from '../GraphicObject';
+import Text from '../../text/Text';
+import Rectangle from '../../geometry/Rectangle';
+import GraphicComponent from './GraphicComponent';
 
-class TextArea extends GraphicObject {
+class TextArea extends GraphicComponent {
   constructor(context, point, text, width, height, textStyle) {
     super(context);
 
