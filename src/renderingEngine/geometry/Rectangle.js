@@ -4,13 +4,12 @@ class Rectangle extends Shape {
   /**
   * Constructs a new Rectangle object.
   *
-  * @param {CanvasRenderingContext2D} context the canvas' context.
   * @param {Point} point the starting point of the rectangle.
   * @param {number} width the width of the rectangle.
   * @param {number} height the height of the rectangle.
   */
-  constructor(context, point, width, height) {
-    super(context);
+  constructor(point, width, height) {
+    super();
     this.Point = point;
     this.Width = width;
     this.Height = height;
@@ -75,7 +74,7 @@ class Rectangle extends Shape {
   * Draws the rectangle to the current context.
   */
   internalDraw() {
-    this.Context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
+    this.context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
   }
 }
 export default Rectangle;

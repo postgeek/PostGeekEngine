@@ -1,34 +1,14 @@
+import ServiceLocator from "../../core/ServiceLocator";
+
 /**
  * Defines the transformation class
  */
 class Transform {
   /**
    * creates the transform class
-   *
-   * @param  {CanvasRenderingContext2D} context the canvas' context
    */
-  constructor(context) {
-    this.Context = context;
-  }
-
-  /**
-   * Gets the canvas' rednering context
-   *
-   * @return {CanvasRenderingContext2D} the canvas' rednering context
-   */
-  get Context() {
-    return this.context;
-  }
-
-  /**
-   * Specifies the canvas' rednering context
-   *
-   * @param  {CanvasRenderingContext2D} value description
-   * @return {undefined}
-   */
-  set Context(value) {
-    /** @private */
-    this.context = value;
+  constructor() {
+    this._context = ServiceLocator.instance.locate('context');
   }
 
   /**
@@ -37,7 +17,7 @@ class Transform {
    * @return {undefined}
    */
   begin() {
-    this.Context.save();
+    this._context.save();
   }
 
   /**
@@ -47,7 +27,7 @@ class Transform {
    * @return {undefined}
    */
   rotate(degree) {
-    this.Context.rotate(degree * Math.PI / 180);
+    this._context.rotate(degree * Math.PI / 180);
   }
 
   /**
@@ -58,7 +38,7 @@ class Transform {
    * @return {undefined}
    */
   scale(x, y) {
-    this.Context.scale(x, y);
+    this._context.scale(x, y);
   }
 
   /**
@@ -69,7 +49,7 @@ class Transform {
    * @return {undefined}
    */
   translate(x, y) {
-    this.Context.translate(x, y);
+    this._context.translate(x, y);
   }
 
 
@@ -81,7 +61,7 @@ class Transform {
    * @return {undefined}
    */
   skew(x, y) {
-    this.Context.transform(1, x, y, 1, 1, 1);
+    this._context.transform(1, x, y, 1, 1, 1);
   }
 
 
@@ -90,7 +70,7 @@ class Transform {
    * @return {undefined}
    */
   reset() {
-    this.Context.resetTransform();
+    this._context.resetTransform();
   }
 
   /**
@@ -98,6 +78,6 @@ class Transform {
    * @return {undefined}
    */
   end() {
-    this.Context.restore();
+    this._context.restore();
   }
 } export default Transform;

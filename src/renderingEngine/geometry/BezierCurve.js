@@ -7,14 +7,13 @@ class BezierCurve extends Shape {
   /**
   * Constructs a new BezierCurve object.
   *
-  * @param {CanvasRenderingContext2D} context the canvas' context.
   * @param {Point} startPoint the curve's starting point.
   * @param {Point} firstControlPoint the curve's first control point.
   * @param {Point} secondControlPoint the curve's second control point.
   * @param {Point} endPoint the curve's end point.
   */
-  constructor(context, startPoint, firstControlPoint, secondControlPoint, endPoint) {
-    super(context);
+  constructor(startPoint, firstControlPoint, secondControlPoint, endPoint) {
+    super();
     this.StartPoint = startPoint;
     this.FirstControlPoint = firstControlPoint;
     this.SecondControlPoint = secondControlPoint;
@@ -105,8 +104,8 @@ class BezierCurve extends Shape {
   * Draws the bezier curve to the context.
   */
   internalDraw() {
-    this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
-    this.Context.bezierCurveTo(
+    this.context.moveTo(this.StartPoint.X, this.StartPoint.Y);
+    this.context.bezierCurveTo(
       this.FirstControlPoint.X,
       this.FirstControlPoint.Y,
       this.SecondControlPoint.X,

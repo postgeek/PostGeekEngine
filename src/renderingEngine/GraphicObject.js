@@ -1,4 +1,5 @@
 import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
+import ServiceLocator from '../core/ServiceLocator';
 /**
  * Defines a graphic object that is drawn to the screen
  */
@@ -6,8 +7,8 @@ class GraphicObject {
   /**
   * Constructs a new GraphicObject.
   */
-  constructor(context) {
-    this.Context = context;
+  constructor() {
+    this._context = ServiceLocator.instance.locate('context');
   }
 
   /**
@@ -15,8 +16,8 @@ class GraphicObject {
    *
    * @return {CanvasRenderingContext2D} the drawing context
    */
-  get Context() {
-    return this.context;
+  get context() {
+    return this._context;
   }
 
   /**
@@ -25,9 +26,9 @@ class GraphicObject {
    * @param  {CanvasRenderingContext2D} value description
    * @return {undefined}
    */
-  set Context(value) {
+  set context(value) {
     /** @private */
-    this.context = value;
+    this._context = value;
   }
 
   /**
@@ -42,7 +43,7 @@ class GraphicObject {
    * Saves the current context to the stack and applies the new styling.
    */
   preDraw() {
-    this.Context.save();
+    this._context.save();
   }
 
   /**
@@ -50,7 +51,7 @@ class GraphicObject {
    * Restores the previously saved context.
    */
   postDraw() {
-    this.Context.restore();
+    this._context.restore();
   }
 
   /**

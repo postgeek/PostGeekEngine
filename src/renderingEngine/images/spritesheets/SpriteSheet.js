@@ -7,12 +7,11 @@ class SpriteSheet extends GraphicImage {
   /**
    * Constructs a new SpriteSheet object
    *
-   * @param  {CanvasRenderingContext2D} context  The canvas' rednering context
    * @param  {Image} image              The image to be used for the spritesheet
    * @param  {SpriteSheetConfig} spriteSheetConfig the configuration object for the SpriteSheet
    */
-  constructor(context, image, spriteSheetConfig) {
-    super(context, image);
+  constructor(image, spriteSheetConfig) {
+    super(image);
     // TODO: Check if the spritesheetconfig is a JSON object or not and then parse it into a spriteSheetConfig if needed
     this.spriteSheetConfig = spriteSheetConfig;
     this.Frames = {};

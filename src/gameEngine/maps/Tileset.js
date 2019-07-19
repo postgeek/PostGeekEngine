@@ -2,10 +2,9 @@ import SpriteSheet from '../../renderingEngine/images/spritesheets/SpriteSheet';
 import Tile from './Tile';
 
 class Tileset extends SpriteSheet {
-  constructor(map, config, image) {
-    super(map.Game.renderingContext.Context, image, { width: config.width, height: config.height });
+  constructor(config, image) {
+    super(image, { width: config.width, height: config.height });
 
-    this.Map = map;
     this.ColumnCount = config.columnCount;
     this.FirstGid = config.firstGid;
     this.ImagePath = config.imagePath;

@@ -7,14 +7,13 @@ class Ellipse extends Shape {
   /**
   * Builds a new ellipse shape for drawing on the canvas
   *
-  * @param {CanvasRenderingContext2D} context the canvas' 2D context.
   * @param {Point} startingPoint the starting point for the Ellipse.
   * @param {number} radiusX the x's radius.
   * @param {number} radiusY the y's radius.
   * @param {number} rotation the rotation.
   */
-  constructor(context, startingPoint, radiusX, radiusY, rotation) {
-    super(context);
+  constructor(startingPoint, radiusX, radiusY, rotation) {
+    super();
     this.StartingPoint = startingPoint;
     this.RadiusX = radiusX;
     this.RadiusY = radiusY;
@@ -144,7 +143,7 @@ class Ellipse extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-    this.Context.ellipse(
+    this.context.ellipse(
       this.X,
       this.Y,
       this.RadiusX,

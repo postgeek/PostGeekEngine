@@ -19,7 +19,7 @@ export default class ShapeDemoScene extends Scene {
     const bezierCurveJson = '{"startPoint":{"x":50,"y":200},"controlPoint1":{"x":800,"y":480},"controlPoint2":{"x":100,"y":150},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
     const quadraticCurveJson = '{"controlPoint":{"x":50,"y":200},"startPoint":{"x":800,"y":480},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
 
-    const graphicsJSONLoader = new GraphicsJSONLoader(this.Game.renderingContext.Context);
+    const graphicsJSONLoader = new GraphicsJSONLoader();
     this.testCircle = graphicsJSONLoader.CreateCircle(JSON.parse(circleJson));
     this.testRectangle = graphicsJSONLoader.CreateRectangle(JSON.parse(rectJson));
     this.testEllipse = graphicsJSONLoader.CreateEllipse(JSON.parse(ellipseJson));
@@ -27,12 +27,12 @@ export default class ShapeDemoScene extends Scene {
     this.testBezierCurve = graphicsJSONLoader.CreateBezierCurve(JSON.parse(bezierCurveJson));
     this.testQuadraticCurve = graphicsJSONLoader.CreateQuadraticCurve(JSON.parse(quadraticCurveJson));
 
-    this.Transform = new Transform(this.Game.renderingContext.Context);
+    this.Transform = new Transform();
 
     this.circles = [];
     let circleStyle;
     for (let i = 0; i < DefaultColors.length - 1; i += 1) {
-      const circle = new Rectangle(this.Game.renderingContext.Context, new Point(i * 8, 0), 8, 400);
+      const circle = new Rectangle(new Point(i * 8, 0), 8, 400);
       circleStyle = new GeometryStyle({
         lineWidth: 1,
         fillStyle: DefaultColors[i].Name,

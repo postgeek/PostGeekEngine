@@ -14,24 +14,13 @@ import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
 import Point from '../physicsEngine/Point';
+import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * The graphic objects JSON loader
  */
 class GraphicsJSONLoader {
-  /**
-   * Constructs a new graphic JSON loader
-   *
-   * @param  {CanvasRenderingContext2D} context the canvas' drawing context
-   */
-  constructor(context) {
-    /**
-     * @private
-     */
-    this.Context = context;
-  }
-
-
+  
   /**
    * Creates a circle with the supplied properties
    *
@@ -42,7 +31,7 @@ class GraphicsJSONLoader {
     const { radius, geometryStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
 
-    const circle = new Circle(this.Context, point, radius);
+    const circle = new Circle(point, radius);
     circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
     return circle;
@@ -63,7 +52,7 @@ class GraphicsJSONLoader {
     const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
 
     const bezierCurve = new BezierCurve(
-      this.Context, startPoint, controlPoint1, controlPoint2, endPoint,
+      startPoint, controlPoint1, controlPoint2, endPoint,
     );
     bezierCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
@@ -84,7 +73,7 @@ class GraphicsJSONLoader {
     const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
 
     const quadraticCurve = new QuadraticCurve(
-      this.Context, startPoint, controlPoint, endPoint,
+      startPoint, controlPoint, endPoint,
     );
     quadraticCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
@@ -104,7 +93,7 @@ class GraphicsJSONLoader {
     } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
 
-    const ellipse = new Ellipse(this.Context, point, radiusX, radiusY, Rotation);
+    const ellipse = new Ellipse(point, radiusX, radiusY, Rotation);
     ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
     return ellipse;
@@ -120,7 +109,7 @@ class GraphicsJSONLoader {
     const { height, width, geometryStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
 
-    const rectangle = new Rectangle(this.Context, point, width, height);
+    const rectangle = new Rectangle(point, width, height);
     rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
     return rectangle;
@@ -136,7 +125,7 @@ class GraphicsJSONLoader {
     const { text, textStyle } = config;
     const point = GraphicsJSONLoader.parsePoint(config.point);
 
-    const textObject = new Text(this.Context, point, text);
+    const textObject = new Text(point, text);
     textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
 
     return textObject;
