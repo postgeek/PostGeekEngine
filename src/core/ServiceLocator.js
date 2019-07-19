@@ -5,6 +5,7 @@ import InvalidArguementError from "./errorHandling/errors/InvalidArguementError"
  */
 class ServiceLocator {
   /**
+   * @constructor
    * Creates a service locator instance
    */
   constructor() {
