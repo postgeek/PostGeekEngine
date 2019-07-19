@@ -9,7 +9,7 @@ describe('isValidUrl', () => {
     // Act
     const isValid = loader.isValidUrl(path);
 
-    // Asset
+    // Assert
     expect(isValid).toBe(true);
   });
   it('should validate a relative path as valid', () => {
@@ -20,7 +20,7 @@ describe('isValidUrl', () => {
     // Act
     const isValid = loader.isValidUrl(path);
 
-    // Asset
+    // Assert
     expect(isValid).toBe(true);
   });
   it('should validate a filename as invalid', () => {
@@ -31,7 +31,7 @@ describe('isValidUrl', () => {
     // Act
     const isValid = loader.isValidUrl(path);
 
-    // Asset
+    // Assert
     expect(isValid).toBe(false);
   });
   it('should validate a path prefixed with ./ to be valid', () => {
@@ -42,7 +42,7 @@ describe('isValidUrl', () => {
     // Act
     const isValid = loader.isValidUrl(path);
 
-    // Asset
+    // Assert
     expect(isValid).toBe(true);
   });
   it('should validate a path prefixed with http to be invalid', () => {
@@ -53,7 +53,7 @@ describe('isValidUrl', () => {
     // Act
     const isValid = loader.isValidUrl(path);
 
-    // Asset
+    // Assert
     expect(isValid).toBe(false);
   });
 });

@@ -18,7 +18,7 @@ describe('registerAsset', () => {
     // Act
     cache.registerAsset(initialKey, 'somePath');
 
-    // Asset
+    // Assert
     expect(cache.assets[expectedKey]).not.toBe(null);
   });
   it('should register an asset with status new', () => {
@@ -28,7 +28,7 @@ describe('registerAsset', () => {
     // Act
     cache.registerAsset('someKey', 'somePath');
 
-    // Asset
+    // Assert
     expect(cache.assets.someKey.status).toBe(AssetLoadingStatus.NEW);
   });
   it('should register an asset with a given path', () => {
@@ -40,7 +40,7 @@ describe('registerAsset', () => {
     // Act
     cache.registerAsset('someKey', initialPath);
 
-    // Asset
+    // Assert
     expect(cache.assets.someKey.path).toBe(expectedPath);
   });
 });
