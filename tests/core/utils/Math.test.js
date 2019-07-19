@@ -1,4 +1,4 @@
-import { isPowerOfTwo } from '../../src/core/utils/Math';
+import { isPowerOfTwo } from '../../../src/core/utils/Math';
 
 /**
   Tests for the Math class
