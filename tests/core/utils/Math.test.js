@@ -4,7 +4,7 @@ import { isPowerOfTwo } from '../../../src/core/utils/Math';
   Tests for the Math class
 */
 describe('isPowerOfTwo', () => {
-  it('should return that the number provided is a power of two', () => {
+  it('should return true when the value provided is of a power of two', () => {
     // Arange
     const numberToCheck = 8;
 
