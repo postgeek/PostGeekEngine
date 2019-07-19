@@ -1,7 +1,9 @@
 import InvalidArguementError from "./errorHandling/errors/InvalidArguementError";
 
 /**
- * Defines the service locator
+* Defines the service locator class
+* Used to register and access services in different places of the game engine
+* without having to pass around the instance of the service everytime.
  */
 class ServiceLocator {
   /**
@@ -13,9 +15,9 @@ class ServiceLocator {
   }
 
   static _instance;
-  
+
   /**
-   * Get the current service locator instance
+   * Gets an instance of the ServiceLocator class
    */
   static get instance() {
     if (this._instance === undefined) {
@@ -26,19 +28,19 @@ class ServiceLocator {
   }
 
   /**
-   * Register a service
-   * 
-   * @param {type} key 
-   * @param {type} object 
+   * Register a service using the given key
+   *
+   * @param {type} key the key to store the service with
+   * @param {type} service the service to register
    */
-  register(key, object) {
-    this._services.set(key, object);
+  register(key, service) {
+    this._services.set(key, service);
   }
 
   /**
    * Locate a service that is registered with the service locator instance
-   * @param {type} key 
-   * @returns {type} the object registed for a given key
+   * @param {type} key the key to store the service with
+   * @returns {type} the service registed with the given key
    * @throws {InvalidArguementError} if the key is not registered
    */
   locate(key) {
