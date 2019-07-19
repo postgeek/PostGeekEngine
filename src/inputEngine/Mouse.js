@@ -1,3 +1,5 @@
+import UnhandledEventError from '../core/errorHandling/errors/UnhandledEventError';
+
 class Mouse {
   /**
    * @constructor
@@ -48,6 +50,7 @@ class Mouse {
         this.mouseUp(evt);
         break;
       default:
+        throw new UnhandledEventError();
     }
   }
 
