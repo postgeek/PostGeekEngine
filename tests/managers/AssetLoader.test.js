@@ -1,4 +1,4 @@
-import AssetLoader from '../../src/managers/AssetLoader';
+import AssetLoader from '../../src/core/managers/AssetLoader';
 
 describe('isValidUrl', () => {
   it('should validate an absolute path as valid', () => {

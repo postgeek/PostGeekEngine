@@ -1,8 +1,8 @@
-import AssetCache from '../../src/managers/AssetCache';
-import AssetLoader from '../../src/managers/AssetLoader';
-import { AssetLoadingStatus } from '../../src/managers/Asset';
+import AssetCache from '../../src/core/managers/AssetCache';
+import AssetLoader from '../../src/core/managers/AssetLoader';
+import { AssetLoadingStatus } from '../../src/core/managers/Asset';
 
-jest.mock('../../src/managers/AssetLoader');
+jest.mock('../../src/core/managers/AssetLoader');
 
 beforeEach(() => {
   AssetLoader.mockClear();
