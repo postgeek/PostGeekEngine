@@ -1,4 +1,4 @@
-import UnhandledEventError from '../src/core/errorHandling/errors/InvalidArguementError';
+import UnhandledEventError from '../src/core/errorHandling/errors/UnhandledEventError';
 import Mouse from '../src/inputEngine/Mouse';
 
 describe('buttonDownOnce', () => {
