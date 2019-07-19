@@ -21,7 +21,7 @@ describe('isPowerOfTwo', () => {
     // Act
     const result = isPowerOfTwo(numberToCheck);
 
-    // Asser
+    // Assert
     expect(result).toBe(false);
   });
   it('should return false with a provided number of 0', () => {
