@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Project WOTM</title>
+<title>PostGeek</title>
 </head>
 <body>
-
+	<div>
+		<a href="javascript:;" onclick="Window.Main.start2DMapDemo()">Start 2D Map Demo</a><br />
+		<a href="javascript:;" onclick="Window.Main.startShapeDemo()">Start Shape Demo</a><br />
+		<a href="javascript:;" onclick="Window.Main.startThemeDemo()">Start Theme Demo</a>
+	</div>
 	<div style="position:absolute; z-index:1000">
 		<canvas id="canvas" width="1200" height="900">
 			Your browser does not support HTML5 Canvas.
 		</canvas>
 	</div>
-	<script src="bundle.js" type="text/javascript"></script>
 </body>
 </html>
