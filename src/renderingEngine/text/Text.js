@@ -2,8 +2,8 @@ import GraphicObject from '../GraphicObject';
 import TextStyle from './TextStyle';
 
 class Text extends GraphicObject {
-  constructor(context, point, text) {
-    super(context);
+  constructor(point, text) {
+    super();
     this.Point = point;
     this.Text = text;
     this.TextStyle = new TextStyle({
@@ -44,7 +44,7 @@ class Text extends GraphicObject {
   }
 
   set Y(value) {
-    return this.Point.Y;
+    this.Point.Y = value;
   }
 
   /**
@@ -76,10 +76,10 @@ class Text extends GraphicObject {
   * @param {TextMetrics} textMetrics the textMetrics for the current text.
   */
   measureText() {
-    this.Context.save();
-    this.Context = this.TextStyle.apply(this.Context);
-    const textMetrics = this.Context.measureText(this.Text);
-    this.Context.restore();
+    this.context.save();
+    this.context = this.TextStyle.apply(this.context);
+    const textMetrics = this.context.measureText(this.Text);
+    this.context.restore();
     return textMetrics;
   }
 
@@ -101,12 +101,12 @@ class Text extends GraphicObject {
   }
 
   internalDraw() {
-    this.Context = this.TextStyle.apply(this.Context);
+    this.context = this.TextStyle.apply(this.context);
     if (this.TextStyle.FillStyle !== undefined) {
-      this.Context.fillText(this.Text, this.Point.X, this.Point.Y);
+      this.context.fillText(this.Text, this.Point.X, this.Point.Y);
     }
     if (this.TextStyle.StrokeStyle !== undefined) {
-      this.Context.strokeText(this.Text, this.Point.X, this.Point.Y);
+      this.context.strokeText(this.Text, this.Point.X, this.Point.Y);
     }
   }
 }

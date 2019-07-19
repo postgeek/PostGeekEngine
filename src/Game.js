@@ -4,6 +4,7 @@ import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
 import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
+import ServiceLocator from './core/ServiceLocator';
 
 let game = null;
 
@@ -64,7 +65,6 @@ class Game {
     this.middlewareManager = new MiddlewareManager(this);
   }
 
-
   /**
    * init - Initializes all the necessary objects
    */
@@ -80,7 +80,9 @@ class Game {
       return;
     }
 
-    this.renderingContext = new RenderingContext2D(context);
+    // Register the rendering context into the service locator
+    ServiceLocator.instance.register('context', context);
+    this._context = ServiceLocator.instance.locate('context');
 
     this.Canvas.addEventListener('mousemove', this.Mouse, false);
     this.Canvas.addEventListener('mouseup', this.Mouse, false);
@@ -147,8 +149,8 @@ class Game {
    */
   draw() {
     // Draw Background
-    this.renderingContext.Context.fillStyle = '#000000';
-    this.renderingContext.Context.fillRect(0, 0, 1550, 750);
+    this._context.fillStyle = '#000000';
+    this._context.fillRect(0, 0, 1550, 750);
 
     this.sceneManager.runningScene.draw();
     this.middlewareManager.draw();

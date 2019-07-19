@@ -8,11 +8,10 @@ class GraphicImage extends GraphicObject {
   /**
    * Constructs a new GraphicImage
    *
-   * @param  {CanvasRenderingContext2D} context the canvas' rendering context
    * @param  {Image} image  The image associated to the GraphicImage
    */
-  constructor(context, image) {
-    super(context);
+  constructor(image) {
+    super();
     this.Image = image;
   }
 
@@ -66,7 +65,7 @@ class GraphicImage extends GraphicObject {
    * Draws the image on screen at 0,0.
    */
   draw() {
-    this.Context.drawImage(this.Image, 0, 0);
+    this.context.drawImage(this.Image, 0, 0);
   }
 
   /**
@@ -80,7 +79,7 @@ class GraphicImage extends GraphicObject {
    * @param  {Number} height the sub-image's height
    */
   drawImageWithMask(destrinationPoint, subRectanglePoint, width, height) {
-    this.Context.drawImage(
+    this.context.drawImage(
       this.Image,
       subRectanglePoint.X,
       subRectanglePoint.Y,

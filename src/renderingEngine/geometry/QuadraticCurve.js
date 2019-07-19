@@ -7,13 +7,12 @@ class QuadraticCurve extends Shape {
   /**
   * Constructs a new QuadraticCurve object.
   *
-  * @param {CanvasRenderingContext2D} context the canvas' context.
   * @param {Point} controlPoint the control point for the quadratic curve.
   * @param {Point} startPoint the starting point for the quadratic curve.
   * @param {Point} endPoint the end point for the quadratic curve.
   */
-  constructor(context, startPoint, controlPoint, endPoint) {
-    super(context);
+  constructor(startPoint, controlPoint, endPoint) {
+    super();
     this.StartPoint = startPoint;
     this.ControlPoint = controlPoint;
     this.EndPoint = endPoint;
@@ -81,8 +80,8 @@ class QuadraticCurve extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-    this.Context.moveTo(this.StartPoint.X, this.StartPoint.Y);
-    this.Context.quadraticCurveTo(
+    this.context.moveTo(this.StartPoint.X, this.StartPoint.Y);
+    this.context.quadraticCurveTo(
       this.ControlPoint.X,
       this.ControlPoint.Y,
       this.EndPoint.X,

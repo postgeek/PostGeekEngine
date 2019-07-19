@@ -3,8 +3,7 @@ import Tileset from './Tileset';
 import AssetCache from '../../core/managers/AssetCache';
 
 class Map2D {
-  constructor(game, config) {
-    this.Game = game;
+  constructor(config) {
     this.Config = config;
     this.RowCount = config.rowCount;
     this.ColumnCount = config.columnCount;
@@ -18,7 +17,7 @@ class Map2D {
   async load() {
     this.Tilesets = await Promise.all(this.Config.tilesets.map(async (tileset) => {
       const img = await this.loadTileset(tileset);
-      return new Tileset(this, tileset, img);
+      return new Tileset(tileset, img);
     }));
 
     this.Layers = this.Config.layers.map(layer => new Layer(this, layer));

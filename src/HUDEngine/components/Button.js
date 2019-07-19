@@ -1,8 +1,8 @@
 import GraphicComponent from '../GraphicComponent';
 
 class Button extends GraphicComponent {
-  constructor(context, point) {
-    super(context);
+  constructor(point) {
+    super();
     this.point = point;
     this.graphicObjects = [];
   }

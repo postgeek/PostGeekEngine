@@ -17,7 +17,7 @@ export default class DemoScene extends Scene {
     this.cache.loadAsset('map').then(() => {
       const mapConfig = JSON.parse(this.cache.getAsset('map'));
       const map2DConfig = FromTiledJsonToMap2DConfig(mapConfig, './assets/');
-      this.Map = new Map2D(this.Game, map2DConfig);
+      this.Map = new Map2D(map2DConfig);
       this.Map.load().then(() => {
         this.mapLoaded = true;
       });

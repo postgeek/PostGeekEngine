@@ -7,12 +7,11 @@ class Circle extends Shape {
   /**
   * Constructs a new Circle object.
   *
-  * @param {Scene} parent the scene to add the circle to.
   * @param {Point} point the starting point of the circle.
   * @param {number} radius the radius of the circle.
   */
-  constructor(context, point, radius) {
-    super(context);
+  constructor(point, radius) {
+    super();
     this.Point = point;
     this.Radius = radius;
   }
@@ -95,7 +94,7 @@ class Circle extends Shape {
   * Draws the Circle to the current context.
   */
   internalDraw() {
-    this.Context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
+    this.context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
   }
 
 
@@ -105,7 +104,7 @@ class Circle extends Shape {
    * @return {Circle}  the new circle with the same parameters as the old one
    */
   clone() {
-    return new Circle(this.Context, this.Point.clone(), this.Radius);
+    return new Circle(this.Point.clone(), this.Radius);
   }
 }
 export default Circle;

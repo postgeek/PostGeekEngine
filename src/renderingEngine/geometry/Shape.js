@@ -6,8 +6,8 @@ import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNot
  * Defines a shape that can be drawn on screen
  */
 class Shape extends GraphicObject {
-  constructor(context) {
-    super(context);
+  constructor() {
+    super();
     this.GeometryStyle = new GeometryStyle({
       lineWidth: 1,
       fillStyle: 'white',
@@ -48,8 +48,8 @@ class Shape extends GraphicObject {
    */
   preDraw() {
     super.preDraw();
-    this.Context = this.GeometryStyle.apply(this.Context);
-    this.Context.beginPath();
+    this.context = this.GeometryStyle.apply(this.context);
+    this.context.beginPath();
   }
 
   /**
@@ -67,12 +67,12 @@ class Shape extends GraphicObject {
    */
   postDraw() {
     if (this.GeometryStyle.FillStyle !== undefined) {
-      this.Context.fill();
+      this.context.fill();
     }
     if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
+      this.context.stroke();
     }
-    this.Context.closePath();
+    this.context.closePath();
     super.postDraw();
   }
 }
