@@ -41,7 +41,7 @@ npm run docs
 
 ## Unit Tests
 
-We use [jest](https://jestjs.io/) for all our unit testing needs. We require that new functionality be tested to a minimum to makesure it respects the COS (conditions of success) defined in the issue.
+We use [jest](https://jestjs.io/) for all our unit testing needs. We require that new functionality be tested to a minimum to make sure it respects the COS (conditions of success) defined in the issue.
 
 
 Running the project's unit tests
