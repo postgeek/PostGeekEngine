@@ -1,8 +1,8 @@
-import AssetCache from '../../src/managers/AssetCache';
-import AssetLoader from '../../src/managers/AssetLoader';
-import { AssetLoadingStatus } from '../../src/managers/Asset';
+import AssetCache from '../../src/core/managers/AssetCache';
+import AssetLoader from '../../src/core/managers/AssetLoader';
+import { AssetLoadingStatus } from '../../src/core/managers/Asset';
 
-jest.mock('../../src/managers/AssetLoader');
+jest.mock('../../src/core/managers/AssetLoader');
 
 beforeEach(() => {
   AssetLoader.mockClear();
@@ -20,8 +20,7 @@ describe('registerAsset', () => {
 
     // Asset
     expect(cache.assets[expectedKey]).not.toBe(null);
-
-  })
+  });
   it('should register an asset with status new', () => {
     // Arange
     const cache = new AssetCache();
@@ -30,9 +29,8 @@ describe('registerAsset', () => {
     cache.registerAsset('someKey', 'somePath');
 
     // Asset
-    expect(cache.assets['someKey'].status).toBe(AssetLoadingStatus.NEW);
-
-  })
+    expect(cache.assets.someKey.status).toBe(AssetLoadingStatus.NEW);
+  });
   it('should register an asset with a given path', () => {
     // Arange
     const cache = new AssetCache();
@@ -43,21 +41,16 @@ describe('registerAsset', () => {
     cache.registerAsset('someKey', initialPath);
 
     // Asset
-    expect(cache.assets['someKey'].path).toBe(expectedPath);
-
-  })
-})
+    expect(cache.assets.someKey.path).toBe(expectedPath);
+  });
+});
 
 describe('loadAsset', () => {
   it('should set asset status to loaded when load is successful', () => {
     // Arange
-    AssetLoader.mockImplementation(() => { 
-      return {
-        load: () => new Promise((resolve, reject) => {
-          return resolve("Good!");
-        })
-      };
-    });
+    AssetLoader.mockImplementation(() => ({
+      load: () => new Promise((resolve, reject) => resolve('Good!')),
+    }));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -67,18 +60,14 @@ describe('loadAsset', () => {
 
     // Assert
     promise.then(() => {
-      expect(cache.assets['someKey'].status).toBe(AssetLoadingStatus.LOADED);
+      expect(cache.assets.someKey.status).toBe(AssetLoadingStatus.LOADED);
     });
-  })
+  });
   it('should set asset status to error when load is unsuccessful', async () => {
     // Arange
-    AssetLoader.mockImplementation(() => { 
-      return {
-        load: () => new Promise((resolve, reject) => {
-          return reject();
-        })
-      };
-    });
+    AssetLoader.mockImplementation(() => ({
+      load: () => new Promise((resolve, reject) => reject()),
+    }));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -89,17 +78,13 @@ describe('loadAsset', () => {
     } catch (e) {}
 
     // Assert
-    expect(cache.assets['someKey'].status).toBe(AssetLoadingStatus.ERROR);
-  })
+    expect(cache.assets.someKey.status).toBe(AssetLoadingStatus.ERROR);
+  });
   it('should not load an asset twice when called twice', () => {
     // Arange
-    const func = AssetLoader.mockImplementation(() => { 
-      return {
-        load: () => new Promise((resolve, reject) => {
-          return resolve("Good!");
-        })
-      };
-    });
+    const func = AssetLoader.mockImplementation(() => ({
+      load: () => new Promise((resolve, reject) => resolve('Good!')),
+    }));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -110,22 +95,18 @@ describe('loadAsset', () => {
 
     // Assert
     expect(func).toHaveBeenCalledTimes(1);
-  })
-})
+  });
+});
 
 describe('getAsset', () => {
   it('should return the asset value when the asset had been loaded', async () => {
     // Arange
-    AssetLoader.mockImplementation(() => { 
-      return {
-        load: () => new Promise((resolve, reject) => {
-          return resolve("Good!");
-        })
-      };
-    });
+    AssetLoader.mockImplementation(() => ({
+      load: () => new Promise((resolve, reject) => resolve('Good!')),
+    }));
 
     const cache = new AssetCache();
-    let actualAssetValue = undefined;
+    let actualAssetValue;
 
     // Act
     cache.registerAsset('someKey', 'somePath');
@@ -134,19 +115,15 @@ describe('getAsset', () => {
 
     // Assert
     expect(actualAssetValue).toBeDefined();
-  })
+  });
   it('should not return the asset value when the asset has not been loaded', () => {
     // Arange
-    AssetLoader.mockImplementation(() => { 
-      return {
-        load: () => new Promise((resolve, reject) => {
-          return resolve("Good!");
-        })
-      };
-    });
+    AssetLoader.mockImplementation(() => ({
+      load: () => new Promise((resolve, reject) => resolve('Good!')),
+    }));
 
     const cache = new AssetCache();
-    let actualAssetValue = undefined;
+    let actualAssetValue;
 
     // Act
     cache.registerAsset('someKey', 'somePath');
@@ -154,8 +131,8 @@ describe('getAsset', () => {
 
     // Assert
     expect(actualAssetValue).not.toBeDefined();
-  })
-})
+  });
+});
 
 describe('removeAsset', () => {
   it('should removed an asset for a given key', () => {
@@ -169,9 +146,8 @@ describe('removeAsset', () => {
 
     // Assert
     expect(cache.assets[key]).not.toBeDefined();
-  })
-})
-
+  });
+});
 
 
 describe('destroy', () => {
@@ -180,13 +156,13 @@ describe('destroy', () => {
     const cache = new AssetCache();
 
     // Act
-    cache.registerAsset("someKey", 'somePath');
-    cache.registerAsset("someKey2", 'somePath2');
-    cache.registerAsset("someKey3", 'somePath3');
+    cache.registerAsset('someKey', 'somePath');
+    cache.registerAsset('someKey2', 'somePath2');
+    cache.registerAsset('someKey3', 'somePath3');
     cache.destroy();
 
     // Assert
     expect(cache.assets).toBeDefined();
     expect(Object.keys(cache.assets).length).toBe(0);
-  })
-})
+  });
+});
