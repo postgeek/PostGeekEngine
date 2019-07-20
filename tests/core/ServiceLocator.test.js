@@ -1,5 +1,5 @@
-import ServiceLocator from "../../src/core/ServiceLocator";
-import InvalidArguementError from "../../src/core/errorHandling/errors/InvalidArguementError";
+import ServiceLocator from '../../src/core/ServiceLocator';
+import InvalidArguementError from '../../src/core/errorHandling/errors/InvalidArguementError';
 
 beforeEach(() => {
   ServiceLocator.instance.clear();
@@ -14,9 +14,9 @@ describe('register', () => {
     // Act
     ServiceLocator.instance.register(key, service);
 
-    // Asset
+    // Assert
     expect(ServiceLocator.instance.locate(key)).not.toBe(null);
-  })
+  });
 });
 
 describe('locate', () => {
@@ -31,16 +31,16 @@ describe('locate', () => {
 
     // Asset
     expect(service.value).toBe(returnedService.value);
-  })
+  });
   it('should throw an error if key is not found', () => {
     // Arange
     const key = 'someKey';
 
     // Act
 
-    // Asset
-    expect(() => { ServiceLocator.instance.locate(key) }).toThrow(InvalidArguementError);
-  })
+    // Assert
+    expect(() => { ServiceLocator.instance.locate(key); }).toThrow(InvalidArguementError);
+  });
 });
 
 describe('clear', () => {
@@ -53,7 +53,7 @@ describe('clear', () => {
     // Act
     ServiceLocator.instance.clear();
 
-    // Asset
-    expect(() => { ServiceLocator.instance.locate(key) }).toThrow(InvalidArguementError);
-  })
+    // Assert
+    expect(() => { ServiceLocator.instance.locate(key); }).toThrow(InvalidArguementError);
+  });
 });
