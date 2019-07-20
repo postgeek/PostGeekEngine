@@ -1,4 +1,5 @@
 import UnhandledEventError from '../core/errorHandling/errors/UnhandledEventError';
+import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
 
 class Mouse {
   /**
@@ -24,10 +25,14 @@ class Mouse {
   */
   poll() {
     if (this.buttonDown) {
-      if (this.mouseState === this.mouseStates.RELEASED) {
-        this.mouseState = this.mouseStates.ONCE;
-      } else if (this.mouseState === this.mouseStates.ONCE) {
-        this.mouseState = this.mouseStates.PRESSED;
+      switch (this.mouseState) {
+        case this.mouseStates.ONCE:
+          this.mouseState = this.mouseStates.PRESSED;
+          break;
+        case this.mouseStates.RELEASED:
+        default:
+          this.mouseState = this.mouseStates.ONCE;
+          break;
       }
     } else {
       this.mouseState = this.mouseStates.RELEASED;
@@ -65,6 +70,8 @@ class Mouse {
     } else if (e.offsetX || e.offsetX === 0) { // Opera
       this.dx = e.offsetX;
       this.dy = e.offsetY;
+    } else {
+      throw new InvalidArguementError();
     }
   }
 
