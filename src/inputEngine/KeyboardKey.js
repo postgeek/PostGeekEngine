@@ -2,10 +2,26 @@
 // Use the KeyEvent.code to find out which physical key on the keyboard was PRESSED
 // Use the KeyEvent.key to find out which key that physical key maps to
 class KeyboardKey {
-  constructor({ keyCode, code, location } = { location: 0 }) {
-    this._keyCode = keyCode;
+  constructor({ keycode, code, location } = { location: 0 }) {
+    this._keyCode = keycode;
     this._code = code;
     this._location = location;
+  }
+
+  set isKeyDown(value) {
+    this._keyDown = value;
+  }
+
+  get isKeyDown() {
+    return this._keyDown;
+  }
+
+  set state(value) {
+    this._keyState = value;
+  }
+
+  get state() {
+    return this._keyState;
   }
 
   set keyCode(value) {
@@ -110,11 +126,10 @@ class KeyboardKey {
     });
   }
 
-  // TODO: Validate the code
   static get PAUSE() {
     return new KeyboardKey({
       keyCode: 19,
-      code: 'Pause/Break',
+      code: 'Pause',
     });
   }
 
@@ -142,7 +157,6 @@ class KeyboardKey {
     });
   }
 
-  // TODO: Valdiate code
   /** @static */
   static get PAGE_UP() {
     return new KeyboardKey({
@@ -151,7 +165,6 @@ class KeyboardKey {
     });
   }
 
-  // TODO: Valdiate code
   /** @static */
   static get PAGE_DOWN() {
     return new KeyboardKey({
@@ -160,7 +173,6 @@ class KeyboardKey {
     });
   }
 
-  // TODO: Validate
   /** @static */
   static get END() {
     return new KeyboardKey({
@@ -169,7 +181,6 @@ class KeyboardKey {
     });
   }
 
-  // TODO: Validate
   /** @static */
   static get HOME() {
     return new KeyboardKey({
@@ -208,21 +219,6 @@ class KeyboardKey {
       keycode: 40,
       code: 'ArrowDown',
     });
-  }
-
-  // TODO: Validate
-  /** @static */
-  static get PLUS() {
-    return new KeyboardKey({
-      keycode: 43,
-      code: 'Plus',
-    });
-  }
-
-  // TODO: Validate
-  /** @static */
-  static get PRINTSCREEN() {
-    return 44;
   }
 
   /** @static */
