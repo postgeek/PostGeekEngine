@@ -2,7 +2,7 @@ import { UnhandledEventErrorText } from '../ErrorTexts';
 
 /**
 * Defines the class for the UnhandledEventError
-* TODO: rephrase this Should be thrown in every method that needs to be overriden
+* TODO: rephrase this Should be thrown when an html event is not handled by the system.
 */
 class UnhandledEventError extends Error {
   constructor(caller) {
