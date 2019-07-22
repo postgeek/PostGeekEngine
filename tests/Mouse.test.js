@@ -1,4 +1,4 @@
-import UnhandledEventError from '../src/core/errorHandling/errors/UnhandledEventError';
+import UnhandledHtmlEventError from '../src/core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../src/core/errorHandling/errors/InvalidArguementError';
 import Mouse from '../src/inputEngine/Mouse';
 
@@ -17,7 +17,7 @@ describe('buttonDownOnce', () => {
     // Assert
     expect(mouse.buttonDownOnce()).toBe(true);
   });
-  it('should be false when mouse button is not down', () => {
+  it('should be false when mouse button is not clicked', () => {
     // Arrange
     const mouse = new Mouse();
 
@@ -27,7 +27,7 @@ describe('buttonDownOnce', () => {
     // Assert
     expect(mouse.buttonDownOnce()).toBe(false);
   });
-  it('should be false when mouse button is down twice', () => {
+  it('should be false when mouse button is held down', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEvent = {
@@ -42,7 +42,7 @@ describe('buttonDownOnce', () => {
     // Assert
     expect(mouse.buttonDownOnce()).toBe(false);
   });
-  it('should be false when mouse up after having mouse down', () => {
+  it('should be false when the mouse button is released after having been down once', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEventMouseUp = {
@@ -65,7 +65,7 @@ describe('buttonDownOnce', () => {
 
 
 describe('buttonDown', () => {
-  it('should be true when mouse button is down', () => {
+  it('should be true when the mouse button is pressed', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEvent = {
@@ -79,7 +79,7 @@ describe('buttonDown', () => {
     // Assert
     expect(mouse.buttonPressed()).toBe(true);
   });
-  it('should be false when mouse button is not down', () => {
+  it('should be false when the mouse button is not pressed', () => {
     // Arrange
     const mouse = new Mouse();
 
@@ -89,7 +89,7 @@ describe('buttonDown', () => {
     // Assert
     expect(mouse.buttonPressed()).toBe(false);
   });
-  it('should be true when mouse button is down twice', () => {
+  it('should be true when mouse button is held down', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEvent = {
@@ -107,13 +107,13 @@ describe('buttonDown', () => {
 });
 
 describe('mouseMove', () => {
-  it('should be (5,5) when mouse moves (5,5) using layerX, layerY', () => {
+  it('should move by 5 units vertically and horizontally when the mouse moves by 5 units vertically and horizontally', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEvent = {
       type: 'mousemove',
-      layerX: 5,
-      layerY: 5,
+      clientX: 5,
+      clientY: 5,
     };
 
     // Act
@@ -124,13 +124,13 @@ describe('mouseMove', () => {
     expect(mouse.Y).toBe(5);
   });
 
-  it('should be (0,0) when moving the mouse by (0,0) using layerX, layerY', () => {
+  it('should not register movement if the mouse does not move', () => {
     // Arrange
     const mouse = new Mouse();
     const mouseEvent = {
       type: 'mousemove',
-      layerX: 0,
-      layerY: 0,
+      clientX: 0,
+      clientY: 0,
     };
 
     // Act
@@ -139,38 +139,6 @@ describe('mouseMove', () => {
     // Assert
     expect(mouse.Y).toBe(0);
     expect(mouse.X).toBe(0);
-  });
-  it('should be (5,5) when mouse moves (5,5) using offsetX, offsetY', () => {
-    // Arrange
-    const mouse = new Mouse();
-    const mouseEvent = {
-      type: 'mousemove',
-      offsetX: 5,
-      offsetY: 5,
-    };
-
-    // Act
-    mouse.handleEvent(mouseEvent);
-
-    // Assert
-    expect(mouse.X).toBe(5);
-    expect(mouse.Y).toBe(5);
-  });
-  it('should be (0,0) when moving the mouse by (0,0) using offsetX, offsetY', () => {
-    // Arrange
-    const mouse = new Mouse();
-    const mouseEvent = {
-      type: 'mousemove',
-      offsetX: 0,
-      offsetY: 0,
-    };
-
-    // Act
-    mouse.handleEvent(mouseEvent);
-
-    // Assert
-    expect(mouse.X).toBe(0);
-    expect(mouse.Y).toBe(0);
   });
   it('should throw an error if the event\'s properties are invalid', () => {
     // Arrange
@@ -199,6 +167,6 @@ describe('handleEvent', () => {
     // Act
 
     // Assert
-    expect(() => { mouse.handleEvent(mouseEvent); }).toThrow(UnhandledEventError);
+    expect(() => { mouse.handleEvent(mouseEvent); }).toThrow(UnhandledHtmlEventError);
   });
 });

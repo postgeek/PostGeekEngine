@@ -1,13 +1,13 @@
-import { UnhandledEventErrorText } from '../ErrorTexts';
+import { UnhandledHtmlEventErrorText } from '../ErrorTexts';
 
 /**
 * Defines the class for the UnhandledEventError
 * TODO: rephrase this Should be thrown when an html event is not handled by the system.
 */
-class UnhandledEventError extends Error {
+class UnhandledHtmlEventError extends Error {
   constructor(caller) {
-    super(UnhandledEventErrorText);
+    super(UnhandledHtmlEventErrorText);
     this.caller = caller;
   }
 }
-export default UnhandledEventError;
+export default UnhandledHtmlEventError;

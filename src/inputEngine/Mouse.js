@@ -1,4 +1,4 @@
-import UnhandledEventError from '../core/errorHandling/errors/UnhandledEventError';
+import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
 
 class Mouse {
@@ -55,7 +55,7 @@ class Mouse {
         this.mouseUp(evt);
         break;
       default:
-        throw new UnhandledEventError();
+        throw new UnhandledHtmlEventError();
     }
   }
 
@@ -64,12 +64,9 @@ class Mouse {
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.layerX || e.layerX === 0) { // FireFox
-      this.dx = e.layerX;
-      this.dy = e.layerY;
-    } else if (e.offsetX || e.offsetX === 0) { // Opera
-      this.dx = e.offsetX;
-      this.dy = e.offsetY;
+    if (e.clientX || e.clientX === 0) { // FireFox
+      this.dx = e.clientX;
+      this.dy = e.clientX;
     } else {
       throw new InvalidArguementError();
     }
