@@ -5,4 +5,5 @@ export const IndexSizeErrorText = 'Number is outside of the accepted values';
 export const InvalidArguementErrorText = 'Invalid arguement, please provde one of the following values {0}';
 export const InvalidStateOperationErrorText = 'Invalid operation, this method cannot be called in the current state.';
 export const UndefinedErrorText = 'Value is undefined.';
-export const UnhandledEventErrorText = 'Event is unhandled';
+export const UnhandledHtmlEventErrorText = 'Event is unhandled';
+export const ItemAlreadyExistsErrorText = 'unable to add the object, it already exists in the current collection';

@@ -1,5 +1,5 @@
-import UnhandledEventError from '../core/errorHandling/errors/UnhandledEventError';
-import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
+import ItemAlreadyExistsError from '../core/errorHandling/errors/ItemAlreadyExistsError';
 
 class Keyboard {
   /**
@@ -17,9 +17,13 @@ class Keyboard {
     this.registeredKeys = [];
   }
 
-  // TODO: Fix method
-  addKey(key) {
-    this.registeredKeys.push(key);
+  registerKey(key) {
+    if (this.retrieveKey(key) !== undefined) {
+      throw new ItemAlreadyExistsError();
+    }
+    const keyToAdd = key;
+    keyToAdd.state = this.keyStates.RELEASED;
+    this.registeredKeys.push(keyToAdd);
   }
 
   /**
@@ -27,14 +31,15 @@ class Keyboard {
   */
   poll() {
     for (let i = 0; i < this.registeredKeys.length; i += 1) {
-      if (this.registeredKeys[i].isKeyDown) {
-        if (this.registeredKeys[i].state === this.keyStates.RELEASED) {
-          this.registeredKeys[i].state = this.keyStates.ONCE;
-        } else if (this.registeredKeys[i].state === this.keyStates.ONCE) {
-          this.registeredKeys[i].state = this.keyStates.PRESSED;
+      const keyToCheck = this.registeredKeys[i];
+      if (keyToCheck.isKeyDown) {
+        if (keyToCheck.state === this.keyStates.RELEASED) {
+          keyToCheck.state = this.keyStates.ONCE;
+        } else if (keyToCheck.state === this.keyStates.ONCE) {
+          keyToCheck.state = this.keyStates.PRESSED;
         }
       } else {
-        this.registeredKeys[i].state = this.keyStates.RELEASED;
+        keyToCheck.state = this.keyStates.RELEASED;
       }
     }
   }
@@ -52,7 +57,7 @@ class Keyboard {
         this.keyUp(evt);
         break;
       default:
-        throw new UnhandledEventError();
+        throw new UnhandledHtmlEventError();
     }
   }
 
@@ -61,10 +66,10 @@ class Keyboard {
    * @param {KeyboardEvent} e The KeyboardEvent
    */
   keyDown(e) {
-    const currentKey = this.retrieveKeyByEvent(e);
+    const currentKey = this.retrieveKey(e);
     if (currentKey !== undefined) {
       currentKey.isKeyDown = true;
-      this.typedKey = e.key || e.charCodeAt;
+      this.typedKey = e.key || String.fromCharCode(e.charCode);
     }
   }
 
@@ -73,7 +78,7 @@ class Keyboard {
    * @param {KeyboardEvent} e The KeyboardEvent
    */
   keyUp(e) {
-    const currentKey = this.retrieveKeyByEvent(e);
+    const currentKey = this.retrieveKey(e);
     if (currentKey !== undefined) {
       currentKey.isKeyDown = false;
     }
@@ -85,7 +90,7 @@ class Keyboard {
    * @param {KeyCode} keyCode The key code for the key to check.
    */
   keyDownHeld(keyboardKey) {
-    const currentKey = this.retrieveKeyByCode(keyboardKey.code);
+    const currentKey = this.retrieveKey(keyboardKey);
     return currentKey.state === this.keyStates.ONCE
         || currentKey.state === this.keyStates.PRESSED;
   }
@@ -95,7 +100,7 @@ class Keyboard {
    * @param {KeyCode} keyCode The key code for the key to check.
    */
   keyDownOnce(keyboardKey) {
-    const currentKey = this.retrieveKeyByCode(keyboardKey.code);
+    const currentKey = this.retrieveKey(keyboardKey);
     return currentKey.state === this.keyStates.ONCE;
   }
 
@@ -104,40 +109,22 @@ class Keyboard {
    * @return {String} the character code representation.
    */
   getKeyCharacter() {
-    return String.fromCharCode(this.typedKey);
+    return this.typedKey;
   }
 
-  /**
-   * Gets the key state for the provided key code.
-   * @return {Enum} the key's current state
-   */
-  getKeyState(keyCode) {
-    return this.keyState[keyCode];
-  }
-
-  retrieveKeyByEvent(e) {
-    const { code, keyCode } = e;
-    let currentKey;
-    if (code !== undefined) {
-      currentKey = this.retrieveKeyByCode(code);
-    } else if (keyCode !== undefined) {
-      currentKey = this.retrieveKeyByKeyCode(code);
-    } else {
-      throw new InvalidArguementError();
-    }
-    return currentKey;
-  }
-
-  retrieveKeyByCode(code) {
+  retrieveKey(e) {
+    const { code, keyCode, location } = e;
     for (let i = 0; i < this.registeredKeys.length; i += 1) {
-      if (this.registeredKeys[i].code === code) return this.registeredKeys[i];
-    }
-    return undefined;
-  }
-
-  retrieveKeyByKeyCode(keyCode) {
-    for (let i = 0; i < this.registeredKeys.length - 1; i += 1) {
-      if (this.registeredKeys[i].keyCode === keyCode) return this.registeredKeys[i];
+      const keyToSearch = this.registeredKeys[i];
+      if (code !== undefined) {
+        if (keyToSearch.code === code && keyToSearch.location === location) {
+          return keyToSearch;
+        }
+      } else if (keyCode !== undefined) {
+        if (keyToSearch.keyCode === keyCode && keyToSearch.location === location) {
+          return keyToSearch;
+        }
+      }
     }
     return undefined;
   }

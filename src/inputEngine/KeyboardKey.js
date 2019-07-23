@@ -2,10 +2,10 @@
 // Use the KeyEvent.code to find out which physical key on the keyboard was PRESSED
 // Use the KeyEvent.key to find out which key that physical key maps to
 class KeyboardKey {
-  constructor({ keycode, code, location } = { location: 0 }) {
-    this._keyCode = keycode;
-    this._code = code;
-    this._location = location;
+  constructor({ keyCode, code, location = 0 } = {}) {
+    this.keyCode = keyCode;
+    this.code = code;
+    this.location = location;
   }
 
   set isKeyDown(value) {
@@ -17,11 +17,11 @@ class KeyboardKey {
   }
 
   set state(value) {
-    this._keyState = value;
+    this._state = value;
   }
 
   get state() {
-    return this._keyState;
+    return this._state;
   }
 
   set keyCode(value) {
@@ -38,6 +38,14 @@ class KeyboardKey {
 
   get code() {
     return this._code;
+  }
+
+  set location(value) {
+    this._location = value;
+  }
+
+  get location() {
+    return this._location;
   }
 
   /** @static */
@@ -59,7 +67,7 @@ class KeyboardKey {
   /** @static */
   static get CLEAR() {
     return new KeyboardKey({
-      keycode: 12,
+      keyCode: 12,
       code: 'Clear',
     });
   }
@@ -67,7 +75,7 @@ class KeyboardKey {
   /** @static */
   static get ENTER() {
     return new KeyboardKey({
-      keycode: 13,
+      keyCode: 13,
       code: 'Enter',
     });
   }
@@ -75,7 +83,7 @@ class KeyboardKey {
   /** @static */
   static get SHIFTLEFT() {
     return new KeyboardKey({
-      keycode: 16,
+      keyCode: 16,
       location: 1,
       code: 'ShiftLeft',
     });
@@ -84,7 +92,7 @@ class KeyboardKey {
   /** @static */
   static get SHIFTRIGHT() {
     return new KeyboardKey({
-      keycode: 16,
+      keyCode: 16,
       location: 2,
       code: 'ShiftRight',
     });
@@ -93,7 +101,7 @@ class KeyboardKey {
   /** @static */
   static get CONTROLLEFT() {
     return new KeyboardKey({
-      keycode: 17,
+      keyCode: 17,
       location: 1,
       code: 'ControlLeft',
     });
@@ -102,7 +110,7 @@ class KeyboardKey {
   /** @static */
   static get CONTROLRIGHT() {
     return new KeyboardKey({
-      keycode: 17,
+      keyCode: 17,
       location: 2,
       code: 'ControlRight',
     });
@@ -111,7 +119,7 @@ class KeyboardKey {
   /** @static */
   static get ALTLEFT() {
     return new KeyboardKey({
-      keycode: 18,
+      keyCode: 18,
       location: 1,
       code: 'AltLeft',
     });
@@ -120,7 +128,7 @@ class KeyboardKey {
   /** @static */
   static get ALTRIGHT() {
     return new KeyboardKey({
-      keycode: 18,
+      keyCode: 18,
       location: 2,
       code: 'AltRight',
     });
@@ -136,7 +144,7 @@ class KeyboardKey {
   /** @static */
   static get CAPS_LOCK() {
     return new KeyboardKey({
-      keycode: 20,
+      keyCode: 20,
       code: 'CapsLock',
     });
   }
@@ -144,7 +152,7 @@ class KeyboardKey {
   /** @static */
   static get ESC() {
     return new KeyboardKey({
-      keycode: 27,
+      keyCode: 27,
       code: 'Escape',
     });
   }
@@ -152,7 +160,7 @@ class KeyboardKey {
   /** @static */
   static get SPACEBAR() {
     return new KeyboardKey({
-      keycode: 32,
+      keyCode: 32,
       code: 'Space',
     });
   }
@@ -160,7 +168,7 @@ class KeyboardKey {
   /** @static */
   static get PAGE_UP() {
     return new KeyboardKey({
-      keycode: 33,
+      keyCode: 33,
       code: 'PageUp',
     });
   }
@@ -168,7 +176,7 @@ class KeyboardKey {
   /** @static */
   static get PAGE_DOWN() {
     return new KeyboardKey({
-      keycode: 34,
+      keyCode: 34,
       code: 'PageDown',
     });
   }
@@ -176,7 +184,7 @@ class KeyboardKey {
   /** @static */
   static get END() {
     return new KeyboardKey({
-      keycode: 35,
+      keyCode: 35,
       code: 'End',
     });
   }
@@ -184,7 +192,7 @@ class KeyboardKey {
   /** @static */
   static get HOME() {
     return new KeyboardKey({
-      keycode: 36,
+      keyCode: 36,
       code: 'Home',
     });
   }
@@ -192,7 +200,7 @@ class KeyboardKey {
   /** @static */
   static get LEFT() {
     return new KeyboardKey({
-      keycode: 37,
+      keyCode: 37,
       code: 'ArrowLeft',
     });
   }
@@ -200,7 +208,7 @@ class KeyboardKey {
   /** @static */
   static get UP() {
     return new KeyboardKey({
-      keycode: 38,
+      keyCode: 38,
       code: 'ArrowUp',
     });
   }
@@ -208,7 +216,7 @@ class KeyboardKey {
   /** @static */
   static get RIGHT() {
     return new KeyboardKey({
-      keycode: 39,
+      keyCode: 39,
       code: 'ArrowRight',
     });
   }
@@ -216,7 +224,7 @@ class KeyboardKey {
   /** @static */
   static get DOWN() {
     return new KeyboardKey({
-      keycode: 40,
+      keyCode: 40,
       code: 'ArrowDown',
     });
   }
@@ -224,7 +232,7 @@ class KeyboardKey {
   /** @static */
   static get INSERT() {
     return new KeyboardKey({
-      keycode: 45,
+      keyCode: 45,
       code: 'Insert',
     });
   }
@@ -232,7 +240,7 @@ class KeyboardKey {
   /** @static */
   static get DELETE() {
     return new KeyboardKey({
-      keycode: 46,
+      keyCode: 46,
       code: 'Delete',
     });
   }
@@ -240,7 +248,7 @@ class KeyboardKey {
   /** @static */
   static get HELP() {
     return new KeyboardKey({
-      keycode: 47,
+      keyCode: 47,
       code: 'Help',
     });
   }
@@ -248,7 +256,7 @@ class KeyboardKey {
   /** @static */
   static get ZERO() {
     return new KeyboardKey({
-      keycode: 48,
+      keyCode: 48,
       code: 'Digit0',
     });
   }
@@ -256,7 +264,7 @@ class KeyboardKey {
   /** @static */
   static get ONE() {
     return new KeyboardKey({
-      keycode: 49,
+      keyCode: 49,
       code: 'Digit1',
     });
   }
@@ -264,7 +272,7 @@ class KeyboardKey {
   /** @static */
   static get TWO() {
     return new KeyboardKey({
-      keycode: 50,
+      keyCode: 50,
       code: 'Digit2',
     });
   }
@@ -272,7 +280,7 @@ class KeyboardKey {
   /** @static */
   static get THREE() {
     return new KeyboardKey({
-      keycode: 51,
+      keyCode: 51,
       code: 'Digit3',
     });
   }
@@ -280,7 +288,7 @@ class KeyboardKey {
   /** @static */
   static get FOUR() {
     return new KeyboardKey({
-      keycode: 52,
+      keyCode: 52,
       code: 'Digit4',
     });
   }
@@ -288,7 +296,7 @@ class KeyboardKey {
   /** @static */
   static get FIVE() {
     return new KeyboardKey({
-      keycode: 53,
+      keyCode: 53,
       code: 'Digit5',
     });
   }
@@ -296,7 +304,7 @@ class KeyboardKey {
   /** @static */
   static get SIX() {
     return new KeyboardKey({
-      keycode: 54,
+      keyCode: 54,
       code: 'Digit6',
     });
   }
@@ -304,7 +312,7 @@ class KeyboardKey {
   /** @static */
   static get SEVEN() {
     return new KeyboardKey({
-      keycode: 55,
+      keyCode: 55,
       code: 'Digit7',
     });
   }
@@ -312,7 +320,7 @@ class KeyboardKey {
   /** @static */
   static get EIGHT() {
     return new KeyboardKey({
-      keycode: 56,
+      keyCode: 56,
       code: 'Digit8',
     });
   }
@@ -320,7 +328,7 @@ class KeyboardKey {
   /** @static */
   static get NINE() {
     return new KeyboardKey({
-      keycode: 57,
+      keyCode: 57,
       code: 'Digit9',
     });
   }
@@ -328,7 +336,7 @@ class KeyboardKey {
   /** @static */
   static get A() {
     return new KeyboardKey({
-      keycode: 65,
+      keyCode: 65,
       code: 'KeyA',
     });
   }
@@ -336,7 +344,7 @@ class KeyboardKey {
   /** @static */
   static get B() {
     return new KeyboardKey({
-      keycode: 66,
+      keyCode: 66,
       code: 'KeyB',
     });
   }
@@ -344,7 +352,7 @@ class KeyboardKey {
   /** @static */
   static get C() {
     return new KeyboardKey({
-      keycode: 67,
+      keyCode: 67,
       code: 'KeyC',
     });
   }
@@ -352,7 +360,7 @@ class KeyboardKey {
   /** @static */
   static get D() {
     return new KeyboardKey({
-      keycode: 68,
+      keyCode: 68,
       code: 'KeyD',
     });
   }
@@ -360,7 +368,7 @@ class KeyboardKey {
   /** @static */
   static get E() {
     return new KeyboardKey({
-      keycode: 69,
+      keyCode: 69,
       code: 'KeyE',
     });
   }
@@ -368,7 +376,7 @@ class KeyboardKey {
   /** @static */
   static get F() {
     return new KeyboardKey({
-      keycode: 70,
+      keyCode: 70,
       code: 'KeyF',
     });
   }
@@ -376,7 +384,7 @@ class KeyboardKey {
   /** @static */
   static get G() {
     return new KeyboardKey({
-      keycode: 71,
+      keyCode: 71,
       code: 'KeyG',
     });
   }
@@ -384,7 +392,7 @@ class KeyboardKey {
   /** @static */
   static get H() {
     return new KeyboardKey({
-      keycode: 72,
+      keyCode: 72,
       code: 'KeyH',
     });
   }
@@ -392,7 +400,7 @@ class KeyboardKey {
   /** @static */
   static get I() {
     return new KeyboardKey({
-      keycode: 73,
+      keyCode: 73,
       code: 'KeyI',
     });
   }
@@ -400,7 +408,7 @@ class KeyboardKey {
   /** @static */
   static get J() {
     return new KeyboardKey({
-      keycode: 74,
+      keyCode: 74,
       code: 'KeyJ',
     });
   }
@@ -408,7 +416,7 @@ class KeyboardKey {
   /** @static */
   static get K() {
     return new KeyboardKey({
-      keycode: 75,
+      keyCode: 75,
       code: 'KeyK',
     });
   }
@@ -416,7 +424,7 @@ class KeyboardKey {
   /** @static */
   static get L() {
     return new KeyboardKey({
-      keycode: 76,
+      keyCode: 76,
       code: 'KeyL',
     });
   }
@@ -424,7 +432,7 @@ class KeyboardKey {
   /** @static */
   static get M() {
     return new KeyboardKey({
-      keycode: 77,
+      keyCode: 77,
       code: 'KeyM',
     });
   }
@@ -432,7 +440,7 @@ class KeyboardKey {
   /** @static */
   static get N() {
     return new KeyboardKey({
-      keycode: 78,
+      keyCode: 78,
       code: 'KeyN',
     });
   }
@@ -440,7 +448,7 @@ class KeyboardKey {
   /** @static */
   static get O() {
     return new KeyboardKey({
-      keycode: 79,
+      keyCode: 79,
       code: 'KeyO',
     });
   }
@@ -448,7 +456,7 @@ class KeyboardKey {
   /** @static */
   static get P() {
     return new KeyboardKey({
-      keycode: 80,
+      keyCode: 80,
       code: 'KeyP',
     });
   }
@@ -456,7 +464,7 @@ class KeyboardKey {
   /** @static */
   static get Q() {
     return new KeyboardKey({
-      keycode: 81,
+      keyCode: 81,
       code: 'KeyQ',
     });
   }
@@ -464,7 +472,7 @@ class KeyboardKey {
   /** @static */
   static get R() {
     return new KeyboardKey({
-      keycode: 82,
+      keyCode: 82,
       code: 'KeyR',
     });
   }
@@ -472,7 +480,7 @@ class KeyboardKey {
   /** @static */
   static get S() {
     return new KeyboardKey({
-      keycode: 83,
+      keyCode: 83,
       code: 'KeyS',
     });
   }
@@ -480,7 +488,7 @@ class KeyboardKey {
   /** @static */
   static get T() {
     return new KeyboardKey({
-      keycode: 84,
+      keyCode: 84,
       code: 'KeyT',
     });
   }
@@ -488,7 +496,7 @@ class KeyboardKey {
   /** @static */
   static get U() {
     return new KeyboardKey({
-      keycode: 85,
+      keyCode: 85,
       code: 'KeyU',
     });
   }
@@ -501,7 +509,7 @@ class KeyboardKey {
   /** @static */
   static get W() {
     return new KeyboardKey({
-      keycode: 87,
+      keyCode: 87,
       code: 'KeyW',
     });
   }
@@ -509,7 +517,7 @@ class KeyboardKey {
   /** @static */
   static get X() {
     return new KeyboardKey({
-      keycode: 88,
+      keyCode: 88,
       code: 'KeyX',
     });
   }
@@ -517,7 +525,7 @@ class KeyboardKey {
   /** @static */
   static get Y() {
     return new KeyboardKey({
-      keycode: 89,
+      keyCode: 89,
       code: 'KeyY',
     });
   }
@@ -525,7 +533,7 @@ class KeyboardKey {
   /** @static */
   static get Z() {
     return new KeyboardKey({
-      keycode: 90,
+      keyCode: 90,
       code: 'KeyZ',
     });
   }
@@ -533,7 +541,7 @@ class KeyboardKey {
   /** @static * */
   static get METALEFT() {
     return new KeyboardKey({
-      keycode: 91,
+      keyCode: 91,
       code: 'MetaLeft',
     });
   }
@@ -541,7 +549,7 @@ class KeyboardKey {
   /** @static * */
   static get METARIGHT() {
     return new KeyboardKey({
-      keycode: 93,
+      keyCode: 93,
       code: 'MetaRight',
     });
   }
@@ -549,7 +557,7 @@ class KeyboardKey {
   /** @static */
   static get NUMPAD_0() {
     return new KeyboardKey({
-      keycode: 96,
+      keyCode: 96,
       code: 'Numpad0',
     });
   }
@@ -557,7 +565,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_1() {
     return new KeyboardKey({
-      keycode: 97,
+      keyCode: 97,
       code: 'Numpad1',
     });
   }
@@ -565,7 +573,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_2() {
     return new KeyboardKey({
-      keycode: 98,
+      keyCode: 98,
       code: 'Numpad2',
     });
   }
@@ -573,7 +581,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_3() {
     return new KeyboardKey({
-      keycode: 99,
+      keyCode: 99,
       code: 'Numpad3',
     });
   }
@@ -581,7 +589,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_4() {
     return new KeyboardKey({
-      keycode: 100,
+      keyCode: 100,
       code: 'Numpad4',
     });
   }
@@ -589,7 +597,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_5() {
     return new KeyboardKey({
-      keycode: 101,
+      keyCode: 101,
       code: 'Numpad5',
     });
   }
@@ -597,7 +605,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_6() {
     return new KeyboardKey({
-      keycode: 102,
+      keyCode: 102,
       code: 'Numpad6',
     });
   }
@@ -605,7 +613,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_7() {
     return new KeyboardKey({
-      keycode: 103,
+      keyCode: 103,
       code: 'Numpad7',
     });
   }
@@ -613,7 +621,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_8() {
     return new KeyboardKey({
-      keycode: 104,
+      keyCode: 104,
       code: 'Numpad8',
     });
   }
@@ -621,7 +629,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_9() {
     return new KeyboardKey({
-      keycode: 105,
+      keyCode: 105,
       code: 'Numpad9',
     });
   }
@@ -629,7 +637,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_MULTIPLY() {
     return new KeyboardKey({
-      keycode: 106,
+      keyCode: 106,
       code: 'NumpadMultiply',
     });
   }
@@ -637,7 +645,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_ADD() {
     return new KeyboardKey({
-      keycode: 107,
+      keyCode: 107,
       code: 'NumpadAdd',
     });
   }
@@ -645,7 +653,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_ENTER() {
     return new KeyboardKey({
-      keycode: 108,
+      keyCode: 108,
       code: 'NumpadEnter',
     });
   }
@@ -653,7 +661,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_SUBTRACT() {
     return new KeyboardKey({
-      keycode: 109,
+      keyCode: 109,
       code: 'NumpadSubtract',
     });
   }
@@ -661,7 +669,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_DECIMAL() {
     return new KeyboardKey({
-      keycode: 110,
+      keyCode: 110,
       code: 'NumpadDecimal',
     });
   }
@@ -669,7 +677,7 @@ class KeyboardKey {
   /** @static */
   static get NUMEPAD_DIVIDE() {
     return new KeyboardKey({
-      keycode: 111,
+      keyCode: 111,
       code: 'NumpadDivide',
     });
   }
@@ -677,7 +685,7 @@ class KeyboardKey {
   /** @static */
   static get F1() {
     return new KeyboardKey({
-      keycode: 112,
+      keyCode: 112,
       code: 'F1',
     });
   }
@@ -685,7 +693,7 @@ class KeyboardKey {
   /** @static */
   static get F2() {
     return new KeyboardKey({
-      keycode: 113,
+      keyCode: 113,
       code: 'F2',
     });
   }
@@ -693,7 +701,7 @@ class KeyboardKey {
   /** @static */
   static get F3() {
     return new KeyboardKey({
-      keycode: 114,
+      keyCode: 114,
       code: 'F3',
     });
   }
@@ -701,7 +709,7 @@ class KeyboardKey {
   /** @static */
   static get F4() {
     return new KeyboardKey({
-      keycode: 115,
+      keyCode: 115,
       code: 'F4',
     });
   }
@@ -709,7 +717,7 @@ class KeyboardKey {
   /** @static */
   static get F5() {
     return new KeyboardKey({
-      keycode: 116,
+      keyCode: 116,
       code: 'F5',
     });
   }
@@ -717,7 +725,7 @@ class KeyboardKey {
   /** @static */
   static get F6() {
     return new KeyboardKey({
-      keycode: 117,
+      keyCode: 117,
       code: 'F6',
     });
   }
@@ -725,7 +733,7 @@ class KeyboardKey {
   /** @static */
   static get F7() {
     return new KeyboardKey({
-      keycode: 118,
+      keyCode: 118,
       code: 'F7',
     });
   }
@@ -733,7 +741,7 @@ class KeyboardKey {
   /** @static */
   static get F8() {
     return new KeyboardKey({
-      keycode: 119,
+      keyCode: 119,
       code: 'F8',
     });
   }
@@ -741,7 +749,7 @@ class KeyboardKey {
   /** @static */
   static get F9() {
     return new KeyboardKey({
-      keycode: 119,
+      keyCode: 119,
       code: 'F9',
     });
   }
@@ -749,7 +757,7 @@ class KeyboardKey {
   /** @static */
   static get F10() {
     return new KeyboardKey({
-      keycode: 121,
+      keyCode: 121,
       code: 'F10',
     });
   }
@@ -757,7 +765,7 @@ class KeyboardKey {
   /** @static */
   static get F11() {
     return new KeyboardKey({
-      keycode: 122,
+      keyCode: 122,
       code: 'F11',
     });
   }
@@ -765,7 +773,7 @@ class KeyboardKey {
   /** @static */
   static get F12() {
     return new KeyboardKey({
-      keycode: 123,
+      keyCode: 123,
       code: 'F12',
     });
   }
@@ -773,7 +781,7 @@ class KeyboardKey {
   /** @static */
   static get F13() {
     return new KeyboardKey({
-      keycode: 124,
+      keyCode: 124,
       code: 'F13',
     });
   }
@@ -781,7 +789,7 @@ class KeyboardKey {
   /** @static */
   static get F14() {
     return new KeyboardKey({
-      keycode: 125,
+      keyCode: 125,
       code: 'F14',
     });
   }
@@ -789,7 +797,7 @@ class KeyboardKey {
   /** @static */
   static get F15() {
     return new KeyboardKey({
-      keycode: 126,
+      keyCode: 126,
       code: 'F15',
     });
   }
@@ -797,7 +805,7 @@ class KeyboardKey {
   /** @static */
   static get NUM_LOCK() {
     return new KeyboardKey({
-      keycode: 144,
+      keyCode: 144,
       code: 'NumLock',
     });
   }
@@ -805,7 +813,7 @@ class KeyboardKey {
   /** @static */
   static get SEMICOLONG() {
     return new KeyboardKey({
-      keycode: 186,
+      keyCode: 186,
       code: 'Semicolon',
     });
   }
@@ -813,7 +821,7 @@ class KeyboardKey {
   /** @static */
   static get EQUALS() {
     return new KeyboardKey({
-      keycode: 187,
+      keyCode: 187,
       code: 'Equal',
     });
   }
@@ -821,7 +829,7 @@ class KeyboardKey {
   /** @static */
   static get COMMA() {
     return new KeyboardKey({
-      keycode: 188,
+      keyCode: 188,
       code: 'Comma',
     });
   }
@@ -829,7 +837,7 @@ class KeyboardKey {
   /** @static */
   static get MINUS() {
     return new KeyboardKey({
-      keycode: 189,
+      keyCode: 189,
       code: 'Minus',
     });
   }
@@ -837,7 +845,7 @@ class KeyboardKey {
   /** @static */
   static get PERIOD() {
     return new KeyboardKey({
-      keycode: 190,
+      keyCode: 190,
       code: 'Period',
     });
   }
@@ -845,7 +853,7 @@ class KeyboardKey {
   /** @static */
   static get SLASH() {
     return new KeyboardKey({
-      keycode: 191,
+      keyCode: 191,
       code: 'Slash',
     });
   }
@@ -853,7 +861,7 @@ class KeyboardKey {
   /** @static */
   static get BACKQUOTE() {
     return new KeyboardKey({
-      keycode: 192,
+      keyCode: 192,
       code: 'Backquote',
     });
   }
@@ -861,7 +869,7 @@ class KeyboardKey {
   /** @static */
   static get BRACKETLEFT() {
     return new KeyboardKey({
-      keycode: 219,
+      keyCode: 219,
       code: 'BracketLeft',
     });
   }
@@ -869,7 +877,7 @@ class KeyboardKey {
   /** @static */
   static get BACKSLASH() {
     return new KeyboardKey({
-      keycode: 220,
+      keyCode: 220,
       code: 'Backslash',
     });
   }
@@ -877,7 +885,7 @@ class KeyboardKey {
   /** @static */
   static get BRACKETRIGHT() {
     return new KeyboardKey({
-      keycode: 221,
+      keyCode: 221,
       code: 'BracketRight',
     });
   }
