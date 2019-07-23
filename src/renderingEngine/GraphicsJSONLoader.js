@@ -26,7 +26,7 @@ class GraphicsJSONLoader {
    * @return {Circle}        The newly created circle
    */
   static createCircle({ radius, point, geometryStyle }) {
-    const parsedPoint = GraphicsJSONLoader.parsePoint(point);
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
     const circle = new Circle(parsedPoint, radius);
     circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
@@ -46,10 +46,10 @@ class GraphicsJSONLoader {
     endPoint,
     geometryStyle,
   }) {
-    const parsedStartPoint = GraphicsJSONLoader.parsePoint(startPoint);
-    const parsedFirstControlPoint = GraphicsJSONLoader.parsePoint(firstControlPoint);
-    const parsedSecondControlPoint = GraphicsJSONLoader.parsePoint(secondControlPoint);
-    const parsedEndPoint = GraphicsJSONLoader.parsePoint(endPoint);
+    const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
+    const parsedFirstControlPoint = GraphicsJSONLoader.parsePoint2D(firstControlPoint);
+    const parsedSecondControlPoint = GraphicsJSONLoader.parsePoint2D(secondControlPoint);
+    const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
     const bezierCurve = new BezierCurve(
       parsedStartPoint, parsedFirstControlPoint, parsedSecondControlPoint, parsedEndPoint,
@@ -71,9 +71,9 @@ class GraphicsJSONLoader {
     endPoint,
     geometryStyle,
   }) {
-    const parsedStartPoint = GraphicsJSONLoader.parsePoint(startPoint);
-    const parsedControlPoint = GraphicsJSONLoader.parsePoint(controlPoint);
-    const parsedEndPoint = GraphicsJSONLoader.parsePoint(endPoint);
+    const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
+    const parsedControlPoint = GraphicsJSONLoader.parsePoint2D(controlPoint);
+    const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
     const quadraticCurve = new QuadraticCurve(
       parsedStartPoint, parsedControlPoint, parsedEndPoint,
@@ -93,7 +93,7 @@ class GraphicsJSONLoader {
   static createEllipse({
     radiusX, radiusY, rotation, geometryStyle, point,
   } = {}) {
-    const newPoint = GraphicsJSONLoader.parsePoint(point);
+    const newPoint = GraphicsJSONLoader.parsePoint2D(point);
     const ellipse = new Ellipse(newPoint, radiusX, radiusY, rotation);
     ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
 
@@ -109,7 +109,7 @@ class GraphicsJSONLoader {
   static createRectangle({
     point, height, width, geometryStyle,
   }) {
-    const parsedPoint = GraphicsJSONLoader.parsePoint(point);
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
     const rectangle = new Rectangle(parsedPoint, width, height);
     rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -124,7 +124,7 @@ class GraphicsJSONLoader {
    * @return {Text}           The newly created text
    */
   static createText({ point, text, textStyle }) {
-    const parsedPoint = GraphicsJSONLoader.parsePoint(point);
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
     const textObject = new Text(parsedPoint, text);
     textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
@@ -139,7 +139,7 @@ class GraphicsJSONLoader {
    * @param  {string} pointJson The JSON for the point
    * @return {Point}            The created Point object
    */
-  static parsePoint({ x, y }) {
+  static parsePoint2D({ x, y }) {
     return new Point(x, y);
   }
 
@@ -150,17 +150,18 @@ class GraphicsJSONLoader {
    * @param  {string} textStyle The JSON for the text styling
    * @return {TextStyle}        The created TextStyle object
    */
-  static parseTextStyle({ strokeStyle, fillStyle }) {
-    let parsedStrokeStyle;
-    let parsedFillStyle;
+  static parseTextStyle(textStyle) {
+    const parsedTextStyle = textStyle;
+    const { strokeStyle, fillStyle } = parsedTextStyle;
 
     if (strokeStyle !== undefined) {
-      parsedStrokeStyle = GraphicsJSONLoader.parseColor(strokeStyle);
+      parsedTextStyle.strokeStyle = GraphicsJSONLoader.parseColor(strokeStyle);
     }
     if (fillStyle !== undefined) {
-      parsedFillStyle = GraphicsJSONLoader.parseColor(fillStyle);
+      parsedTextStyle.fillStyle = GraphicsJSONLoader.parseColor(fillStyle);
     }
-    return new TextStyle({ parsedStrokeStyle, parsedFillStyle });
+
+    return new TextStyle(parsedTextStyle);
   }
 
   /**
