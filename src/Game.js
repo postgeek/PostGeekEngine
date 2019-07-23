@@ -150,7 +150,7 @@ class Game {
   draw() {
     // Draw Background
     this._context.fillStyle = '#000000';
-    this._context.fillRect(0, 0, 1550, 750);
+    this._context.fillRect(0, 0, this.Canvas.width, this.Canvas.height);
 
     this.sceneManager.runningScene.draw();
     this.middlewareManager.draw();

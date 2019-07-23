@@ -1,5 +1,6 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
+import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import PostGeekDebugger from '../src/core/debug/PostGeekDebugger';
@@ -29,6 +30,15 @@ Window.Main = class Main {
       middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'themeDemoScene', scene: ThemeDemoScene },
+    });
+  }
+
+  static start2CollisionDemo() {
+    start({
+      debug: true,
+      middleware: [new PostGeekDebugger()],
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'collisionScene', scene: CollisionScene },
     });
   }
 };
