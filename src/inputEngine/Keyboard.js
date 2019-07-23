@@ -7,14 +7,14 @@ class Keyboard {
    * @constructor
    */
   constructor() {
-    this.keyStates = Object.freeze({
+    this.KEY_STATE = Object.freeze({
       RELEASED: { id: 0, value: 'RELEASED' }, // Not down
       PRESSED: { id: 1, value: 'PRESSED' }, // Down but not first time
       ONCE: { id: 2, value: 'ONCE' }, // Down for the first time
     });
 
     // An array of registered keys that the engine will listen for
-    this.registeredKeys = [];
+    this._registeredKeys = [];
   }
 
   registerKey(key) {
@@ -22,24 +22,24 @@ class Keyboard {
       throw new ItemAlreadyExistsError();
     }
     const keyToAdd = key;
-    keyToAdd.state = this.keyStates.RELEASED;
-    this.registeredKeys.push(keyToAdd);
+    keyToAdd.state = this.KEY_STATE.RELEASED;
+    this._registeredKeys.push(keyToAdd);
   }
 
   /**
   * Polls the input from the keyboard
   */
   poll() {
-    for (let i = 0; i < this.registeredKeys.length; i += 1) {
-      const keyToCheck = this.registeredKeys[i];
+    for (let i = 0; i < this._registeredKeys.length; i += 1) {
+      const keyToCheck = this._registeredKeys[i];
       if (keyToCheck.isKeyDown) {
-        if (keyToCheck.state === this.keyStates.RELEASED) {
-          keyToCheck.state = this.keyStates.ONCE;
-        } else if (keyToCheck.state === this.keyStates.ONCE) {
-          keyToCheck.state = this.keyStates.PRESSED;
+        if (keyToCheck.state === this.KEY_STATE.RELEASED) {
+          keyToCheck.state = this.KEY_STATE.ONCE;
+        } else if (keyToCheck.state === this.KEY_STATE.ONCE) {
+          keyToCheck.state = this.KEY_STATE.PRESSED;
         }
       } else {
-        keyToCheck.state = this.keyStates.RELEASED;
+        keyToCheck.state = this.KEY_STATE.RELEASED;
       }
     }
   }
@@ -69,7 +69,7 @@ class Keyboard {
     const currentKey = this.retrieveKey(e);
     if (currentKey !== undefined) {
       currentKey.isKeyDown = true;
-      this.typedKey = e.key || String.fromCharCode(e.charCode);
+      this._typedKey = e.key || String.fromCharCode(e.charCode);
     }
   }
 
@@ -91,8 +91,8 @@ class Keyboard {
    */
   keyDownHeld(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
-    return currentKey.state === this.keyStates.ONCE
-        || currentKey.state === this.keyStates.PRESSED;
+    return currentKey.state === this.KEY_STATE.ONCE
+        || currentKey.state === this.KEY_STATE.PRESSED;
   }
 
   /**
@@ -101,7 +101,7 @@ class Keyboard {
    */
   keyDownOnce(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
-    return currentKey.state === this.keyStates.ONCE;
+    return currentKey.state === this.KEY_STATE.ONCE;
   }
 
   /**
@@ -109,13 +109,13 @@ class Keyboard {
    * @return {String} the character code representation.
    */
   getKeyCharacter() {
-    return this.typedKey;
+    return this._typedKey;
   }
 
   retrieveKey(e) {
     const { code, keyCode, location } = e;
-    for (let i = 0; i < this.registeredKeys.length; i += 1) {
-      const keyToSearch = this.registeredKeys[i];
+    for (let i = 0; i < this._registeredKeys.length; i += 1) {
+      const keyToSearch = this._registeredKeys[i];
       if (code !== undefined) {
         if (keyToSearch.code === code && keyToSearch.location === location) {
           return keyToSearch;

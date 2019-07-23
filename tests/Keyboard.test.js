@@ -29,15 +29,6 @@ describe('registerKey', () => {
     // Assert
     expect(keyboard.retrieveKey(KeyboardKey.A)).not.toBe(undefined);
   });
-  it('should be undefined if the key is not registered', () => {
-    // Arrange
-    const keyboard = new Keyboard();
-
-    // Act
-
-    // Assert
-    expect(keyboard.retrieveKey(KeyboardKey.A)).toBe(undefined);
-  });
   it('should throw an ItemAlreadyExistsError if the key has already been registered', () => {
     // Arrange
     const keyboard = new Keyboard();
