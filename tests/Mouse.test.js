@@ -120,8 +120,8 @@ describe('mouseMove', () => {
     mouse.handleEvent(mouseEvent);
 
     // Assert
-    expect(mouse.X).toBe(5);
-    expect(mouse.Y).toBe(5);
+    expect(mouse.x).toBe(5);
+    expect(mouse.y).toBe(5);
   });
 
   it('should not register movement if the mouse does not move', () => {
@@ -137,8 +137,8 @@ describe('mouseMove', () => {
     mouse.handleEvent(mouseEvent);
 
     // Assert
-    expect(mouse.Y).toBe(0);
-    expect(mouse.X).toBe(0);
+    expect(mouse.x).toBe(0);
+    expect(mouse.y).toBe(0);
   });
   it('should throw an error if the event\'s properties are invalid', () => {
     // Arrange
