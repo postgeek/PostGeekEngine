@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'physicsEngine/Point';
+import Point from 'core/Point';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Transform from 'renderingEngine/context/Transform';
 import QuadraticCurve from 'renderingEngine/geometry/QuadraticCurve';
