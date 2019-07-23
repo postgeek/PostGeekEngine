@@ -10,7 +10,7 @@ class Keyboard {
     this.KEY_STATE = Object.freeze({
       RELEASED: { id: 0, value: 'RELEASED' }, // Not down
       PRESSED: { id: 1, value: 'PRESSED' }, // Down but not first time
-      ONCE: { id: 2, value: 'ONCE' }, // Down for the first time
+      DOWN_ONCE: { id: 2, value: 'DOWN_ONCE' }, // Down for the first time
     });
 
     // An array of registered keys that the engine will listen for
@@ -34,8 +34,8 @@ class Keyboard {
       const keyToCheck = this._registeredKeys[i];
       if (keyToCheck.isKeyDown) {
         if (keyToCheck.state === this.KEY_STATE.RELEASED) {
-          keyToCheck.state = this.KEY_STATE.ONCE;
-        } else if (keyToCheck.state === this.KEY_STATE.ONCE) {
+          keyToCheck.state = this.KEY_STATE.DOWN_ONCE;
+        } else if (keyToCheck.state === this.KEY_STATE.DOWN_ONCE) {
           keyToCheck.state = this.KEY_STATE.PRESSED;
         }
       } else {
@@ -91,17 +91,17 @@ class Keyboard {
    */
   keyDownHeld(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
-    return currentKey.state === this.KEY_STATE.ONCE
+    return currentKey.state === this.KEY_STATE.DOWN_ONCE
         || currentKey.state === this.KEY_STATE.PRESSED;
   }
 
   /**
-   * Handles the key down once event
+   * Handles the key down DOWN_ONCE event
    * @param {KeyCode} keyCode The key code for the key to check.
    */
   keyDownOnce(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
-    return currentKey.state === this.KEY_STATE.ONCE;
+    return currentKey.state === this.KEY_STATE.DOWN_ONCE;
   }
 
   /**
