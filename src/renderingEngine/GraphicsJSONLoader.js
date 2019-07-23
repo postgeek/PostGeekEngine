@@ -13,14 +13,13 @@ import HSLColor from './colors/HSLColor';
 import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
-import Point from '../physicsEngine/Point';
+import Point from '../core/Point';
 import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * The graphic objects JSON loader
  */
 class GraphicsJSONLoader {
-  
   /**
    * Creates a circle with the supplied properties
    *
