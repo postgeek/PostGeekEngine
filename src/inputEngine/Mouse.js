@@ -1,34 +1,41 @@
+import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
+import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+
 class Mouse {
   /**
    * @constructor
    */
   constructor() {
-    this.dx = 0;
-    this.dy = 0;
-    this.buttonDown = false;
+    this._dx = 0;
+    this._dy = 0;
+    this._buttonDown = false;
 
     // The possible mouse states
-    this.mouseStates = Object.freeze({
+    this.MOUSE_STATE = Object.freeze({
       RELEASED: { id: 0, value: 'RELEASED' }, // Not down
       PRESSED: { id: 1, value: 'PRESSED' }, // Down but not the first time
-      ONCE: { id: 2, value: 'ONCE' }, // Down for the first time
+      DOWN_ONCE: { id: 2, value: 'DOWN_ONCE' }, // Down for the first time
     });
 
-    this.mouseState = this.mouseStates.RELEASED;
+    this._mouseState = this.MOUSE_STATE.RELEASED;
   }
 
   /**
   * Polls the input from the mouse
   */
   poll() {
-    if (this.buttonDown) {
-      if (this.mouseState === this.mouseStates.RELEASED) {
-        this.mouseState = this.mouseStates.ONCE;
-      } else if (this.mouseState === this.mouseStates.ONCE) {
-        this.mouseState = this.mouseStates.PRESSED;
+    if (this._buttonDown) {
+      switch (this._mouseState) {
+        case this.MOUSE_STATE.DOWN_ONCE:
+          this._mouseState = this.MOUSE_STATE.PRESSED;
+          break;
+        case this.MOUSE_STATE.RELEASED:
+        default:
+          this._mouseState = this.MOUSE_STATE.DOWN_ONCE;
+          break;
       }
     } else {
-      this.mouseState = this.mouseStates.RELEASED;
+      this._mouseState = this.MOUSE_STATE.RELEASED;
     }
   }
 
@@ -48,6 +55,7 @@ class Mouse {
         this.mouseUp(evt);
         break;
       default:
+        throw new UnhandledHtmlEventError();
     }
   }
 
@@ -56,12 +64,11 @@ class Mouse {
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.layerX || e.layerX === 0) { // FireFox
-      this.dx = e.layerX;
-      this.dy = e.layerY;
-    } else if (e.offsetX || e.offsetX === 0) { // Opera
-      this.dx = e.offsetX;
-      this.dy = e.offsetY;
+    if (e.clientX || e.clientX === 0) {
+      this._dx = e.clientX;
+      this._dy = e.clientX;
+    } else {
+      throw new InvalidArguementError();
     }
   }
 
@@ -69,14 +76,14 @@ class Mouse {
    * Handles the mouse down event.
    */
   mouseDown() {
-    this.buttonDown = true;
+    this._buttonDown = true;
   }
 
   /**
    * Handles the mouse up event.
    */
   mouseUp() {
-    this.buttonDown = false;
+    this._buttonDown = false;
   }
 
   /**
@@ -84,8 +91,8 @@ class Mouse {
    *
    * @return {float} The mouse's horizontal position
    */
-  get X() {
-    return this.dx;
+  get x() {
+    return this._dx;
   }
 
   /**
@@ -93,23 +100,23 @@ class Mouse {
    *
    * @return {float} The mouse's vertical position
    */
-  get Y() {
-    return this.dy;
+  get y() {
+    return this._dy;
   }
 
   /**
    * Checks if the mouse button is down for the first time.
    */
   buttonDownOnce() {
-    return this.mouseState === this.mouseStates.ONCE;
+    return this._mouseState === this.MOUSE_STATE.DOWN_ONCE;
   }
 
   /**
    * Checks if the mouse button is down.
    */
   buttonPressed() {
-    return this.mouseState === this.mouseStates.ONCE
-    || this.mouseState === this.mouseStates.PRESSED;
+    return this._mouseState === this.MOUSE_STATE.DOWN_ONCE
+    || this._mouseState === this.MOUSE_STATE.PRESSED;
   }
 }
 export default Mouse;

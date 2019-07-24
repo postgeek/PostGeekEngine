@@ -1,4 +1,4 @@
-import Point from '../../physicsEngine/Point';
+import Point from '../../core/Point';
 
 class Layer {
   constructor(map, config) {

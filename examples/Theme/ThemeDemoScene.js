@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'physicsEngine/Point';
+import Point from 'core/Point';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Circle from 'renderingEngine/geometry/Circle';
 import Transform from 'renderingEngine/context/Transform';

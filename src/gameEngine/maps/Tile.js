@@ -1,5 +1,5 @@
 import Frame from '../../renderingEngine/images/spritesheets/Frame';
-import Point from '../../physicsEngine/Point';
+import Point from '../../core/Point';
 
 class Tile extends Frame {
   constructor(tileset, config) {
