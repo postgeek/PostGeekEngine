@@ -64,7 +64,7 @@ class Mouse {
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.clientX || e.clientX === 0) { // FireFox
+    if (e.clientX || e.clientX === 0) {
       this._dx = e.clientX;
       this._dy = e.clientX;
     } else {
