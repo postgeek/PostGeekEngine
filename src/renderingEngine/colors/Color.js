@@ -12,27 +12,35 @@ class Color {
    * @param  {type} config the configuration for the color
    * @return {undefined}
    */
-  constructor(config) {
-    if ('name' in config) {
-      this.Name = config.name;
+  constructor({
+    name,
+    hex,
+    hslColor,
+    hslaColor,
+    rgbColor,
+    rgbaColor,
+    alpha,
+  }) {
+    if (name !== undefined) {
+      this.Name = name;
     }
-    if ('hex' in config) {
-      this.Hex = config.hex;
+    if (hex !== undefined) {
+      this.Hex = hex;
     }
-    if ('hslColor' in config) {
-      this.HSLColor = config.hslColor;
+    if (hslColor !== undefined) {
+      this.HSLColor = hslColor;
     }
-    if ('hslaColor' in config) {
-      this.HSLAColor = config.hslaColor;
+    if (hslaColor !== undefined) {
+      this.HSLAColor = hslaColor;
     }
-    if ('rgbColor' in config) {
-      this.RGBColor = config.rgbColor;
+    if (rgbColor !== undefined) {
+      this.RGBColor = rgbColor;
     }
-    if ('rgbaColor' in config) {
-      this.RGBAColor = config.rgbaColor;
+    if (rgbaColor !== undefined) {
+      this.RGBAColor = rgbaColor;
     }
-    if ('alpha' in config) {
-      this.Alpha = config.alpha;
+    if (alpha !== undefined) {
+      this.Alpha = alpha;
     }
   }
 

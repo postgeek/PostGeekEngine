@@ -8,12 +8,16 @@ import GeometryStyle from './geometry/GeometryStyle';
 import Text from './text/Text';
 import TextStyle from './text/TextStyle';
 
+
+import Color from './colors/Color';
 import HSLAColor from './colors/HSLAColor';
 import HSLColor from './colors/HSLColor';
 import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
 import Point from '../physicsEngine/Point';
+
+import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
 
 /**
  * The graphic objects JSON loader
@@ -190,21 +194,27 @@ class GraphicsJSONLoader {
    * @param  {string} colorStyle   The JSON for the color styling
    * @return {GeometryStyle}       The created Color object
    */
-  static parseColor(colorStyle) {
-    if (typeof colorStyle === 'object') {
-      if ('hue' in colorStyle) {
-        if ('alpha' in colorStyle) {
-          return HSLAColor.FromJSON(colorStyle);
-        }
-        return HSLColor.FromJSON(colorStyle);
+  static parseColor({
+    name,
+    hue, lightness, saturation,
+    red, blue, green,
+    alpha,
+  }) {
+    if (hue !== undefined && lightness !== undefined && saturation !== undefined) {
+      if (alpha !== undefined) {
+        return new HSLAColor(hue, saturation, lightness, alpha);
       }
-      if ('red' in colorStyle) {
-        if ('alpha' in colorStyle) {
-          return RGBAColor.FromJSON(colorStyle);
-        }
-        return RGBColor.FromJSON(colorStyle);
-      }
+      return new HSLColor(hue, saturation, lightness);
     }
-    return colorStyle;
+    if (red !== undefined && blue !== undefined && green !== undefined) {
+      if (alpha !== undefined) {
+        return new RGBAColor(red, blue, green, alpha);
+      }
+      return new RGBColor(red, blue, green);
+    }
+    if (name !== undefined) {
+      return new Color({ name }).name;
+    }
+    throw new InvalidArguementError();
   }
 } export default GraphicsJSONLoader;
