@@ -55,6 +55,12 @@ class GraphicObject {
   }
 
   /**
+   * Override this function to update the properties of the graphic
+   */
+  update() {
+  }
+
+  /**
    * Ensures that the necessary methods are called in the right order
    */
   draw() {
