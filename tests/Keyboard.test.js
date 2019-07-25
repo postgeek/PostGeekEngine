@@ -11,8 +11,6 @@ describe('handleEvent', () => {
       type: 'undefinedkeyboardevent',
     };
 
-    // Act
-
     // Assert
     expect(() => { keyboard.handleEvent(keyboardEvent); }).toThrow(UnhandledHtmlEventError);
   });
@@ -29,42 +27,30 @@ describe('registerKey', () => {
     // Assert
     expect(keyboard.retrieveKey(KeyboardKey.A)).not.toBe(undefined);
   });
-  it('should throw an ItemAlreadyExistsError if the key has already been registered', () => {
-    // Arrange
-    const keyboard = new Keyboard();
-
-    // Act
-    keyboard.registerKey(KeyboardKey.A);
-
-    // Assert
-    expect(() => { keyboard.registerKey(KeyboardKey.A); }).toThrow(ItemAlreadyExistsError);
-  });
 });
 
 describe('retrieveKey', () => {
   it('should retrieve the right key when using the KeyEvent.code', () => {
     // Arrange
     const keyboard = new Keyboard();
-    const code = 'KeyA';
+    keyboard.registerKey(KeyboardKey.A);
 
     // Act
-    keyboard.registerKey(KeyboardKey.A);
     const returnedKey = keyboard.retrieveKey({ code: KeyboardKey.A.code, location: 0 });
 
     // Assert
-    expect(returnedKey.code).toBe(code);
+    expect(returnedKey.code).toBe(KeyboardKey.A.code);
   });
   it('should retrieve the right key when using the KeyEvent.keyCode', () => {
     // Arrange
     const keyboard = new Keyboard();
-    const keyCode = 65;
+    keyboard.registerKey(KeyboardKey.A);
 
     // Act
-    keyboard.registerKey(KeyboardKey.A);
     const returnedKey = keyboard.retrieveKey({ keyCode: KeyboardKey.A.keyCode, location: 0 });
 
     // Assert
-    expect(returnedKey.keyCode).toBe(keyCode);
+    expect(returnedKey.keyCode).toBe(KeyboardKey.A.keyCode);
   });
   it('should return undefined if no key was found', () => {
     // Arrange

@@ -1,5 +1,4 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
-import ItemAlreadyExistsError from '../core/errorHandling/errors/ItemAlreadyExistsError';
 
 class Keyboard {
   /**
@@ -18,9 +17,6 @@ class Keyboard {
   }
 
   registerKey(key) {
-    if (this.retrieveKey(key) !== undefined) {
-      throw new ItemAlreadyExistsError();
-    }
     const keyToAdd = key;
     keyToAdd.state = this.KEY_STATE.RELEASED;
     this._registeredKeys.push(keyToAdd);
