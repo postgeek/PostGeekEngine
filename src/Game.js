@@ -94,7 +94,7 @@ class Game {
     window.addEventListener('keyup', this.Keyboard, false);
 
     addScene(this.config.initialScene);
-    startScene(this.config.initialScene.key, this);
+    startScene(this.config.initialScene.key);
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
@@ -148,9 +148,8 @@ class Game {
    * draw - Draws the scene to the current canvas
    */
   draw() {
-    // Draw Background
-    this._context.fillStyle = '#000000';
-    this._context.fillRect(0, 0, this.Canvas.width, this.Canvas.height);
+    // Clear the canvas to prepare for next draw
+    this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
 
     this.sceneManager.runningScene.draw();
     this.middlewareManager.draw();

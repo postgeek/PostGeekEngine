@@ -22,7 +22,10 @@ class PostGeekDebugger extends IMiddleware {
     this.Text.TextStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    this.ActiveScene = this.middlewareManager.Game.sceneManager.runningScene;
+    this._activeScene = this.middlewareManager.Game.sceneManager.runningScene;
+
+    this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
+    this._worldRectangle.GeometryStyle = this.debugGeometryStyle; 
   }
 
   update() {
@@ -31,6 +34,7 @@ class PostGeekDebugger extends IMiddleware {
 
   draw() {
     this.Text.draw();
+    this._worldRectangle.draw();
   }
 
   drawDebug(graphicObject) {

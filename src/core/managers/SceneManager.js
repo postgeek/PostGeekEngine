@@ -12,9 +12,9 @@ class SceneManager {
     return this.scenes[key];
   }
 
-  startScene(key, game) {
+  startScene(key) {
     const scene = this.getScene(key);
-    this.runningScene = new (scene)(game);
+    this.runningScene = new (scene)();
     this.runningScene.IsActive = true;
   }
 

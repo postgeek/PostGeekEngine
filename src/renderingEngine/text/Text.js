@@ -7,10 +7,8 @@ class Text extends GraphicObject {
     this.Point = point;
     this.Text = text;
     this.TextStyle = new TextStyle({
-      fillStyle: 'darkblue',
-      strokeStyle: 'lightblue',
-      lineWidth: 2,
-      font: '88px serif',
+      fillStyle: 'black',
+      font: '12px serif',
     });
   }
 
