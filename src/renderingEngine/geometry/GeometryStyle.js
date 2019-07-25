@@ -159,7 +159,6 @@ class GeometryStyle extends DrawingStyle {
     this.lineDashOffset = value;
   }
 
-
   /**
    * Applies the geometry styling to the current context.
    *

@@ -46,6 +46,7 @@ export default class ShapeDemoScene extends Scene {
   }
 
   draw() {
+    this.testCircle.draw();
     this.testRectangle.draw();
     this.testText.draw();
     this.testEllipse.draw();
