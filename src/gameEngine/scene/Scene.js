@@ -2,7 +2,7 @@ import BaseClassConstructedError from '../../core/errorHandling/errors/BaseClass
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
 import World from './World';
 import ServiceLocator from '../../core/ServiceLocator';
-import Point from '../../physicsEngine/Point';
+import Point from '../../core/Point';
 import Camera from './Camera';
 
 class Scene {

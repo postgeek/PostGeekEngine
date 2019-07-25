@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from '../../src/physicsEngine/Point';
+import Point from '../../src/core/Point';
 import Text from '../../src/renderingEngine/text/Text';
 import GameObject from '../../src/gameEngine/gameObjects/GameObject';
 import PhysicsObject from '../../src/physicsEngine/PhysicsObject';
