@@ -97,7 +97,6 @@ class Circle extends Shape {
     this.context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
   }
 
-
   /**
    *  Clones the current circle into a new Circle object
    *

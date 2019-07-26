@@ -6,3 +6,4 @@ export const InvalidArguementErrorText = 'Invalid arguement, please provde one o
 export const InvalidStateOperationErrorText = 'Invalid operation, this method cannot be called in the current state.';
 export const UndefinedErrorText = 'Value is undefined.';
 export const UnhandledHtmlEventErrorText = 'Event is unhandled';
+export const ItemAlreadyExistsErrorText = 'unable to add the object, it already exists in the current collection';
