@@ -1,5 +1,8 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 
+/**
+ * Class that defines a keyboard input
+ */
 class Keyboard {
   /**
    * Represents input from the keyboard.
@@ -16,8 +19,16 @@ class Keyboard {
     this._registeredKeys = [];
   }
 
+  /**
+   * Registers a key to be checked for input. Allows the user to register a key twice
+   * @param  {KeyboardKey} key the key to register
+   */
   registerKey(key) {
     const keyToAdd = key;
+    if (this.retrieveKey(key) !== undefined) {
+      // TODO: Implement a warning system instead of using console.warn
+      console.warn(`Key: ${key} is already registered`);
+    }
     keyToAdd.state = this.KEY_STATE.RELEASED;
     this._registeredKeys.push(keyToAdd);
   }
@@ -42,15 +53,16 @@ class Keyboard {
 
   /**
    * Handles the possible keyboard events
-   * @param {KeyboardEvent} evt The KeyboardEvent
+   * @param {HTMLEvent} evt The KeyboardEvent
    */
-  handleEvent(evt) {
-    switch (evt.type) {
+  handleEvent(KeyboardEvent) {
+    this._typedKey = KeyboardEvent.key || String.fromCharCode(KeyboardEvent.charCode);
+    switch (KeyboardEvent.type) {
       case 'keydown':
-        this.keyDown(evt);
+        this.keyDown(KeyboardEvent);
         break;
       case 'keyup':
-        this.keyUp(evt);
+        this.keyUp(KeyboardEvent);
         break;
       default:
         throw new UnhandledHtmlEventError();
@@ -65,7 +77,6 @@ class Keyboard {
     const currentKey = this.retrieveKey(e);
     if (currentKey !== undefined) {
       currentKey.isKeyDown = true;
-      this._typedKey = e.key || String.fromCharCode(e.charCode);
     }
   }
 
@@ -108,8 +119,17 @@ class Keyboard {
     return this._typedKey;
   }
 
-  retrieveKey(e) {
-    const { code, keyCode, location } = e;
+  /**
+   * Retrieves a registered key
+   * First checks for the code and location
+   * Then checks for the keyCode and location
+   *
+   * @param  {String} code            The key's code property
+   * @param  {Number} keyCode         The key's KeyCode Property represented by the key's ASCII code
+   * @param  {Number} location        The key's location on the keyboard
+   * @return {KeyboardKey}            The key if found, otherwise returns undefined
+   */
+  retrieveKey({ code, keyCode, location }) {
     for (let i = 0; i < this._registeredKeys.length; i += 1) {
       const keyToSearch = this._registeredKeys[i];
       if (code !== undefined) {

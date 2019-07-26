@@ -4,7 +4,8 @@ import KeyboardKey from 'inputEngine/KeyboardKey';
 
 export default class KeyboardDemoScene extends Scene {
   create() {
-    this.game.Keyboard.addKey(KeyboardKey.A);
+    console.log(KeyboardKey.A);
+    this.game.Keyboard.registerKey(KeyboardKey.A);
   }
 
   update() {

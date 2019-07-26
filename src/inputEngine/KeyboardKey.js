@@ -1,49 +1,116 @@
-// Used to define a KeyboardKey (A) for example
-// Use the KeyEvent.code to find out which physical key on the keyboard was PRESSED
-// Use the KeyEvent.key to find out which key that physical key maps to
+import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+
+/**
+  * Used to define a KeyboardKey (A) for example
+  * Use the KeyEvent.code to find out which physical key on the keyboard was PRESSED
+  * Use the KeyEvent.key to find out which key that physical key maps to
+ */
 class KeyboardKey {
+  /**
+   * Constructs a new KeyboardKey
+   *
+   * @constructor
+   * @param  {type} keyCode   the keyCode of the keyboardKey an ASCII representation
+   * @param  {type} code      the code of the keyboardKey
+   * @param  {type} location  the location of the key default is 0
+   */
   constructor({ keyCode, code, location = 0 } = {}) {
     this.keyCode = keyCode;
     this.code = code;
     this.location = location;
   }
 
+  /**
+   * Sets the state for the given Key
+   * Is true if the key is physically down on the keyboard
+   * @param  {boolean} value whether the key is down or not
+   */
   set isKeyDown(value) {
     this._keyDown = value;
   }
 
+  /**
+   * Gets the state for the given Key
+   *
+   * @return {boolean}  whether the key is down or not
+   */
   get isKeyDown() {
     return this._keyDown;
   }
 
+  /**
+   * Sets the key's state from one of the three possible values
+   * RELEASED, PRESSED, DOWN_ONCE
+   * @param  {Enum} value The key's new state
+   */
   set state(value) {
     this._state = value;
   }
 
+  /**
+   * Gets the key's state from one of the three possible values
+   * @return {Enum}  The key's state
+   */
   get state() {
     return this._state;
   }
 
+  /**
+   * Sets the key's keyCode value (an ASCII representation of the physical key)
+   *
+   * @param  {Number} value the keyCode value
+   */
   set keyCode(value) {
     this._keyCode = value;
   }
 
+  /**
+   * Gets the key's keyCode value (an ASCII representation of the physical key)
+   *
+   * @return {Number}  The key's keyCode value
+   */
   get keyCode() {
     return this._keyCode;
   }
 
+  /**
+   * Sets the key's code value (a string representation of the physical key)
+   *
+   * @param  {String} value the key's code value
+   */
   set code(value) {
     this._code = value;
   }
 
+  /**
+    * Gets the key's code value (a string representation of the physical key)
+    *
+    * @return {String}  they key's code value
+   */
   get code() {
     return this._code;
   }
 
+  /**
+   * Sets the location of the physical key on the keyboard
+   * 0 is the default
+   * 1 is the left key
+   * 2 is the right key
+   *
+   * @param  {Number} value the location of the physical key on the keyboard
+   */
   set location(value) {
+    if (value > 0 && value < 2) {
+      throw new InvalidArguementError();
+    }
     this._location = value;
   }
 
+  /**
+   * Gets the location of the physical key on the keyboard
+   *
+   * @return {Number}  the location of the physical key on the keyboard
+   */
   get location() {
     return this._location;
   }
