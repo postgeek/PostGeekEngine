@@ -45,35 +45,35 @@ describe('createCircle', () => {
     expect(circle.Y).toBe(y);
     expect(circle.Radius).toBe(radius);
   });
+  it('should create a circle with the configuration provided including a geometryStyle', () => {
+    // Arange
+    const circleJson = '{"point":{"x":100,"y":150},"radius":20, "geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1},"lineWidth":3}}';
+    const x = 100;
+    const y = 150;
+    const radius = 20;
+    const hue = 195;
+    const saturation = 53;
+    const lightness = 79;
+    const alpha = 1;
+    const lineWidth = 3;
+
+    // Act
+    const circle = GraphicsJSONLoader.createCircle(JSON.parse(circleJson));
+
+    // Assert
+    expect(circle).toBeDefined();
+    expect(circle.GeometryStyle).toBeDefined();
+    expect(circle.X).toBe(x);
+    expect(circle.Y).toBe(y);
+    expect(circle.GeometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(circle.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(circle.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(circle.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(circle.GeometryStyle.LineWidth).toBe(lineWidth);
+  });
 });
 
 describe('createBezierCurve', () => {
-  it('should create a bezier curve with the configuration provided', () => {
-    // Arrange
-    const bezierCurveJson = '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
-    const startPointX = 100;
-    const startPointY = 130;
-    const firstControlPointX = 80;
-    const firstControlPointY = 90;
-    const secondControlPointX = 110;
-    const secondControlPointY = 140;
-    const endPointX = 180;
-    const endPointY = 190;
-
-    // Act
-    const bezierCurve = GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
-
-    // Assert
-    expect(bezierCurve).toBeDefined();
-    expect(bezierCurve.StartPoint.X).toBe(startPointX);
-    expect(bezierCurve.StartPoint.Y).toBe(startPointY);
-    expect(bezierCurve.FirstControlPoint.X).toBe(firstControlPointX);
-    expect(bezierCurve.FirstControlPoint.Y).toBe(firstControlPointY);
-    expect(bezierCurve.SecondControlPoint.X).toBe(secondControlPointX);
-    expect(bezierCurve.SecondControlPoint.Y).toBe(secondControlPointY);
-    expect(bezierCurve.EndPoint.X).toBe(endPointX);
-    expect(bezierCurve.EndPoint.Y).toBe(endPointY);
-  });
   it('should throw an error when creating a bezier curve if the start point parameter is not passed', () => {
     // Arrange
     const bezierCurveJson = '{"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
@@ -109,31 +109,71 @@ describe('createBezierCurve', () => {
     // Assert
     expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
   });
-});
-
-describe('createQuadraticCurve', () => {
-  it('should create a quadratic curve with the configuration provided', () => {
+  it('should create a bezier curve with the configuration provided', () => {
     // Arrange
-    const quadraticCurveJson = '{"controlPoint":{"x":100,"y":130},"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190}}';
-    const controlPointX = 100;
-    const controlPointY = 130;
-    const startPointX = 80;
-    const startPointY = 90;
+    const bezierCurveJson = '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
+    const startPointX = 100;
+    const startPointY = 130;
+    const firstControlPointX = 80;
+    const firstControlPointY = 90;
+    const secondControlPointX = 110;
+    const secondControlPointY = 140;
     const endPointX = 180;
     const endPointY = 190;
 
     // Act
-    const quadraticCurve = GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+    const bezierCurve = GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
 
     // Assert
-    expect(quadraticCurve).toBeDefined();
-    expect(quadraticCurve.StartPoint.X).toBe(startPointX);
-    expect(quadraticCurve.StartPoint.Y).toBe(startPointY);
-    expect(quadraticCurve.ControlPoint.X).toBe(controlPointX);
-    expect(quadraticCurve.ControlPoint.Y).toBe(controlPointY);
-    expect(quadraticCurve.EndPoint.X).toBe(endPointX);
-    expect(quadraticCurve.EndPoint.Y).toBe(endPointY);
+    expect(bezierCurve).toBeDefined();
+    expect(bezierCurve.StartPoint.X).toBe(startPointX);
+    expect(bezierCurve.StartPoint.Y).toBe(startPointY);
+    expect(bezierCurve.FirstControlPoint.X).toBe(firstControlPointX);
+    expect(bezierCurve.FirstControlPoint.Y).toBe(firstControlPointY);
+    expect(bezierCurve.SecondControlPoint.X).toBe(secondControlPointX);
+    expect(bezierCurve.SecondControlPoint.Y).toBe(secondControlPointY);
+    expect(bezierCurve.EndPoint.X).toBe(endPointX);
+    expect(bezierCurve.EndPoint.Y).toBe(endPointY);
   });
+  it('should create a bezier curve with the configuration provided including geometryStyle', () => {
+    // Arrange
+    const bezierCurveJson = '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const startPointX = 100;
+    const startPointY = 130;
+    const firstControlPointX = 80;
+    const firstControlPointY = 90;
+    const secondControlPointX = 110;
+    const secondControlPointY = 140;
+    const endPointX = 180;
+    const endPointY = 190;
+    const hue = 32;
+    const saturation = 64;
+    const lightness = 78;
+    const alpha = 0.66;
+    const lineWidth = 4;
+
+    // Act
+    const bezierCurve = GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+
+    // Assert
+    expect(bezierCurve).toBeDefined();
+    expect(bezierCurve.StartPoint.X).toBe(startPointX);
+    expect(bezierCurve.StartPoint.Y).toBe(startPointY);
+    expect(bezierCurve.FirstControlPoint.X).toBe(firstControlPointX);
+    expect(bezierCurve.FirstControlPoint.Y).toBe(firstControlPointY);
+    expect(bezierCurve.SecondControlPoint.X).toBe(secondControlPointX);
+    expect(bezierCurve.SecondControlPoint.Y).toBe(secondControlPointY);
+    expect(bezierCurve.EndPoint.X).toBe(endPointX);
+    expect(bezierCurve.EndPoint.Y).toBe(endPointY);
+    expect(bezierCurve.GeometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(bezierCurve.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(bezierCurve.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(bezierCurve.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(bezierCurve.GeometryStyle.LineWidth).toBe(lineWidth);
+  });
+});
+
+describe('createQuadraticCurve', () => {
   it('should throw an error when creating a quadratic curve if the control point parameter is not passed', () => {
     // Arrange
     const quadraticCurveJson = '{"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190}}';
@@ -162,29 +202,63 @@ describe('createQuadraticCurve', () => {
     // Assert
     expect(() => { GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson)); }).toThrow(InvalidArguementError);
   });
+  it('should create a quadratic curve with the configuration provided', () => {
+    // Arrange
+    const quadraticCurveJson = '{"controlPoint":{"x":100,"y":130},"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190}}';
+    const controlPointX = 100;
+    const controlPointY = 130;
+    const startPointX = 80;
+    const startPointY = 90;
+    const endPointX = 180;
+    const endPointY = 190;
+
+    // Act
+    const quadraticCurve = GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+
+    // Assert
+    expect(quadraticCurve).toBeDefined();
+    expect(quadraticCurve.StartPoint.X).toBe(startPointX);
+    expect(quadraticCurve.StartPoint.Y).toBe(startPointY);
+    expect(quadraticCurve.ControlPoint.X).toBe(controlPointX);
+    expect(quadraticCurve.ControlPoint.Y).toBe(controlPointY);
+    expect(quadraticCurve.EndPoint.X).toBe(endPointX);
+    expect(quadraticCurve.EndPoint.Y).toBe(endPointY);
+  });
+  it('should create a quadratic curve with the configuration provided including geometryStyle', () => {
+    // Arrange
+    const quadraticCurveJson = '{"controlPoint":{"x":100,"y":130},"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const controlPointX = 100;
+    const controlPointY = 130;
+    const startPointX = 80;
+    const startPointY = 90;
+    const endPointX = 180;
+    const endPointY = 190;
+    const hue = 32;
+    const saturation = 64;
+    const lightness = 78;
+    const alpha = 0.66;
+    const lineWidth = 4;
+
+    // Act
+    const quadraticCurve = GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+
+    // Assert
+    expect(quadraticCurve).toBeDefined();
+    expect(quadraticCurve.StartPoint.X).toBe(startPointX);
+    expect(quadraticCurve.StartPoint.Y).toBe(startPointY);
+    expect(quadraticCurve.ControlPoint.X).toBe(controlPointX);
+    expect(quadraticCurve.ControlPoint.Y).toBe(controlPointY);
+    expect(quadraticCurve.EndPoint.X).toBe(endPointX);
+    expect(quadraticCurve.EndPoint.Y).toBe(endPointY);
+    expect(quadraticCurve.GeometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(quadraticCurve.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(quadraticCurve.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(quadraticCurve.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(quadraticCurve.GeometryStyle.LineWidth).toBe(lineWidth);
+  });
 });
 
 describe('createEllipse', () => {
-  it('should create an ellipse with the configuration provided', () => {
-    // Arrange
-    const ellipseJson = '{"point":{"x":120,"y":130},"radiusX":50,"radiusY":66,"rotation":0.666}';
-    const pointX = 120;
-    const pointY = 130;
-    const radiusX = 50;
-    const radiusY = 66;
-    const roation = 0.666;
-
-    // Act
-    const ellipse = GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
-
-    // Assert
-    expect(ellipse).toBeDefined();
-    expect(ellipse.Point.X).toBe(pointX);
-    expect(ellipse.Point.Y).toBe(pointY);
-    expect(ellipse.RadiusX).toBe(radiusX);
-    expect(ellipse.RadiusY).toBe(radiusY);
-    expect(ellipse.Rotation).toBe(roation);
-  });
   it('should throw an error when creating an ellipse if the point parameter is not passed', () => {
     // Arrange
     const ellipseJson = '{"radiusX":50,"radiusY":75,"rotation":0.7853981633974483}';
@@ -219,6 +293,56 @@ describe('createEllipse', () => {
 
     // Assert
     expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+  });
+  it('should create an ellipse with the configuration provided', () => {
+    // Arrange
+    const ellipseJson = '{"point":{"x":120,"y":130},"radiusX":50,"radiusY":66,"rotation":0.666}';
+    const pointX = 120;
+    const pointY = 130;
+    const radiusX = 50;
+    const radiusY = 66;
+    const roation = 0.666;
+
+    // Act
+    const ellipse = GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+
+    // Assert
+    expect(ellipse).toBeDefined();
+    expect(ellipse.Point.X).toBe(pointX);
+    expect(ellipse.Point.Y).toBe(pointY);
+    expect(ellipse.RadiusX).toBe(radiusX);
+    expect(ellipse.RadiusY).toBe(radiusY);
+    expect(ellipse.Rotation).toBe(roation);
+  });
+  it('should create an ellipse with the configuration provided including geometryStyle()', () => {
+    // Arrange
+    const ellipseJson = '{"point":{"x":120,"y":130},"radiusX":50,"radiusY":66,"rotation":0.666,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const pointX = 120;
+    const pointY = 130;
+    const radiusX = 50;
+    const radiusY = 66;
+    const roation = 0.666;
+    const hue = 32;
+    const saturation = 64;
+    const lightness = 78;
+    const alpha = 0.66;
+    const lineWidth = 4;
+
+    // Act
+    const ellipse = GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+
+    // Assert
+    expect(ellipse).toBeDefined();
+    expect(ellipse.Point.X).toBe(pointX);
+    expect(ellipse.Point.Y).toBe(pointY);
+    expect(ellipse.RadiusX).toBe(radiusX);
+    expect(ellipse.RadiusY).toBe(radiusY);
+    expect(ellipse.Rotation).toBe(roation);
+    expect(ellipse.GeometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(ellipse.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(ellipse.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(ellipse.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(ellipse.GeometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -269,6 +393,34 @@ describe('createRectangle', () => {
     expect(rectangle.Width).toBe(width);
     expect(rectangle.Height).toBe(height);
   });
+  it('should create a rectangle with the configuration provided including geometryStyle', () => {
+    // Arange
+    const rectangleJson = '{"point":{"x":10,"y":20},"width":30,"height":40,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const x = 10;
+    const y = 20;
+    const width = 30;
+    const height = 40;
+    const hue = 32;
+    const saturation = 64;
+    const lightness = 78;
+    const alpha = 0.66;
+    const lineWidth = 4;
+
+    // Act
+    const rectangle = GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
+
+    // Assert
+    expect(rectangle).toBeDefined();
+    expect(rectangle.X).toBe(x);
+    expect(rectangle.Y).toBe(y);
+    expect(rectangle.Width).toBe(width);
+    expect(rectangle.Height).toBe(height);
+    expect(rectangle.GeometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(rectangle.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(rectangle.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(rectangle.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(rectangle.GeometryStyle.LineWidth).toBe(lineWidth);
+  });
 });
 
 describe('createText', () => {
@@ -308,6 +460,32 @@ describe('createText', () => {
     expect(textObject.X).toBe(x);
     expect(textObject.Y).toBe(y);
     expect(textObject.Text).toBe(text);
+  });
+  it('should create a text with the configuration provided including textStyle', () => {
+    // Arange
+    const textJson = '{"point":{"x":200,"y":100},"text":"Hello World from JSON!","textStyle":{"fillStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const x = 200;
+    const y = 100;
+    const text = 'Hello World from JSON!';
+    const hue = 32;
+    const saturation = 64;
+    const lightness = 78;
+    const alpha = 0.66;
+    const lineWidth = 4;
+
+    // Act
+    const textObject = GraphicsJSONLoader.createText(JSON.parse(textJson));
+
+    // Assert
+    expect(textObject).toBeDefined();
+    expect(textObject.X).toBe(x);
+    expect(textObject.Y).toBe(y);
+    expect(textObject.Text).toBe(text);
+    expect(textObject.TextStyle.FillStyle.Hue).toBe(hue);
+    expect(textObject.TextStyle.FillStyle.Saturation).toBe(saturation);
+    expect(textObject.TextStyle.FillStyle.Lightness).toBe(lightness);
+    expect(textObject.TextStyle.FillStyle.Alpha).toBe(alpha);
+    expect(textObject.TextStyle.LineWidth).toBe(lineWidth);
   });
 });
 
