@@ -252,7 +252,7 @@ class GraphicsJSONLoader {
       return new RGBColor(red, blue, green);
     }
     if (name !== undefined) {
-      return new Color({ name }).name;
+      return new Color({ name }).name; // TODO: Log a bug and fix this by adding an HTMLColor class
     }
     throw new InvalidArguementError();
   }

@@ -391,54 +391,89 @@ describe('parseColor', () => {
     // Assert
     expect(() => { GraphicsJSONLoader.parseColor(colorProperties); }).toThrow(InvalidArguementError);
   });
-  it.skip('should correctly create an RGB color if the correct parameters are provided', () => {
+  it('should correctly create an RGB color if the correct parameters are provided', () => {
     // Arrange
-    const colorProperties = {};
+    const colorProperties = { red: 200, blue: 66, green: 230 };
+    const red = 200;
+    const blue = 66;
+    const green = 230;
 
     // Act
     const color = GraphicsJSONLoader.parseColor(colorProperties);
 
     // Assert
     expect(color).toBeDefined();
+    expect(color.Red).toBe(red);
+    expect(color.Blue).toBe(blue);
+    expect(color.Green).toBe(green);
   });
-  it.skip('should correctly create an RGBA color if the correct parameters are provided', () => {
+  it('should correctly create an RGBA color if the correct parameters are provided', () => {
     // Arrange
-    const colorProperties = {};
+    const colorProperties = {
+      red: 200, blue: 66, green: 230, alpha: 0.4,
+    };
+    const red = 200;
+    const blue = 66;
+    const green = 230;
+    const alpha = 0.4;
 
     // Act
     const color = GraphicsJSONLoader.parseColor(colorProperties);
 
     // Assert
     expect(color).toBeDefined();
+    expect(color.Red).toBe(red);
+    expect(color.Blue).toBe(blue);
+    expect(color.Green).toBe(green);
+    expect(color.Alpha).toBe(alpha);
   });
-  it.skip('should correctly create an HSL color if the correct parameters are provided', () => {
+  // hue, lightness, saturation,
+  it('should correctly create an HSL color if the correct parameters are provided', () => {
     // Arrange
-    const colorProperties = {};
+    const colorProperties = { hue: 30, lightness: 66, saturation: 90 };
+    const hue = 30;
+    const lightness = 66;
+    const saturation = 90;
 
     // Act
     const color = GraphicsJSONLoader.parseColor(colorProperties);
 
     // Assert
     expect(color).toBeDefined();
+    expect(color.Hue).toBe(hue);
+    expect(color.Lightness).toBe(lightness);
+    expect(color.Saturation).toBe(saturation);
   });
-  it.skip('should correctly create an HSLA color if the correct parameters are provided', () => {
+  it('should correctly create an HSLA color if the correct parameters are provided', () => {
     // Arrange
-    const colorProperties = {};
+    const colorProperties = {
+      hue: 30, lightness: 66, saturation: 90, alpha: 0.66,
+    };
+    const hue = 30;
+    const lightness = 66;
+    const saturation = 90;
+    const alpha = 0.66;
 
     // Act
     const color = GraphicsJSONLoader.parseColor(colorProperties);
 
     // Assert
     expect(color).toBeDefined();
+    expect(color.Hue).toBe(hue);
+    expect(color.Lightness).toBe(lightness);
+    expect(color.Saturation).toBe(saturation);
+    expect(color.Alpha).toBe(alpha);
   });
-  it.skip('should correctly create an HTML color if the correct parameters are provided', () => {
+  it('should correctly create an HTML color if the correct parameters are provided', () => {
     // Arrange
-    const colorProperties = {};
+    const colorProperties = { name: 'blue' };
+    const colorName = 'blue';
 
     // Act
     const color = GraphicsJSONLoader.parseColor(colorProperties);
 
     // Assert
     expect(color).toBeDefined();
+    expect(color).toBe(colorName);
   });
 });
