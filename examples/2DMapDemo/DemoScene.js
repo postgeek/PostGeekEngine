@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'physicsEngine/Point';
+import Point from 'core/Point';
 import AssetCache from 'core/managers/AssetCache';
 import FromTiledJsonToMap2DConfig from 'gameEngine/maps/converters/FromTiledJsonToMap2DConfig';
 import Map2D from 'gameEngine/maps/Map2D';
