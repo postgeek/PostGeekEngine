@@ -15,9 +15,9 @@ import HSLColor from './colors/HSLColor';
 import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
-import Point from '../physicsEngine/Point';
-
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import Point from '../core/Point';
+import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * The graphic objects JSON loader

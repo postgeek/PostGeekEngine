@@ -3,7 +3,7 @@ import Text from '../../renderingEngine/text/Text';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
-import Point from '../../physicsEngine/Point';
+import Point from '../Point';
 
 class PostGeekDebugger extends IMiddleware {
   init(middlewareManager) {
