@@ -12,9 +12,9 @@ class Ellipse extends Shape {
   * @param {number} radiusY the y's radius.
   * @param {number} rotation the rotation.
   */
-  constructor(startingPoint, radiusX, radiusY, rotation) {
+  constructor(point, radiusX, radiusY, rotation) {
     super();
-    this.StartingPoint = startingPoint;
+    this.Point = point;
     this.RadiusX = radiusX;
     this.RadiusY = radiusY;
     this.Rotation = rotation;
@@ -25,8 +25,8 @@ class Ellipse extends Shape {
    *
    * @return {Point} the starting point of the ellipse
    */
-  get StartingPoint() {
-    return this.startingPoint;
+  get Point() {
+    return this.point;
   }
 
   /**
@@ -35,9 +35,9 @@ class Ellipse extends Shape {
    * @param  {Point} value the ellipse's new starting point
    * @return {undefined}       description
    */
-  set StartingPoint(value) {
+  set Point(value) {
     /** @private */
-    this.startingPoint = value;
+    this.point = value;
   }
 
   /**
@@ -46,7 +46,7 @@ class Ellipse extends Shape {
    * @return {float} The starting point's x coordinate
    */
   get X() {
-    return this.StartingPoint.X;
+    return this.Point.X;
   }
 
   /**
@@ -56,7 +56,7 @@ class Ellipse extends Shape {
    * @return {undefined}
    */
   set X(value) {
-    this.StartingPoint.X = value;
+    this.Point.X = value;
   }
 
   /**
@@ -65,7 +65,7 @@ class Ellipse extends Shape {
    * @return {float} The starting point's y coordinate
    */
   get Y() {
-    return this.StartingPoint.Y;
+    return this.Point.Y;
   }
 
   /**
@@ -75,7 +75,7 @@ class Ellipse extends Shape {
    * @return {undefined}
    */
   set Y(value) {
-    this.StartingPoint.Y = value;
+    this.Point.Y = value;
   }
 
   /**
