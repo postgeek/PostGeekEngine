@@ -2,58 +2,45 @@ import Scene from 'gameEngine/scene/Scene';
 import Point from '../../src/core/Point';
 import Text from '../../src/renderingEngine/text/Text';
 import GameObject from '../../src/gameEngine/gameObjects/GameObject';
+import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
 import PhysicsObject from '../../src/physicsEngine/PhysicsObject';
 import Rectangle from '../../src/renderingEngine/geometry/Rectangle';
 
 class RectangleGameObject extends GameObject {
   constructor(scene) {
-    super(scene, new Point(100, 100), 100, 100);
+    super(scene);
 
-    this.graphics = new RectangleGraphicsObject(this);
+    this.graphics = new RectangleGraphicsObject();
     this.physics = new RectanglePhysicsObject(this);
   }
 }
 
 class RectangleGraphicsObject extends Rectangle {
-  constructor(gameObject) {
-    super(gameObject.point, gameObject.width, gameObject.height);
-    this._gameObject = gameObject;
+  constructor() {
+    super(new Point(100, 100), 100, 100);
   }
 
-  // Notes:
-  // The width and height of the graphics object using
-  // settings from the GameObject works for a rectangle
-  // but not a circle for example.
-
   update() {
-    // TODO: Have the game engine do this calculation in 
-    // relation to the location of the object in the world
-    this.point = this._gameObject.point;
+     // Graphics object should be updated here based on an event from the physics object.
   }
 }
 
 class RectanglePhysicsObject extends PhysicsObject {
   constructor(gameObject) {
-    super(gameObject);
+    super(gameObject, new RectangleHitBox(new Point(100, 100), 100, 100));
     this.isEnabled = true;
 
     this._velocity = 10;
   }
-
-  // Notes:
-  // We are updating the hitbox by reference using the point
-  // object found in the game object and the size of the box
-  // is never changed. By default it should update based on the
-  // Game object size and location
-  //
-  // Also should allow for custom sized hit boxes...
 
   internalUpdate() {
     if (this.isCollidingWithWorldBounds) {
       this._velocity = -this._velocity;
     }
 
-    this.gameObject.x += this._velocity;
+    // Should be throwing an event here.
+    this.gameObject.graphics.X += this._velocity;
+    this.hitBox.x += this._velocity;
   }
 }
 
@@ -65,7 +52,7 @@ export default class CollisionScene extends Scene {
 
   update() {
     this.rectangle.update();
-    this.rectangleText.Text = `Rectangle is at x: '${this.rectangle.x}' y: '${this.rectangle.y}'`;
+    this.rectangleText.Text = `Rectangle is at x: '${this.rectangle.graphics.X}' y: '${this.rectangle.graphics.Y}'`;
   }
 
   draw() {

@@ -2,15 +2,9 @@ class GameObject {
   /**
   * Constructor for the GameObject
   * @param {Scene} scene The scene the game object is found in
-  * @param {Point} point The game objects starting point in relation to the world
-  * @param {number} width The width of the game object
-  * @param {number} height The height of the game object
   */
-  constructor(scene, point, width, height) {
+  constructor(scene) {
     this._scene = scene;
-    this._point = point;
-    this._width = width;
-    this._height = height;
   }
 
   /**
@@ -19,86 +13,6 @@ class GameObject {
   */
   get scene() {
     return this._scene;
-  }
-
-  /**
-  * Get the game objects point in relation to the world.
-  * @returns {Point} The game objects point
-  */
-  get point() {
-    return this._point;
-  }
-
-  /**
-  * Set the game objects point in relation to the world.
-  * @param {Point} value The point value
-  */
-  set point(value) {
-    this._point = value;
-  }
-
-  /**
-   * Get the X coordinate of the game object in relation to the world.
-   * @returns {number} the X coordinate value
-   */
-  get x() {
-    return this._point.X;
-  }
-
-  /**
-   * Set the X coordinate of the game object in relation to the world.
-   * @param {number} value The X coordinate value
-   */
-  set x(value) {
-    this._point.X = value;
-  }
-
-  /**
-  * Get the Y coordinate of the game object in relation to the world.
-  * @returns {number} the Y coordinate value
-  */
-  get y() {
-    return this._point.Y;
-  }
-
-  /**
-   * Set the Y coordinate of the game object in relation to the world.
-   * @param {number} value The Y coordinate value
-   */
-  set y(value) {
-    this._point = value;
-  }
-
-  /**
-  * The game objects width.
-  * @returns {number} the width of the box
-  */
-  get width() {
-    return this._width;
-  }
-
-  /**
-   * Set the width of the game object.
-   * @param {number} value The width value
-   */
-  set width(value) {
-    this._width = value;
-  }
-
-  /**
-  * The game objects height.
-  * @returns {number} the height of the box
-  */
-  get height() {
-    return this._height;
-  }
-
-  /**
-   * Set the height of the game object.
-   * @param {number} value The height value
-   */
-  set height(value) {
-    this._height = value;
   }
 
   /**

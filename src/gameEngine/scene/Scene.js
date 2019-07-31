@@ -55,17 +55,6 @@ class Scene {
   }
 
   /**
-   * Whether the current scene is the active scene.
-   */
-  get isActive() {
-    return this._isActive;
-  }
-
-  set isActive(value) {
-    this._isActive = value;
-  }
-
-  /**
   * Creates the scene.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
   */

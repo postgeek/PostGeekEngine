@@ -1,11 +1,9 @@
-import RectangleHitBox from "./hitBoxes/RectangleHitBox";
-
 class PhysicsObject {
-  constructor(gameObject){
+  constructor(gameObject, hitbox){
     this._gameObject = gameObject;
 
     this._isEnabled = false;
-    this._hitBox = new RectangleHitBox(gameObject.point, gameObject.width, gameObject.height);
+    this._hitBox = hitbox;
   }
 
   get gameObject(){
@@ -32,6 +30,10 @@ class PhysicsObject {
     this._hitBox = value;
   }
 
+  /**
+   * Checks if this physics object is colliding with  the world bounds.
+   * TODO: Move this to an actual collision detection engine.
+   */
   get isCollidingWithWorldBounds() {
     const world = this._gameObject.scene.world;
     if (this._hitBox.x <= world.x) {
