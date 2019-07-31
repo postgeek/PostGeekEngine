@@ -100,11 +100,11 @@ describe('RadialGradient', () => {
 
     // Assert
     expect(radialGradient).toBeDefined();
-    expect(radialGradient.startPoint.X).toBe(startPoint.X);
-    expect(radialGradient.startPoint.Y).toBe(startPoint.Y);
+    expect(radialGradient.startCirclePoint.X).toBe(startPoint.X);
+    expect(radialGradient.startCirclePoint.Y).toBe(startPoint.Y);
     expect(radialGradient.startCircleRadius).toBe(startRadius);
-    expect(radialGradient.endPoint.X).toBe(endPoint.X);
-    expect(radialGradient.endPoint.Y).toBe(endPoint.Y);
+    expect(radialGradient.endCirclePoint.X).toBe(endPoint.X);
+    expect(radialGradient.endCirclePoint.Y).toBe(endPoint.Y);
     expect(radialGradient.endCircleRadius).toBe(endRadius);
   });
   it('should build the radial gradient with the provided properties', () => {
