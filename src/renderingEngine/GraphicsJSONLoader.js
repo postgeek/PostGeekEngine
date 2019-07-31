@@ -247,9 +247,9 @@ class GraphicsJSONLoader {
     }
     if (red !== undefined && blue !== undefined && green !== undefined) {
       if (alpha !== undefined) {
-        return new RGBAColor(red, blue, green, alpha);
+        return new RGBAColor(red, green, blue, alpha);
       }
-      return new RGBColor(red, blue, green);
+      return new RGBColor(red, green, blue);
     }
     if (name !== undefined) {
       return new Color({ name }).name; // TODO: Log a bug and fix this by adding an HTMLColor class

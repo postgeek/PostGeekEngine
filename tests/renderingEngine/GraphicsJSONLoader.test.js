@@ -526,9 +526,9 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Red).toBe(red);
-    expect(color.Blue).toBe(blue);
-    expect(color.Green).toBe(green);
+    expect(color.red).toBe(red);
+    expect(color.green).toBe(green);
+    expect(color.blue).toBe(blue);
   });
   it('should correctly create an RGBA color if the correct parameters are provided', () => {
     // Arrange
@@ -545,10 +545,10 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Red).toBe(red);
-    expect(color.Blue).toBe(blue);
-    expect(color.Green).toBe(green);
-    expect(color.Alpha).toBe(alpha);
+    expect(color.red).toBe(red);
+    expect(color.green).toBe(green);
+    expect(color.blue).toBe(blue);
+    expect(color.alpha).toBe(alpha);
   });
   // hue, lightness, saturation,
   it('should correctly create an HSL color if the correct parameters are provided', () => {
