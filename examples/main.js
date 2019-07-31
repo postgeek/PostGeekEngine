@@ -3,6 +3,7 @@ import DemoScene from './2DMapDemo/DemoScene';
 import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
+import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import PostGeekDebugger from '../src/core/debug/PostGeekDebugger';
 
 Window.Main = class Main {
@@ -21,6 +22,15 @@ Window.Main = class Main {
       middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'shapeDemoScene', scene: ShapeDemoScene },
+    });
+  }
+
+  static startKeyboardDemo() {
+    start({
+      debug: true,
+      middleware: [new PostGeekDebugger()],
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'KeyboardDemoScene', scene: KeyboardDemoScene },
     });
   }
 

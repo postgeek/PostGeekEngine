@@ -17,23 +17,34 @@ class GeometryStyle extends DrawingStyle {
   *   'lineDashOffset' : float,
   * }
   */
-  constructor(config) {
-    super(config);
-    if ('lineCap' in config) {
-      this.LineCap = config.lineCap;
-    }
-    if ('lineJoin' in config) {
-      this.LineJoin = config.lineJoin;
-    }
-    if ('miterLimit' in config) {
-      this.MiterLimit = config.miterLimit;
-    }
-    if ('lineDash' in config) {
-      this.LineDash = config.lineDash;
-    }
-    if ('lineDashOffset' in config) {
-      this.LineDashOffset = config.lineDashOffset;
-    }
+  constructor({
+    fillStyle,
+    strokeStyle,
+    lineWidth,
+    shadowBlur,
+    shadowColor,
+    shadowOffsetX,
+    shadowOffsetY,
+    lineCap,
+    lineJoin,
+    miterLimit,
+    lineDash,
+    lineDashOffset,
+  } = {}) {
+    super({
+      fillStyle,
+      strokeStyle,
+      lineWidth,
+      shadowBlur,
+      shadowColor,
+      shadowOffsetX,
+      shadowOffsetY,
+    });
+    this.LineCap = lineCap;
+    this.LineJoin = lineJoin;
+    this.MiterLimit = miterLimit;
+    this.LineDash = lineDash;
+    this.LineDashOffset = lineDashOffset;
   }
 
   /**
@@ -53,11 +64,17 @@ class GeometryStyle extends DrawingStyle {
    * @return {undefined}
    */
   set LineCap(value) {
-    if (value !== 'butt' || value !== 'round' || value !== 'square') {
+    const defaultLineCap = 'butt';
+    let newLineCap = '';
+    if (value === undefined) {
+      newLineCap = defaultLineCap;
+    } else if (value !== 'butt' || value !== 'round' || value !== 'square') {
       throw new InvalidArguementError(this);
+    } else {
+      newLineCap = value;
     }
     /** @private */
-    this.lineCap = value;
+    this.lineCap = newLineCap;
   }
 
   /**
@@ -75,11 +92,17 @@ class GeometryStyle extends DrawingStyle {
    * @return {undefined}
    */
   set LineJoin(value) {
-    if (value !== 'round' || value !== 'bevel' || value !== 'miter') {
+    const defautLineJoin = 'miter';
+    let newLineJoin = '';
+    if (value === undefined) {
+      newLineJoin = defautLineJoin;
+    } else if (value !== 'round' || value !== 'bevel' || value !== 'miter') {
       throw new InvalidArguementError(this);
+    } else {
+      newLineJoin = value;
     }
     /** @private */
-    this.lineJoin = value;
+    this.lineJoin = newLineJoin;
   }
 
   /**
@@ -135,7 +158,6 @@ class GeometryStyle extends DrawingStyle {
     /** @private */
     this.lineDashOffset = value;
   }
-
 
   /**
    * Applies the geometry styling to the current context.

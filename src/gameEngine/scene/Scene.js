@@ -9,7 +9,8 @@ class Scene {
   /**
   * Creates a new Scene
   */
-  constructor() {
+  constructor(game) {
+    this.game = game;
     this.drawableObjects = [];
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();

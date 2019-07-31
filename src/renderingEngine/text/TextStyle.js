@@ -1,21 +1,34 @@
 import DrawingStyle from '../DrawingStyle';
 
 export default class TextStyle extends DrawingStyle {
-  constructor(config) {
-    super(config);
-    if ('font' in config) {
-      this.Font = config.font;
-    }
-    if ('textAlign' in config) {
-      this.TextAlign = config.textAlign;
-    }
-    if ('textBaseline' in config) {
-      this.TextBaseline = config.textBaseline;
-    }
-    if ('direction' in config) {
-      this.Direction = config.direction;
-    }
+  constructor({
+    fillStyle,
+    strokeStyle,
+    lineWidth,
+    shadowBlur,
+    shadowColor,
+    shadowOffsetX,
+    shadowOffsetY,
+    font,
+    textAlign,
+    textBaseline,
+    direction,
+  } = {}) {
+    super({
+      fillStyle,
+      strokeStyle,
+      lineWidth,
+      shadowBlur,
+      shadowColor,
+      shadowOffsetX,
+      shadowOffsetY,
+    });
+    this.Font = font;
+    this.TextAlign = textAlign;
+    this.TextBaseline = textBaseline;
+    this.Direction = direction;
   }
+
 
   get Font() {
     return this.font;

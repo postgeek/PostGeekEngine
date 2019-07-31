@@ -16,28 +16,22 @@ class DrawingStyle {
   *   'shadowOffsetY' : float
   * }
   */
-  constructor(config) {
-    if ('fillStyle' in config) {
-      this.FillStyle = config.fillStyle;
-    }
-    if ('strokeStyle' in config) {
-      this.StrokeStyle = config.strokeStyle;
-    }
-    if ('lineWidth' in config) {
-      this.LineWidth = config.lineWidth;
-    }
-    if ('shadowBlur' in config) {
-      this.ShadowBlur = config.shadowBlur;
-    }
-    if ('shadowColor' in config) {
-      this.ShadowColor = config.shadowColor;
-    }
-    if ('shadowOffsetX' in config) {
-      this.ShadowOffsetX = config.shadowOffsetX;
-    }
-    if ('shadowOffsetY' in config) {
-      this.ShadowOffsetY = config.shadowOffsetY;
-    }
+  constructor({
+    fillStyle,
+    strokeStyle,
+    lineWidth,
+    shadowBlur,
+    shadowColor,
+    shadowOffsetX,
+    shadowOffsetY,
+  } = {}) {
+    this.FillStyle = fillStyle;
+    this.StrokeStyle = strokeStyle;
+    this.LineWidth = lineWidth;
+    this.ShadowBlur = shadowBlur;
+    this.ShadowColor = shadowColor;
+    this.ShadowOffsetX = shadowOffsetX;
+    this.ShadowOffsetY = shadowOffsetY;
   }
 
   /**
