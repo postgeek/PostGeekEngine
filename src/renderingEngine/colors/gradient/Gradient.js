@@ -1,4 +1,5 @@
 import ColorStop from './ColorStop';
+import ServiceLocator from '../../../core/ServiceLocator';
 import BaseClassConstructedError from '../../../core/errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../../core/errorHandling/errors/MethodNotImplementedError';
 
@@ -11,16 +12,34 @@ class Gradient {
   *
   * @throws {BaseClassConstructedError}
   * throws an exception if the Gradientclass is contrstructed directly
-  * @param {CanvasRenderingContext2D} context the canvas context.
   */
   constructor(context) {
     if (this.constructor === Gradient) {
       throw new BaseClassConstructedError();
     }
     /** @private */
-    this.context = context;
+    this.context = ServiceLocator.instance.locate('context');
     /** @private */
-    this.colors = {};
+    this._colorStops = [];
+  }
+
+  /**
+   * Sets the canvas context of the gradient
+   *
+   * @param  {type} value description
+   * @return {type}       description
+   */
+  set context(value) {
+    this._context = value;
+  }
+
+  /**
+   * Gets the canvas context of the gradient
+   *
+   * @return {type}  description
+   */
+  get context() {
+    return this._context;
   }
 
   /**
@@ -29,8 +48,8 @@ class Gradient {
   * @param {number} offset the offset for the gradient color between 0 and 1.
   * @param {Color} colour the colour.
   */
-  addColorStop(offset, colour) {
-    this.colors.push(new ColorStop(offset, colour));
+  addColorStop(offset, color) {
+    this._colorStops.push(new ColorStop(offset, color));
   }
 
   /**
@@ -39,7 +58,7 @@ class Gradient {
   * @returns {ColorStop|Array} the array of {@link ColorStop} colorstops for the gradient.
   */
   getColorStops() {
-    return this.colors;
+    return this._colorStops;
   }
 
   /**
@@ -48,7 +67,7 @@ class Gradient {
   * @throws {MethodNotImplementedError} throws an error if the buildGradient is called from here
   */
   buildGradient() {
-    throw new MethodNotImplementedError(this);
+    throw new MethodNotImplementedError();
   }
 }
 export default Gradient;
