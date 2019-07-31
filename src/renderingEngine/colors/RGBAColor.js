@@ -21,7 +21,7 @@ class RGBAColor extends RGBColor {
   /**
    * Gets the alpha level of the color.
    *
-   * @return {float} The alpha level of the color (opacity).
+   * @return {Number} The alpha level of the color (opacity).
    */
   get alpha() {
     return this._alpha;
@@ -30,7 +30,7 @@ class RGBAColor extends RGBColor {
   /**
    * Specifies the alpha level of the color (opacity).
    * @throws {InvalidArguementError} throws error when value is not between 0 and 1 (inclusively).
-   * @param  {float} value The alpha level of the color (opacity).
+   * @param  {Number} value The alpha level of the color (opacity).
    */
   set alpha(value) {
     if (value < 0 || value > 1) {

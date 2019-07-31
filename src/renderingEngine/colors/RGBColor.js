@@ -20,7 +20,7 @@ class RGBColor {
   /**
    * Gets the red color value.
    *
-   * @return {float} The red color value
+   * @return {Number} The red color value
    */
   get red() {
     return this._red;
@@ -30,8 +30,7 @@ class RGBColor {
    * Specifies the red color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new red color value
-   * @return {undefined}
+   * @param  {Number} value the new red color value
    */
   set red(value) {
     if (value < 0 || value > 255) {
@@ -44,7 +43,7 @@ class RGBColor {
   /**
    * Gets the blue color value.
    *
-   * @return {float} The blue color value
+   * @return {Number} The blue color value
    */
   get blue() {
     return this._blue;
@@ -54,8 +53,7 @@ class RGBColor {
    * Specifies the blue color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new blue color value
-   * @return {undefined}
+   * @param  {Number} value the new blue color value
    */
   set blue(value) {
     if (value < 0 || value > 255) {
@@ -68,7 +66,7 @@ class RGBColor {
   /**
    * Gets the green color value.
    *
-   * @return {float} The green color value
+   * @return {Number} The green color value
    */
   get green() {
     return this._green;
@@ -78,8 +76,7 @@ class RGBColor {
    * Specifies the green color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new green color value
-   * @return {undefined}
+   * @param  {Number} value the new green color value
    */
   set green(value) {
     if (value < 0 || value > 255) {
