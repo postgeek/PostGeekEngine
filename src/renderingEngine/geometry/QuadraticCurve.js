@@ -13,17 +13,17 @@ class QuadraticCurve extends Shape {
   */
   constructor(startPoint, controlPoint, endPoint) {
     super();
-    this.StartPoint = startPoint;
-    this.ControlPoint = controlPoint;
-    this.EndPoint = endPoint;
+    this.startPoint = startPoint;
+    this.controlPoint = controlPoint;
+    this.endPoint = endPoint;
   }
 
   /**
   * Gets the starting point for the quadratic curve.
   * @return {Point} The starting point of the quadratic curve
   */
-  get StartPoint() {
-    return this.startPoint;
+  get startPoint() {
+    return this._startPoint;
   }
 
   /**
@@ -32,17 +32,17 @@ class QuadraticCurve extends Shape {
    * @param  {Point} value The starting point of the quadratic curve
    * @return {undefined}
    */
-  set StartPoint(value) {
+  set startPoint(value) {
     /** @private */
-    this.startPoint = value;
+    this._startPoint = value;
   }
 
   /**
   * the control point for the quadratic curve.
   * @return {Point} the control point for the quadratic curve.
   */
-  get ControlPoint() {
-    return this.controlPoint;
+  get controlPoint() {
+    return this._controlPoint;
   }
 
   /**
@@ -51,17 +51,17 @@ class QuadraticCurve extends Shape {
    * @param  {Point} value the new control point for the quadratic curve.
    * @return {undefined}
    */
-  set ControlPoint(value) {
+  set controlPoint(value) {
     /** @private */
-    this.controlPoint = value;
+    this._controlPoint = value;
   }
 
   /**
   * the end point for the quadratic curve.
 * @return {Point} the end point for the quadratic curve.
   */
-  get EndPoint() {
-    return this.endPoint;
+  get endPoint() {
+    return this._endPoint;
   }
 
   /**
@@ -70,9 +70,9 @@ class QuadraticCurve extends Shape {
    * @param  {Point} value the new end point for the quadratic curve.
    * @return {undefined}
    */
-  set EndPoint(value) {
+  set endPoint(value) {
     /** @private */
-    this.endPoint = value;
+    this._endPoint = value;
   }
 
   /**
@@ -80,12 +80,12 @@ class QuadraticCurve extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-    this.context.moveTo(this.StartPoint.X, this.StartPoint.Y);
+    this.context.moveTo(this.startPoint.x, this.startPoint.y);
     this.context.quadraticCurveTo(
-      this.ControlPoint.X,
-      this.ControlPoint.Y,
-      this.EndPoint.X,
-      this.EndPoint.Y,
+      this.controlPoint.x,
+      this.controlPoint.y,
+      this.endPoint.x,
+      this.endPoint.y,
     );
   }
 }

@@ -45,7 +45,7 @@ class Rectangle extends Shape {
   }
 
   set y(value) {
-    return this.point.y;
+    this.point.y = value;
   }
 
   /**
@@ -75,6 +75,15 @@ class Rectangle extends Shape {
   */
   internalDraw() {
     this.context.rect(this.point.x, this.point.y, this.width, this.height);
+  }
+
+  /**
+   *  Clones the current rectangle into a new Circle object
+   *
+   * @return {Rectangle}  the new rectangle with the same parameters as the old one
+   */
+  clone() {
+    return new Rectangle(this.point.clone(), this.width, this.height);
   }
 }
 export default Rectangle;

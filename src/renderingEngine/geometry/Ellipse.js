@@ -46,7 +46,7 @@ class Ellipse extends Shape {
    * @return {float} The starting point's x coordinate
    */
   get x() {
-    return this.point.X;
+    return this.point.x;
   }
 
   /**
@@ -64,7 +64,7 @@ class Ellipse extends Shape {
    *
    * @return {float} The starting point's y coordinate
    */
-  get yield() {
+  get y() {
     return this.point.y;
   }
 
@@ -152,6 +152,15 @@ class Ellipse extends Shape {
       0,
       2 * Math.PI,
     );
+  }
+
+  /**
+   *  Clones the current ellipse into a new Ellipse object
+   *
+   * @return {Ellipse}  the new ellipse with the same parameters as the old one
+   */
+  clone() {
+    return new Ellipse(this.point.clone(), this.radiusX, this.radiusY, this.rotation);
   }
 }
 export default Ellipse;

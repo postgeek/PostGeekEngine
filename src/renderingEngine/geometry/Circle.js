@@ -67,7 +67,7 @@ class Circle extends Shape {
    * @param  {Number} value the new Y coordinate
    */
   set y(value) {
-    return this.point.y;
+    this.point.y = value;
   }
 
   /**

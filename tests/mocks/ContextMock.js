@@ -35,7 +35,7 @@ class ContextMock {
 
   }
 
-  quadraticCurve(x1, y1, x2, y2) {
+  quadraticCurveTo(x1, y1, x2, y2) {
 
   }
 
