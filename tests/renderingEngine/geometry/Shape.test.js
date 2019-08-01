@@ -28,22 +28,49 @@ describe('Shape', () => {
   it.skip('Should save the current context and apply the correct stylings', () => {
     // Arrange
     const shape = new Shape();
+    const contextBeginPathSpy = jest.spyOn(ContextMock.prototype, 'beginPath');
+    const contextSaveSpy = jest.spyOn(ContextMock.prototype, 'save');
 
     // Act
     shape.preDraw();
 
     // Assert
-    // TODO: Assert that the right methods have been called
+    expect(contextBeginPathSpy).toHaveBeenCalledTimes(1);
+    expect(contextSaveSpy).toHaveBeenCalledTimes(1);
+    // TODO: this.context = this.geometryStyle.apply(this.context);
   });
   it.skip('Should restore the previous context and draw the shape on screen', () => {
     // Arrange
     const shape = new Shape();
+    const contextClosePathSpy = jest.spyOn(ContextMock.prototype, 'closePath');
+    const contextRestoreSpy = jest.spyOn(ContextMock.prototype, 'restore');
+    const contextFillSpy = jest.spyOn(ContextMock.prototype, 'fill');
+    const contextStrokeSpy = jest.spyOn(ContextMock.prototype, 'stroke');
 
     // Act
     shape.postDraw();
 
     // Assert
-    // TODO: Assert that the right methods have been called
+    expect(contextClosePathSpy).toHaveBeenCalledTimes(1);
+    expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
+    expect(contextFillSpy).toHaveBeenCalledTimes(0);
+    expect(contextStrokeSpy).toHaveBeenCalledTimes(0);
+  });
+  it.skip('Should call the context fill if there is a fillStyle', () => {
+    /*
+TODO: Write this test
+if (this.geometryStyle.fillStyle !== undefined) {
+  this.context.fill();
+}
+*/
+  });
+  it.skip('Should call the context stroke if there is a strokeStyle', () => {
+    /*
+    TODO: Write this test
+    if (this.geometryStyle.strokeStyle !== undefined) {
+      this.context.stroke();
+    }
+    */
   });
 });
 
@@ -51,13 +78,15 @@ describe('Circle', () => {
   it('Should properly draw the circle to the screen', () => {
     // Arrange
     const circle = new Circle(new Point(10, 20), 20);
-    const fooSpy = jest.spyOn(Circle.prototype, 'internalDraw');
+    const circleInternalDrawSpy = jest.spyOn(Circle.prototype, 'internalDraw');
+    const contextArcSpy = jest.spyOn(ContextMock.prototype, 'arc');
 
     // Act
     circle.draw();
 
     // Assert
-    expect(fooSpy).toHaveBeenCalledTimes(1);
+    expect(circleInternalDrawSpy).toHaveBeenCalledTimes(1);
+    expect(contextArcSpy).toHaveBeenCalledTimes(1);
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
@@ -106,13 +135,15 @@ describe('Ellipse', () => {
   it('Should properly draw the ellipse to the screen', () => {
     // Arrange
     const ellipse = new Ellipse(new Point(10, 20), 20, 31, 70);
-    const fooSpy = jest.spyOn(Ellipse.prototype, 'internalDraw');
+    const ellipseInternalDrawSpy = jest.spyOn(Ellipse.prototype, 'internalDraw');
+    const contextEllipseSpy = jest.spyOn(ContextMock.prototype, 'ellipse');
 
     // Act
     ellipse.draw();
 
     // Assert
-    expect(fooSpy).toHaveBeenCalledTimes(1);
+    expect(ellipseInternalDrawSpy).toHaveBeenCalledTimes(1);
+    expect(contextEllipseSpy).toHaveBeenCalledTimes(1);
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
@@ -163,13 +194,15 @@ describe('Rectangle', () => {
   it('Should properly draw the rectangle to the screen', () => {
     // Arrange
     const rectangle = new Rectangle(new Point(10, 20), 20, 56);
-    const fooSpy = jest.spyOn(Rectangle.prototype, 'internalDraw');
+    const rectangleInternalDraw = jest.spyOn(Rectangle.prototype, 'internalDraw');
+    const contextRectSpy = jest.spyOn(ContextMock.prototype, 'rect');
 
     // Act
     rectangle.draw();
 
     // Assert
-    expect(fooSpy).toHaveBeenCalledTimes(1);
+    expect(rectangleInternalDraw).toHaveBeenCalledTimes(1);
+    expect(contextRectSpy).toHaveBeenCalledTimes(1);
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
@@ -212,87 +245,5 @@ describe('Rectangle', () => {
     expect(clonedRectangle.point.y).toBe(rectangle.point.y);
     expect(clonedRectangle.width).toBe(rectangle.width);
     expect(clonedRectangle.height).toBe(rectangle.height);
-  });
-});
-
-describe('QuadraticCurve', () => {
-  // startPoint, controlPoint, endPoint
-  it('Should properly draw the quadraticCurve to the screen', () => {
-    // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
-    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const fooSpy = jest.spyOn(QuadraticCurve.prototype, 'internalDraw');
-
-    // Act
-    quadraticCurve.draw();
-
-    // Assert
-    expect(fooSpy).toHaveBeenCalledTimes(1);
-  });
-  it('Should properly set startPoint', () => {
-    // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
-    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newStartPoint = new Point(123, 432);
-
-    // Act
-    quadraticCurve.startPoint = newStartPoint;
-
-    // Assert
-    expect(quadraticCurve.startPoint.x).toBe(newStartPoint.x);
-    expect(quadraticCurve.startPoint.y).toBe(newStartPoint.y);
-  });
-  it('Should properly set the controlPoint', () => {
-    // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
-    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newControlPoint = new Point(123, 231);
-
-    // Act
-    quadraticCurve.controlPoint = newControlPoint;
-
-    // Assert
-    expect(quadraticCurve.controlPoint.x).toBe(newControlPoint.x);
-    expect(quadraticCurve.controlPoint.y).toBe(newControlPoint.y);
-  });
-  it('Should properly set the endPoint', () => {
-    // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
-    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newEndPoint = new Point(192, 234);
-
-    // Act
-    quadraticCurve.endPoint = newEndPoint;
-
-    // Assert
-    expect(quadraticCurve.endPoint.x).toBe(newEndPoint.x);
-    expect(quadraticCurve.endPoint.y).toBe(newEndPoint.y);
-  });
-  it('Should copy the given quadraticCurve', () => {
-    // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
-    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-
-    // GraphicObject
-    const clonedQuadraticCurve = quadraticCurve.clone();
-
-    // Asset
-    expect(clonedQuadraticCurve).toBeDefined();
-    expect(clonedQuadraticCurve.startPoint.x).toBe(quadraticCurve.startPoint.x);
-    expect(clonedQuadraticCurve.startPoint.y).toBe(quadraticCurve.startPoint.y);
-    expect(clonedQuadraticCurve.controlPoint.x).toBe(quadraticCurve.controlPoint.x);
-    expect(clonedQuadraticCurve.controlPoint.y).toBe(quadraticCurve.controlPoint.y);
-    expect(clonedQuadraticCurve.endPoint.x).toBe(quadraticCurve.endPoint.x);
-    expect(clonedQuadraticCurve.endPoint.y).toBe(quadraticCurve.endPoint.y);
   });
 });
