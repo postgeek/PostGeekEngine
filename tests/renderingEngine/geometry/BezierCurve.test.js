@@ -13,14 +13,15 @@ beforeEach(() => {
 describe('BezierCurve', () => {
   it('Should properly draw the bezierCurve to the screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const startPoint = new Point(48, 34);
     const controlPoint1 = new Point(54, 23);
     const controlPoint2 = new Point(120, 64);
     const endPoint = new Point(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
-    const bezierCurveInternalDrawSpy = jest.spyOn(BezierCurve.prototype, 'internalDraw');
-    const contextMoveToSpy = jest.spyOn(ContextMock.prototype, 'moveTo');
-    const contextBezierCurveToSpy = jest.spyOn(ContextMock.prototype, 'bezierCurveTo');
+    const bezierCurveInternalDrawSpy = jest.spyOn(bezierCurve, 'internalDraw');
+    const contextMoveToSpy = jest.spyOn(context, 'moveTo');
+    const contextBezierCurveToSpy = jest.spyOn(context, 'bezierCurveTo');
 
     // Act
     bezierCurve.draw();

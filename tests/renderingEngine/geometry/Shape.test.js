@@ -4,6 +4,7 @@ import Circle from '../../../src/renderingEngine/geometry/Circle';
 import Ellipse from '../../../src/renderingEngine/geometry/Ellipse';
 import QuadraticCurve from '../../../src/renderingEngine/geometry/QuadraticCurve';
 import Rectangle from '../../../src/renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../../src/renderingEngine/geometry/GeometryStyle';
 import Point from '../../../src/core/Point';
 
 import MethodNotImplementedError from '../../../src/core/errorHandling/errors/MethodNotImplementedError';
@@ -25,11 +26,12 @@ describe('Shape', () => {
     // Assert
     expect(() => { shape.internalDraw(); }).toThrow(MethodNotImplementedError);
   });
-  it.skip('Should save the current context and apply the correct stylings', () => {
+  it('Should save the current context and apply the correct stylings', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const shape = new Shape();
-    const contextBeginPathSpy = jest.spyOn(ContextMock.prototype, 'beginPath');
-    const contextSaveSpy = jest.spyOn(ContextMock.prototype, 'save');
+    const contextBeginPathSpy = jest.spyOn(context, 'beginPath');
+    const contextSaveSpy = jest.spyOn(context, 'save');
 
     // Act
     shape.preDraw();
@@ -39,13 +41,16 @@ describe('Shape', () => {
     expect(contextSaveSpy).toHaveBeenCalledTimes(1);
     // TODO: this.context = this.geometryStyle.apply(this.context);
   });
-  it.skip('Should restore the previous context and draw the shape on screen', () => {
+  it('Should restore the previous context and draw the shape on screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const shape = new Shape();
-    const contextClosePathSpy = jest.spyOn(ContextMock.prototype, 'closePath');
-    const contextRestoreSpy = jest.spyOn(ContextMock.prototype, 'restore');
-    const contextFillSpy = jest.spyOn(ContextMock.prototype, 'fill');
-    const contextStrokeSpy = jest.spyOn(ContextMock.prototype, 'stroke');
+    const geometryStyle = new GeometryStyle();
+    shape.geometryStyle = geometryStyle;
+    const contextClosePathSpy = jest.spyOn(context, 'closePath');
+    const contextRestoreSpy = jest.spyOn(context, 'restore');
+    const contextFillSpy = jest.spyOn(context, 'fill');
+    const contextStrokeSpy = jest.spyOn(context, 'stroke');
 
     // Act
     shape.postDraw();
@@ -56,30 +61,55 @@ describe('Shape', () => {
     expect(contextFillSpy).toHaveBeenCalledTimes(0);
     expect(contextStrokeSpy).toHaveBeenCalledTimes(0);
   });
-  it.skip('Should call the context fill if there is a fillStyle', () => {
-    /*
-TODO: Write this test
-if (this.geometryStyle.fillStyle !== undefined) {
-  this.context.fill();
-}
-*/
+  it('Should call the context fill if there is a fillStyle', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const shape = new Shape();
+    const geometryStyle = new GeometryStyle({ fillStyle: 'red' });
+    shape.geometryStyle = geometryStyle;
+    const contextClosePathSpy = jest.spyOn(context, 'closePath');
+    const contextRestoreSpy = jest.spyOn(context, 'restore');
+    const contextFillSpy = jest.spyOn(context, 'fill');
+    const contextStrokeSpy = jest.spyOn(context, 'stroke');
+
+    // Act
+    shape.postDraw();
+
+    // Assert
+    expect(contextClosePathSpy).toHaveBeenCalledTimes(1);
+    expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
+    expect(contextFillSpy).toHaveBeenCalledTimes(1);
+    expect(contextStrokeSpy).toHaveBeenCalledTimes(0);
   });
-  it.skip('Should call the context stroke if there is a strokeStyle', () => {
-    /*
-    TODO: Write this test
-    if (this.geometryStyle.strokeStyle !== undefined) {
-      this.context.stroke();
-    }
-    */
+  it('Should call the context stroke if there is a strokeStyle', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const shape = new Shape();
+    const geometryStyle = new GeometryStyle({ strokeStyle: 'red' });
+    shape.geometryStyle = geometryStyle;
+    const contextClosePathSpy = jest.spyOn(context, 'closePath');
+    const contextRestoreSpy = jest.spyOn(context, 'restore');
+    const contextFillSpy = jest.spyOn(context, 'fill');
+    const contextStrokeSpy = jest.spyOn(context, 'stroke');
+
+    // Act
+    shape.postDraw();
+
+    // Assert
+    expect(contextClosePathSpy).toHaveBeenCalledTimes(1);
+    expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
+    expect(contextFillSpy).toHaveBeenCalledTimes(0);
+    expect(contextStrokeSpy).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('Circle', () => {
   it('Should properly draw the circle to the screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const circle = new Circle(new Point(10, 20), 20);
-    const circleInternalDrawSpy = jest.spyOn(Circle.prototype, 'internalDraw');
-    const contextArcSpy = jest.spyOn(ContextMock.prototype, 'arc');
+    const circleInternalDrawSpy = jest.spyOn(circle, 'internalDraw');
+    const contextArcSpy = jest.spyOn(context, 'arc');
 
     // Act
     circle.draw();
@@ -134,9 +164,10 @@ describe('Circle', () => {
 describe('Ellipse', () => {
   it('Should properly draw the ellipse to the screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const ellipse = new Ellipse(new Point(10, 20), 20, 31, 70);
-    const ellipseInternalDrawSpy = jest.spyOn(Ellipse.prototype, 'internalDraw');
-    const contextEllipseSpy = jest.spyOn(ContextMock.prototype, 'ellipse');
+    const ellipseInternalDrawSpy = jest.spyOn(ellipse, 'internalDraw');
+    const contextEllipseSpy = jest.spyOn(context, 'ellipse');
 
     // Act
     ellipse.draw();
@@ -193,9 +224,10 @@ describe('Ellipse', () => {
 describe('Rectangle', () => {
   it('Should properly draw the rectangle to the screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const rectangle = new Rectangle(new Point(10, 20), 20, 56);
-    const rectangleInternalDraw = jest.spyOn(Rectangle.prototype, 'internalDraw');
-    const contextRectSpy = jest.spyOn(ContextMock.prototype, 'rect');
+    const rectangleInternalDraw = jest.spyOn(rectangle, 'internalDraw');
+    const contextRectSpy = jest.spyOn(context, 'rect');
 
     // Act
     rectangle.draw();

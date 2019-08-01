@@ -14,13 +14,14 @@ describe('QuadraticCurve', () => {
   // startPoint, controlPoint, endPoint
   it('Should properly draw the quadraticCurve to the screen', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
     const startPoint = new Point(48, 34);
     const controlPoint = new Point(54, 23);
     const endPoint = new Point(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const quadraticCurveInternalDrawSpy = jest.spyOn(QuadraticCurve.prototype, 'internalDraw');
-    const contextMoveToSpy = jest.spyOn(ContextMock.prototype, 'moveTo');
-    const contextQuadraticCurveToSpy = jest.spyOn(ContextMock.prototype, 'quadraticCurveTo');
+    const quadraticCurveInternalDrawSpy = jest.spyOn(quadraticCurve, 'internalDraw');
+    const contextMoveToSpy = jest.spyOn(context, 'moveTo');
+    const contextQuadraticCurveToSpy = jest.spyOn(context, 'quadraticCurveTo');
 
 
     // Act
