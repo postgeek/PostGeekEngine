@@ -88,5 +88,14 @@ class QuadraticCurve extends Shape {
       this.endPoint.y,
     );
   }
+
+  /**
+     *  Clones the current quadratic curve into a new QuadraticCurve object
+     *
+     * @return {QuadraticCurve}  the new quadratic curve with the same parameters as the old one
+     */
+  clone() {
+    return new QuadraticCurve(this.startPoint.clone(), this.controlPoint.clone(), this.endPoint.clone());
+  }
 }
 export default QuadraticCurve;

@@ -276,16 +276,23 @@ describe('QuadraticCurve', () => {
     expect(quadraticCurve.endPoint.x).toBe(newEndPoint.x);
     expect(quadraticCurve.endPoint.y).toBe(newEndPoint.y);
   });
-  it.skip('Should copy the given quadraticCurve', () => {
+  it('Should copy the given quadraticCurve', () => {
     // Arrange
-    const quadraticCurve = new QuadraticCurve(new Point(10, 20), 20, 65);
+    const startPoint = new Point(48, 34);
+    const controlPoint = new Point(54, 23);
+    const endPoint = new Point(65, 89);
+    const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
 
     // GraphicObject
     const clonedQuadraticCurve = quadraticCurve.clone();
 
     // Asset
     expect(clonedQuadraticCurve).toBeDefined();
-    expect(clonedQuadraticCurve.point.x).toBe(quadraticCurve.point.x);
-    expect(clonedQuadraticCurve.point.y).toBe(quadraticCurve.point.y);
+    expect(clonedQuadraticCurve.startPoint.x).toBe(quadraticCurve.startPoint.x);
+    expect(clonedQuadraticCurve.startPoint.y).toBe(quadraticCurve.startPoint.y);
+    expect(clonedQuadraticCurve.controlPoint.x).toBe(quadraticCurve.controlPoint.x);
+    expect(clonedQuadraticCurve.controlPoint.y).toBe(quadraticCurve.controlPoint.y);
+    expect(clonedQuadraticCurve.endPoint.x).toBe(quadraticCurve.endPoint.x);
+    expect(clonedQuadraticCurve.endPoint.y).toBe(quadraticCurve.endPoint.y);
   });
 });
