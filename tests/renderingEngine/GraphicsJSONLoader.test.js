@@ -41,9 +41,9 @@ describe('createCircle', () => {
 
     // Assert
     expect(circle).toBeDefined();
-    expect(circle.X).toBe(x);
-    expect(circle.Y).toBe(y);
-    expect(circle.Radius).toBe(radius);
+    expect(circle.point.x).toBe(x);
+    expect(circle.point.y).toBe(y);
+    expect(circle.radius).toBe(radius);
   });
   it('should create a circle with the  provided geometryStyle', () => {
     // Arange
@@ -62,11 +62,11 @@ describe('createCircle', () => {
 
     // Assert
     expect(circle).toBeDefined();
-    expect(circle.GeometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(circle.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(circle.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(circle.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(circle.GeometryStyle.LineWidth).toBe(lineWidth);
+    expect(circle.geometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(circle.geometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(circle.geometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(circle.geometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(circle.geometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -123,14 +123,14 @@ describe('createBezierCurve', () => {
 
     // Assert
     expect(bezierCurve).toBeDefined();
-    expect(bezierCurve.StartPoint.X).toBe(startPointX);
-    expect(bezierCurve.StartPoint.Y).toBe(startPointY);
-    expect(bezierCurve.FirstControlPoint.X).toBe(firstControlPointX);
-    expect(bezierCurve.FirstControlPoint.Y).toBe(firstControlPointY);
-    expect(bezierCurve.SecondControlPoint.X).toBe(secondControlPointX);
-    expect(bezierCurve.SecondControlPoint.Y).toBe(secondControlPointY);
-    expect(bezierCurve.EndPoint.X).toBe(endPointX);
-    expect(bezierCurve.EndPoint.Y).toBe(endPointY);
+    expect(bezierCurve.startPoint.x).toBe(startPointX);
+    expect(bezierCurve.startPoint.y).toBe(startPointY);
+    expect(bezierCurve.firstControlPoint.x).toBe(firstControlPointX);
+    expect(bezierCurve.firstControlPoint.y).toBe(firstControlPointY);
+    expect(bezierCurve.secondControlPoint.x).toBe(secondControlPointX);
+    expect(bezierCurve.secondControlPoint.y).toBe(secondControlPointY);
+    expect(bezierCurve.endPoint.x).toBe(endPointX);
+    expect(bezierCurve.endPoint.y).toBe(endPointY);
   });
   it('should create a bezier curve with the provided geometryStyle', () => {
     // Arrange
@@ -145,12 +145,12 @@ describe('createBezierCurve', () => {
     const bezierCurve = GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
 
     // Assert
-    expect(bezierCurve.GeometryStyle).toBeDefined();
-    expect(bezierCurve.GeometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(bezierCurve.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(bezierCurve.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(bezierCurve.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(bezierCurve.GeometryStyle.LineWidth).toBe(lineWidth);
+    expect(bezierCurve.geometryStyle).toBeDefined();
+    expect(bezierCurve.geometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(bezierCurve.geometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(bezierCurve.geometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(bezierCurve.geometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(bezierCurve.geometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -198,12 +198,12 @@ describe('createQuadraticCurve', () => {
 
     // Assert
     expect(quadraticCurve).toBeDefined();
-    expect(quadraticCurve.StartPoint.X).toBe(startPointX);
-    expect(quadraticCurve.StartPoint.Y).toBe(startPointY);
-    expect(quadraticCurve.ControlPoint.X).toBe(controlPointX);
-    expect(quadraticCurve.ControlPoint.Y).toBe(controlPointY);
-    expect(quadraticCurve.EndPoint.X).toBe(endPointX);
-    expect(quadraticCurve.EndPoint.Y).toBe(endPointY);
+    expect(quadraticCurve.startPoint.x).toBe(startPointX);
+    expect(quadraticCurve.startPoint.y).toBe(startPointY);
+    expect(quadraticCurve.controlPoint.x).toBe(controlPointX);
+    expect(quadraticCurve.controlPoint.y).toBe(controlPointY);
+    expect(quadraticCurve.endPoint.x).toBe(endPointX);
+    expect(quadraticCurve.endPoint.y).toBe(endPointY);
   });
   it('should create a quadratic curve with the provided geometryStyle', () => {
     // Arrange
@@ -218,12 +218,12 @@ describe('createQuadraticCurve', () => {
     const quadraticCurve = GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
 
     // Assert
-    expect(quadraticCurve.GeometryStyle).toBeDefined();
-    expect(quadraticCurve.GeometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(quadraticCurve.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(quadraticCurve.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(quadraticCurve.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(quadraticCurve.GeometryStyle.LineWidth).toBe(lineWidth);
+    expect(quadraticCurve.geometryStyle).toBeDefined();
+    expect(quadraticCurve.geometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(quadraticCurve.geometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(quadraticCurve.geometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(quadraticCurve.geometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(quadraticCurve.geometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -277,11 +277,11 @@ describe('createEllipse', () => {
 
     // Assert
     expect(ellipse).toBeDefined();
-    expect(ellipse.Point.X).toBe(pointX);
-    expect(ellipse.Point.Y).toBe(pointY);
-    expect(ellipse.RadiusX).toBe(radiusX);
-    expect(ellipse.RadiusY).toBe(radiusY);
-    expect(ellipse.Rotation).toBe(roation);
+    expect(ellipse.point.x).toBe(pointX);
+    expect(ellipse.point.y).toBe(pointY);
+    expect(ellipse.radiusX).toBe(radiusX);
+    expect(ellipse.radiusY).toBe(radiusY);
+    expect(ellipse.rotation).toBe(roation);
   });
   it('should create an ellipse with the provided geometryStyle()', () => {
     // Arrange
@@ -296,12 +296,12 @@ describe('createEllipse', () => {
     const ellipse = GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
 
     // Assert
-    expect(ellipse.GeometryStyle).toBeDefined();
-    expect(ellipse.GeometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(ellipse.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(ellipse.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(ellipse.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(ellipse.GeometryStyle.LineWidth).toBe(lineWidth);
+    expect(ellipse.geometryStyle).toBeDefined();
+    expect(ellipse.geometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(ellipse.geometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(ellipse.geometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(ellipse.geometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(ellipse.geometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -347,10 +347,10 @@ describe('createRectangle', () => {
 
     // Assert
     expect(rectangle).toBeDefined();
-    expect(rectangle.X).toBe(x);
-    expect(rectangle.Y).toBe(y);
-    expect(rectangle.Width).toBe(width);
-    expect(rectangle.Height).toBe(height);
+    expect(rectangle.x).toBe(x);
+    expect(rectangle.y).toBe(y);
+    expect(rectangle.width).toBe(width);
+    expect(rectangle.height).toBe(height);
   });
   it('should create a rectangle with the provided geometryStyle', () => {
     // Arange
@@ -365,12 +365,12 @@ describe('createRectangle', () => {
     const rectangle = GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
 
     // Assert
-    expect(rectangle.GeometryStyle).toBeDefined();
-    expect(rectangle.GeometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(rectangle.GeometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(rectangle.GeometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(rectangle.GeometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(rectangle.GeometryStyle.LineWidth).toBe(lineWidth);
+    expect(rectangle.geometryStyle).toBeDefined();
+    expect(rectangle.geometryStyle.strokeStyle.Hue).toBe(hue);
+    expect(rectangle.geometryStyle.strokeStyle.Saturation).toBe(saturation);
+    expect(rectangle.geometryStyle.strokeStyle.Lightness).toBe(lightness);
+    expect(rectangle.geometryStyle.strokeStyle.Alpha).toBe(alpha);
+    expect(rectangle.geometryStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -408,9 +408,9 @@ describe('createText', () => {
 
     // Assert
     expect(textObject).toBeDefined();
-    expect(textObject.X).toBe(x);
-    expect(textObject.Y).toBe(y);
-    expect(textObject.Text).toBe(text);
+    expect(textObject.x).toBe(x);
+    expect(textObject.y).toBe(y);
+    expect(textObject.text).toBe(text);
   });
   it('should create a text with the provided textStyle', () => {
     // Arange
@@ -425,12 +425,12 @@ describe('createText', () => {
     const textObject = GraphicsJSONLoader.createText(JSON.parse(textJson));
 
     // Assert
-    expect(textObject.TextStyle).toBeDefined();
-    expect(textObject.TextStyle.FillStyle.Hue).toBe(hue);
-    expect(textObject.TextStyle.FillStyle.Saturation).toBe(saturation);
-    expect(textObject.TextStyle.FillStyle.Lightness).toBe(lightness);
-    expect(textObject.TextStyle.FillStyle.Alpha).toBe(alpha);
-    expect(textObject.TextStyle.LineWidth).toBe(lineWidth);
+    expect(textObject.textStyle).toBeDefined();
+    expect(textObject.textStyle.FillStyle.Hue).toBe(hue);
+    expect(textObject.textStyle.FillStyle.Saturation).toBe(saturation);
+    expect(textObject.textStyle.FillStyle.Lightness).toBe(lightness);
+    expect(textObject.textStyle.FillStyle.Alpha).toBe(alpha);
+    expect(textObject.textStyle.LineWidth).toBe(lineWidth);
   });
 });
 
@@ -461,8 +461,8 @@ describe('parsePoint2D', () => {
 
     // Assert
     expect(point).toBeDefined();
-    expect(point.X).toBe(x);
-    expect(point.Y).toBe(y);
+    expect(point.x).toBe(x);
+    expect(point.y).toBe(y);
   });
 });
 
@@ -486,7 +486,7 @@ describe('parseTextStyle', () => {
   });
 });
 
-describe('parseGeometryStyle', () => {
+describe('parsegeometryStyle', () => {
   it('should throw an error when parsing a geometry style if no parameters are passed', () => {
     const geometryStyleProperty = undefined;
     // Assert

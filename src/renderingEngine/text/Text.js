@@ -4,9 +4,9 @@ import TextStyle from './TextStyle';
 class Text extends GraphicObject {
   constructor(point, text) {
     super();
-    this.Point = point;
-    this.Text = text;
-    this.TextStyle = new TextStyle({
+    this.point = point;
+    this.text = text;
+    this.textStyle = new TextStyle({
       fillStyle: 'darkblue',
       strokeStyle: 'lightblue',
       lineWidth: 2,
@@ -17,56 +17,56 @@ class Text extends GraphicObject {
   /**
    * The point coordinates for the text.
    */
-  get Point() {
-    return this.point;
+  get point() {
+    return this._point;
   }
 
-  set Point(value) {
-    this.point = value;
+  set point(value) {
+    this._point = value;
   }
 
   /**
    *  The X coordinate of the text.
    */
-  get X() {
-    return this.Point.X;
+  get x() {
+    return this.point.x;
   }
 
-  set X(value) {
-    this.Point.X = value;
+  set x(value) {
+    this.point.x = value;
   }
 
   /**
   *  The Y coordinate of the text.
   */
-  get Y() {
-    return this.Point.Y;
+  get y() {
+    return this.point.y;
   }
 
-  set Y(value) {
-    this.Point.Y = value;
+  set y(value) {
+    this.point.y = value;
   }
 
   /**
    * The text to draw on the screen.
    */
-  get Text() {
-    return this.text;
+  get text() {
+    return this._text;
   }
 
-  set Text(value) {
-    this.text = value;
+  set text(value) {
+    this._text = value;
   }
 
   /**
    * Defines the text style for the Text.
    */
-  get TextStyle() {
-    return this.textStyle;
+  get textStyle() {
+    return this._textStyle;
   }
 
-  set TextStyle(value) {
-    this.textStyle = value;
+  set textStyle(value) {
+    this._textStyle = value;
   }
 
   /**
@@ -101,12 +101,12 @@ class Text extends GraphicObject {
   }
 
   internalDraw() {
-    this.context = this.TextStyle.apply(this.context);
-    if (this.TextStyle.FillStyle !== undefined) {
-      this.context.fillText(this.Text, this.Point.X, this.Point.Y);
+    this.context = this.textStyle.apply(this.context);
+    if (this.textStyle.FillStyle !== undefined) {
+      this.context.fillText(this.Text, this.point.x, this.point.y);
     }
-    if (this.TextStyle.StrokeStyle !== undefined) {
-      this.context.strokeText(this.Text, this.Point.X, this.Point.Y);
+    if (this.textStyle.StrokeStyle !== undefined) {
+      this.context.strokeText(this.Text, this.point.x, this.point.y);
     }
   }
 }
