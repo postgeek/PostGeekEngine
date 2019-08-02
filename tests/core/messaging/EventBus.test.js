@@ -1,14 +1,20 @@
-import ServiceLocator from '../../../src/core/ServiceLocator';
 import EventBus from '../../../src/core/messaging/EventBus';
+
+import ServiceLocator from '../../../src/core/ServiceLocator';
+import InvalidArguementError from '../../../src/core/errorHandling/errors/InvalidArguementError';
+
+const eventBus = new EventBus();
+
+const EventTypes = Object.freeze({
+  EVENT_ONE: Symbol('event_one'),
+  EVENT_TWO: Symbol('event_two'),
+  UNHANDLED_EVENT: Symbol('unhandled_event'),
+});
 
 class EventOne {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-  }
-
-  get eventType() {
-    return EventTypes.EVENT_ONE;
   }
 }
 
@@ -17,10 +23,6 @@ class EventTwo {
     this.x = x;
     this.y = y;
     this.z = z;
-  }
-
-  get eventType() {
-    return EventTypes.EVENT_TWO;
   }
 }
 
@@ -32,7 +34,7 @@ class EventHandlerOne {
   }
 
   registerEvents() {
-    this.eventBus = ServiceLocator.instance.locate('eventBus');
+    this.eventBus = eventBus;
     this.eventBus.register(EventTypes.EVENT_ONE, data => this.handleEventOne(data));
   }
 
@@ -55,7 +57,7 @@ class EventHandlerTwo {
   }
 
   registerEvents() {
-    this.eventBus = ServiceLocator.instance.locate('eventBus');
+    this.eventBus = eventBus;
     this.eventBus.register(EventTypes.EVENT_ONE, data => this.handleEventOne(data));
   }
 
@@ -65,20 +67,11 @@ class EventHandlerTwo {
   }
 }
 
-const eventBus = new EventBus();
-
-beforeEach(() => {
-  ServiceLocator.instance.clear();
-  ServiceLocator.instance.register('eventBus', eventBus);
-});
-
-const EventTypes = Object.freeze({
-  EVENT_ONE: Symbol('event_one'),
-  EVENT_TWO: Symbol('event_two'),
-  UNHANDLED_EVENT: Symbol('unhandled_event'),
-});
-
 describe('register', () => {
+  it('should throw an error if an event is emitted without an event type', () => {
+    // Assert
+    expect(() => { eventBus.emit(undefined, { data: 'empty data' }); }).toThrow(InvalidArguementError);
+  });
   it('should handle the event in both classes', () => {
     // Arrange
     const eventHandlerOne = new EventHandlerOne();

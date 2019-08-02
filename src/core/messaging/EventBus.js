@@ -1,3 +1,5 @@
+import InvalidArguementError from '../errorHandling/errors/InvalidArguementError';
+
 class EventBus {
   constructor() {
     this._registeredObservers = {};
@@ -14,7 +16,7 @@ class EventBus {
 
   emit(eventType, event) {
     if (eventType === undefined) {
-      throw new Error();
+      throw new InvalidArguementError(this);
     }
 
     const callbacks = this._registeredObservers[eventType];
