@@ -17,7 +17,7 @@ class GameObject {
 
   /**
    * Get the graphics component
-   * @returns {GraphicObject} The graphics component
+   * @returns {GraphicsComponent} The graphics component
    */
   get graphics() {
     return this._graphics;
@@ -25,7 +25,7 @@ class GameObject {
 
   /**
    * Set the graphics component
-   * @param {GraphicsObject} value The graphics component value
+   * @param {GraphicsComponent} value The graphics component value
    */
   set graphics(value) {
     this._graphics = value;
@@ -33,7 +33,7 @@ class GameObject {
 
   /**
    * Get the physics component
-   * @returns {PhysicsObject} The physics component
+   * @returns {PhysicsComponent} The physics component
    */
   get physics() {
     return this._physics;
@@ -41,7 +41,7 @@ class GameObject {
 
   /**
    * Set the physics component
-   * @param {PhysicsObject} value The physics component value
+   * @param {PhysicsComponent} value The physics component value
    */
   set physics(value) {
     this._physics = value;
@@ -70,11 +70,11 @@ class GameObject {
    * Update the game object. This also calls update on the physics and graphics components.
    */
   update() {
-    if (this._physics) {
+    if (this._physics && this._physics.update) {
       this._physics.update();
     }
 
-    if (this._graphics) {
+    if (this._graphics && this._graphics.update) {
       this._graphics.update();
     }
   }
@@ -83,7 +83,7 @@ class GameObject {
    * Draw the game object. This also calls draw on the graphics component.
    */
   draw() {
-    if (this._graphics) {
+    if (this._graphics && this._graphics.draw) {
       this._graphics.draw();
     }
   }

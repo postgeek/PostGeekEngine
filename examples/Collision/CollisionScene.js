@@ -3,29 +3,27 @@ import Point from '../../src/core/Point';
 import Text from '../../src/renderingEngine/text/Text';
 import GameObject from '../../src/gameEngine/gameObjects/GameObject';
 import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
-import PhysicsObject from '../../src/physicsEngine/PhysicsObject';
+import PhysicsComponent from '../../src/physicsEngine/PhysicsComponent';
+import GraphicsComponent from '../../src/renderingEngine/GraphicsComponent';
 import Rectangle from '../../src/renderingEngine/geometry/Rectangle';
 
-class RectangleGameObject extends GameObject {
-  constructor(scene) {
-    super(scene);
-
-    this.graphics = new RectangleGraphicsObject();
-    this.physics = new RectanglePhysicsObject(this);
-  }
-}
-
-class RectangleGraphicsObject extends Rectangle {
+class RectangleGraphicsComponent extends GraphicsComponent {
   constructor() {
-    super(new Point(100, 100), 100, 100);
+    super();
+
+    this._rectangle = new Rectangle(new Point(100, 100), 100, 100);
+
+    this.graphicObjects = [
+      this._rectangle,
+    ];
   }
 
-  update() {
-     // Graphics object should be updated here based on an event from the physics object.
+  get rectangle() {
+    return this._rectangle;
   }
 }
 
-class RectanglePhysicsObject extends PhysicsObject {
+class RectanglePhysicsComponent extends PhysicsComponent {
   constructor(gameObject) {
     super(gameObject, new RectangleHitBox(new Point(100, 100), 100, 100));
     this.isEnabled = true;
@@ -38,21 +36,30 @@ class RectanglePhysicsObject extends PhysicsObject {
       this._velocity = -this._velocity;
     }
 
-    // Should be throwing an event here.
-    this.gameObject.graphics.X += this._velocity;
+    // Should be throwing an event here to update the rectangle.
+    this.gameObject.graphics.rectangle.X += this._velocity;
     this.hitBox.x += this._velocity;
+  }
+}
+
+class RectangleGameObject extends GameObject {
+  constructor(scene) {
+    super(scene);
+
+    this.graphics = new RectangleGraphicsComponent();
+    this.physics = new RectanglePhysicsComponent(this);
   }
 }
 
 export default class CollisionScene extends Scene {
   create() {
     this.rectangle = new RectangleGameObject(this);
-    this.rectangleText = new Text(new Point(3, 12), "");
+    this.rectangleText = new Text(new Point(3, 12), '');
   }
 
   update() {
     this.rectangle.update();
-    this.rectangleText.Text = `Rectangle is at x: '${this.rectangle.graphics.X}' y: '${this.rectangle.graphics.Y}'`;
+    this.rectangleText.Text = `Rectangle is at x: '${this.rectangle.graphics.rectangle.X}' y: '${this.rectangle.graphics.rectangle.Y}'`;
   }
 
   draw() {

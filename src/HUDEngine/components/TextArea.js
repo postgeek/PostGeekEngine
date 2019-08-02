@@ -1,8 +1,8 @@
 import Text from '../../renderingEngine/text/Text';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
-import GraphicComponent from '../GraphicComponent';
+import HUDComponent from '../HUDComponent';
 
-class TextArea extends GraphicComponent {
+class TextArea extends HUDComponent {
   constructor(point, text, width, height, textStyle) {
     super();
 

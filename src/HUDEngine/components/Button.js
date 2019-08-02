@@ -1,6 +1,6 @@
-import GraphicComponent from '../GraphicComponent';
+import HUDComponent from '../HUDComponent';
 
-class Button extends GraphicComponent {
+class Button extends HUDComponent {
   constructor(point) {
     super();
     this.point = point;

@@ -1,12 +1,12 @@
-class PhysicsObject {
-  constructor(gameObject, hitbox){
+class PhysicsComponent {
+  constructor(gameObject, hitbox) {
     this._gameObject = gameObject;
 
     this._isEnabled = false;
     this._hitBox = hitbox;
   }
 
-  get gameObject(){
+  get gameObject() {
     return this._gameObject;
   }
 
@@ -14,7 +14,7 @@ class PhysicsObject {
     this._gameObject = value;
   }
 
-  get isEnabled(){
+  get isEnabled() {
     return this._isEnabled;
   }
 
@@ -35,17 +35,23 @@ class PhysicsObject {
    * TODO: Move this to an actual collision detection engine.
    */
   get isCollidingWithWorldBounds() {
-    const world = this._gameObject.scene.world;
+    const { world } = this._gameObject.scene;
     if (this._hitBox.x <= world.x) {
       // Colliding with left bound
       return true;
-    } else if (this._hitBox.x + this._hitBox.width >= world.x + world.width) {
+    }
+
+    if (this._hitBox.x + this._hitBox.width >= world.x + world.width) {
       // Colliding with right bound
       return true;
-    } else if (this._hitBox.y <= world.y) {
+    }
+
+    if (this._hitBox.y <= world.y) {
       // Colliding with top bound
       return true;
-    } else if (this._hitBox.y + this._hitBox.height >= world.y + world.height) {
+    }
+
+    if (this._hitBox.y + this._hitBox.height >= world.y + world.height) {
       // Colliding with bottom bound
       return true;
     }
@@ -67,4 +73,4 @@ class PhysicsObject {
   }
 }
 
-export default PhysicsObject;
+export default PhysicsComponent;
