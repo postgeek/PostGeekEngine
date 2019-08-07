@@ -24,25 +24,6 @@ class Gradient {
   }
 
   /**
-   * Sets the canvas context of the gradient
-   *
-   * @param  {type} value description
-   * @return {type}       description
-   */
-  set context(value) {
-    this._context = value;
-  }
-
-  /**
-   * Gets the canvas context of the gradient
-   *
-   * @return {type}  description
-   */
-  get context() {
-    return this._context;
-  }
-
-  /**
   * adds a {@link ColorStop} to the gradient.
   *
   * @param {number} offset the offset for the gradient color between 0 and 1.
