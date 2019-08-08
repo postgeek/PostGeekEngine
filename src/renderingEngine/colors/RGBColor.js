@@ -8,86 +8,82 @@ class RGBColor {
    * Builds a new RGBColor object
    *
    * @param  {type} red   the red value of the color (value between 0 - 255)
-   * @param  {type} blue  the blue value of the color (value between 0 - 255)
    * @param  {type} green the green value of the color (value between 0 - 255)
-   * @return {undefined}
+   * @param  {type} blue  the blue value of the color (value between 0 - 255)
    */
-  constructor(red, blue, green) {
-    this.Red = red;
-    this.Blue = blue;
-    this.Green = green;
+  constructor(red, green, blue) {
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
   }
 
   /**
    * Gets the red color value.
    *
-   * @return {float} The red color value
+   * @return {Number} The red color value
    */
-  get Red() {
-    return this.red;
+  get red() {
+    return this._red;
   }
 
   /**
    * Specifies the red color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new red color value
-   * @return {undefined}
+   * @param  {Number} value the new red color value
    */
-  set Red(value) {
+  set red(value) {
     if (value < 0 || value > 255) {
       throw new InvalidArguementError(this);
     }
     /** @private */
-    this.red = value;
+    this._red = value;
   }
 
   /**
    * Gets the blue color value.
    *
-   * @return {float} The blue color value
+   * @return {Number} The blue color value
    */
-  get Blue() {
-    return this.blue;
+  get blue() {
+    return this._blue;
   }
 
   /**
    * Specifies the blue color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new blue color value
-   * @return {undefined}
+   * @param  {Number} value the new blue color value
    */
-  set Blue(value) {
+  set blue(value) {
     if (value < 0 || value > 255) {
       throw new InvalidArguementError(this);
     }
     /** @private */
-    this.blue = value;
+    this._blue = value;
   }
 
   /**
    * Gets the green color value.
    *
-   * @return {float} The green color value
+   * @return {Number} The green color value
    */
-  get Green() {
-    return this.green;
+  get green() {
+    return this._green;
   }
 
   /**
    * Specifies the green color value for the color
    *
    * @throws {InvalidArguementError} if the value is not between 0 and 255 (inclusively)
-   * @param  {float} value the new green color value
-   * @return {undefined}
+   * @param  {Number} value the new green color value
    */
-  set Green(value) {
+  set green(value) {
     if (value < 0 || value > 255) {
       throw new InvalidArguementError(this);
     }
     /** @private */
-    this.green = value;
+    this._green = value;
   }
 
   /**
@@ -96,7 +92,7 @@ class RGBColor {
    * @return {string} The string represenation of the RGBColor.
    */
   toString() {
-    return `rgb(${this.Red},${this.Blue},${this.Green})`;
+    return `rgb(${this.red},${this.green},${this.blue})`;
   }
 
   /**
@@ -106,9 +102,10 @@ class RGBColor {
    * @return {RGBAColor}        the newly created RGBColor object
    */
   static FromJSON(rgbJSON) {
+    const parseColorJson = JSON.parse(rgbJSON);
     const {
       red, green, blue,
-    } = rgbJSON;
+    } = parseColorJson;
     return new RGBColor(red, green, blue);
   }
 }
