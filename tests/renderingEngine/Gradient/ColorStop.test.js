@@ -18,7 +18,6 @@ describe('ColorStop', () => {
     // Assert
     expect(() => { colorStop.offset = biggerThanOneOffset; }).toThrow(InvalidArguementError);
   });
-  // TODO: Appropriate it statement
   it('should have offset and color as passed when constructed', () => {
     // Arrange
     const offset = 0.4;
