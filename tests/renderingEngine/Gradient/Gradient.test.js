@@ -71,19 +71,37 @@ describe('LinearGradient', () => {
     expect(linearGradient.endPoint.X).toBe(endPoint.X);
     expect(linearGradient.endPoint.Y).toBe(endPoint.Y);
   });
-  it('should build the linear gradient with the provided properties', () => {
+  it('should ensure that the proper context methods are called', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const contextCreateLinearGradientSpy = jest.spyOn(context, 'createLinearGradient');
+    const startPoint = new Point(10, 30);
+    const endPoint = new Point(40, 50);
+    const linearGradient = new LinearGradient(startPoint, endPoint);
+
+    // Act
+    linearGradient.buildGradient();
+
+    // Assert
+    expect(contextCreateLinearGradientSpy).toHaveBeenCalledTimes(1);
+  });
+  it('should ensure that the color stops are added to the created context gradient', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const { gradient } = context;
+    const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
     const startPoint = new Point(10, 30);
     const endPoint = new Point(40, 50);
     const linearGradient = new LinearGradient(startPoint, endPoint);
     linearGradient.addColorStop(0.5, 'red');
     linearGradient.addColorStop(0.7, 'blue');
+    linearGradient.addColorStop(0.86, 'green');
 
     // Act
-    const gradient = linearGradient.buildGradient();
+    linearGradient.buildGradient();
 
     // Assert
-    expect(gradient).toBeDefined();
+    expect(contextAddColorStopSpy).toHaveBeenCalledTimes(3);
   });
 });
 
@@ -109,6 +127,25 @@ describe('RadialGradient', () => {
   });
   it('should build the radial gradient with the provided properties', () => {
     // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const contextCreateRadialGradientSpy = jest.spyOn(context, 'createRadialGradient');
+    const startPoint = new Point(10, 30);
+    const startRadius = 4;
+    const endPoint = new Point(40, 50);
+    const endRadius = 6;
+    const radialGradient = new RadialGradient(startPoint, startRadius, endPoint, endRadius);
+
+    // Act
+    const gradient = radialGradient.buildGradient();
+
+    // Assert
+    expect(contextCreateRadialGradientSpy).toHaveBeenCalledTimes(1);
+  });
+  it('should ensure that the color stops are added to the created context gradient', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const { gradient } = context;
+    const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
     const startPoint = new Point(10, 30);
     const startRadius = 4;
     const endPoint = new Point(40, 50);
@@ -116,11 +153,12 @@ describe('RadialGradient', () => {
     const radialGradient = new RadialGradient(startPoint, startRadius, endPoint, endRadius);
     radialGradient.addColorStop(0.5, 'red');
     radialGradient.addColorStop(0.7, 'blue');
+    radialGradient.addColorStop(0.86, 'green');
 
     // Act
-    const gradient = radialGradient.buildGradient();
+    radialGradient.buildGradient();
 
     // Assert
-    expect(gradient).toBeDefined();
+    expect(contextAddColorStopSpy).toHaveBeenCalledTimes(3);
   });
 });
