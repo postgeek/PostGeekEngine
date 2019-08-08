@@ -7,14 +7,13 @@ class LinearGradient extends Gradient {
   /**
   * Constructs a new LinearGradient object.
   *
-  * @param {CanvasRenderingContext2D} context the canvas context.
   * @param {Point} startPoint the starting point of the gradient.
   * @param {Point} endPoint the ending point of the gradient.
   */
-  constructor(context, startPoint, endPoint) {
-    super(context);
-    this.StartPoint = startPoint;
-    this.EndPoint = endPoint;
+  constructor(startPoint, endPoint) {
+    super();
+    this.startPoint = startPoint;
+    this.endPoint = endPoint;
   }
 
   /**
@@ -22,8 +21,8 @@ class LinearGradient extends Gradient {
    *
    * @return {Point} the graident's start point
    */
-  get StartPoint() {
-    return this.startPoint;
+  get startPoint() {
+    return this._startPoint;
   }
 
   /**
@@ -32,9 +31,9 @@ class LinearGradient extends Gradient {
    * @param  {Point} value the new start point
    * @return {undefined}
    */
-  set StartPoint(value) {
+  set startPoint(value) {
     /** @private */
-    this.startPoint = value;
+    this._startPoint = value;
   }
 
   /**
@@ -42,8 +41,8 @@ class LinearGradient extends Gradient {
    *
    * @return {Point} the graident's end point
    */
-  get EndPoint() {
-    return this.endPoint;
+  get endPoint() {
+    return this._endPoint;
   }
 
   /**
@@ -52,9 +51,9 @@ class LinearGradient extends Gradient {
    * @param  {Point} value the new end point
    * @return {undefined}
    */
-  set EndPoint(value) {
+  set endPoint(value) {
     /** @private */
-    this.endPoint = value;
+    this._endPoint = value;
   }
 
   /**
@@ -64,11 +63,12 @@ class LinearGradient extends Gradient {
    */
   buildGradient() {
     const gradient = this.context.createLinearGradient(
-      this.Point1.X, this.Point2.X, this.Point2.X, this.Point2.Y,
+      this.startPoint.X, this.startPoint.X, this.endPoint.X, this.endPoint.Y,
     );
-    for (let i = 0; i < this.colors.length; i += 1) {
-      const offSet = this.colors[i].Offset;
-      const color = this.colors[i].Color;
+    const colorStops = this.getColorStops();
+    for (let i = 0; i < colorStops.length; i += 1) {
+      const offSet = colorStops[i].Offset;
+      const color = colorStops[i].Color;
       gradient.addColorStop(offSet, color);
     }
     return gradient;
