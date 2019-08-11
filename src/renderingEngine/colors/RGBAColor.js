@@ -8,38 +8,36 @@ class RGBAColor extends RGBColor {
   /**
    * Builds a new RGBAColor object
    *
-   * @param  {type} red   the red value of the color (value between 0 - 255)
-   * @param  {type} blue  the blue value of the color (value between 0 - 255)
-   * @param  {type} green the green value of the color (value between 0 - 255)
-   * @param  {type} alpha the alpha levels of the color (value between 0 - 1)
-   * @return {undefined}
+   * @param  {Number} red   the red value of the color (value between 0 - 255)
+   * @param  {Number} blue  the blue value of the color (value between 0 - 255)
+   * @param  {Number} green the green value of the color (value between 0 - 255)
+   * @param  {Number} alpha the alpha levels of the color (value between 0 - 1)
    */
-  constructor(red, blue, green, alpha) {
-    super(red, blue, green);
-    this.Alpha = alpha;
+  constructor(red, green, blue, alpha) {
+    super(red, green, blue);
+    this.alpha = alpha;
   }
 
   /**
    * Gets the alpha level of the color.
    *
-   * @return {float} The alpha level of the color (opacity).
+   * @return {Number} The alpha level of the color (opacity).
    */
-  get Alpha() {
-    return this.alpha;
+  get alpha() {
+    return this._alpha;
   }
 
   /**
    * Specifies the alpha level of the color (opacity).
    * @throws {InvalidArguementError} throws error when value is not between 0 and 1 (inclusively).
-   * @param  {float} value The alpha level of the color (opacity).
-   * @return {undefined}
+   * @param  {Number} value The alpha level of the color (opacity).
    */
-  set Alpha(value) {
+  set alpha(value) {
     if (value < 0 || value > 1) {
       throw new InvalidArguementError(this);
     }
     /** @private */
-    this.alpha = value;
+    this._alpha = value;
   }
 
   /**
@@ -48,7 +46,7 @@ class RGBAColor extends RGBColor {
    * @return {string}  The string represenation of the RGBAColor.
    */
   toString() {
-    return `rgba(${this.Red},${this.Blue},${this.Green},${this.Alpha})`;
+    return `rgba(${this.red},${this.green},${this.blue},${this.alpha})`;
   }
 
   /**
@@ -58,9 +56,10 @@ class RGBAColor extends RGBColor {
    * @return {RGBAColor}        the newly created RGBAColor object
    */
   static FromJSON(rgbaJSON) {
+    const parseColorJson = JSON.parse(rgbaJSON);
     const {
       red, green, blue, alpha,
-    } = rgbaJSON;
+    } = parseColorJson;
     return new RGBAColor(red, green, blue, alpha);
   }
 }

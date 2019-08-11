@@ -11,8 +11,8 @@ class ColorStop {
   * @param {Color} color a HTML compliant color.
   */
   constructor(offset, color) {
-    this.Offset = offset;
-    this.Color = color;
+    this.offset = offset;
+    this.color = color;
   }
 
   /**
@@ -20,8 +20,8 @@ class ColorStop {
    *
    * @return {float} The offset for the color stop
    */
-  get Offset() {
-    return this.offset;
+  get offset() {
+    return this._offset;
   }
 
   /**
@@ -31,12 +31,12 @@ class ColorStop {
    * @param  {type} value description
    * @return {type}       description
    */
-  set Offset(value) {
+  set offset(value) {
     if (value < 0 || value > 1) {
       throw new InvalidArguementError();
     }
     /** @private */
-    this.offset = value;
+    this._offset = value;
   }
 
   /**
@@ -44,8 +44,8 @@ class ColorStop {
    *
    * @return {Color} the color for the color stop
    */
-  get Color() {
-    return this.color;
+  get color() {
+    return this._color;
   }
 
   /**
@@ -54,9 +54,9 @@ class ColorStop {
    * @param  {Color} value the color
    * @return {undefined}
    */
-  set Color(value) {
+  set color(value) {
     /** @private */
-    this.color = value;
+    this._color = value;
   }
 }
 export default ColorStop;

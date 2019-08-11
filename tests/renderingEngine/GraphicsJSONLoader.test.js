@@ -526,9 +526,9 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Red).toBe(red);
-    expect(color.Blue).toBe(blue);
-    expect(color.Green).toBe(green);
+    expect(color.red).toBe(red);
+    expect(color.green).toBe(green);
+    expect(color.blue).toBe(blue);
   });
   it('should correctly create an RGBA color if the correct parameters are provided', () => {
     // Arrange
@@ -545,10 +545,10 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Red).toBe(red);
-    expect(color.Blue).toBe(blue);
-    expect(color.Green).toBe(green);
-    expect(color.Alpha).toBe(alpha);
+    expect(color.red).toBe(red);
+    expect(color.green).toBe(green);
+    expect(color.blue).toBe(blue);
+    expect(color.alpha).toBe(alpha);
   });
   // hue, lightness, saturation,
   it('should correctly create an HSL color if the correct parameters are provided', () => {
@@ -563,9 +563,9 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Hue).toBe(hue);
-    expect(color.Lightness).toBe(lightness);
-    expect(color.Saturation).toBe(saturation);
+    expect(color.hue).toBe(hue);
+    expect(color.lightness).toBe(lightness);
+    expect(color.saturation).toBe(saturation);
   });
   it('should correctly create an HSLA color if the correct parameters are provided', () => {
     // Arrange
@@ -582,10 +582,10 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color.Hue).toBe(hue);
-    expect(color.Lightness).toBe(lightness);
-    expect(color.Saturation).toBe(saturation);
-    expect(color.Alpha).toBe(alpha);
+    expect(color.hue).toBe(hue);
+    expect(color.lightness).toBe(lightness);
+    expect(color.saturation).toBe(saturation);
+    expect(color.alpha).toBe(alpha);
   });
   it('should correctly create an HTML color if the correct parameters are provided', () => {
     // Arrange
