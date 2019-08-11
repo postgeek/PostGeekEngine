@@ -62,11 +62,11 @@ describe('createCircle', () => {
 
     // Assert
     expect(circle).toBeDefined();
-    expect(circle.geometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(circle.geometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(circle.geometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(circle.geometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(circle.geometryStyle.LineWidth).toBe(lineWidth);
+    expect(circle.geometryStyle.strokeStyle.hue).toBe(hue);
+    expect(circle.geometryStyle.strokeStyle.saturation).toBe(saturation);
+    expect(circle.geometryStyle.strokeStyle.lightness).toBe(lightness);
+    expect(circle.geometryStyle.strokeStyle.alpha).toBe(alpha);
+    expect(circle.geometryStyle.lineWidth).toBe(lineWidth);
   });
 });
 
@@ -146,11 +146,11 @@ describe('createBezierCurve', () => {
 
     // Assert
     expect(bezierCurve.geometryStyle).toBeDefined();
-    expect(bezierCurve.geometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(bezierCurve.geometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(bezierCurve.geometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(bezierCurve.geometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(bezierCurve.geometryStyle.LineWidth).toBe(lineWidth);
+    expect(bezierCurve.geometryStyle.strokeStyle.hue).toBe(hue);
+    expect(bezierCurve.geometryStyle.strokeStyle.saturation).toBe(saturation);
+    expect(bezierCurve.geometryStyle.strokeStyle.lightness).toBe(lightness);
+    expect(bezierCurve.geometryStyle.strokeStyle.alpha).toBe(alpha);
+    expect(bezierCurve.geometryStyle.lineWidth).toBe(lineWidth);
   });
 });
 
@@ -219,11 +219,11 @@ describe('createQuadraticCurve', () => {
 
     // Assert
     expect(quadraticCurve.geometryStyle).toBeDefined();
-    expect(quadraticCurve.geometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(quadraticCurve.geometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(quadraticCurve.geometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(quadraticCurve.geometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(quadraticCurve.geometryStyle.LineWidth).toBe(lineWidth);
+    expect(quadraticCurve.geometryStyle.strokeStyle.hue).toBe(hue);
+    expect(quadraticCurve.geometryStyle.strokeStyle.saturation).toBe(saturation);
+    expect(quadraticCurve.geometryStyle.strokeStyle.lightness).toBe(lightness);
+    expect(quadraticCurve.geometryStyle.strokeStyle.alpha).toBe(alpha);
+    expect(quadraticCurve.geometryStyle.lineWidth).toBe(lineWidth);
   });
 });
 
@@ -297,11 +297,11 @@ describe('createEllipse', () => {
 
     // Assert
     expect(ellipse.geometryStyle).toBeDefined();
-    expect(ellipse.geometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(ellipse.geometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(ellipse.geometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(ellipse.geometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(ellipse.geometryStyle.LineWidth).toBe(lineWidth);
+    expect(ellipse.geometryStyle.strokeStyle.hue).toBe(hue);
+    expect(ellipse.geometryStyle.strokeStyle.saturation).toBe(saturation);
+    expect(ellipse.geometryStyle.strokeStyle.lightness).toBe(lightness);
+    expect(ellipse.geometryStyle.strokeStyle.alpha).toBe(alpha);
+    expect(ellipse.geometryStyle.lineWidth).toBe(lineWidth);
   });
 });
 
@@ -366,11 +366,11 @@ describe('createRectangle', () => {
 
     // Assert
     expect(rectangle.geometryStyle).toBeDefined();
-    expect(rectangle.geometryStyle.strokeStyle.Hue).toBe(hue);
-    expect(rectangle.geometryStyle.strokeStyle.Saturation).toBe(saturation);
-    expect(rectangle.geometryStyle.strokeStyle.Lightness).toBe(lightness);
-    expect(rectangle.geometryStyle.strokeStyle.Alpha).toBe(alpha);
-    expect(rectangle.geometryStyle.LineWidth).toBe(lineWidth);
+    expect(rectangle.geometryStyle.strokeStyle.hue).toBe(hue);
+    expect(rectangle.geometryStyle.strokeStyle.saturation).toBe(saturation);
+    expect(rectangle.geometryStyle.strokeStyle.lightness).toBe(lightness);
+    expect(rectangle.geometryStyle.strokeStyle.alpha).toBe(alpha);
+    expect(rectangle.geometryStyle.lineWidth).toBe(lineWidth);
   });
 });
 
@@ -426,11 +426,11 @@ describe('createText', () => {
 
     // Assert
     expect(textObject.textStyle).toBeDefined();
-    expect(textObject.textStyle.FillStyle.Hue).toBe(hue);
-    expect(textObject.textStyle.FillStyle.Saturation).toBe(saturation);
-    expect(textObject.textStyle.FillStyle.Lightness).toBe(lightness);
-    expect(textObject.textStyle.FillStyle.Alpha).toBe(alpha);
-    expect(textObject.textStyle.LineWidth).toBe(lineWidth);
+    expect(textObject.textStyle.FillStyle.hue).toBe(hue);
+    expect(textObject.textStyle.FillStyle.saturation).toBe(saturation);
+    expect(textObject.textStyle.FillStyle.lightness).toBe(lightness);
+    expect(textObject.textStyle.FillStyle.alpha).toBe(alpha);
+    expect(textObject.textStyle.lineWidth).toBe(lineWidth);
   });
 });
 
