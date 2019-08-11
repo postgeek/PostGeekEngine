@@ -6,39 +6,13 @@ import Point from '../../../src/core/Point';
 import BaseClassConstructedError from '../../../src/core/errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../../src/core/errorHandling/errors/MethodNotImplementedError';
 
-
-class MockGradient {
-  constructor() {
-    this.colorStops = [];
-  }
-
-  addColorStop(offset, color) {
-    this.colorStops.push({ offset, color });
-  }
-}
-
-// TODO: Use the mock context class when it's brought back into develop
-class MockContext {
-  constructor() {
-    this.gradient = new MockGradient();
-  }
-
-  createLinearGradient(startPoint, endPoint) {
-    return this.gradient;
-  }
-
-  createRadialGradient(startCircle, endCircle) {
-    return this.gradient;
-  }
-}
-
-class TestGradient extends Gradient {
-
-}
+/* import mocks */
+import ContextMock from '../../mocks/ContextMock';
+import GradientMock from '../../mocks/GradientMock';
 
 beforeEach(() => {
   ServiceLocator.instance.clear();
-  ServiceLocator.instance.register('context', new MockContext());
+  ServiceLocator.instance.register('context', new ContextMock());
 });
 
 describe('Gradient', () => {
@@ -48,10 +22,10 @@ describe('Gradient', () => {
   });
   it('should throw an error if the buildGradient method is not overriden', () => {
     // Act
-    const testGradient = new TestGradient();
+    const gradientMock = new GradientMock();
 
     // Assert
-    expect(() => { testGradient.buildGradient(); }).toThrow(MethodNotImplementedError);
+    expect(() => { gradientMock.buildGradient(); }).toThrow(MethodNotImplementedError);
   });
 });
 
@@ -88,7 +62,7 @@ describe('LinearGradient', () => {
   it('should ensure that the color stops are added to the created context gradient', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const { gradient } = context;
+    const gradient = context.createGradientMock();
     const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
     const startPoint = new Point(10, 30);
     const endPoint = new Point(40, 50);
@@ -144,7 +118,7 @@ describe('RadialGradient', () => {
   it('should ensure that the color stops are added to the created context gradient', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const { gradient } = context;
+    const gradient = context.createGradientMock();
     const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
     const startPoint = new Point(10, 30);
     const startRadius = 4;

@@ -1,9 +1,30 @@
+/* Disable the eslint rules for the mock class.
+ * We don't want to test the function just make sure it's envoked */
+/* eslint class-methods-use-this: 0 */
+/* eslint no-useless-constructor: 0 */
+/* eslint no-empty-function: 0 */
+/* eslint no-unused-vars: 0 */
+import GradientMock from './GradientMock';
+
 /**
  * Mock class for the CanvasRenderingContext2D
  */
 class ContextMock {
   constructor() {
 
+  }
+
+  createGradientMock() {
+    this.gradientMock = new GradientMock();
+    return this.gradientMock;
+  }
+
+  createLinearGradient(startPoint, endPoint) {
+    return this.gradientMock;
+  }
+
+  createRadialGradient(startCircle, endCircle) {
+    return this.gradientMock;
   }
 
   moveTo(x, y) {
