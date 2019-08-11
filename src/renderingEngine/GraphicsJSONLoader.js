@@ -36,7 +36,7 @@ class GraphicsJSONLoader {
     const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
     const circle = new Circle(parsedPoint, radius);
     if (geometryStyle !== undefined) {
-      circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      circle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return circle;
@@ -69,7 +69,7 @@ class GraphicsJSONLoader {
     );
 
     if (geometryStyle !== undefined) {
-      bezierCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      bezierCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return bezierCurve;
@@ -100,7 +100,7 @@ class GraphicsJSONLoader {
     );
 
     if (geometryStyle !== undefined) {
-      quadraticCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      quadraticCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return quadraticCurve;
@@ -124,7 +124,7 @@ class GraphicsJSONLoader {
     const ellipse = new Ellipse(newPoint, radiusX, radiusY, rotation);
 
     if (geometryStyle !== undefined) {
-      ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      ellipse.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return ellipse;
@@ -147,7 +147,7 @@ class GraphicsJSONLoader {
     const rectangle = new Rectangle(parsedPoint, width, height);
 
     if (geometryStyle !== undefined) {
-      rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      rectangle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return rectangle;
@@ -168,7 +168,7 @@ class GraphicsJSONLoader {
     const textObject = new Text(parsedPoint, text);
 
     if (textStyle !== undefined) {
-      textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
+      textObject.textStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
     }
 
     return textObject;

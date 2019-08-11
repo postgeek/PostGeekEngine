@@ -14,10 +14,10 @@ class BezierCurve extends Shape {
   */
   constructor(startPoint, firstControlPoint, secondControlPoint, endPoint) {
     super();
-    this.StartPoint = startPoint;
-    this.FirstControlPoint = firstControlPoint;
-    this.SecondControlPoint = secondControlPoint;
-    this.EndPoint = endPoint;
+    this.startPoint = startPoint;
+    this.firstControlPoint = firstControlPoint;
+    this.secondControlPoint = secondControlPoint;
+    this.endPoint = endPoint;
   }
 
   /**
@@ -25,8 +25,8 @@ class BezierCurve extends Shape {
    *
    * @return {Point} the starting point of the bezier curve
    */
-  get StartPoint() {
-    return this.startPoint;
+  get startPoint() {
+    return this._startPoint;
   }
 
   /**
@@ -35,9 +35,9 @@ class BezierCurve extends Shape {
    * @param  {Point} value the starting point for the bezier curve
    * @return {undefined}
    */
-  set StartPoint(value) {
+  set startPoint(value) {
     /** @private */
-    this.startPoint = value;
+    this._startPoint = value;
   }
 
   /**
@@ -45,8 +45,8 @@ class BezierCurve extends Shape {
   *
   * @return {Point} the first control point of the bezier curve
   */
-  get FirstControlPoint() {
-    return this.firstControlPoint;
+  get firstControlPoint() {
+    return this._firstControlPoint;
   }
 
   /**
@@ -55,9 +55,9 @@ class BezierCurve extends Shape {
    * @param  {Point} value the first control point of the bezier curve
    * @return {undefined}
    */
-  set FirstControlPoint(value) {
+  set firstControlPoint(value) {
     /** @private */
-    this.firstControlPoint = value;
+    this._firstControlPoint = value;
   }
 
   /**
@@ -65,8 +65,8 @@ class BezierCurve extends Shape {
   *
   * @return {Point} the second control point of the bezier curve
   */
-  get SecondControlPoint() {
-    return this.secondControlPoint;
+  get secondControlPoint() {
+    return this._secondControlPoint;
   }
 
   /**
@@ -75,9 +75,9 @@ class BezierCurve extends Shape {
    * @param  {Point} value the second control point of the bezier curve
    * @return {undefined}
    */
-  set SecondControlPoint(value) {
+  set secondControlPoint(value) {
     /** @private */
-    this.secondControlPoint = value;
+    this._secondControlPoint = value;
   }
 
   /**
@@ -85,8 +85,8 @@ class BezierCurve extends Shape {
    *
    * @return {Point} the end point of the bezier curve
    */
-  get EndPoint() {
-    return this.endPoint;
+  get endPoint() {
+    return this._endPoint;
   }
 
   /**
@@ -95,23 +95,37 @@ class BezierCurve extends Shape {
    * @param  {Point} value the end point for the bezier curve
    * @return {undefined}
    */
-  set EndPoint(value) {
+  set endPoint(value) {
     /** @private */
-    this.endPoint = value;
+    this._endPoint = value;
   }
 
   /**
   * Draws the bezier curve to the context.
   */
   internalDraw() {
-    this.context.moveTo(this.StartPoint.X, this.StartPoint.Y);
+    this.context.moveTo(this.startPoint.x, this.startPoint.y);
     this.context.bezierCurveTo(
-      this.FirstControlPoint.X,
-      this.FirstControlPoint.Y,
-      this.SecondControlPoint.X,
-      this.SecondControlPoint.Y,
-      this.EndPoint.X,
-      this.EndPoint.Y,
+      this.firstControlPoint.x,
+      this.firstControlPoint.y,
+      this.secondControlPoint.x,
+      this.secondControlPoint.y,
+      this.endPoint.x,
+      this.endPoint.y,
+    );
+  }
+
+  /**
+     *  Clones the current bezier curve into a new BezierCurve object
+     *
+     * @return {BezierCurve}  the new bezier curve with the same parameters as the old one
+     */
+  clone() {
+    return new BezierCurve(
+      this.startPoint.clone(),
+      this.firstControlPoint.clone(),
+      this.secondControlPoint.clone(),
+      this.endPoint.clone(),
     );
   }
 }
