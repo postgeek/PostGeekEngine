@@ -1,8 +1,8 @@
-import MiddlewareManager from '../../../src/core/middleware/MiddlewareManager';
+import MiddlewareManager from '../../../src/core/managers/MiddlewareManager';
 import ItemAlreadyExistsError from '../../../src/core/errorHandling/errors/ItemAlreadyExistsError';
 import InvalidArguementError from '../../../src/core/errorHandling/errors/InvalidArguementError';
 
-define('add', () => {
+describe('add', () => {
   it.skip('should register an object with a given key', () => {
     // Assert
     expect().not.toBe(null);
@@ -15,7 +15,7 @@ define('add', () => {
     expect().toHaveBeenCalledTimes(1);
   });
 });
-define('get', () => {
+describe('get', () => {
   it.skip('should return a middleware with the given key', () => {
     // Assert
     expect().toBe();
@@ -25,12 +25,12 @@ define('get', () => {
     expect(() => { }).toThrow(InvalidArguementError);
   });
 });
-define('update', () => {
+describe('update', () => {
   it.skip('should update all middleware registered in the manager', () => {
     expect().toHaveBeenCalledTimes(2);
   });
 });
-define('draw', () => {
+describe('draw', () => {
   it.skip('should draw all the middleware registered in the manager', () => {
     expect().toHaveBeenCalledTimes(2);
   });
