@@ -22,7 +22,6 @@ class PostGeekDebugger extends IMiddleware {
     this.Text.TextStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    this.ActiveScene = this.middlewareManager.Game.sceneManager.runningScene;
   }
 
   update() {

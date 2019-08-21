@@ -62,7 +62,7 @@ class Game {
 
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
-    this.middlewareManager = new MiddlewareManager(this);
+    this.middlewareManager = new MiddlewareManager();
   }
 
   /**
@@ -98,7 +98,7 @@ class Game {
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
-        this.middlewareManager.addMiddleware(this.config.middleware[key]);
+        this.middlewareManager.add(key, this.config.middleware[key]);
       }
     }
 
