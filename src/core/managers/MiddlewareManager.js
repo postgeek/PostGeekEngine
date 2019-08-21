@@ -12,12 +12,12 @@ class MiddlewareManager {
    * @param {Middleware} middleware the middleware to add to the game engine.
    */
   add(key, middleware) {
-    if (this._middleware.has(key)) {
+    if (!this._middleware.has(key)) {
       middleware.init(this);
       this._middleware.set(key, middleware);
+    } else {
+      throw new ItemAlreadyExistsError(this);
     }
-
-    throw new ItemAlreadyExistsError(this);
   }
 
   /**
