@@ -3,9 +3,16 @@ import ItemAlreadyExistsError from '../../../src/core/errorHandling/errors/ItemA
 import InvalidArguementError from '../../../src/core/errorHandling/errors/InvalidArguementError';
 
 describe('add', () => {
-  it.skip('should register an object with a given key', () => {
+  it('should register an object with a given key', () => {
+    // Arrange
+    const middlewareManager = new MiddlewareManager();
+    const key = 'jestKey';
+
+    // Act
+    middlewareManager.add(key, 'Manager');
+
     // Assert
-    expect().not.toBe(null);
+    expect(middlewareManager.get(key)).not.toBe(null);
   });
   it.skip('should throw an error if a middleware with the same key already exists', () => {
     // Assert
