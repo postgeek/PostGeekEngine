@@ -27,6 +27,18 @@ describe('registerKey', () => {
     // Assert
     expect(keyboard.retrieveKey(KeyboardKey.A)).not.toBe(undefined);
   });
+  it('should warn the user if the key is already registered', () => {
+    // Arrange
+    const keyboard = new Keyboard();
+    const consoleWarnSpy = jest.spyOn(console, 'warn');
+
+    // Act
+    keyboard.registerKey(KeyboardKey.A);
+    keyboard.registerKey(KeyboardKey.A);
+
+    // Assert
+    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('retrieveKey', () => {
