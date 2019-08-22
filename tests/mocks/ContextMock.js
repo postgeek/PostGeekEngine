@@ -92,6 +92,10 @@ class ContextMock {
 
   }
 
+  transform(z, x, y, w, v, u) {
+
+  }
+
   translate(x, y) {
 
   }
