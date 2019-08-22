@@ -1,7 +1,7 @@
-import UnhandledHtmlEventError from '../src/core/errorHandling/errors/UnhandledHtmlEventError';
-import ItemAlreadyExistsError from '../src/core/errorHandling/errors/ItemAlreadyExistsError';
-import Keyboard from '../src/inputEngine/Keyboard';
-import KeyboardKey from '../src/inputEngine/KeyboardKey';
+import UnhandledHtmlEventError from '../../src/core/errorHandling/errors/UnhandledHtmlEventError';
+import ItemAlreadyExistsError from '../../src/core/errorHandling/errors/ItemAlreadyExistsError';
+import Keyboard from '../../src/inputEngine/Keyboard';
+import KeyboardKey from '../../src/inputEngine/KeyboardKey';
 
 describe('handleEvent', () => {
   it('should throw an error if the keyboard event is unhandled', () => {
