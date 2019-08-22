@@ -4,6 +4,7 @@
 /* eslint no-useless-constructor: 0 */
 /* eslint no-empty-function: 0 */
 /* eslint no-unused-vars: 0 */
+
 import GradientMock from './GradientMock';
 
 /**
@@ -67,11 +68,31 @@ class ContextMock {
 
   }
 
+  resetTransform() {
+
+  }
+
+  rotate(angle) {
+
+  }
+
   save() {
 
   }
 
+  scale(x, y) {
+
+  }
+
+  skew(x, y) {
+
+  }
+
   stroke() {
+
+  }
+
+  translate(x, y) {
 
   }
 } export default ContextMock;
