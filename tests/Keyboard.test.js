@@ -53,6 +53,17 @@ describe('retrieveKey', () => {
     // Assert
     expect(returnedKey.code).toBe(KeyboardKey.A.code);
   });
+  it('should return undefined when using the KeyEvent.code with an invalid location', () => {
+    // Arrange
+    const keyboard = new Keyboard();
+    keyboard.registerKey(KeyboardKey.A);
+
+    // Act
+    const returnedKey = keyboard.retrieveKey({ code: KeyboardKey.A.code });
+
+    // Assert
+    expect(returnedKey.code).toBe(undefined);
+  });
   it('should retrieve the right key when using the KeyEvent.keyCode', () => {
     // Arrange
     const keyboard = new Keyboard();
