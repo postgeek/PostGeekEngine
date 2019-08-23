@@ -1,10 +1,13 @@
-describe('spriteSheetConfig', () => {
-  it.skip('should get the correct sprite sheet configuration', () => {
-    // Arrange
+import SpriteSheet from '../../../../src/renderingEngine/images/spritesheets/SpriteSheet';
 
-    // Act
+describe('spriteSheetConfig', () => {
+  it('should get the correct sprite sheet configuration', () => {
+    // Arrange
+    const testSpriteSheetConfig = 'id';
+    const spriteSheet = new SpriteSheet(image, spriteSheetConfig);
 
     // Assert
+    expect(spriteSheet.spriteSheetConfig).toBe(testSpriteSheetConfig);
   });
 });
 
