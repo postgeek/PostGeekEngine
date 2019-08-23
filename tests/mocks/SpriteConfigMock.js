@@ -3,6 +3,6 @@ import Point from '../../src/core/Point';
 
 class SpriteConfigMock extends SpriteConfig {
   constructor() {
-    super(0, 0, 0, 0, 0);
+    super(2, 2, 2, 2, 2);
   }
 } export default SpriteConfigMock;

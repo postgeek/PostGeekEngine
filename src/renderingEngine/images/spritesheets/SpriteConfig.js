@@ -6,63 +6,63 @@ import { isPowerOfTwo } from '../../../core/utils/Math';
  */
 class SpriteConfig {
   constructor(id, x, y, width, height) {
-    this.Id = id;
-    this.Point = new Point(x, y);
-    this.Width = width;
-    this.Height = height;
+    this.id = id;
+    this.point = new Point(x, y);
+    this.width = width;
+    this.height = height;
   }
 
-  get Id() {
-    return this.id;
+  get id() {
+    return this._id;
   }
 
-  set Id(value) {
-    this.id = value;
+  set id(value) {
+    this._id = value;
   }
 
-  set Point(value) {
+  set point(value) {
     this._point = value;
   }
 
-  get Point() {
+  get point() {
     return this._point;
   }
 
-  get X() {
-    return this.Point.x;
+  get x() {
+    return this.point.x;
   }
 
-  set X(value) {
-    this.Point.x = value;
+  set x(value) {
+    this.point.x = value;
   }
 
-  get Y() {
-    return this.Point.y;
+  get y() {
+    return this.point.y;
   }
 
-  set Y(value) {
-    this.Point.y = value;
+  set y(value) {
+    this.point.y = value;
   }
 
-  get Width() {
-    return this.width;
+  get width() {
+    return this._width;
   }
 
-  set Width(value) {
+  set width(value) {
     if (!isPowerOfTwo(value)) {
       console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
     }
-    this.width = value;
+    this._width = value;
   }
 
-  get Height() {
-    return this.height;
+  get height() {
+    return this._height;
   }
 
-  set Height(value) {
+  set height(value) {
     if (!isPowerOfTwo(value)) {
       console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
     }
-    this.height = value;
+    this._height = value;
   }
 } export default SpriteConfig;

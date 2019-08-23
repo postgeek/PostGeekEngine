@@ -12,31 +12,31 @@ beforeEach(() => {
   ServiceLocator.instance.register('context', new ContextMock());
 });
 
-describe('width', () => {
+describe('x', () => {
   it('should properly get the width', () => {
     // Arrange
     const sprite = new Sprite();
-    const width = 20;
+    const x = 20;
 
     // Act
-    sprite.width = width;
+    sprite.x = x;
 
     // Assert
-    expect(sprite.width).toBe(width);
+    expect(sprite.x).toBe(x);
   });
 });
 
-describe('height', () => {
+describe('y', () => {
   it('should properly get the height', () => {
     // Arrange
     const sprite = new Sprite();
-    const height = 20;
+    const y = 20;
 
     // Act
-    sprite.height = height;
+    sprite.y = y;
 
     // Assert
-    expect(sprite.height).toBe(height);
+    expect(sprite.y).toBe(y);
   });
 });
 

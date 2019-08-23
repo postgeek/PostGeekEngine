@@ -43,9 +43,9 @@ class Sprite {
   drawAtPoint(drawPoint) {
     this.spriteSheet.drawImageWithMask(
       drawPoint,
-      this.spriteConfig.Point,
-      this.spriteConfig.Width,
-      this.spriteConfig.Height,
+      this.spriteConfig.point,
+      this.spriteConfig.width,
+      this.spriteConfig.height,
     );
   }
 } export default Sprite;

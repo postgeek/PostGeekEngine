@@ -7,8 +7,8 @@ class SpriteSheet extends GraphicImage {
   /**
    * Constructs a new SpriteSheet object
    *
-   * @param  {Image} image              The image to be used for the spritesheet
-   * @param  {SpriteSheetConfig} spriteSheetConfig the configuration object for the SpriteSheet
+   * @param  {Image} image                          The image to be used for the spritesheet
+   * @param  {SpriteSheetConfig} spriteSheetConfig  the configuration object for the SpriteSheet
    */
   constructor(image, spriteSheetConfig) {
     super(image);
