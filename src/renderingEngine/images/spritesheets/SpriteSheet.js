@@ -13,8 +13,7 @@ class SpriteSheet extends GraphicImage {
   constructor(image, spriteSheetConfig) {
     super(image);
     // TODO: Check if the spritesheetconfig is a JSON object or not and then parse it into a spriteSheetConfig if needed
-    this.spriteSheetConfig = spriteSheetConfig;
-    this.Sprites = {};
+    this._spriteSheetConfig = spriteSheetConfig;
   }
 
   /**
@@ -22,8 +21,8 @@ class SpriteSheet extends GraphicImage {
    *
    * @return {SpriteSheetConfig} the spritesheet's configuration object
    */
-  get SpriteSheetConfig() {
-    return this.spriteSheetConfig;
+  get spriteSheetConfig() {
+    return this._spriteSheetConfig;
   }
 
   /**
