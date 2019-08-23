@@ -1,13 +1,13 @@
+import Point from '../../../core/Point';
 import { isPowerOfTwo } from '../../../core/utils/Math';
 
 /**
  * Defines the configuration object for a Sprite
  */
-class FrameConfig {
+class SpriteConfig {
   constructor(id, x, y, width, height) {
     this.Id = id;
-    this.X = x;
-    this.Y = y;
+    this.Point = new Point(x, y);
     this.Width = width;
     this.Height = height;
   }
@@ -20,20 +20,28 @@ class FrameConfig {
     this.id = value;
   }
 
+  set Point(value) {
+    this._point = value;
+  }
+
+  get Point() {
+    return this._point;
+  }
+
   get X() {
-    return this.x;
+    return this.Point.x;
   }
 
   set X(value) {
-    this.x = value;
+    this.Point.x = value;
   }
 
   get Y() {
-    return this.y;
+    return this.Point.y;
   }
 
   set Y(value) {
-    this.y = value;
+    this.Point.y = value;
   }
 
   get Width() {
@@ -57,4 +65,4 @@ class FrameConfig {
     }
     this.height = value;
   }
-} export default FrameConfig;
+} export default SpriteConfig;

@@ -1,7 +1,7 @@
-import Frame from '../../renderingEngine/images/spritesheets/Frame';
+import Sprite from '../../renderingEngine/images/spritesheets/Sprite';
 import Point from '../../core/Point';
 
-class Tile extends Frame {
+class Tile extends Sprite {
   constructor(tileset, config) {
     super(tileset, {
       id: config.gid,

@@ -14,7 +14,7 @@ class SpriteSheet extends GraphicImage {
     super(image);
     // TODO: Check if the spritesheetconfig is a JSON object or not and then parse it into a spriteSheetConfig if needed
     this.spriteSheetConfig = spriteSheetConfig;
-    this.Frames = {};
+    this.Sprites = {};
   }
 
   /**
