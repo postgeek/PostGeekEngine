@@ -48,6 +48,10 @@ class ContextMock {
 
   }
 
+  drawImage(image, x, y, width, height, x2, y2, width2, height2) {
+
+  }
+
   ellipse(x, y, radiusX, radiusY, rotation, angleDirection, circumference) {
 
   }

@@ -12,7 +12,7 @@ class GraphicImage extends GraphicObject {
    */
   constructor(image) {
     super();
-    this.Image = image;
+    this.image = image;
   }
 
   /**
@@ -20,8 +20,8 @@ class GraphicImage extends GraphicObject {
    *
    * @return {Image}  The image to draw on screen.
    */
-  get Image() {
-    return this.image;
+  get image() {
+    return this._image;
   }
 
   /**
@@ -30,9 +30,9 @@ class GraphicImage extends GraphicObject {
    * @param  {Image} value the image associated to the GraphicImage
    * @return {undefined}
    */
-  set Image(value) {
+  set image(value) {
     /** @private */
-    this.image = value;
+    this._image = value;
   }
 
   /**
@@ -41,11 +41,11 @@ class GraphicImage extends GraphicObject {
    * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The height of the image.
    */
-  get Height() {
-    if (this.Image === undefined) {
+  get height() {
+    if (this.image === undefined) {
       throw new UndefinedError(this);
     }
-    return this.Image.height;
+    return this.image.height;
   }
 
   /**
@@ -54,18 +54,18 @@ class GraphicImage extends GraphicObject {
    * @throws {UndefinedError} Throws an error if the image is not defined
    * @return {Number} The width of the image.
    */
-  get Width() {
-    if (this.Image === undefined) {
+  get width() {
+    if (this.image === undefined) {
       throw new UndefinedError(this);
     }
-    return this.Image.width;
+    return this.image.width;
   }
 
   /**
    * Draws the image on screen at 0,0.
    */
   draw() {
-    this.context.drawImage(this.Image, 0, 0);
+    this.context.drawImage(this.image, 0, 0);
   }
 
   /**
@@ -80,7 +80,7 @@ class GraphicImage extends GraphicObject {
    */
   drawImageWithMask(destrinationPoint, subRectanglePoint, width, height) {
     this.context.drawImage(
-      this.Image,
+      this.image,
       subRectanglePoint.X,
       subRectanglePoint.Y,
       width,
