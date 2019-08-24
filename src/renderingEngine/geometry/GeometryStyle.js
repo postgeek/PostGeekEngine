@@ -1,4 +1,4 @@
-import InvalidArguementError from '../../core/errorHandling/errors/IndexSizeError';
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 import DrawingStyle from '../DrawingStyle';
 
 /**
@@ -40,11 +40,11 @@ class GeometryStyle extends DrawingStyle {
       shadowOffsetX,
       shadowOffsetY,
     });
-    this.LineCap = lineCap;
-    this.LineJoin = lineJoin;
-    this.MiterLimit = miterLimit;
-    this.LineDash = lineDash;
-    this.LineDashOffset = lineDashOffset;
+    this.lineCap = lineCap;
+    this.lineJoin = lineJoin;
+    this.miterLimit = miterLimit;
+    this.lineDash = lineDash;
+    this.lineDashOffset = lineDashOffset;
   }
 
   /**
@@ -52,8 +52,8 @@ class GeometryStyle extends DrawingStyle {
    *
    * @return {string} the linecap value
    */
-  get LineCap() {
-    return this.lineCap;
+  get lineCap() {
+    return this._lineCap;
   }
 
   /**
@@ -63,25 +63,25 @@ class GeometryStyle extends DrawingStyle {
    * @param  {string} value the new line cap with possible values ("butt" || "round" || "square")
    * @return {undefined}
    */
-  set LineCap(value) {
+  set lineCap(value) {
     const defaultLineCap = 'butt';
     let newLineCap = '';
     if (value === undefined) {
       newLineCap = defaultLineCap;
-    } else if (value !== 'butt' || value !== 'round' || value !== 'square') {
+    } else if (value !== 'butt' && value !== 'round' && value !== 'square') {
       throw new InvalidArguementError(this);
     } else {
       newLineCap = value;
     }
     /** @private */
-    this.lineCap = newLineCap;
+    this._lineCap = newLineCap;
   }
 
   /**
   * the line join style.
   */
-  get LineJoin() {
-    return this.lineJoin;
+  get lineJoin() {
+    return this._lineJoin;
   }
 
   /**
@@ -91,25 +91,25 @@ class GeometryStyle extends DrawingStyle {
    * @param  {string} value the new line join with possible values ("round" || "bevel" || "miter")
    * @return {undefined}
    */
-  set LineJoin(value) {
+  set lineJoin(value) {
     const defautLineJoin = 'miter';
     let newLineJoin = '';
     if (value === undefined) {
       newLineJoin = defautLineJoin;
-    } else if (value !== 'round' || value !== 'bevel' || value !== 'miter') {
+    } else if (value !== 'round' && value !== 'bevel' && value !== 'miter') {
       throw new InvalidArguementError(this);
     } else {
       newLineJoin = value;
     }
     /** @private */
-    this.lineJoin = newLineJoin;
+    this._lineJoin = newLineJoin;
   }
 
   /**
   * Gets the miter limit value.
   */
-  get MiterLimit() {
-    return this.miterLimit;
+  get miterLimit() {
+    return this._miterLimit;
   }
 
   /**
@@ -118,16 +118,16 @@ class GeometryStyle extends DrawingStyle {
    * @param  {float} value the miter limit value.
    * @return {undefined}
    */
-  set MiterLimit(value) {
+  set miterLimit(value) {
     /** @private */
-    this.miterLimit = value;
+    this._miterLimit = value;
   }
 
   /**
   * the line dashes style.
   */
-  get LineDash() {
-    return this.lineDash;
+  get lineDash() {
+    return this._lineDash;
   }
 
   /**
@@ -136,16 +136,16 @@ class GeometryStyle extends DrawingStyle {
    * @param  {Array[float]} value the new line dashes
    * @return {undefined}
    */
-  set LineDash(value) {
+  set lineDash(value) {
     /** @private */
-    this.lineDash = value;
+    this._lineDash = value;
   }
 
   /**
   * Gets the line dash offset.
   */
-  get LineDashOffset() {
-    return this.lifeDashOffset;
+  get lineDashOffset() {
+    return this._lineDashOffset;
   }
 
   /**
@@ -154,9 +154,9 @@ class GeometryStyle extends DrawingStyle {
    * @param  {float} value the line dash offset
    * @return {undefined}
    */
-  set LineDashOffset(value) {
+  set lineDashOffset(value) {
     /** @private */
-    this.lineDashOffset = value;
+    this._lineDashOffset = value;
   }
 
   /**
@@ -167,20 +167,16 @@ class GeometryStyle extends DrawingStyle {
    */
   apply(context) {
     const newContext = super.apply(context);
-    if (this.LineCap) {
-      newContext.lineCap = this.LineCap;
+    newContext.lineCap = this.lineCap;
+    newContext.lineJoin = this.lineJoin;
+    if (this.miterLimit) {
+      newContext.miterLimit = this.miterLimit;
     }
-    if (this.LineJoin) {
-      newContext.lineJoin = this.LineJoin;
+    if (this.lineDash) {
+      newContext.lineDash = this.lineDash;
     }
-    if (this.MiterLimit) {
-      newContext.miterLimit = this.MiterLimit;
-    }
-    if (this.LineDash) {
-      newContext.lineDash = this.LineDash;
-    }
-    if (this.LineDashOffset) {
-      newContext.lineDashOffset = this.LineDashOffset;
+    if (this.lineDashOffset) {
+      newContext.lineDashOffset = this.lineDashOffset;
     }
     return newContext;
   }
