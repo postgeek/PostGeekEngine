@@ -19,7 +19,7 @@ class PostGeekDebugger extends IMiddleware {
       font: '48px serif',
     });
     this.Text = new Text(new Point(20, 50), 'Debug mode enabled');
-    this.Text.TextStyle = this.debugTextStyle;
+    this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
   }

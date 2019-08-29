@@ -78,15 +78,15 @@ class GraphicImage extends GraphicObject {
    * @param  {Number} width  the sub-image's width
    * @param  {Number} height the sub-image's height
    */
-  drawImageWithMask(destrinationPoint, subRectanglePoint, width, height) {
+  drawImageWithMask(destinationPoint, subRectanglePoint, width, height) {
     this.context.drawImage(
       this.image,
-      subRectanglePoint.X,
-      subRectanglePoint.Y,
+      subRectanglePoint.x,
+      subRectanglePoint.y,
       width,
       height,
-      destrinationPoint.X,
-      destrinationPoint.Y,
+      destinationPoint.x,
+      destinationPoint.y,
       width,
       height,
     );
