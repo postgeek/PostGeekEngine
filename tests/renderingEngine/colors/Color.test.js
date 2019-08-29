@@ -701,10 +701,10 @@ describe('predefined colors', () => {
     expect(rebeccaPurple.hex).toBe(hex);
   });
   // https://html-color.codes/hex/8a2be2
-  it('should properly construct the blue violet color', () => {
+  it('should properly construct the dark violet color', () => {
     // Arrange
     const name = 'blueviolet';
-    const rgbaColor = new RGBAColor(138, 43, 225, 1);
+    const rgbaColor = new RGBAColor(138, 43, 226, 1);
     const hslaColor = new HSLAColor(271, 76, 53, 1);
     const hex = '#8A2BE2';
 
@@ -717,4 +717,180 @@ describe('predefined colors', () => {
     expect(blueViolet.hslaColor.toString()).toBe(hslaColor.toString());
     expect(blueViolet.hex).toBe(hex);
   });
+  // https://html-color.codes/hex/9400d3
+  it('should properly construct the dark violet color', () => {
+    // Arrange
+    const name = 'darkviolet';
+    const rgbaColor = new RGBAColor(148, 0, 211, 1);
+    const hslaColor = new HSLAColor(282, 100, 41, 1);
+    const hex = '#9400D3';
+
+    // Act
+    const darkViolet = Color.DARKVIOLET;
+
+    // Assert
+    expect(darkViolet.name).toBe(name);
+    expect(darkViolet.rgbaColor.toString()).toBe(rgbaColor.toString());
+    expect(darkViolet.hslaColor.toString()).toBe(hslaColor.toString());
+    expect(darkViolet.hex).toBe(hex);
+  });
+  // https://html-color.codes/hex/9932cc
+  it('should properly construct the dark orchid color', () => {
+    // Arrange
+    const name = 'darkorchid';
+    const rgbaColor = new RGBAColor(153, 50, 204, 1);
+    const hslaColor = new HSLAColor(280, 61, 50, 1);
+    const hex = '#9932CC';
+
+    // Act
+    const darkOrchid = Color.DARKORCHID;
+
+    // Assert
+    expect(darkOrchid.name).toBe(name);
+    expect(darkOrchid.rgbaColor.toString()).toBe(rgbaColor.toString());
+    expect(darkOrchid.hslaColor.toString()).toBe(hslaColor.toString());
+    expect(darkOrchid.hex).toBe(hex);
+  });
+  // https://html-color.codes/hex/8b008b
+  it('should properly construct the dark magenta color', () => {
+    // Arrange
+    const name = 'darkmagenta';
+    const rgbaColor = new RGBAColor(139, 0, 139, 1);
+    const hslaColor = new HSLAColor(300, 100, 27, 1);
+    const hex = '#8B008B';
+
+    // Act
+    const darkMagenta = Color.DARKMEGENTA;
+
+    // Assert
+    expect(darkMagenta.name).toBe(name);
+    expect(darkMagenta.rgbaColor.toString()).toBe(rgbaColor.toString());
+    expect(darkMagenta.hslaColor.toString()).toBe(hslaColor.toString());
+    expect(darkMagenta.hex).toBe(hex);
+  });
+  // https://html-color.codes/hex/800080
+  it('should properly construct the purple color', () => {
+    // Arrange
+    const name = 'purple';
+    const rgbaColor = new RGBAColor(128, 0, 128, 1);
+    const hslaColor = new HSLAColor(300, 100, 25, 1);
+    const hex = '#800080';
+
+    // Act
+    const purple = Color.PURPLE;
+
+    // Assert
+    expect(purple.name).toBe(name);
+    expect(purple.rgbaColor.toString()).toBe(rgbaColor.toString());
+    expect(purple.hslaColor.toString()).toBe(hslaColor.toString());
+    expect(purple.hex).toBe(hex);
+  });
+  // https://html-color.codes/hex/4b0082
+  it('should properly construct the indigo color', () => {
+    // Arrange
+    const name = 'indigo';
+    const rgbaColor = new RGBAColor(75, 0, 130, 1);
+    const hslaColor = new HSLAColor(275, 100, 25, 1);
+    const hex = '#4B0082';
+
+    // Act
+    const indigo = Color.INDIGO;
+
+    // Assert
+    expect(indigo.name).toBe(name);
+    expect(indigo.rgbaColor.toString()).toBe(rgbaColor.toString());
+    expect(indigo.hslaColor.toString()).toBe(hslaColor.toString());
+    expect(indigo.hex).toBe(hex);
+  });
+  // https://html-color.codes/hex/6A5ACD
+  // https://html-color.codes/hex/483B8B
+  // https://html-color.codes/hex/7B68EE
+  // https://html-color.codes/hex/ADFF2F
+  // https://html-color.codes/hex/7FFF00
+  // https://html-color.codes/hex/7CFC00
+  // https://html-color.codes/hex/00FF00
+  // https://html-color.codes/hex/32CD32
+  // https://html-color.codes/hex/98FB98
+  // https://html-color.codes/hex/90EE90
+  // https://html-color.codes/hex/00FA9A
+  // https://html-color.codes/hex/00FF7F
+  // https://html-color.codes/hex/3CB371
+  // https://html-color.codes/hex/2E8B57
+  // https://html-color.codes/hex/228B22
+  // https://html-color.codes/hex/008000
+  // https://html-color.codes/hex/006400
+  // https://html-color.codes/hex/9ACD32
+  // https://html-color.codes/hex/6B8E23
+  // https://html-color.codes/hex/808000
+  // https://html-color.codes/hex/556B2F
+  // https://html-color.codes/hex/66CDAA
+  // https://html-color.codes/hex/8FBC8B
+  // https://html-color.codes/hex/20B2AA
+  // https://html-color.codes/hex/008B8B
+  // https://html-color.codes/hex/008080
+  // https://html-color.codes/hex/00FFFF
+  // https://html-color.codes/hex/00FFFF
+  // https://html-color.codes/hex/AFEEEE
+  // https://html-color.codes/hex/7FFFD4
+  // https://html-color.codes/hex/40E0D0
+  // https://html-color.codes/hex/48D1CC
+  // https://html-color.codes/hex/00CED1
+  // https://html-color.codes/hex/5F9EA0
+  // https://html-color.codes/hex/4682B4
+  // https://html-color.codes/hex/B0E0E6
+  // https://html-color.codes/hex/ADD8E6
+  // https://html-color.codes/hex/87CEEB
+  // https://html-color.codes/hex/87CEFA
+  // https://html-color.codes/hex/00BFFF
+  // https://html-color.codes/hex/1E90FF
+  // https://html-color.codes/hex/6495ED
+  // https://html-color.codes/hex/4169E1
+  // https://html-color.codes/hex/0000FF
+  // https://html-color.codes/hex/0000CD
+  // https://html-color.codes/hex/00008B
+  // https://html-color.codes/hex/000080
+  // https://html-color.codes/hex/191970
+  // https://html-color.codes/hex/FFF8DC
+  // https://html-color.codes/hex/FFEBCD
+  // https://html-color.codes/hex/FFE4C4
+  // https://html-color.codes/hex/FFDEAD
+  // https://html-color.codes/hex/F5DEB3
+  // https://html-color.codes/hex/DEB887
+  // https://html-color.codes/hex/D2B48C
+  // https://html-color.codes/hex/BC8F8F
+  // https://html-color.codes/hex/F4A460
+  // https://html-color.codes/hex/DAA520
+  // https://html-color.codes/hex/B8860B
+  // https://html-color.codes/hex/CD853F
+  // https://html-color.codes/hex/D2691E
+  // https://html-color.codes/hex/8B4513
+  // https://html-color.codes/hex/A0522D
+  // https://html-color.codes/hex/A52A2A
+  // https://html-color.codes/hex/800000
+  // https://html-color.codes/hex/FFFFFF
+  // https://html-color.codes/hex/FFFAFA
+  // https://html-color.codes/hex/F5FFFA
+  // https://html-color.codes/hex/F0FFFF
+  // https://html-color.codes/hex/F0F8FF
+  // https://html-color.codes/hex/F8F8FF
+  // https://html-color.codes/hex/F5F5F5
+  // https://html-color.codes/hex/FFF5EE
+  // https://html-color.codes/hex/F5F5DC
+  // https://html-color.codes/hex/FDF5E6
+  // https://html-color.codes/hex/FFFAF0
+  // https://html-color.codes/hex/FFFFF0
+  // https://html-color.codes/hex/FAEBD7
+  // https://html-color.codes/hex/FAF0E6
+  // https://html-color.codes/hex/FFF0F5
+  // https://html-color.codes/hex/FFE4E1
+  // https://html-color.codes/hex/DCDCDC
+  // https://html-color.codes/hex/D3D3D3
+  // https://html-color.codes/hex/C0C0C0
+  // https://html-color.codes/hex/A9A9A9
+  // https://html-color.codes/hex/808080
+  // https://html-color.codes/hex/696969
+  // https://html-color.codes/hex/778899
+  // https://html-color.codes/hex/708090
+  // https://html-color.codes/hex/2F4F4F
+  // https://html-color.codes/hex/000000
 });

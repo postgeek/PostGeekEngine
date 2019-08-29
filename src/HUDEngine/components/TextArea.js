@@ -9,42 +9,42 @@ class TextArea extends GraphicComponent {
     this.TextStyle = textStyle;
 
     this.Text = new Text(point.clone(), text);
-    this.Text.TextStyle = this.TextStyle;
+    this.Text.textStyle = this.TextStyle;
     this.Border = new Rectangle(point.clone(), width, height);
     this.firstDraw = true;
 
     this.Texts = [];
 
-    this.Text.Point.X += 5;
+    this.Text.point.x += 5;
 
     this.fitTextToContainer();
   }
 
   fitTextToContainer() {
-    const containerWidth = this.Border.Width - 10;
-    const containerHeight = this.Border.Height - 20;
+    const containerWidth = this.Border.width - 10;
+    const containerHeight = this.Border.height - 20;
 
     const textWidth = this.Text.measureText().width;
     let textHeight = 0;
 
     const amountOfLines = Math.ceil(textWidth / containerWidth);
 
-    let temporaryTextObject = new Text(this.Text.Point.clone(), '');
-    temporaryTextObject.TextStyle = this.TextStyle;
+    let temporaryTextObject = new Text(this.Text.point.clone(), '');
+    temporaryTextObject.textStyle = this.TextStyle;
 
     if (amountOfLines > 1) {
-      for (let i = 0; i < this.Text.Text.length; i += 1) {
-        temporaryTextObject.Text += this.Text.Text[i];
+      for (let i = 0; i < this.Text.text.length; i += 1) {
+        temporaryTextObject.text += this.Text.text[i];
 
         if (temporaryTextObject.measureText().width > containerWidth
               && textHeight < containerHeight) {
-          let tempText = temporaryTextObject.Text;
+          let tempText = temporaryTextObject.text;
           tempText = tempText.substring(0, tempText.length - 1);
           i -= 1;
-          temporaryTextObject.Text = tempText;
+          temporaryTextObject.text = tempText;
           this.Texts.push(temporaryTextObject);
-          temporaryTextObject = new Text(this.Text.Point.clone(), '');
-          temporaryTextObject.TextStyle = this.TextStyle;
+          temporaryTextObject = new Text(this.Text.point.clone(), '');
+          temporaryTextObject.textStyle = this.TextStyle;
 
           textHeight += this.Text.determineFontHeight();
         }
@@ -80,7 +80,7 @@ class TextArea extends GraphicComponent {
   draw() {
     if (this.firstDraw) {
       for (let i = 0; i < this.Texts.length; i += 1) {
-        this.Texts[i].Point.Y += this.Texts[i].determineFontHeight() * (i + 1);
+        this.Texts[i].point.y += this.Texts[i].determineFontHeight() * (i + 1);
       }
       this.firstDraw = false;
     }

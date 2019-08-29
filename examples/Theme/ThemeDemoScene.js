@@ -14,8 +14,8 @@ export default class DesignSystemScene extends Scene {
   create() {
     this.components = [];
 
-    const fillStyle = Color.MIDNIGHTBLUE.RGBAColor;
-    const strokeStyle = Color.WHITE.RGBAColor;
+    const fillStyle = Color.MIDNIGHTBLUE.rgbaColor;
+    const strokeStyle = Color.WHITE.rgbaColor;
     const font = 'Rockwell';
 
     const heading1Font = `52px ${font}`;
@@ -40,16 +40,16 @@ export default class DesignSystemScene extends Scene {
       'Lorem ipsum dolor sit amet, elit rutrum fusce pulvinar, lorem fermentum pellentesque mauris. Risus commodo tristique per quis, hendrerit a morbi. Nunc quis. Condimentum amet quisque ligula, consectetuer sodales placerat cras etiam egestas ultrices. Ligula lobortis non non varius, sociosqu viverra vel in aliquet phasellus tortor, lacus tincidunt molestie consectetuer vitae ullamcorper sit.',
       300, 200, textAreaStyle);
 
-    heading1.TextStyle = DesignSystemScene.createTextStyle(heading1Font, 2, fillStyle, strokeStyle);
-    heading2.TextStyle = DesignSystemScene.createTextStyle(heading2Font, 2, fillStyle, strokeStyle);
-    heading3.TextStyle = DesignSystemScene.createTextStyle(heading3Font, 2, fillStyle, strokeStyle);
-    heading4.TextStyle = DesignSystemScene.createTextStyle(heading4Font, 2, fillStyle, strokeStyle);
-    heading5.TextStyle = DesignSystemScene.createTextStyle(heading5Font, 2, fillStyle, strokeStyle);
+    heading1.textStyle = DesignSystemScene.createTextStyle(heading1Font, 2, fillStyle, strokeStyle);
+    heading2.textStyle = DesignSystemScene.createTextStyle(heading2Font, 2, fillStyle, strokeStyle);
+    heading3.textStyle = DesignSystemScene.createTextStyle(heading3Font, 2, fillStyle, strokeStyle);
+    heading4.textStyle = DesignSystemScene.createTextStyle(heading4Font, 2, fillStyle, strokeStyle);
+    heading5.textStyle = DesignSystemScene.createTextStyle(heading5Font, 2, fillStyle, strokeStyle);
 
-    paragraph1.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    paragraph2.TextStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
+    paragraph1.textStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
+    paragraph2.textStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
 
-    textArea.Border.GeometryStyle = DesignSystemScene.createGeometryStyle(3, strokeStyle);
+    textArea.Border.geometryStyle = DesignSystemScene.createGeometryStyle(3, strokeStyle);
 
     this.addComponentToSystem(heading1);
     this.addComponentToSystem(heading2);

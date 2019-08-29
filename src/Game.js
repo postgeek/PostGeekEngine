@@ -3,7 +3,6 @@ import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
-import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
 import ServiceLocator from './core/ServiceLocator';
 
 let game = null;

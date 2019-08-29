@@ -77,8 +77,8 @@ class Text extends GraphicObject {
   */
   measureText() {
     this.context.save();
-    this.context = this.TextStyle.apply(this.context);
-    const textMetrics = this.context.measureText(this.Text);
+    this.context = this.textStyle.apply(this.context);
+    const textMetrics = this.context.measureText(this.text);
     this.context.restore();
     return textMetrics;
   }
@@ -93,7 +93,7 @@ class Text extends GraphicObject {
     const dummy = document.createElement('div');
     const dummyText = document.createTextNode('M');
     dummy.appendChild(dummyText);
-    dummy.setAttribute('style', `font:${this.TextStyle.font};`);
+    dummy.setAttribute('style', `font:${this.textStyle.font};`);
     body.appendChild(dummy);
     const result = dummy.offsetHeight;
     body.removeChild(dummy);
@@ -103,10 +103,10 @@ class Text extends GraphicObject {
   internalDraw() {
     this.context = this.textStyle.apply(this.context);
     if (this.textStyle.FillStyle !== undefined) {
-      this.context.fillText(this.Text, this.point.x, this.point.y);
+      this.context.fillText(this.text, this.point.x, this.point.y);
     }
     if (this.textStyle.StrokeStyle !== undefined) {
-      this.context.strokeText(this.Text, this.point.x, this.point.y);
+      this.context.strokeText(this.text, this.point.x, this.point.y);
     }
   }
 }

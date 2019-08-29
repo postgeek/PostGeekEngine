@@ -628,7 +628,7 @@ class Color {
   /** @static */
   static get DARKMEGENTA() {
     return new Color({
-      name: 'blueviolet',
+      name: 'darkmagenta',
       rgbaColor: new RGBAColor(139, 0, 139, 1),
       hslaColor: new HSLAColor(300, 100, 27, 1),
       hex: '#8B008B',
