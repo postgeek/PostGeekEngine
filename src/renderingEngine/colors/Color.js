@@ -19,7 +19,6 @@ class Color {
     hslaColor,
     rgbColor,
     rgbaColor,
-    alpha,
   }) {
     if (name !== undefined) {
       this.name = name;
@@ -38,9 +37,6 @@ class Color {
     }
     if (rgbaColor !== undefined) {
       this.rgbaColor = rgbaColor;
-    }
-    if (alpha !== undefined) {
-      this.alpha = alpha;
     }
   }
 
@@ -122,7 +118,7 @@ class Color {
   set hslaColor(value) {
     /** @private */
     this._hslaColor = value;
-    this.alpha = value.alpha;
+    this._alpha = value.alpha;
   }
 
   /**
@@ -163,7 +159,7 @@ class Color {
   set rgbaColor(value) {
     /** @private */
     this._rgbaColor = value;
-    this.alpha = value.alpha;
+    this._alpha = value.alpha;
   }
 
   /**
@@ -173,20 +169,6 @@ class Color {
    */
   get alpha() {
     return this._alpha;
-  }
-
-  /**
-   * Specifies the color's alpha value (opacity)
-   *
-   * @param  {float} value the alpha value to set (between 0 - 1)
-   * @return {undefined}
-   */
-  set alpha(value) {
-    if (value < 0 || value > 1) {
-      throw new InvalidArguementError(this);
-    }
-    /** @private */
-    this._alpha = value;
   }
 
   // https://htmlcolorcodes.com/color-names/
