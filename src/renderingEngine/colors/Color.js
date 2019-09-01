@@ -669,8 +669,8 @@ class Color {
   static get DARKSLATEBLUE() {
     return new Color({
       name: 'darkslateblue',
-      rgbaColor: new RGBAColor(72, 61, 139, 1),
-      hslaColor: new HSLAColor(248, 39, 39, 1),
+      rgbaColor: new RGBAColor(72, 59, 139, 1),
+      hslaColor: new HSLAColor(250, 40, 39, 1),
       hex: '#483B8B',
     });
   }
@@ -678,7 +678,7 @@ class Color {
   /** @static */
   static get MEDIUMSLATEBLUE() {
     return new Color({
-      name: 'slateblue',
+      name: 'mediumslateblue',
       rgbaColor: new RGBAColor(123, 104, 238, 1),
       hslaColor: new HSLAColor(249, 80, 67, 1),
       hex: '#7B68EE',
@@ -1493,7 +1493,7 @@ class Color {
   /** @static */
   static get GAINSBORO() {
     return new Color({
-      name: 'mistyrose',
+      name: 'gainsboro',
       rgbaColor: new RGBAColor(220, 220, 220, 1),
       hslaColor: new HSLAColor(0, 0, 86, 1),
       hex: '#DCDCDC',
