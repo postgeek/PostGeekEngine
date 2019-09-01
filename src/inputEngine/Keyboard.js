@@ -17,6 +17,7 @@ class Keyboard {
 
     // An array of registered keys that the engine will listen for
     this._registeredKeys = [];
+    this._typedKey = '';
   }
 
   /**
@@ -56,7 +57,6 @@ class Keyboard {
    * @param {HTMLEvent} evt The KeyboardEvent
    */
   handleEvent(KeyboardEvent) {
-    this._typedKey = KeyboardEvent.key || String.fromCharCode(KeyboardEvent.charCode);
     switch (KeyboardEvent.type) {
       case 'keydown':
         this.keyDown(KeyboardEvent);
@@ -66,6 +66,28 @@ class Keyboard {
         break;
       default:
         throw new UnhandledHtmlEventError();
+    }
+  }
+
+  enableTypedKey() {
+    this._typedKeyEnabled = true;
+  }
+
+  disableTypedKey() {
+    this._typedKeyEnabled = false;
+    this._typedKey = '';
+  }
+
+  typedKeyHandler(keyboardEvent) {
+    if (this._typedKeyEnabled) {
+      this._typedKey += keyboardEvent.key || String.fromCharCode(keyboardEvent.charCode);
+      console.log(this._typedKey);
+    }
+  }
+
+  getTypedKeys() {
+    if (this._typedKey.length > 0) {
+      return this._typedKey;
     }
   }
 
@@ -109,14 +131,6 @@ class Keyboard {
   keyDownOnce(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
     return currentKey.state === this.KEY_STATE.DOWN_ONCE;
-  }
-
-  /**
-   * Gets the character key for the last typed key.
-   * @return {String} the character code representation.
-   */
-  getKeyCharacter() {
-    return this._typedKey;
   }
 
   /**

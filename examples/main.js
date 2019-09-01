@@ -46,3 +46,5 @@ Window.Main = class Main {
     });
   }
 };
+
+Window.Main.startColorScene();
