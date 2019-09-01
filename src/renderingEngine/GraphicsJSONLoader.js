@@ -5,7 +5,7 @@ import BezierCurve from './geometry/BezierCurve';
 import QuadraticCurve from './geometry/QuadraticCurve';
 import GeometryStyle from './geometry/GeometryStyle';
 
-import Text from './text/Text';
+import TextGraphic from './text/TextGraphic';
 import TextStyle from './text/TextStyle';
 
 
@@ -165,7 +165,7 @@ class GraphicsJSONLoader {
     }
     const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
-    const textObject = new Text(parsedPoint, text);
+    const textObject = new TextGraphic(parsedPoint, text);
 
     if (textStyle !== undefined) {
       textObject.textStyle = GraphicsJSONLoader.parseTextStyle(textStyle);

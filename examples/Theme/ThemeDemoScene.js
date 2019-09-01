@@ -7,7 +7,7 @@ import QuadraticCurve from 'renderingEngine/geometry/QuadraticCurve';
 import Color from 'renderingEngine/colors/Color';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
-import Text from 'renderingEngine/text/Text';
+import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextArea from 'HUDEngine/components/TextArea';
 
 export default class DesignSystemScene extends Scene {
@@ -26,14 +26,14 @@ export default class DesignSystemScene extends Scene {
 
     const paragraphFont = `14px ${font}`;
 
-    const heading1 = new Text(new Point(100, 100), 'Heading 1');
-    const heading2 = new Text(new Point(100, 160), 'Heading 2');
-    const heading3 = new Text(new Point(100, 220), 'Heading 3');
-    const heading4 = new Text(new Point(100, 280), 'Heading 4');
-    const heading5 = new Text(new Point(100, 340), 'Heading 5');
+    const heading1 = new TextGraphic(new Point(100, 100), 'Heading 1');
+    const heading2 = new TextGraphic(new Point(100, 160), 'Heading 2');
+    const heading3 = new TextGraphic(new Point(100, 220), 'Heading 3');
+    const heading4 = new TextGraphic(new Point(100, 280), 'Heading 4');
+    const heading5 = new TextGraphic(new Point(100, 340), 'Heading 5');
 
-    const paragraph1 = new Text(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
-    const paragraph2 = new Text(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraph1 = new TextGraphic(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraph2 = new TextGraphic(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
     const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
     const textArea = new TextArea(new Point(500, 200),

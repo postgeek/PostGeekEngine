@@ -1,4 +1,4 @@
-import Text from '../../renderingEngine/text/Text';
+import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GraphicComponent from '../GraphicComponent';
 
@@ -8,7 +8,7 @@ class TextArea extends GraphicComponent {
 
     this.TextStyle = textStyle;
 
-    this.Text = new Text(point.clone(), text);
+    this.Text = new TextGraphic(point.clone(), text);
     this.Text.TextStyle = this.TextStyle;
     this.Border = new Rectangle(point.clone(), width, height);
     this.firstDraw = true;
@@ -29,7 +29,7 @@ class TextArea extends GraphicComponent {
 
     const amountOfLines = Math.ceil(textWidth / containerWidth);
 
-    let temporaryTextObject = new Text(this.Text.Point.clone(), '');
+    let temporaryTextObject = new TextGraphic(this.Text.Point.clone(), '');
     temporaryTextObject.TextStyle = this.TextStyle;
 
     if (amountOfLines > 1) {
@@ -43,7 +43,7 @@ class TextArea extends GraphicComponent {
           i -= 1;
           temporaryTextObject.Text = tempText;
           this.Texts.push(temporaryTextObject);
-          temporaryTextObject = new Text(this.Text.Point.clone(), '');
+          temporaryTextObject = new TextGraphic(this.Text.Point.clone(), '');
           temporaryTextObject.TextStyle = this.TextStyle;
 
           textHeight += this.Text.determineFontHeight();
