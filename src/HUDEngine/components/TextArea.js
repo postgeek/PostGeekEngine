@@ -8,7 +8,7 @@ class TextArea extends GraphicComponent {
 
     this.TextStyle = textStyle;
 
-    this.Text = new Text(point.clone(), text);
+    this.Text = new TextGraphic(point.clone(), text);
     this.Text.textStyle = this.TextStyle;
     this.Border = new Rectangle(point.clone(), width, height);
     this.firstDraw = true;
@@ -29,7 +29,7 @@ class TextArea extends GraphicComponent {
 
     const amountOfLines = Math.ceil(textWidth / containerWidth);
 
-    let temporaryTextObject = new Text(this.Text.point.clone(), '');
+    let temporaryTextObject = new TextGraphic(this.Text.point.clone(), '');
     temporaryTextObject.textStyle = this.TextStyle;
 
     if (amountOfLines > 1) {
@@ -43,7 +43,7 @@ class TextArea extends GraphicComponent {
           i -= 1;
           temporaryTextObject.text = tempText;
           this.Texts.push(temporaryTextObject);
-          temporaryTextObject = new Text(this.Text.point.clone(), '');
+          temporaryTextObject = new TextGraphic(this.Text.point.clone(), '');
           temporaryTextObject.textStyle = this.TextStyle;
 
           textHeight += this.Text.determineFontHeight();

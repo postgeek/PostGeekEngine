@@ -4,6 +4,7 @@ import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
 import ServiceLocator from './core/ServiceLocator';
+import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
 let game = null;
 
@@ -62,6 +63,10 @@ class Game {
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
     this.middlewareManager = new MiddlewareManager();
+
+    if (config.debug) {
+      this.middlewareManager.add('debug', new PostGeekDebugger());
+    }
   }
 
   /**
@@ -170,7 +175,7 @@ class Game {
         || window.msRequestAnimationFrame;
 
     if (!func) {
-      func = callback => setTimeout(callback, 1000 / 24);
+      func = (callback) => setTimeout(callback, 1000 / 24);
     }
 
     func(callback.bind(this));
