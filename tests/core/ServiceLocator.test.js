@@ -36,8 +36,6 @@ describe('locate', () => {
     // Arange
     const key = 'someKey';
 
-    // Act
-
     // Assert
     expect(() => { ServiceLocator.instance.locate(key); }).toThrow(InvalidArguementError);
   });

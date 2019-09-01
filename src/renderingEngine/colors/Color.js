@@ -19,28 +19,24 @@ class Color {
     hslaColor,
     rgbColor,
     rgbaColor,
-    alpha,
   }) {
     if (name !== undefined) {
-      this.Name = name;
+      this.name = name;
     }
     if (hex !== undefined) {
-      this.Hex = hex;
+      this.hex = hex;
     }
     if (hslColor !== undefined) {
-      this.HSLColor = hslColor;
+      this.hslColor = hslColor;
     }
     if (hslaColor !== undefined) {
-      this.HSLAColor = hslaColor;
+      this.hslaColor = hslaColor;
     }
     if (rgbColor !== undefined) {
-      this.RGBColor = rgbColor;
+      this.rgbColor = rgbColor;
     }
     if (rgbaColor !== undefined) {
-      this.RGBAColor = rgbaColor;
-    }
-    if (alpha !== undefined) {
-      this.Alpha = alpha;
+      this.rgbaColor = rgbaColor;
     }
   }
 
@@ -49,8 +45,8 @@ class Color {
    *
    * @return {string} the HTML name of the color
    */
-  get Name() {
-    return this.name;
+  get name() {
+    return this._name;
   }
 
   /**
@@ -59,9 +55,9 @@ class Color {
    * @param  {string} value   the name of the color
    * @return {undefined}
    */
-  set Name(value) {
+  set name(value) {
     /** @private */
-    this.name = value;
+    this._name = value;
   }
 
   /**
@@ -69,8 +65,8 @@ class Color {
    *
    * @return {string} A string representation of the hex color
    */
-  get Hex() {
-    return this.hex;
+  get hex() {
+    return this._hex;
   }
 
   /**
@@ -79,9 +75,9 @@ class Color {
    * @param  {string} value A string representation of the hex color
    * @return {undefined}
    */
-  set Hex(value) {
+  set hex(value) {
     /** @private */
-    this.hex = value;
+    this._hex = value;
   }
 
   /**
@@ -89,8 +85,8 @@ class Color {
    *
    * @return {HSLColor} The HSL object
    */
-  get HSLColor() {
-    return this.hsl;
+  get hslColor() {
+    return this._hslColor;
   }
 
   /**
@@ -99,9 +95,9 @@ class Color {
    * @param  {HSLColor} value the HSLColor object
    * @return {undefined}
    */
-  set HSLColor(value) {
+  set hslColor(value) {
     /** @private */
-    this.hsl = value;
+    this._hslColor = value;
   }
 
   /**
@@ -109,8 +105,8 @@ class Color {
    *
    * @return {HSLAColor} the HSLAColor object
    */
-  get HSLAColor() {
-    return this.hsla;
+  get hslaColor() {
+    return this._hslaColor;
   }
 
   /**
@@ -119,10 +115,10 @@ class Color {
    * @param  {HSLAColor} value the HSLAColor object
    * @return {undefined}
    */
-  set HSLAColor(value) {
+  set hslaColor(value) {
     /** @private */
-    this.hsla = value;
-    this.Alpha = value.Alpha;
+    this._hslaColor = value;
+    this._alpha = value.alpha;
   }
 
   /**
@@ -130,8 +126,8 @@ class Color {
    *
    * @return {RGBColor} the RGBColor object
    */
-  get RGBColor() {
-    return this.rgb;
+  get rgbColor() {
+    return this._rgbColor;
   }
 
   /**
@@ -140,9 +136,9 @@ class Color {
    * @param  {RBGColor} value the RGBColor object
    * @return {undefined}
    */
-  set RGBColor(value) {
+  set rgbColor(value) {
     /** @private */
-    this.rgb = value;
+    this._rgbColor = value;
   }
 
   /**
@@ -150,8 +146,8 @@ class Color {
    *
    * @return {RGBAColor} the RGBAColor object
    */
-  get RGBAColor() {
-    return this.rgba;
+  get rgbaColor() {
+    return this._rgbaColor;
   }
 
   /**
@@ -160,10 +156,10 @@ class Color {
    * @param  {RGBAColor} value the RGBAColor object
    * @return {undefined}
    */
-  set RGBAColor(value) {
+  set rgbaColor(value) {
     /** @private */
-    this.rgba = value;
-    this.Alpha = value.Alpha;
+    this._rgbaColor = value;
+    this._alpha = value.alpha;
   }
 
   /**
@@ -171,22 +167,8 @@ class Color {
    *
    * @return {float} The color's alpha
    */
-  get Alpha() {
-    return this.alpha;
-  }
-
-  /**
-   * Specifies the color's alpha value (opacity)
-   *
-   * @param  {float} value the alpha value to set (between 0 - 1)
-   * @return {undefined}
-   */
-  set Alpha(value) {
-    if (value < 0 || value > 1) {
-      throw new InvalidArguementError(this);
-    }
-    /** @private */
-    this.alpha = value;
+  get alpha() {
+    return this._alpha;
   }
 
   // https://htmlcolorcodes.com/color-names/
@@ -386,7 +368,7 @@ class Color {
       name: 'orange',
       rgbaColor: new RGBAColor(255, 165, 0, 1),
       hslaColor: new HSLAColor(39, 100, 50, 1),
-      hex: '#FF8C00',
+      hex: '#FFA500',
     });
   }
 
@@ -406,7 +388,7 @@ class Color {
       name: 'yellow',
       rgbaColor: new RGBAColor(255, 255, 0, 1),
       hslaColor: new HSLAColor(60, 100, 50, 1),
-      hex: '#FFFFF00',
+      hex: '#FFFF00',
     });
   }
 
@@ -416,7 +398,7 @@ class Color {
       name: 'lightyellow',
       rgbaColor: new RGBAColor(255, 255, 224, 1),
       hslaColor: new HSLAColor(60, 100, 94, 1),
-      hex: '#FFFFFE0',
+      hex: '#FFFFE0',
     });
   }
 
@@ -424,7 +406,7 @@ class Color {
   static get LEMONCHIFFON() {
     return new Color({
       name: 'lemonchiffon',
-      rgbaColor: new RGBAColor(255, 255, 205, 1),
+      rgbaColor: new RGBAColor(255, 250, 205, 1),
       hslaColor: new HSLAColor(54, 100, 90, 1),
       hex: '#FFFACD',
     });
@@ -451,7 +433,7 @@ class Color {
   }
 
   /** @static */
-  static get MOCASIN() {
+  static get MOCCASIN() {
     return new Color({
       name: 'moccasin',
       rgbaColor: new RGBAColor(255, 228, 181, 1),
@@ -628,7 +610,7 @@ class Color {
   /** @static */
   static get DARKMEGENTA() {
     return new Color({
-      name: 'blueviolet',
+      name: 'darkmagenta',
       rgbaColor: new RGBAColor(139, 0, 139, 1),
       hslaColor: new HSLAColor(300, 100, 27, 1),
       hex: '#8B008B',
@@ -669,8 +651,8 @@ class Color {
   static get DARKSLATEBLUE() {
     return new Color({
       name: 'darkslateblue',
-      rgbaColor: new RGBAColor(72, 61, 139, 1),
-      hslaColor: new HSLAColor(248, 39, 39, 1),
+      rgbaColor: new RGBAColor(72, 59, 139, 1),
+      hslaColor: new HSLAColor(250, 40, 39, 1),
       hex: '#483B8B',
     });
   }
@@ -678,7 +660,7 @@ class Color {
   /** @static */
   static get MEDIUMSLATEBLUE() {
     return new Color({
-      name: 'slateblue',
+      name: 'mediumslateblue',
       rgbaColor: new RGBAColor(123, 104, 238, 1),
       hslaColor: new HSLAColor(249, 80, 67, 1),
       hex: '#7B68EE',
@@ -1493,7 +1475,7 @@ class Color {
   /** @static */
   static get GAINSBORO() {
     return new Color({
-      name: 'mistyrose',
+      name: 'gainsboro',
       rgbaColor: new RGBAColor(220, 220, 220, 1),
       hslaColor: new HSLAColor(0, 0, 86, 1),
       hex: '#DCDCDC',

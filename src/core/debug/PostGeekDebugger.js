@@ -18,11 +18,10 @@ class PostGeekDebugger extends IMiddleware {
       lineWidth: 1,
       font: '48px serif',
     });
-    this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
-    this.Text.TextStyle = this.debugTextStyle;
+    this.Text = new Text(new Point(20, 50), 'Debug mode enabled');
+    this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    this.ActiveScene = this.middlewareManager.Game.sceneManager.runningScene;
   }
 
   update() {

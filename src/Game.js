@@ -3,7 +3,6 @@ import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
-import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
 import ServiceLocator from './core/ServiceLocator';
 
 let game = null;
@@ -62,7 +61,7 @@ class Game {
 
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
-    this.middlewareManager = new MiddlewareManager(this);
+    this.middlewareManager = new MiddlewareManager();
   }
 
   /**
@@ -98,7 +97,7 @@ class Game {
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
-        this.middlewareManager.addMiddleware(this.config.middleware[key]);
+        this.middlewareManager.add(key, this.config.middleware[key]);
       }
     }
 

@@ -4,6 +4,7 @@
 /* eslint no-useless-constructor: 0 */
 /* eslint no-empty-function: 0 */
 /* eslint no-unused-vars: 0 */
+
 import GradientMock from './GradientMock';
 
 /**
@@ -59,6 +60,10 @@ class ContextMock {
 
   }
 
+  drawImage(image, x, y, width, height, x2, y2, width2, height2) {
+
+  }
+
   ellipse(x, y, radiusX, radiusY, rotation, angleDirection, circumference) {
 
   }
@@ -79,11 +84,35 @@ class ContextMock {
 
   }
 
+  resetTransform() {
+
+  }
+
+  rotate(angle) {
+
+  }
+
   save() {
 
   }
 
+  scale(x, y) {
+
+  }
+
+  skew(x, y) {
+
+  }
+
   stroke() {
+
+  }
+
+  transform(z, x, y, w, v, u) {
+
+  }
+
+  translate(x, y) {
 
   }
 } export default ContextMock;

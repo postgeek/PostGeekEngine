@@ -78,7 +78,7 @@ class TextGraphic extends GraphicObject {
   measureText() {
     this.context.save();
     this.context = this.textStyle.apply(this.context);
-    const textMetrics = this.context.measureText(this.Text);
+    const textMetrics = this.context.measureText(this.text);
     this.context.restore();
     return textMetrics;
   }
