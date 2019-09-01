@@ -1,4 +1,4 @@
-import Text from '../../renderingEngine/text/Text';
+import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GraphicComponent from '../GraphicComponent';
 

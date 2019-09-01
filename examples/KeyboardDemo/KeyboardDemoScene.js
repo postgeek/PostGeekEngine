@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Text from 'renderingEngine/text/Text';
+import TextGraphic from 'renderingEngine/text/TextGraphic';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 
 export default class KeyboardDemoScene extends Scene {

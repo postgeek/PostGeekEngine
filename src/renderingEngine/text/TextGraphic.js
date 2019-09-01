@@ -1,7 +1,7 @@
 import GraphicObject from '../GraphicObject';
 import TextStyle from './TextStyle';
 
-class Text extends GraphicObject {
+class TextGraphic extends GraphicObject {
   constructor(point, text) {
     super();
     this.point = point;
@@ -110,4 +110,4 @@ class Text extends GraphicObject {
     }
   }
 }
-export default Text;
+export default TextGraphic;

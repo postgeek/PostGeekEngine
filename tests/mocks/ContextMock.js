@@ -28,6 +28,18 @@ class ContextMock {
     return this.gradientMock;
   }
 
+  fillText(text, x, y) {
+
+  }
+
+  strokeText(text, x, y) {
+
+  }
+
+  measureText() {
+
+  }
+
   moveTo(x, y) {
 
   }
