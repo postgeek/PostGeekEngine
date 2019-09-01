@@ -1,24 +1,30 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
+import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
-import PostGeekDebugger from '../src/core/debug/PostGeekDebugger';
 
 Window.Main = class Main {
   static start2DMapDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'demoScene', scene: DemoScene },
+    });
+  }
+
+  static startColorScene() {
+    start({
+      debug: false,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'colorscene', scene: ColorScene },
     });
   }
 
   static startShapeDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'shapeDemoScene', scene: ShapeDemoScene },
     });
@@ -27,7 +33,6 @@ Window.Main = class Main {
   static startKeyboardDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'KeyboardDemoScene', scene: KeyboardDemoScene },
     });
@@ -36,7 +41,6 @@ Window.Main = class Main {
   static startThemeDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'themeDemoScene', scene: ThemeDemoScene },
     });

@@ -11,10 +11,11 @@ class ColorConverter {
     let red = rgbColor.Red;
     let green = rgbColor.Green;
     let blue = rgbColor.Blue;
+    const maxValue = 255;
 
-    red /= 255;
-    green /= 255;
-    blue /= 255;
+    red /= maxValue;
+    green /= maxValue;
+    blue /= maxValue;
 
     const min = Math.min(red, green, blue);
     const max = Math.max(red, green, blue);
@@ -32,30 +33,35 @@ class ColorConverter {
     if (red === max) {
       hue = Math.round(((green - blue) / (max - min)) * 60);
     } else if (green === max) {
-      hue = Math.round(((2.0 + (blue - red) / (max - min)) * 60));
+      hue = Math.round((2.0 + (blue - red) / (max - min)) * 60);
     } else if (blue === max) {
-      hue = Math.round((4.0 + (red - green) / (max - min) * 60));
+      hue = Math.round((4.0 + (red - green) / (max - min)) * 60);
     }
     if (hue < 0) hue += 360;
 
     return new HSLColor(hue, saturation, luminance);
   }
 
+
+  /**
+   * Wiki: https://en.wikipedia.org/wiki/HSL_and_HSV
+   * Proof: https://jsfiddle.net/Lamik/reuk63ay
+   * Assumes h, s, and l are contained in the set [0, 1] and
+   * returns r, g, and b in the set [0, 255].
+   *
+   * @param   {HSLColor}  hslColor  The HSL representation
+   * @return  {RGBColor}            The RGB representation
+   */
   static HSLtoRGB(hslColor) {
-    const hue = hslColor.Hue;
-    const saturation = hslColor.Saturation;
-    const lightness = hslColor.Lightness;
-    let red;
-    let blue;
-    let green;
+    const { hue, saturation, lightness } = hslColor;
 
-    if (saturation === 0) {
-      red = (lightness * 255) / 100;
-      blue = (lightness * 255) / 100;
-      green = (lightness * 255) / 100;
-    }
+    const a = saturation * Math.min(lightness, lightness - 1);
+    const func = (n, k = (n + hue / 30) % 12) => lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
 
+    const red = func(0);
+    const green = func(8);
+    const blue = func(4);
 
-    return new RGBColor(red, blue, green);
+    return new RGBColor(red, green, blue);
   }
 } export default ColorConverter;

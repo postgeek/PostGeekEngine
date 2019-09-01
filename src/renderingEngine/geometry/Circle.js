@@ -12,16 +12,16 @@ class Circle extends Shape {
   */
   constructor(point, radius) {
     super();
-    this.Point = point;
-    this.Radius = radius;
+    this.point = point;
+    this.radius = radius;
   }
 
   /**
   * The starting {@link Point} of the circle.
   * @return {Point} the top left corner for the circle.
   */
-  get Point() {
-    return this.point;
+  get point() {
+    return this._point;
   }
 
 
@@ -30,18 +30,18 @@ class Circle extends Shape {
    *
    * @param  {Point} value the top left corner for the circle.
    */
-  set Point(value) {
+  set point(value) {
     /**
      * @private
      */
-    this.point = value;
+    this._point = value;
   }
 
   /**
    *  The X coordinate of the circle.
    */
-  get X() {
-    return this.Point.X;
+  get x() {
+    return this.point.x;
   }
 
   /**
@@ -49,15 +49,15 @@ class Circle extends Shape {
    *
    * @param  {Number} value the circle's new X coordinate
    */
-  set X(value) {
-    this.Point.X = value;
+  set x(value) {
+    this.point.x = value;
   }
 
   /**
   *  The Y coordinate of the circle.
   */
-  get Y() {
-    return this.Point.Y;
+  get y() {
+    return this.point.y;
   }
 
 
@@ -66,15 +66,15 @@ class Circle extends Shape {
    *
    * @param  {Number} value the new Y coordinate
    */
-  set Y(value) {
-    return this.Point.Y;
+  set y(value) {
+    this.point.y = value;
   }
 
   /**
   * The circle's radius.
   */
-  get Radius() {
-    return this.radius;
+  get radius() {
+    return this._radius;
   }
 
 
@@ -83,18 +83,18 @@ class Circle extends Shape {
    *
    * @param {Number} value the new radius
    */
-  set Radius(value) {
+  set radius(value) {
     /**
      * @private
      */
-    this.radius = value;
+    this._radius = value;
   }
 
   /**
   * Draws the Circle to the current context.
   */
   internalDraw() {
-    this.context.arc(this.Point.X, this.Point.Y, this.Radius, 0, 2 * Math.PI);
+    this.context.arc(this.point.x, this.point.y, this.radius, 0, 2 * Math.PI);
   }
 
   /**
@@ -103,7 +103,7 @@ class Circle extends Shape {
    * @return {Circle}  the new circle with the same parameters as the old one
    */
   clone() {
-    return new Circle(this.Point.clone(), this.Radius);
+    return new Circle(this.point.clone(), this.radius);
   }
 }
 export default Circle;

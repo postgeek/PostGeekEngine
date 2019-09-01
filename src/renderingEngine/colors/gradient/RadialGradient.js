@@ -7,19 +7,18 @@ class RadialGradient extends Gradient {
   /**
   * Constructor for the RadialGradient class
   *
-  * @param {CanvasRenderingContext2D} context the canvas' drawing context.
   * @param {Point} startCirclePoint the starting point of the start circle.
   * @param {number} startCircleRadius The radius of the start circle.
   * Must be non-negative and finite.
   * @param {Point} endCirclePoint The starting point of the end circle.
   * @param {number} endCircleRadius The radius of the end circle. Must be non-negative and finite.
   */
-  constructor(context, startCirclePoint, startCircleRadius, endCirclePoint, endCircleRadius) {
-    super(context);
-    this.StartCirclePoint = startCirclePoint;
-    this.StartCircleRadius = startCircleRadius;
-    this.EndCirclePoint = endCirclePoint;
-    this.EndCircleRadius = endCircleRadius;
+  constructor(startCirclePoint, startCircleRadius, endCirclePoint, endCircleRadius) {
+    super();
+    this.startCirclePoint = startCirclePoint;
+    this.startCircleRadius = startCircleRadius;
+    this.endCirclePoint = endCirclePoint;
+    this.endCircleRadius = endCircleRadius;
   }
 
   /**
@@ -27,8 +26,8 @@ class RadialGradient extends Gradient {
    *
    * @return {Point} the gradient's starting circle point
    */
-  get StartCirclePoint() {
-    return this.startCirclePoint;
+  get startCirclePoint() {
+    return this._startCirclePoint;
   }
 
   /**
@@ -37,9 +36,9 @@ class RadialGradient extends Gradient {
    * @param  {Point} value the gradient's new starting circle point
    * @return {undefined}
    */
-  set StartCirclePoint(value) {
+  set startCirclePoint(value) {
     /** @private */
-    this.startCirclePoint = value;
+    this._startCirclePoint = value;
   }
 
   /**
@@ -47,8 +46,8 @@ class RadialGradient extends Gradient {
    *
    * @return {float} the start circle's radius
    */
-  get StartCircleRadius() {
-    return this.startCircleRadius;
+  get startCircleRadius() {
+    return this._startCircleRadius;
   }
 
   /**
@@ -57,9 +56,9 @@ class RadialGradient extends Gradient {
    * @param  {float} value the start circle's radius
    * @return {undefined}
    */
-  set StartCircleRadius(value) {
+  set startCircleRadius(value) {
     /** @private */
-    this.startCircleRadius = value;
+    this._startCircleRadius = value;
   }
 
   /**
@@ -67,8 +66,8 @@ class RadialGradient extends Gradient {
    *
    * @return {Point} the gradient's ending circle point
    */
-  get EndCirclePoint() {
-    return this.endCirclePoint;
+  get endCirclePoint() {
+    return this._endCirclePoint;
   }
 
   /**
@@ -77,9 +76,9 @@ class RadialGradient extends Gradient {
    * @param  {Point} value the gradient's new ending circle point
    * @return {undefined}
    */
-  set EndCirclePoint(value) {
+  set endCirclePoint(value) {
     /** @private */
-    this.endCirclePoint = value;
+    this._endCirclePoint = value;
   }
 
   /**
@@ -87,8 +86,8 @@ class RadialGradient extends Gradient {
    *
    * @return {float} the end circle's radius
    */
-  get EndCircleRadius() {
-    return this.endCircleRadius;
+  get endCircleRadius() {
+    return this._endCircleRadius;
   }
 
   /**
@@ -97,9 +96,9 @@ class RadialGradient extends Gradient {
    * @param  {float} value the end circle's new radius
    * @return {undefined}
    */
-  set EndCircleRadius(value) {
+  set endCircleRadius(value) {
     /** @private */
-    this.endCircleRadius = value;
+    this._endCircleRadius = value;
   }
 
   /**
@@ -109,16 +108,17 @@ class RadialGradient extends Gradient {
    */
   buildGradient() {
     const gradient = this.context.createRadialGradient(
-      this.StartCirclePoint.X,
-      this.StartCirclePoint.Y,
-      this.StartCircleRadius,
-      this.EndCirclePoint.X,
-      this.EndCirclePoint.Y,
-      this.EndCircleRadius,
+      this.startCirclePoint.X,
+      this.startCirclePoint.Y,
+      this.startCircleRadius,
+      this.endCirclePoint.X,
+      this.endCirclePoint.Y,
+      this.endCircleRadius,
     );
-    for (let i = 0; i < this.colors.length; i += 1) {
-      const offSet = this.colors[i].Offset;
-      const color = this.colors[i].Color;
+    const colorStops = this.getColorStops();
+    for (let i = 0; i < colorStops.length; i += 1) {
+      const offSet = colorStops.Offset;
+      const color = colorStops.Color;
       gradient.addColorStop(offSet, color);
     }
     return gradient;

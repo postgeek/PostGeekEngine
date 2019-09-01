@@ -5,7 +5,7 @@ import BezierCurve from './geometry/BezierCurve';
 import QuadraticCurve from './geometry/QuadraticCurve';
 import GeometryStyle from './geometry/GeometryStyle';
 
-import Text from './text/Text';
+import TextGraphic from './text/TextGraphic';
 import TextStyle from './text/TextStyle';
 
 
@@ -36,7 +36,7 @@ class GraphicsJSONLoader {
     const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
     const circle = new Circle(parsedPoint, radius);
     if (geometryStyle !== undefined) {
-      circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      circle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return circle;
@@ -69,7 +69,7 @@ class GraphicsJSONLoader {
     );
 
     if (geometryStyle !== undefined) {
-      bezierCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      bezierCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return bezierCurve;
@@ -100,7 +100,7 @@ class GraphicsJSONLoader {
     );
 
     if (geometryStyle !== undefined) {
-      quadraticCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      quadraticCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return quadraticCurve;
@@ -124,7 +124,7 @@ class GraphicsJSONLoader {
     const ellipse = new Ellipse(newPoint, radiusX, radiusY, rotation);
 
     if (geometryStyle !== undefined) {
-      ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      ellipse.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return ellipse;
@@ -147,7 +147,7 @@ class GraphicsJSONLoader {
     const rectangle = new Rectangle(parsedPoint, width, height);
 
     if (geometryStyle !== undefined) {
-      rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+      rectangle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
     }
 
     return rectangle;
@@ -165,10 +165,10 @@ class GraphicsJSONLoader {
     }
     const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
-    const textObject = new Text(parsedPoint, text);
+    const textObject = new TextGraphic(parsedPoint, text);
 
     if (textStyle !== undefined) {
-      textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
+      textObject.textStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
     }
 
     return textObject;
@@ -247,9 +247,9 @@ class GraphicsJSONLoader {
     }
     if (red !== undefined && blue !== undefined && green !== undefined) {
       if (alpha !== undefined) {
-        return new RGBAColor(red, blue, green, alpha);
+        return new RGBAColor(red, green, blue, alpha);
       }
-      return new RGBColor(red, blue, green);
+      return new RGBColor(red, green, blue);
     }
     if (name !== undefined) {
       return new Color({ name }).name; // TODO: Log a bug and fix this by adding an HTMLColor class

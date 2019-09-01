@@ -1,5 +1,5 @@
 import IMiddleware from '../middleware/IMiddleware';
-import Text from '../../renderingEngine/text/Text';
+import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
@@ -18,11 +18,10 @@ class PostGeekDebugger extends IMiddleware {
       lineWidth: 1,
       font: '48px serif',
     });
-    this.Text = new Text(new Point(20, 50), 'Debug mode enabled');
-    this.Text.TextStyle = this.debugTextStyle;
+    this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
+    this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    this.ActiveScene = this.middlewareManager.Game.sceneManager.runningScene;
   }
 
   update() {
@@ -49,9 +48,9 @@ class PostGeekDebugger extends IMiddleware {
     const rectangle = new Rectangle(rectPoint, rectSize, rectSize);
     rectangle.GeometryStyle = this.debugGeometryStyle;
 
-    const circleTextX = new Text(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
+    const circleTextX = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
     circleTextX.TextStyle = this.debugTextStyle;
-    const circleTextY = new Text(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
+    const circleTextY = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
     circleTextY.TextStyle = this.debugTextStyle;
 
     rectangle.draw();
