@@ -16,7 +16,6 @@ class Input extends GraphicComponent {
     });
 
     this.width = width;
-    this.text = '';
     this.offsetX = 0;
 
     const eventbus = ServiceLocator.instance.locate('eventbus');
@@ -38,10 +37,12 @@ class Input extends GraphicComponent {
       this.height);
 
     this.focus = false;
+    this.text = '';
   }
 
   set text(value) {
     this._text = value;
+    this.textGraphic.text = this.text;
   }
 
   get text() {

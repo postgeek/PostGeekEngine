@@ -20,22 +20,23 @@ export default class ColorDemoScene extends Scene {
       font: '14px Rockwell',
     });
     */
-    this.game.Keyboard.registerKey(KeyboardKey.ENTER);
-    this.game.Keyboard.registerKey(KeyboardKey.SIX);
-
-    this.textInput2 = new Input(new Point(20, 230), 200);
-
     this.textGraphic = new TextGraphic(new Point(100, 300), 'Test');
     this.textGraphic.textStyle = textStyle;
 
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
-
+    this.rectangleFillStyle = Color.WHITE.rgbaColor;
 
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
-    this.textInputRed = new Input(new Point(100, 162), 100);
+    this.textInputRed = new Input(new Point(100, 162), 40);
+    this.textInputRed.text = `${this.rectangleFillStyle.red}`;
 
     this.greenTextGraphic = new TextGraphic(new Point(20, 210), 'Green: ');
+    this.textInputGreen = new Input(new Point(100, 192), 40);
+    this.textInputGreen.text = `${this.rectangleFillStyle.green}`;
+
     this.blueTextGraphic = new TextGraphic(new Point(20, 240), 'Blue: ');
+    this.textInputBlue = new Input(new Point(100, 222), 40);
+    this.textInputBlue.text = `${this.rectangleFillStyle.blue}`;
     /*
     this.hueTextGraphic = new TextGraphic(new Point(400, 200), 'Hue: ');
     this.saturationTextGraphic = new TextGraphic(new Point(400, 240), 'Saturation: ');
@@ -45,6 +46,11 @@ export default class ColorDemoScene extends Scene {
     this.redTextGraphic.textStyle.fillStyle = Color.RED;
     this.greenTextGraphic.textStyle = textStyle;
     this.blueTextGraphic.textStyle = textStyle;
+
+    this.inputs = [];
+    this.inputs.push(this.textInputRed);
+    this.inputs.push(this.textInputGreen);
+    this.inputs.push(this.textInputBlue);
     /*
     this.hueTextGraphic.textStyle = textStyle2;
     this.saturationTextGraphic.textStyle = textStyle2;
@@ -53,44 +59,44 @@ export default class ColorDemoScene extends Scene {
   }
 
   update() {
-    if (this.game.Keyboard.keyDownOnce(KeyboardKey.ENTER)) {
-      this.allowInput = !this.allowInput;
-      this.textInput.focus = this.allowInput;
-    }
-    if (this.game.Keyboard.keyDownOnce(KeyboardKey.SIX)) {
-      this.allowInput2 = !this.allowInput2;
-      this.textInput2.focus = this.allowInput2;
-    }
     if (this.game.Mouse.buttonDownOnce()) {
-      const mouseX = this.game.Mouse.x;
-      const mouseY = this.game.Mouse.y;
-      const inputX = this.textInputRed.point.x;
-      const inputY = this.textInputRed.point.y;
-      const inputWidth = this.textInputRed.width;
-      const inputHeight = this.textInputRed.height;
+      for (let i = 0; i < this.inputs.length; i += 1) {
+        const input = this.inputs[i];
+        const mouseX = this.game.Mouse.x;
+        const mouseY = this.game.Mouse.y;
+        const inputX = input.point.x;
+        const inputY = input.point.y;
+        const inputWidth = input.width;
+        const inputHeight = input.height;
 
-      const maxX = inputWidth + inputX;
-      const maxY = inputHeight + inputY;
-      const minX = inputX;
-      const minY = inputY;
+        const maxX = inputWidth + inputX;
+        const maxY = inputHeight + inputY;
+        const minX = inputX;
+        const minY = inputY;
 
-      if (minX <= mouseX && mouseX <= maxX
+        if (minX <= mouseX && mouseX <= maxX
         && minY <= mouseY && mouseY <= maxY) {
-        this.textInputRed.focus = true;
-      } else {
-        this.textInputRed.focus = false;
+          input.focus = true;
+        } else {
+          input.focus = false;
+        }
       }
     }
+    this.rectangleFillStyle.red = this.textInputRed.text;
+    this.rectangleFillStyle.green = this.textInputGreen.text;
+    this.rectangleFillStyle.blue = this.textInputBlue.text;
+    this.rectangle.geometryStyle.fillStyle = this.rectangleFillStyle;
   }
 
   draw() {
     this.textGraphic.draw();
     this.rectangle.draw();
-    this.textInput2.draw();
     this.redTextGraphic.draw();
     this.textInputRed.draw();
     this.greenTextGraphic.draw();
+    this.textInputGreen.draw();
     this.blueTextGraphic.draw();
+    this.textInputBlue.draw();
     /*
     this.hueTextGraphic.draw();
     this.saturationTextGraphic.draw();
