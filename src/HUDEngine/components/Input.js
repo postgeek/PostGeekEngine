@@ -15,6 +15,7 @@ class Input extends GraphicComponent {
       font: '14px Rockwell',
     });
 
+    this.validators = [];
     this.width = width;
     this.offsetX = 0;
 
@@ -86,14 +87,33 @@ class Input extends GraphicComponent {
     return this.container;
   }
 
+  addValidator(validator) {
+    this.validators.push(validator);
+  }
+
+  getValidators() {
+    return this.validators;
+  }
+
   handleTypedKey(event) {
+    const beforeText = this.text.toString();
+    let afterText = '';
+
     if (this.focus) {
-      const textString = this.text.toString();
       if (event.length === 1) {
-        this.text += event;
-      } else if (event.toUpperCase() === 'BACKSPACE' && textString.length >= 1) {
-        this.text = textString.substr(0, textString.length - 1);
+        afterText = beforeText + event;
+      } else if (event.toUpperCase() === 'BACKSPACE' && beforeText.length >= 1) {
+        afterText = beforeText.substr(0, beforeText.length - 1);
       }
+
+      const validators = this.getValidators();
+      for (let i = 0; i < validators.length; i += 1) {
+        const validator = validators[i];
+        if (!validator.validate(afterText)) {
+          return;
+        }
+      }
+      this.text = afterText;
       this.updateText();
     }
   }

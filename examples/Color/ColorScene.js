@@ -9,12 +9,18 @@ import KeyboardKey from 'inputEngine/KeyboardKey';
 import Keyboard from 'inputEngine/KeyboardKey';
 import Input from 'HUDEngine/components/Input';
 
+import NumberRangeValidator from 'HUDEngine/validators/NumberRangeValidator';
+import TextLengthValidator from 'HUDEngine/validators/TextLengthValidator';
+
 export default class ColorDemoScene extends Scene {
   create() {
     const textStyle = new TextStyle({
       font: '14px Rockwell',
       fillStyle: Color.WHITE,
     });
+
+    const numberRangeValidator = new NumberRangeValidator(0, 255);
+    const textLengthValidator = new TextLengthValidator(3);
 
     const rectangleColor = Color.GOLDENROD;
 
@@ -30,14 +36,20 @@ export default class ColorDemoScene extends Scene {
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
     this.textInputRed = new Input(new Point(100, 162), 40);
     this.textInputRed.text = this.rgbColor.red;
+    this.textInputRed.addValidator(numberRangeValidator);
+    this.textInputRed.addValidator(textLengthValidator);
 
     this.greenTextGraphic = new TextGraphic(new Point(20, 210), 'Green: ');
     this.textInputGreen = new Input(new Point(100, 192), 40);
     this.textInputGreen.text = this.rgbColor.green;
+    this.textInputGreen.addValidator(numberRangeValidator);
+    this.textInputGreen.addValidator(textLengthValidator);
 
     this.blueTextGraphic = new TextGraphic(new Point(20, 240), 'Blue: ');
     this.textInputBlue = new Input(new Point(100, 222), 40);
     this.textInputBlue.text = this.rgbColor.blue;
+    this.textInputBlue.addValidator(numberRangeValidator);
+    this.textInputBlue.addValidator(textLengthValidator);
 
     this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
     this.textInputHue = new Input(new Point(280, 162), 40);
