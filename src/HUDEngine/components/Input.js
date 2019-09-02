@@ -88,10 +88,11 @@ class Input extends GraphicComponent {
 
   handleTypedKey(event) {
     if (this.focus) {
+      const textString = this.text.toString();
       if (event.length === 1) {
         this.text += event;
-      } else if (event.toUpperCase() === 'BACKSPACE' && this.text.length >= 1) {
-        this.text = this.text.substr(0, this.text.length - 1);
+      } else if (event.toUpperCase() === 'BACKSPACE' && textString.length >= 1) {
+        this.text = textString.substr(0, textString.length - 1);
       }
       this.updateText();
     }

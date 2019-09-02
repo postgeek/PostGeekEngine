@@ -59,7 +59,7 @@ class ColorConverter {
    * @param   {HSLColor}  hslColor  The HSL representation
    * @return  {RGBColor}            The RGB representation
    */
-  static HSLtoRGB(hslColor) {
+  static HSLToRGB(hslColor) {
     let { hue, saturation, lightness } = hslColor;
 
     saturation /= 100;

@@ -179,16 +179,16 @@ class Color {
       return this.hex;
     }
     if (this.rgbColor !== undefined) {
-      return this.rgbColor;
+      return this.rgbColor.toString();
     }
     if (this.rgbaColor !== undefined) {
-      return this.rgbaColor;
+      return this.rgbaColor.toString();
     }
     if (this.hslColor !== undefined) {
-      return this.hslColor;
+      return this.hslColor.toString();
     }
     if (this.hslaColor !== undefined) {
-      return this.hslaColor;
+      return this.hslaColor.toString();
     }
   }
 
