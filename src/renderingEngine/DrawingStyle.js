@@ -7,7 +7,7 @@ class DrawingStyle {
   *
   * @param {config} config a configuration object, which respects the following configuration
   * {
-  *   'fillStyle' : FillStyle,
+  *   'fillStyle' : fillStyle,
   *   'strokeStyle' : StrokeStyle,
   *   'lineWidth' : float,
   *   'shadowBlur' : float,
@@ -25,7 +25,7 @@ class DrawingStyle {
     shadowOffsetX,
     shadowOffsetY,
   } = {}) {
-    this.FillStyle = fillStyle;
+    this.fillStyle = fillStyle;
     this.StrokeStyle = strokeStyle;
     this.LineWidth = lineWidth;
     this.ShadowBlur = shadowBlur;
@@ -38,8 +38,8 @@ class DrawingStyle {
   * Gets the fillStyle for the drawing context
   * @return {Object} the fillstyle
   */
-  get FillStyle() {
-    return this.fillStyle;
+  get fillStyle() {
+    return this._fillStyle;
   }
 
   /**
@@ -48,12 +48,12 @@ class DrawingStyle {
    * @param  {Object} value the fillstyle to use inside drawings.
    * @return {undefined}
    */
-  set FillStyle(value) {
+  set fillStyle(value) {
     /**
      * @private
      * @type {Object}
      */
-    this.fillStyle = value;
+    this._fillStyle = value;
   }
 
 
@@ -209,8 +209,8 @@ class DrawingStyle {
    */
   apply(context) {
     const newContext = context;
-    if (this.FillStyle) {
-      newContext.fillStyle = this.FillStyle;
+    if (this.fillStyle) {
+      newContext.fillStyle = this.fillStyle;
     }
     if (this.StrokeStyle) {
       newContext.strokeStyle = this.StrokeStyle;

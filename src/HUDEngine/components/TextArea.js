@@ -4,7 +4,7 @@ import GraphicComponent from '../GraphicComponent';
 
 class TextArea extends GraphicComponent {
   constructor(point, text, width, height, textStyle) {
-    super();
+    super(point);
 
     this.TextStyle = textStyle;
 

@@ -30,9 +30,9 @@ class Mouse {
           this._mouseState = this.MOUSE_STATE.PRESSED;
           break;
         case this.MOUSE_STATE.RELEASED:
-        default:
           this._mouseState = this.MOUSE_STATE.DOWN_ONCE;
           break;
+        default:
       }
     } else {
       this._mouseState = this.MOUSE_STATE.RELEASED;
@@ -64,9 +64,9 @@ class Mouse {
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.clientX || e.clientX === 0) {
-      this._dx = e.clientX;
-      this._dy = e.clientX;
+    if (e.offsetX || e.offsetX === 0) {
+      this._dx = e.offsetX;
+      this._dy = e.offsetY;
     } else {
       throw new InvalidArguementError();
     }

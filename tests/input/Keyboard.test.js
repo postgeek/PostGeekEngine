@@ -3,19 +3,6 @@ import ItemAlreadyExistsError from '../../src/core/errorHandling/errors/ItemAlre
 import Keyboard from '../../src/inputEngine/Keyboard';
 import KeyboardKey from '../../src/inputEngine/KeyboardKey';
 
-describe('handleEvent', () => {
-  it('should throw an error if the keyboard event is unhandled', () => {
-    // Arrange
-    const keyboard = new Keyboard();
-    const keyboardEvent = {
-      type: 'undefinedkeyboardevent',
-    };
-
-    // Assert
-    expect(() => { keyboard.handleEvent(keyboardEvent); }).toThrow(UnhandledHtmlEventError);
-  });
-});
-
 describe('registerKey', () => {
   it('should register the key', () => {
     // Arrange
@@ -122,7 +109,7 @@ describe('poll', () => {
 
     // Act
     keyboard.registerKey(keyboardKeyToPress);
-    keyboard.handleEvent(keyDownEvent);
+    keyboard.keyDown(keyDownEvent);
     keyboard.poll();
 
     // Assert
@@ -140,7 +127,7 @@ describe('poll', () => {
 
     // Act
     keyboard.registerKey(keyboardKeyToPress);
-    keyboard.handleEvent(keyDownEvent);
+    keyboard.keyDown(keyDownEvent);
     keyboard.poll();
     keyboard.poll();
 
@@ -159,7 +146,7 @@ describe('poll', () => {
 
     // Act
     keyboard.registerKey(keyboardKeyToPress);
-    keyboard.handleEvent(keyDownEvent);
+    keyboard.keyDown(keyDownEvent);
     keyboard.poll();
     keyboard.poll();
 
@@ -183,9 +170,9 @@ describe('poll', () => {
 
     // Act
     keyboard.registerKey(keyboardKeyToPress);
-    keyboard.handleEvent(keyDownEvent);
+    keyboard.keyDown(keyDownEvent);
     keyboard.poll();
-    keyboard.handleEvent(keyUpEvent);
+    keyboard.keyUp(keyUpEvent);
     keyboard.poll();
 
     // Assert
@@ -218,27 +205,5 @@ describe('keyDown', () => {
 
     // Assert
     expect(keyboardKey.isKeyDown).toBe(undefined);
-  });
-});
-
-describe('getKeyCharacter', () => {
-  it('should return the typed key', () => {
-    // Arrange
-    const keyboard = new Keyboard();
-    const keyDownEvent = {
-      type: 'keydown',
-      code: 'KeyA',
-      key: 'a',
-      location: 0,
-    };
-    const typedCharacter = 'a';
-
-    // Act
-    keyboard.registerKey(KeyboardKey.A);
-    keyboard.handleEvent(keyDownEvent);
-    keyboard.poll();
-
-    // Assert
-    expect(keyboard.getKeyCharacter()).toBe(typedCharacter);
   });
 });

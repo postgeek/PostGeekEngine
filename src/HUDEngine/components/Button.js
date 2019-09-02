@@ -2,21 +2,12 @@ import GraphicComponent from '../GraphicComponent';
 
 class Button extends GraphicComponent {
   constructor(point) {
-    super();
-    this.point = point;
+    super(point);
     this.graphicObjects = [];
   }
 
   // TODO: Different button states
   // TODO: Add the button events (click)
-
-  set Point(value) {
-    this.point = value;
-  }
-
-  get Point() {
-    return this.point;
-  }
 
   set Container(value) {
     this.container = value;

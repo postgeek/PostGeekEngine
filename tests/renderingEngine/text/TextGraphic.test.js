@@ -50,7 +50,7 @@ describe('Constructor', () => {
     // Assert
     expect(textGraphic.point.y).toBe(newY);
   });
-  it('should measure the text widthh with the given style', () => {
+  it('should measure the text width with the given style', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
