@@ -7,18 +7,17 @@ class Ellipse extends Shape {
   /**
   * Builds a new ellipse shape for drawing on the canvas
   *
-  * @param {CanvasRenderingContext2D} context the canvas' 2D context.
   * @param {Point} startingPoint the starting point for the Ellipse.
   * @param {number} radiusX the x's radius.
   * @param {number} radiusY the y's radius.
   * @param {number} rotation the rotation.
   */
-  constructor(context, startingPoint, radiusX, radiusY, rotation) {
-    super(context);
-    this.StartingPoint = startingPoint;
-    this.RadiusX = radiusX;
-    this.RadiusY = radiusY;
-    this.Rotation = rotation;
+  constructor(point, radiusX, radiusY, rotation) {
+    super();
+    this.point = point;
+    this.radiusX = radiusX;
+    this.radiusY = radiusY;
+    this.rotation = rotation;
   }
 
   /**
@@ -26,8 +25,8 @@ class Ellipse extends Shape {
    *
    * @return {Point} the starting point of the ellipse
    */
-  get StartingPoint() {
-    return this.startingPoint;
+  get point() {
+    return this._point;
   }
 
   /**
@@ -36,9 +35,9 @@ class Ellipse extends Shape {
    * @param  {Point} value the ellipse's new starting point
    * @return {undefined}       description
    */
-  set StartingPoint(value) {
+  set point(value) {
     /** @private */
-    this.startingPoint = value;
+    this._point = value;
   }
 
   /**
@@ -46,8 +45,8 @@ class Ellipse extends Shape {
    *
    * @return {float} The starting point's x coordinate
    */
-  get X() {
-    return this.StartingPoint.X;
+  get x() {
+    return this.point.x;
   }
 
   /**
@@ -56,8 +55,8 @@ class Ellipse extends Shape {
    * @param  {float} value the new x coordinate of the starting point of the ellipse.
    * @return {undefined}
    */
-  set X(value) {
-    this.StartingPoint.X = value;
+  set x(value) {
+    this.point.x = value;
   }
 
   /**
@@ -65,8 +64,8 @@ class Ellipse extends Shape {
    *
    * @return {float} The starting point's y coordinate
    */
-  get Y() {
-    return this.StartingPoint.Y;
+  get y() {
+    return this.point.y;
   }
 
   /**
@@ -75,8 +74,8 @@ class Ellipse extends Shape {
    * @param  {float} value the new y coordinate of the starting point of the ellipse.
    * @return {undefined}
    */
-  set Y(value) {
-    this.StartingPoint.Y = value;
+  set y(value) {
+    this.point.y = value;
   }
 
   /**
@@ -84,8 +83,8 @@ class Ellipse extends Shape {
    *
    * @return {float} the x radius for the ellipse.
    */
-  get RadiusX() {
-    return this.radiusX;
+  get radiusX() {
+    return this._radiusX;
   }
 
   /**
@@ -94,9 +93,9 @@ class Ellipse extends Shape {
    * @param  {float} value the new x radius for the ellipse.
    * @return {undefined}
    */
-  set RadiusX(value) {
+  set radiusX(value) {
     /** @private */
-    this.radiusX = value;
+    this._radiusX = value;
   }
 
   /**
@@ -104,8 +103,8 @@ class Ellipse extends Shape {
    *
    * @return {float} the y radius for the ellipse.
    */
-  get RadiusY() {
-    return this.radiusY;
+  get radiusY() {
+    return this._radiusY;
   }
 
   /**
@@ -114,9 +113,9 @@ class Ellipse extends Shape {
    * @param  {float} value the new y radius for the ellipse.
    * @return {undefined}
    */
-  set RadiusY(value) {
+  set radiusY(value) {
     /** @private */
-    this.radiusY = value;
+    this._radiusY = value;
   }
 
   /**
@@ -124,8 +123,8 @@ class Ellipse extends Shape {
    *
    * @return {float} the ellipse's rotation
    */
-  get Rotation() {
-    return this.rotation;
+  get rotation() {
+    return this._rotation;
   }
 
   /**
@@ -134,9 +133,9 @@ class Ellipse extends Shape {
    * @param  {float} value the new ellipse's rotation
    * @return {undefined}
    */
-  set Rotation(value) {
+  set rotation(value) {
     /** @private */
-    this.rotation = value;
+    this._rotation = value;
   }
 
   /**
@@ -144,15 +143,24 @@ class Ellipse extends Shape {
   * @return {undefined}
   */
   internalDraw() {
-    this.Context.ellipse(
-      this.X,
-      this.Y,
-      this.RadiusX,
-      this.RadiusY,
-      this.Rotation,
+    this.context.ellipse(
+      this.point.x,
+      this.point.y,
+      this.radiusX,
+      this.radiusY,
+      this.rotation,
       0,
       2 * Math.PI,
     );
+  }
+
+  /**
+   *  Clones the current ellipse into a new Ellipse object
+   *
+   * @return {Ellipse}  the new ellipse with the same parameters as the old one
+   */
+  clone() {
+    return new Ellipse(this.point.clone(), this.radiusX, this.radiusY, this.rotation);
   }
 }
 export default Ellipse;

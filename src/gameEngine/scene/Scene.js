@@ -4,8 +4,6 @@ import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNot
 class Scene {
   /**
   * Creates a new Scene
-  *
-  * @param {Game} game a reference to the game object.
   */
   constructor(game) {
     this.game = game;
@@ -14,24 +12,6 @@ class Scene {
       throw new BaseClassConstructedError();
     }
     this.create();
-  }
-
-  /**
-  * The reference to the game object.
-  */
-  get Game() {
-    return this.game;
-  }
-
-  set Game(value) {
-    this.game = value;
-  }
-
-  /**
-   * Gets the drawing context associated with the scene.
-   */
-  get Context() {
-    return this.game.renderingContext.Context;
   }
 
   /**

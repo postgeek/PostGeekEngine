@@ -10,45 +10,38 @@ class PathBuilder {
   */
   constructor() {
     /** @private */
-    this.path = new Path2D();
+    this._path = new Path2D();
   }
 
   /**
   * Gets the Path2D.
   * @return {Path2D} the path built by the path builder.
   */
-  get Path() {
-    return this.path;
-  }
-
-  /**
-  * Begins a new path.
-  */
-  BeginPath() {
-    this.Path.beginPath();
+  get path() {
+    return this._path;
   }
 
   /**
   * Closes the current path.
   */
-  ClosePath() {
-    this.Path.closePath();
+  closePath() {
+    this.path.closePath();
   }
 
   /**
   * Moves the current point to the provided point.
   * @param {Point} point the point to move to.
   */
-  MoveTo(point) {
-    this.Path.moveTo(point.X, point.Y);
+  moveTo(point) {
+    this.path.moveTo(point.X, point.Y);
   }
 
   /**
   * Draws a line from the current point to the next point.
   * @param {Point} point the point to draw a line to
   */
-  LineTo(point) {
-    this.Path.lineTo(point.X, point.Y);
+  lineTo(point) {
+    this.path.lineTo(point.X, point.Y);
   }
 
   /**
@@ -58,8 +51,8 @@ class PathBuilder {
   * @param {Point} controlPoint2 the second control point.
   * @param {Point} endPoint the end point of the bezier curve.
   */
-  BezierCurveTo(controlPoint1, controlPoint2, endPoint) {
-    this.Path.bezierCurveTo(
+  bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
+    this.path.bezierCurveTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,
@@ -75,8 +68,8 @@ class PathBuilder {
   * @param {Point} controlPoint the control point to use.
   * @param {Point} endPoint the end point of the quadratic curve.
   */
-  QuadraticCurveTo(controlPoint, endPoint) {
-    this.Path.quadraticCurveTo(
+  quadraticCurveTo(controlPoint, endPoint) {
+    this.path.quadraticCurveTo(
       controlPoint.X,
       controlPoint.Y,
       endPoint.X,
@@ -91,8 +84,8 @@ class PathBuilder {
   * @param {Point} controlPoint2 the second control point to use.
   * @param {number} radius the radius to use for the arc.
   */
-  ArcTo(controlPoint1, controlPoint2, radius) {
-    this.Path.arcTo(
+  arcTo(controlPoint1, controlPoint2, radius) {
+    this.path.arcTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,

@@ -5,139 +5,171 @@ import BezierCurve from './geometry/BezierCurve';
 import QuadraticCurve from './geometry/QuadraticCurve';
 import GeometryStyle from './geometry/GeometryStyle';
 
-import Text from './text/Text';
+import TextGraphic from './text/TextGraphic';
 import TextStyle from './text/TextStyle';
 
+
+import Color from './colors/Color';
 import HSLAColor from './colors/HSLAColor';
 import HSLColor from './colors/HSLColor';
 import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
-import Point from '../physicsEngine/Point';
+import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import Point from '../core/Point';
+import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * The graphic objects JSON loader
  */
 class GraphicsJSONLoader {
   /**
-   * Constructs a new graphic JSON loader
-   *
-   * @param  {CanvasRenderingContext2D} context the canvas' drawing context
-   */
-  constructor(context) {
-    /**
-     * @private
-     */
-    this.Context = context;
-  }
-
-
-  /**
-   * Creates a circle with the supplied properties
+   * @static Creates a circle with the supplied properties
    *
    * @param  {string} config The JSON configuration for the circle
    * @return {Circle}        The newly created circle
    */
-  CreateCircle(config) {
-    const { radius, geometryStyle } = config;
-    const point = GraphicsJSONLoader.parsePoint(config.point);
-
-    const circle = new Circle(this.Context, point, radius);
-    circle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+  static createCircle({ radius, point, geometryStyle }) {
+    if (radius === undefined || point === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
+    const circle = new Circle(parsedPoint, radius);
+    if (geometryStyle !== undefined) {
+      circle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
 
     return circle;
   }
 
   /**
-   * Creates a bezier curve with the supplied properties
+   * @static Creates a bezier curve with the supplied properties
    *
    * @param  {string} config  The JSON configuration for the bezier curve
    * @return {BezierCurve}    The newly created bezier curve
    */
-  CreateBezierCurve(config) {
-    const { geometryStyle } = config;
-
-    const startPoint = GraphicsJSONLoader.parsePoint(config.startPoint);
-    const controlPoint1 = GraphicsJSONLoader.parsePoint(config.controlPoint1);
-    const controlPoint2 = GraphicsJSONLoader.parsePoint(config.controlPoint2);
-    const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
+  static createBezierCurve({
+    startPoint,
+    firstControlPoint,
+    secondControlPoint,
+    endPoint,
+    geometryStyle,
+  }) {
+    if (startPoint === undefined || firstControlPoint === undefined
+    || secondControlPoint === undefined || endPoint === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
+    const parsedFirstControlPoint = GraphicsJSONLoader.parsePoint2D(firstControlPoint);
+    const parsedSecondControlPoint = GraphicsJSONLoader.parsePoint2D(secondControlPoint);
+    const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
     const bezierCurve = new BezierCurve(
-      this.Context, startPoint, controlPoint1, controlPoint2, endPoint,
+      parsedStartPoint, parsedFirstControlPoint, parsedSecondControlPoint, parsedEndPoint,
     );
-    bezierCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+
+    if (geometryStyle !== undefined) {
+      bezierCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
 
     return bezierCurve;
   }
 
   /**
-   * Creates a quadratic curve with the supplied properties
+   * @static Creates a quadratic curve with the supplied properties
    *
    * @param  {string} config  The JSON configuration for the bezier curve
    * @return {QuadraticCurve} The newly created quadratic curve
    */
-  CreateQuadraticCurve(config) {
-    const { geometryStyle } = config;
-
-    const startPoint = GraphicsJSONLoader.parsePoint(config.startPoint);
-    const controlPoint = GraphicsJSONLoader.parsePoint(config.controlPoint);
-    const endPoint = GraphicsJSONLoader.parsePoint(config.endPoint);
+  static createQuadraticCurve({
+    startPoint,
+    controlPoint,
+    endPoint,
+    geometryStyle,
+  }) {
+    if (startPoint === undefined || controlPoint === undefined
+      || endPoint === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
+    const parsedControlPoint = GraphicsJSONLoader.parsePoint2D(controlPoint);
+    const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
     const quadraticCurve = new QuadraticCurve(
-      this.Context, startPoint, controlPoint, endPoint,
+      parsedStartPoint, parsedControlPoint, parsedEndPoint,
     );
-    quadraticCurve.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+
+    if (geometryStyle !== undefined) {
+      quadraticCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
 
     return quadraticCurve;
   }
 
 
   /**
-   * Creates a new ellipse with the supplied properties
+   * @static Creates a new ellipse with the supplied properties
    *
    * @param  {string} config  The JSON configuration for the ellipse
    * @return {Ellipse}        The newly created ellipse
    */
-  CreateEllipse(config) {
-    const {
-      radiusX, radiusY, Rotation, geometryStyle,
-    } = config;
-    const point = GraphicsJSONLoader.parsePoint(config.point);
+  static createEllipse({
+    point, radiusX, radiusY, rotation, geometryStyle,
+  }) {
+    if (point === undefined || radiusX === undefined
+    || radiusY === undefined || rotation === undefined) {
+      throw new InvalidArguementError();
+    }
+    const newPoint = GraphicsJSONLoader.parsePoint2D(point);
+    const ellipse = new Ellipse(newPoint, radiusX, radiusY, rotation);
 
-    const ellipse = new Ellipse(this.Context, point, radiusX, radiusY, Rotation);
-    ellipse.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    if (geometryStyle !== undefined) {
+      ellipse.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
 
     return ellipse;
   }
 
   /**
-   * Creates a new rectangle with the supplied properties
+   * @static Creates a new rectangle with the supplied properties
    *
    * @param  {string} config  The JSON configuration for the rectangle
    * @return {Rectangle}      The newly created rectangle
    */
-  CreateRectangle(config) {
-    const { height, width, geometryStyle } = config;
-    const point = GraphicsJSONLoader.parsePoint(config.point);
+  static createRectangle({
+    point, height, width, geometryStyle,
+  }) {
+    if (point === undefined || height === undefined || width === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
-    const rectangle = new Rectangle(this.Context, point, width, height);
-    rectangle.GeometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    const rectangle = new Rectangle(parsedPoint, width, height);
+
+    if (geometryStyle !== undefined) {
+      rectangle.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
 
     return rectangle;
   }
 
   /**
-   * Creates a new text with the supplied properties
+   * @static Creates a new text with the supplied properties
    *
    * @param  {string} config  The JSON configuration for the text
    * @return {Text}           The newly created text
    */
-  CreateText(config) {
-    const { text, textStyle } = config;
-    const point = GraphicsJSONLoader.parsePoint(config.point);
+  static createText({ point, text, textStyle }) {
+    if (point === undefined || text === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedPoint = GraphicsJSONLoader.parsePoint2D(point);
 
-    const textObject = new Text(this.Context, point, text);
-    textObject.TextStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
+    const textObject = new TextGraphic(parsedPoint, text);
+
+    if (textStyle !== undefined) {
+      textObject.textStyle = GraphicsJSONLoader.parseTextStyle(textStyle);
+    }
 
     return textObject;
   }
@@ -149,8 +181,10 @@ class GraphicsJSONLoader {
    * @param  {string} pointJson The JSON for the point
    * @return {Point}            The created Point object
    */
-  static parsePoint(pointJson) {
-    const { x, y } = pointJson;
+  static parsePoint2D({ x, y }) {
+    if (x === undefined || y === undefined) {
+      throw new InvalidArguementError();
+    }
     return new Point(x, y);
   }
 
@@ -162,16 +196,7 @@ class GraphicsJSONLoader {
    * @return {TextStyle}        The created TextStyle object
    */
   static parseTextStyle(textStyle) {
-    const parsedTextStyle = textStyle;
-    const { strokeStyle, fillStyle } = parsedTextStyle;
-
-    if (strokeStyle !== undefined) {
-      parsedTextStyle.strokeStyle = GraphicsJSONLoader.parseColor(strokeStyle);
-    }
-    if (fillStyle !== undefined) {
-      parsedTextStyle.fillStyle = GraphicsJSONLoader.parseColor(fillStyle);
-    }
-
+    const parsedTextStyle = GraphicsJSONLoader.parseStyle(textStyle);
     return new TextStyle(parsedTextStyle);
   }
 
@@ -182,17 +207,24 @@ class GraphicsJSONLoader {
    * @return {GeometryStyle}          The created GeometryStyle object
    */
   static parseGeometryStyle(geometryStyle) {
-    const parsedGeometryStyle = geometryStyle;
-    const { strokeStyle, fillStyle } = parsedGeometryStyle;
+    const parsedGeometryStyle = GraphicsJSONLoader.parseStyle(geometryStyle);
+    return new GeometryStyle(parsedGeometryStyle);
+  }
+
+  static parseStyle(style) {
+    if (style === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedStyle = style;
+    const { strokeStyle, fillStyle } = parsedStyle;
 
     if (strokeStyle !== undefined) {
-      parsedGeometryStyle.strokeStyle = GraphicsJSONLoader.parseColor(strokeStyle);
+      parsedStyle.strokeStyle = GraphicsJSONLoader.parseColor(strokeStyle);
     }
     if (fillStyle !== undefined) {
-      parsedGeometryStyle.fillStyle = GraphicsJSONLoader.parseColor(fillStyle);
+      parsedStyle.fillStyle = GraphicsJSONLoader.parseColor(fillStyle);
     }
-
-    return new GeometryStyle(parsedGeometryStyle);
+    return parsedStyle;
   }
 
   /**
@@ -201,21 +233,27 @@ class GraphicsJSONLoader {
    * @param  {string} colorStyle   The JSON for the color styling
    * @return {GeometryStyle}       The created Color object
    */
-  static parseColor(colorStyle) {
-    if (typeof colorStyle === 'object') {
-      if ('hue' in colorStyle) {
-        if ('alpha' in colorStyle) {
-          return HSLAColor.FromJSON(colorStyle);
-        }
-        return HSLColor.FromJSON(colorStyle);
+  static parseColor({
+    name,
+    hue, lightness, saturation,
+    red, blue, green,
+    alpha,
+  }) {
+    if (hue !== undefined && lightness !== undefined && saturation !== undefined) {
+      if (alpha !== undefined) {
+        return new HSLAColor(hue, saturation, lightness, alpha);
       }
-      if ('red' in colorStyle) {
-        if ('alpha' in colorStyle) {
-          return RGBAColor.FromJSON(colorStyle);
-        }
-        return RGBColor.FromJSON(colorStyle);
-      }
+      return new HSLColor(hue, saturation, lightness);
     }
-    return colorStyle;
+    if (red !== undefined && blue !== undefined && green !== undefined) {
+      if (alpha !== undefined) {
+        return new RGBAColor(red, green, blue, alpha);
+      }
+      return new RGBColor(red, green, blue);
+    }
+    if (name !== undefined) {
+      return new Color({ name }).name; // TODO: Log a bug and fix this by adding an HTMLColor class
+    }
+    throw new InvalidArguementError();
   }
 } export default GraphicsJSONLoader;

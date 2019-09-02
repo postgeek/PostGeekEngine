@@ -6,9 +6,9 @@ import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNot
  * Defines a shape that can be drawn on screen
  */
 class Shape extends GraphicObject {
-  constructor(context) {
-    super(context);
-    this.GeometryStyle = new GeometryStyle({
+  constructor() {
+    super();
+    this.geometryStyle = new GeometryStyle({
       lineWidth: 1,
       fillStyle: 'white',
       strokeStyle: 'black',
@@ -20,8 +20,8 @@ class Shape extends GraphicObject {
    *
    * @return {GeometryStyle} the shape's styling when drawn to the screen.
    */
-  get GeometryStyle() {
-    return this.geometryStyle;
+  get geometryStyle() {
+    return this._geometryStyle;
   }
 
   /**
@@ -30,9 +30,9 @@ class Shape extends GraphicObject {
    * @param  {GeometryStyle} value the shape's styling when drawn to the screen.
    * @return {undefined}
    */
-  set GeometryStyle(value) {
+  set geometryStyle(value) {
     /** @private */
-    this.geometryStyle = value;
+    this._geometryStyle = value;
   }
 
   /**
@@ -48,8 +48,8 @@ class Shape extends GraphicObject {
    */
   preDraw() {
     super.preDraw();
-    this.Context = this.GeometryStyle.apply(this.Context);
-    this.Context.beginPath();
+    this.context = this.geometryStyle.apply(this.context);
+    this.context.beginPath();
   }
 
   /**
@@ -66,13 +66,13 @@ class Shape extends GraphicObject {
    * Restores the previously saved context.
    */
   postDraw() {
-    if (this.GeometryStyle.FillStyle !== undefined) {
-      this.Context.fill();
+    if (this.geometryStyle.fillStyle !== undefined) {
+      this.context.fill();
     }
-    if (this.GeometryStyle.StrokeStyle !== undefined) {
-      this.Context.stroke();
+    if (this.geometryStyle.strokeStyle !== undefined) {
+      this.context.stroke();
     }
-    this.Context.closePath();
+    this.context.closePath();
     super.postDraw();
   }
 }

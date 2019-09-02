@@ -1,32 +1,46 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
+import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
-import PostGeekDebugger from '../src/core/debug/PostGeekDebugger';
+import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 
 Window.Main = class Main {
   static start2DMapDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'demoScene', scene: DemoScene },
+    });
+  }
+
+  static startColorScene() {
+    start({
+      debug: false,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'colorscene', scene: ColorScene },
     });
   }
 
   static startShapeDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'shapeDemoScene', scene: ShapeDemoScene },
+    });
+  }
+
+  static startKeyboardDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'KeyboardDemoScene', scene: KeyboardDemoScene },
     });
   }
 
   static startThemeDemo() {
     start({
       debug: true,
-      middleware: [new PostGeekDebugger()],
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'themeDemoScene', scene: ThemeDemoScene },
     });

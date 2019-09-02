@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'physicsEngine/Point';
+import Point from 'core/Point';
 import AssetCache from 'core/managers/AssetCache';
 import FromTiledJsonToMap2DConfig from 'gameEngine/maps/converters/FromTiledJsonToMap2DConfig';
 import Map2D from 'gameEngine/maps/Map2D';
@@ -17,7 +17,7 @@ export default class DemoScene extends Scene {
     this.cache.loadAsset('map').then(() => {
       const mapConfig = JSON.parse(this.cache.getAsset('map'));
       const map2DConfig = FromTiledJsonToMap2DConfig(mapConfig, './assets/');
-      this.Map = new Map2D(this.Game, map2DConfig);
+      this.Map = new Map2D(map2DConfig);
       this.Map.load().then(() => {
         this.mapLoaded = true;
       });
