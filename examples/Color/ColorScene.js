@@ -19,7 +19,9 @@ export default class ColorDemoScene extends Scene {
       fillStyle: Color.WHITE,
     });
 
-    const numberRangeValidator = new NumberRangeValidator(0, 255);
+    const rgbNumberValidator = new NumberRangeValidator(0, 255);
+    const lsValidator = new NumberRangeValidator(0, 100);
+    const hueValidator = new NumberRangeValidator(0, 360);
     const textLengthValidator = new TextLengthValidator(3);
 
     const rectangleColor = Color.GOLDENROD;
@@ -36,32 +38,38 @@ export default class ColorDemoScene extends Scene {
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
     this.textInputRed = new Input(new Point(100, 162), 40);
     this.textInputRed.text = this.rgbColor.red;
-    this.textInputRed.addValidator(numberRangeValidator);
+    this.textInputRed.addValidator(rgbNumberValidator);
     this.textInputRed.addValidator(textLengthValidator);
 
     this.greenTextGraphic = new TextGraphic(new Point(20, 210), 'Green: ');
     this.textInputGreen = new Input(new Point(100, 192), 40);
     this.textInputGreen.text = this.rgbColor.green;
-    this.textInputGreen.addValidator(numberRangeValidator);
+    this.textInputGreen.addValidator(rgbNumberValidator);
     this.textInputGreen.addValidator(textLengthValidator);
 
     this.blueTextGraphic = new TextGraphic(new Point(20, 240), 'Blue: ');
     this.textInputBlue = new Input(new Point(100, 222), 40);
     this.textInputBlue.text = this.rgbColor.blue;
-    this.textInputBlue.addValidator(numberRangeValidator);
+    this.textInputBlue.addValidator(rgbNumberValidator);
     this.textInputBlue.addValidator(textLengthValidator);
 
     this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
     this.textInputHue = new Input(new Point(280, 162), 40);
     this.textInputHue.text = this.hslColor.hue;
+    this.textInputHue.addValidator(textLengthValidator);
+    this.textInputHue.addValidator(hueValidator);
 
     this.saturationTextGraphic = new TextGraphic(new Point(200, 210), 'Saturation: ');
     this.textInputSaturation = new Input(new Point(280, 192), 40);
     this.textInputSaturation.text = this.hslColor.saturation;
+    this.textInputSaturation.addValidator(textLengthValidator);
+    this.textInputSaturation.addValidator(lsValidator);
 
     this.lightnessTextGraphic = new TextGraphic(new Point(200, 240), 'Lightness: ');
     this.textInputLightness = new Input(new Point(280, 222), 40);
     this.textInputLightness.text = this.hslColor.lightness;
+    this.textInputLightness.addValidator(textLengthValidator);
+    this.textInputLightness.addValidator(lsValidator);
 
     this.hslTextGraphic = new TextGraphic(new Point(200, 270), this.hslColor.toString());
     this.rgbTextGraphic = new TextGraphic(new Point(20, 270), this.rgbColor.toString());
@@ -94,7 +102,6 @@ export default class ColorDemoScene extends Scene {
     const greenInput = this.textInputGreen.text.toString() ? this.textInputGreen.text.toString() : '0';
     const blueInput = this.textInputBlue.text.toString() ? this.textInputBlue.text.toString() : '0';
     if (red !== redInput || green !== greenInput || blue !== blueInput) {
-      console.log('calcing rgb');
       this.recalculateRectangleHSLColor();
     }
   }
@@ -107,7 +114,6 @@ export default class ColorDemoScene extends Scene {
     const saturationInput = this.textInputSaturation.text.toString() ? this.textInputSaturation.text.toString() : '0';
     const lightnessInput = this.textInputLightness.text.toString() ? this.textInputLightness.text.toString() : '0';
     if (hue !== hueInput || saturation !== saturationInput || lightness !== lightnessInput) {
-      console.log('calcing hsl');
       this.recalculateRectangleRGBColor();
     }
   }
