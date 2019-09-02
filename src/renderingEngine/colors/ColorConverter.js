@@ -8,9 +8,9 @@ If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
  */
 class ColorConverter {
   static RGBToHSL(rgbColor) {
-    let red = rgbColor.Red;
-    let green = rgbColor.Green;
-    let blue = rgbColor.Blue;
+    let { red } = rgbColor;
+    let { green } = rgbColor;
+    let { blue } = rgbColor;
     const maxValue = 255;
 
     red /= maxValue;
@@ -19,29 +19,36 @@ class ColorConverter {
 
     const min = Math.min(red, green, blue);
     const max = Math.max(red, green, blue);
+    const delta = max - min;
 
-    const luminance = Math.Ciel(100 * ((min + max) / 2));
+    let lightness = (min + max) / 2;
     let saturation = 0;
     let hue = 0;
 
-    if (luminance < 0.5) {
-      saturation = Math.round((max - min) / (max + min));
-    } else if (luminance > 0.5) {
-      saturation = Math.round((max - min) / (2.0 - max - min));
+    if (delta !== 0) {
+      if (lightness > 0.5) {
+        saturation = (delta / (2.0 - delta));
+      } else {
+        saturation = (delta / (max + min));
+      }
+
+      if (red === max) {
+        hue = ((green - blue) / delta) + (green < blue ? 6 : 0);
+      } else if (green === max) {
+        hue = (blue - red) / delta + 2;
+      } else if (blue === max) {
+        hue = (red - green) / delta + 4;
+      }
     }
 
-    if (red === max) {
-      hue = Math.round(((green - blue) / (max - min)) * 60);
-    } else if (green === max) {
-      hue = Math.round((2.0 + (blue - red) / (max - min)) * 60);
-    } else if (blue === max) {
-      hue = Math.round((4.0 + (red - green) / (max - min)) * 60);
-    }
-    if (hue < 0) hue += 360;
+    hue /= 6;
 
-    return new HSLColor(hue, saturation, luminance);
+    hue *= 360;
+    saturation *= 100;
+    lightness *= 100;
+
+    return new HSLColor(hue, saturation, lightness);
   }
-
 
   /**
    * Wiki: https://en.wikipedia.org/wiki/HSL_and_HSV
@@ -53,14 +60,17 @@ class ColorConverter {
    * @return  {RGBColor}            The RGB representation
    */
   static HSLtoRGB(hslColor) {
-    const { hue, saturation, lightness } = hslColor;
+    let { hue, saturation, lightness } = hslColor;
 
-    const a = saturation * Math.min(lightness, lightness - 1);
+    saturation /= 100;
+    lightness /= 100;
+
+    const a = saturation * Math.min(lightness, 1 - lightness);
     const func = (n, k = (n + hue / 30) % 12) => lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
 
-    const red = func(0);
-    const green = func(8);
-    const blue = func(4);
+    const red = func(0) * 255;
+    const green = func(8) * 255;
+    const blue = func(4) * 255;
 
     return new RGBColor(red, green, blue);
   }

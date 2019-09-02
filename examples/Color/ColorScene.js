@@ -13,18 +13,14 @@ export default class ColorDemoScene extends Scene {
   create() {
     const textStyle = new TextStyle({
       font: '14px Rockwell',
-    });
-    /*
-    const textStyle2 = new TextStyle({
       fillStyle: Color.WHITE,
-      font: '14px Rockwell',
     });
-    */
+
     this.textGraphic = new TextGraphic(new Point(100, 300), 'Test');
     this.textGraphic.textStyle = textStyle;
 
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
-    this.rectangleFillStyle = Color.WHITE.rgbaColor;
+    this.rectangleFillStyle = Color.GOLDENROD.rgbaColor;
 
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
     this.textInputRed = new Input(new Point(100, 162), 40);
@@ -37,25 +33,31 @@ export default class ColorDemoScene extends Scene {
     this.blueTextGraphic = new TextGraphic(new Point(20, 240), 'Blue: ');
     this.textInputBlue = new Input(new Point(100, 222), 40);
     this.textInputBlue.text = `${this.rectangleFillStyle.blue}`;
-    /*
-    this.hueTextGraphic = new TextGraphic(new Point(400, 200), 'Hue: ');
-    this.saturationTextGraphic = new TextGraphic(new Point(400, 240), 'Saturation: ');
-    this.lightnessTextGraphic = new TextGraphic(new Point(400, 220), 'Lightness: ');
-*/
+
+    this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
+    this.textInputHue = new Input(new Point(280, 162), 40);
+
+    this.saturationTextGraphic = new TextGraphic(new Point(200, 210), 'Saturation: ');
+    this.textInputSaturation = new Input(new Point(280, 192), 40);
+
+    this.lightnessTextGraphic = new TextGraphic(new Point(200, 240), 'Lightness: ');
+    this.textInputLightness = new Input(new Point(280, 222), 40);
+
     this.redTextGraphic.textStyle = textStyle;
-    this.redTextGraphic.textStyle.fillStyle = Color.RED;
     this.greenTextGraphic.textStyle = textStyle;
     this.blueTextGraphic.textStyle = textStyle;
+
+    this.hueTextGraphic.textStyle = textStyle;
+    this.saturationTextGraphic.textStyle = textStyle;
+    this.lightnessTextGraphic.textStyle = textStyle;
 
     this.inputs = [];
     this.inputs.push(this.textInputRed);
     this.inputs.push(this.textInputGreen);
     this.inputs.push(this.textInputBlue);
-    /*
-    this.hueTextGraphic.textStyle = textStyle2;
-    this.saturationTextGraphic.textStyle = textStyle2;
-    this.lightnessTextGraphic.textStyle = textStyle2;
-    */
+    this.inputs.push(this.textInputHue);
+    this.inputs.push(this.textInputSaturation);
+    this.inputs.push(this.textInputLightness);
   }
 
   update() {
@@ -86,10 +88,14 @@ export default class ColorDemoScene extends Scene {
     this.rectangleFillStyle.green = this.textInputGreen.text;
     this.rectangleFillStyle.blue = this.textInputBlue.text;
     this.rectangle.geometryStyle.fillStyle = this.rectangleFillStyle;
+
+    const hslText = ColorConverter.RGBToHSL(this.rectangleFillStyle);
+    this.textInputHue.text = Math.round(hslText.hue);
+    this.textInputSaturation.text = Math.round(hslText.saturation);
+    this.textInputLightness.text = Math.round(hslText.lightness);
   }
 
   draw() {
-    this.textGraphic.draw();
     this.rectangle.draw();
     this.redTextGraphic.draw();
     this.textInputRed.draw();
@@ -97,10 +103,12 @@ export default class ColorDemoScene extends Scene {
     this.textInputGreen.draw();
     this.blueTextGraphic.draw();
     this.textInputBlue.draw();
-    /*
+
     this.hueTextGraphic.draw();
+    this.textInputHue.draw();
     this.saturationTextGraphic.draw();
+    this.textInputSaturation.draw();
     this.lightnessTextGraphic.draw();
-    */
+    this.textInputLightness.draw();
   }
 }

@@ -46,7 +46,7 @@ class HSLAColor extends HSLColor {
    * @return {string} The string represenation of the RGBAColor.
    */
   toString() {
-    return `hsla(${this.hue},${this.saturation}%,${this.lightness}%,${this.alpha})`;
+    return `hsla(${Math.round(this.hue)},${Math.round(this.saturation)}%,${Math.round(this.lightness)}%,${this.alpha})`;
   }
 
   /**
