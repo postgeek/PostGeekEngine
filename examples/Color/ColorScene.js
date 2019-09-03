@@ -5,6 +5,8 @@ import Rectangle from 'renderingEngine/geometry/Rectangle';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
+import RGBAColor from 'renderingEngine/colors/RGBAColor';
+import HSLAColor from 'renderingEngine/colors/HSLAColor';
 import ColorConverter from 'renderingEngine/colors/ColorConverter';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import Keyboard from 'inputEngine/KeyboardKey';
@@ -16,33 +18,98 @@ import TextLengthValidator from 'HUDEngine/validators/TextLengthValidator';
 
 export default class ColorDemoScene extends Scene {
   create() {
-    const textStyle = new TextStyle({
+    this.textStyle = new TextStyle({
       font: '14px Rockwell',
       fillStyle: Color.WHITE,
     });
-
-    const rgbNumberValidator = new NumberRangeValidator(0, 255);
-    const lsValidator = new NumberRangeValidator(0, 100);
-    const hueValidator = new NumberRangeValidator(0, 360);
-    const textLengthValidator = new TextLengthValidator(3);
 
     const rectangleColor = Color.GOLDENROD;
 
     this.rgbColor = rectangleColor.rgbaColor;
     this.hslColor = rectangleColor.hslaColor;
 
-    this.textGraphic = new TextGraphic(new Point(100, 300), 'Test');
-    this.textGraphic.textStyle = textStyle;
-
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
     this.rectangle.geometryStyle.fillStyle = this.rgbColor;
+    this.rectangle.geometryStyle.strokeStyle = Color.WHITE;
+    this.rectangle.geometryStyle.lineWidth = 5;
 
-    const linearGradientRed = new LinearGradient(new Point(160, 20), new Point(415, 20));
-    linearGradientRed.addColorStop(0, Color.WHITE);
-    linearGradientRed.addColorStop(1, Color.RED);
+    this.inputs = [];
+
+    this.createRGBColorComponents();
+    this.createHSLColorComponents();
+
+    this.updateRGBRectangles(this.rgbColor);
+    this.updateHSLRectangles(this.hslColor);
+  }
+
+  createHSLColorComponents() {
+    const lsValidator = new NumberRangeValidator(0, 100);
+    const hueValidator = new NumberRangeValidator(0, 360);
+    const textLengthValidator = new TextLengthValidator(3);
+
+    this.rectangleHue = new Rectangle(new Point(425, 5), 360, 30);
+    const rectangleHueSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleHueSelectorOriginalX = 425;
+    this.rectangleHueSelector = new Rectangle(new Point(this.rectangleHueSelectorOriginalX, 5), 1, 30);
+    this.rectangleHueSelector.geometryStyle = rectangleHueSelectorGeometryStyle;
+
+    this.rectangleSaturation = new Rectangle(new Point(425, 35), 360, 30);
+    const rectangleSaturationSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleSaturationSelectorOriginalX = 425;
+    this.rectangleSaturationSelector = new Rectangle(new Point(this.rectangleSaturationSelectorOriginalX, 35), 1, 30);
+    this.rectangleSaturationSelector.geometryStyle = rectangleSaturationSelectorGeometryStyle;
+
+
+    this.rectangleLightness = new Rectangle(new Point(425, 65), 360, 30);
+    const rectangleLightnessSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleLightnessSelectorOriginalX = 425;
+    this.rectangleLightnessSelector = new Rectangle(new Point(this.rectangleLightnessSelectorOriginalX, 65), 1, 30);
+    this.rectangleLightnessSelector.geometryStyle = rectangleLightnessSelectorGeometryStyle;
+
+    this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
+    this.textInputHue = new Input(new Point(280, 162), 40);
+    this.textInputHue.text = this.hslColor.hue;
+    this.textInputHue.addValidator(textLengthValidator);
+    this.textInputHue.addValidator(hueValidator);
+
+    this.saturationTextGraphic = new TextGraphic(new Point(200, 210), 'Saturation: ');
+    this.textInputSaturation = new Input(new Point(280, 192), 40);
+    this.textInputSaturation.text = this.hslColor.saturation;
+    this.textInputSaturation.addValidator(textLengthValidator);
+    this.textInputSaturation.addValidator(lsValidator);
+
+    this.lightnessTextGraphic = new TextGraphic(new Point(200, 240), 'Lightness: ');
+    this.textInputLightness = new Input(new Point(280, 222), 40);
+    this.textInputLightness.text = this.hslColor.lightness;
+    this.textInputLightness.addValidator(textLengthValidator);
+    this.textInputLightness.addValidator(lsValidator);
+
+    this.hslTextGraphic = new TextGraphic(new Point(200, 270), this.hslColor.toString());
+    this.hslTextGraphic.textStyle = this.textStyle;
+
+    this.hueTextGraphic.textStyle = this.textStyle;
+    this.saturationTextGraphic.textStyle = this.textStyle;
+    this.lightnessTextGraphic.textStyle = this.textStyle;
+
+    this.inputs.push(this.textInputHue);
+    this.inputs.push(this.textInputSaturation);
+    this.inputs.push(this.textInputLightness);
+  }
+
+  createRGBColorComponents() {
+    const rgbNumberValidator = new NumberRangeValidator(0, 255);
+    const textLengthValidator = new TextLengthValidator(3);
+
     this.rectangleRed = new Rectangle(new Point(160, 5), 255, 30);
-    this.rectangleRed.geometryStyle.fillStyle = linearGradientRed.buildGradient();
-
     const rectangleRedSelectorGeometryStyle = new GeometryStyle({
       fillStyle: Color.BLACK,
       lineWidth: 1,
@@ -51,12 +118,7 @@ export default class ColorDemoScene extends Scene {
     this.rectangleRedSelector = new Rectangle(new Point(this.rectangleRedSelectorOriginalX, 5), 1, 30);
     this.rectangleRedSelector.geometryStyle = rectangleRedSelectorGeometryStyle;
 
-    const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(415, 20));
-    linearGradientGreen.addColorStop(0, Color.WHITE);
-    linearGradientGreen.addColorStop(1, Color.GREEN);
     this.rectangleGreen = new Rectangle(new Point(160, 35), 255, 30);
-    this.rectangleGreen.geometryStyle.fillStyle = linearGradientGreen.buildGradient();
-
     const rectangleGreenSelectorGeometryStyle = new GeometryStyle({
       fillStyle: Color.BLACK,
       lineWidth: 1,
@@ -65,12 +127,7 @@ export default class ColorDemoScene extends Scene {
     this.rectangleGreenSelector = new Rectangle(new Point(this.rectangleGreenSelectorOriginalX, 35), 1, 30);
     this.rectangleGreenSelector.geometryStyle = rectangleGreenSelectorGeometryStyle;
 
-    const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(415, 20));
-    linearGradientBlue.addColorStop(0, Color.WHITE);
-    linearGradientBlue.addColorStop(1, Color.BLUE);
     this.rectangleBlue = new Rectangle(new Point(160, 65), 255, 30);
-    this.rectangleBlue.geometryStyle.fillStyle = linearGradientBlue.buildGradient();
-
     const rectangleBlueSelectorGeometryStyle = new GeometryStyle({
       fillStyle: Color.BLACK,
       lineWidth: 1,
@@ -97,58 +154,25 @@ export default class ColorDemoScene extends Scene {
     this.textInputBlue.addValidator(rgbNumberValidator);
     this.textInputBlue.addValidator(textLengthValidator);
 
-    this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
-    this.textInputHue = new Input(new Point(280, 162), 40);
-    this.textInputHue.text = this.hslColor.hue;
-    this.textInputHue.addValidator(textLengthValidator);
-    this.textInputHue.addValidator(hueValidator);
-
-    this.saturationTextGraphic = new TextGraphic(new Point(200, 210), 'Saturation: ');
-    this.textInputSaturation = new Input(new Point(280, 192), 40);
-    this.textInputSaturation.text = this.hslColor.saturation;
-    this.textInputSaturation.addValidator(textLengthValidator);
-    this.textInputSaturation.addValidator(lsValidator);
-
-    this.lightnessTextGraphic = new TextGraphic(new Point(200, 240), 'Lightness: ');
-    this.textInputLightness = new Input(new Point(280, 222), 40);
-    this.textInputLightness.text = this.hslColor.lightness;
-    this.textInputLightness.addValidator(textLengthValidator);
-    this.textInputLightness.addValidator(lsValidator);
-
-    this.hslTextGraphic = new TextGraphic(new Point(200, 270), this.hslColor.toString());
     this.rgbTextGraphic = new TextGraphic(new Point(20, 270), this.rgbColor.toString());
+    this.rgbTextGraphic.textStyle = this.textStyle;
 
-    this.hslTextGraphic.textStyle = textStyle;
-    this.rgbTextGraphic.textStyle = textStyle;
-
-    const textStyleRed = textStyle.clone();
+    const textStyleRed = this.textStyle.clone();
     textStyleRed.fillStyle = Color.RED;
 
-    const textStyleGreen = textStyle.clone();
+    const textStyleGreen = this.textStyle.clone();
     textStyleGreen.fillStyle = Color.GREEN;
 
-    const textStyleBlue = textStyle.clone();
+    const textStyleBlue = this.textStyle.clone();
     textStyleBlue.fillStyle = Color.BLUE;
 
     this.redTextGraphic.textStyle = textStyleRed;
     this.greenTextGraphic.textStyle = textStyleGreen;
     this.blueTextGraphic.textStyle = textStyleBlue;
 
-    this.hueTextGraphic.textStyle = textStyle;
-    this.saturationTextGraphic.textStyle = textStyle;
-    this.lightnessTextGraphic.textStyle = textStyle;
-
-    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
-    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
-    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
-
-    this.inputs = [];
     this.inputs.push(this.textInputRed);
     this.inputs.push(this.textInputGreen);
     this.inputs.push(this.textInputBlue);
-    this.inputs.push(this.textInputHue);
-    this.inputs.push(this.textInputSaturation);
-    this.inputs.push(this.textInputLightness);
   }
 
   hasRGBColorTextChanged() {
@@ -186,12 +210,9 @@ export default class ColorDemoScene extends Scene {
     this.textInputSaturation.text = Math.round(this.hslColor.saturation);
     this.textInputLightness.text = Math.round(this.hslColor.lightness);
 
-    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
-    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
-    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
-
-    this.hslTextGraphic.text = this.hslColor.toString();
-    this.rgbTextGraphic.text = this.rgbColor.toString();
+    this.updateRGBRectangles(this.rgbColor);
+    this.updateHSLRectangles(this.hslColor);
+    this.updateColorTextGraphics();
   }
 
   recalculateRectangleRGBColor() {
@@ -205,12 +226,63 @@ export default class ColorDemoScene extends Scene {
     this.textInputGreen.text = Math.round(this.rgbColor.green);
     this.textInputBlue.text = Math.round(this.rgbColor.blue);
 
-    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
-    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
-    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
+    this.updateRGBRectangles(this.rgbColor);
+    this.updateHSLRectangles(this.hslColor);
+    this.updateColorTextGraphics();
+  }
 
+  updateColorTextGraphics() {
     this.hslTextGraphic.text = this.hslColor.toString();
     this.rgbTextGraphic.text = this.rgbColor.toString();
+  }
+
+  updateHSLRectangles(hslColor) {
+    const hue = Math.round(hslColor.hue);
+    const saturation = Math.round(hslColor.saturation);
+    const lightness = Math.round(hslColor.lightness);
+    this.rectangleHueSelector.point.x = this.rectangleHueSelectorOriginalX + hue;
+    this.rectangleSaturationSelector.point.x = this.rectangleSaturationSelectorOriginalX + saturation * 3.6;
+    this.rectangleLightnessSelector.point.x = this.rectangleLightnessSelectorOriginalX + lightness * 3.6;
+
+    const linearGradientHue = new LinearGradient(new Point(425, 30), new Point(785, 30));
+    for (let gradientHue = 0; gradientHue <= 360; gradientHue += 60) {
+      linearGradientHue.addColorStop(gradientHue / 360, new HSLAColor(gradientHue, saturation, lightness, 1));
+    }
+    this.rectangleHue.geometryStyle.fillStyle = linearGradientHue.buildGradient();
+
+    const linearGradientSaturation = new LinearGradient(new Point(425, 30), new Point(785, 30));
+    linearGradientSaturation.addColorStop(0, new HSLAColor(hue, 0, lightness, 1));
+    linearGradientSaturation.addColorStop(1, new HSLAColor(hue, 100, lightness, 1));
+    this.rectangleSaturation.geometryStyle.fillStyle = linearGradientSaturation.buildGradient();
+
+    const linearGradientLightness = new LinearGradient(new Point(425, 30), new Point(785, 30));
+    linearGradientLightness.addColorStop(0, new HSLAColor(hue, saturation, 0, 1));
+    linearGradientLightness.addColorStop(1, new HSLAColor(hue, saturation, 100, 1));
+    this.rectangleLightness.geometryStyle.fillStyle = linearGradientLightness.buildGradient();
+  }
+
+  updateRGBRectangles(rgbColor) {
+    const red = Math.round(rgbColor.red);
+    const green = Math.round(rgbColor.green);
+    const blue = Math.round(rgbColor.blue);
+    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + red;
+    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + green;
+    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + blue;
+
+    const linearGradientRed = new LinearGradient(new Point(160, 20), new Point(415, 20));
+    linearGradientRed.addColorStop(0, new RGBAColor(0, green, blue, 1));
+    linearGradientRed.addColorStop(1, new RGBAColor(255, green, blue, 1));
+    this.rectangleRed.geometryStyle.fillStyle = linearGradientRed.buildGradient();
+
+    const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(415, 20));
+    linearGradientBlue.addColorStop(0, new RGBAColor(red, blue, 0, 1));
+    linearGradientBlue.addColorStop(1, new RGBAColor(red, green, 255, 1));
+    this.rectangleBlue.geometryStyle.fillStyle = linearGradientBlue.buildGradient();
+
+    const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(415, 20));
+    linearGradientGreen.addColorStop(0, new RGBAColor(red, 0, blue, 1));
+    linearGradientGreen.addColorStop(1, new RGBAColor(red, 255, blue, 1));
+    this.rectangleGreen.geometryStyle.fillStyle = linearGradientGreen.buildGradient();
   }
 
   update() {
@@ -264,6 +336,15 @@ export default class ColorDemoScene extends Scene {
 
     this.rgbTextGraphic.draw();
     this.hslTextGraphic.draw();
+
+    this.rectangleHue.draw();
+    this.rectangleHueSelector.draw();
+
+    this.rectangleSaturation.draw();
+    this.rectangleSaturationSelector.draw();
+
+    this.rectangleLightness.draw();
+    this.rectangleLightnessSelector.draw();
 
     this.rectangleRed.draw();
     this.rectangleRedSelector.draw();
