@@ -2,6 +2,7 @@ import Point from 'core/Point';
 import Scene from 'gameEngine/scene/Scene';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
+import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
 import ColorConverter from 'renderingEngine/colors/ColorConverter';
@@ -36,23 +37,47 @@ export default class ColorDemoScene extends Scene {
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
     this.rectangle.geometryStyle.fillStyle = this.rgbColor;
 
-    const linearGradientRed = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    const linearGradientRed = new LinearGradient(new Point(160, 20), new Point(415, 20));
     linearGradientRed.addColorStop(0, Color.WHITE);
     linearGradientRed.addColorStop(1, Color.RED);
-    this.rectangleRed = new Rectangle(new Point(160, 5), 200, 30);
+    this.rectangleRed = new Rectangle(new Point(160, 5), 255, 30);
     this.rectangleRed.geometryStyle.fillStyle = linearGradientRed.buildGradient();
 
-    const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    const rectangleRedSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleRedSelectorOriginalX = 160;
+    this.rectangleRedSelector = new Rectangle(new Point(this.rectangleRedSelectorOriginalX, 5), 1, 30);
+    this.rectangleRedSelector.geometryStyle = rectangleRedSelectorGeometryStyle;
+
+    const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(415, 20));
     linearGradientGreen.addColorStop(0, Color.WHITE);
     linearGradientGreen.addColorStop(1, Color.GREEN);
-    this.rectangleGreen = new Rectangle(new Point(160, 35), 200, 30);
+    this.rectangleGreen = new Rectangle(new Point(160, 35), 255, 30);
     this.rectangleGreen.geometryStyle.fillStyle = linearGradientGreen.buildGradient();
 
-    const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    const rectangleGreenSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleGreenSelectorOriginalX = 160;
+    this.rectangleGreenSelector = new Rectangle(new Point(this.rectangleGreenSelectorOriginalX, 35), 1, 30);
+    this.rectangleGreenSelector.geometryStyle = rectangleGreenSelectorGeometryStyle;
+
+    const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(415, 20));
     linearGradientBlue.addColorStop(0, Color.WHITE);
     linearGradientBlue.addColorStop(1, Color.BLUE);
-    this.rectangleBlue = new Rectangle(new Point(160, 65), 200, 30);
+    this.rectangleBlue = new Rectangle(new Point(160, 65), 255, 30);
     this.rectangleBlue.geometryStyle.fillStyle = linearGradientBlue.buildGradient();
+
+    const rectangleBlueSelectorGeometryStyle = new GeometryStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+    });
+    this.rectangleBlueSelectorOriginalX = 160;
+    this.rectangleBlueSelector = new Rectangle(new Point(this.rectangleBlueSelectorOriginalX, 65), 1, 30);
+    this.rectangleBlueSelector.geometryStyle = rectangleBlueSelectorGeometryStyle;
 
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
     this.textInputRed = new Input(new Point(100, 162), 40);
@@ -113,6 +138,10 @@ export default class ColorDemoScene extends Scene {
     this.saturationTextGraphic.textStyle = textStyle;
     this.lightnessTextGraphic.textStyle = textStyle;
 
+    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
+    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
+    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
+
     this.inputs = [];
     this.inputs.push(this.textInputRed);
     this.inputs.push(this.textInputGreen);
@@ -157,6 +186,10 @@ export default class ColorDemoScene extends Scene {
     this.textInputSaturation.text = Math.round(this.hslColor.saturation);
     this.textInputLightness.text = Math.round(this.hslColor.lightness);
 
+    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
+    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
+    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
+
     this.hslTextGraphic.text = this.hslColor.toString();
     this.rgbTextGraphic.text = this.rgbColor.toString();
   }
@@ -172,20 +205,12 @@ export default class ColorDemoScene extends Scene {
     this.textInputGreen.text = Math.round(this.rgbColor.green);
     this.textInputBlue.text = Math.round(this.rgbColor.blue);
 
+    this.rectangleRedSelector.point.x = this.rectangleRedSelectorOriginalX + Math.round(this.rgbColor.red);
+    this.rectangleGreenSelector.point.x = this.rectangleGreenSelectorOriginalX + Math.round(this.rgbColor.green);
+    this.rectangleBlueSelector.point.x = this.rectangleBlueSelectorOriginalX + Math.round(this.rgbColor.blue);
+
     this.hslTextGraphic.text = this.hslColor.toString();
     this.rgbTextGraphic.text = this.rgbColor.toString();
-  }
-
-  recalculateRectangleColor() {
-    this.hslColor = ColorConverter.RGBToHSL(this.rectangleFillStyle);
-    this.rgbColor = ColorConverter.HSLToRGB(this.hslColor);
-    this.textInputHue.text = Math.round(this.hslColor.hue);
-    this.textInputSaturation.text = Math.round(this.hslColor.saturation);
-    this.textInputLightness.text = Math.round(this.hslColor.lightness);
-
-    this.textInputRed.text = Math.round(this.rgbColor.red);
-    this.textInputGreen.text = Math.round(this.rgbColor.green);
-    this.textInputBlue.text = Math.round(this.rgbColor.blue);
   }
 
   update() {
@@ -241,7 +266,12 @@ export default class ColorDemoScene extends Scene {
     this.hslTextGraphic.draw();
 
     this.rectangleRed.draw();
+    this.rectangleRedSelector.draw();
+
     this.rectangleGreen.draw();
+    this.rectangleGreenSelector.draw();
+
     this.rectangleBlue.draw();
+    this.rectangleBlueSelector.draw();
   }
 }
