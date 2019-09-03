@@ -257,6 +257,7 @@ export default class ColorDemoScene extends Scene {
 
     const linearGradientLightness = new LinearGradient(new Point(425, 30), new Point(785, 30));
     linearGradientLightness.addColorStop(0, new HSLAColor(hue, saturation, 0, 1));
+    linearGradientLightness.addColorStop(0.5, new HSLAColor(hue, saturation, 50, 1));
     linearGradientLightness.addColorStop(1, new HSLAColor(hue, saturation, 100, 1));
     this.rectangleLightness.geometryStyle.fillStyle = linearGradientLightness.buildGradient();
   }
@@ -275,7 +276,7 @@ export default class ColorDemoScene extends Scene {
     this.rectangleRed.geometryStyle.fillStyle = linearGradientRed.buildGradient();
 
     const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(415, 20));
-    linearGradientBlue.addColorStop(0, new RGBAColor(red, blue, 0, 1));
+    linearGradientBlue.addColorStop(0, new RGBAColor(red, green, 0, 1));
     linearGradientBlue.addColorStop(1, new RGBAColor(red, green, 255, 1));
     this.rectangleBlue.geometryStyle.fillStyle = linearGradientBlue.buildGradient();
 
