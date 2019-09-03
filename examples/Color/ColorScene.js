@@ -8,6 +8,7 @@ import ColorConverter from 'renderingEngine/colors/ColorConverter';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import Keyboard from 'inputEngine/KeyboardKey';
 import Input from 'HUDEngine/components/Input';
+import LinearGradient from 'renderingEngine/colors/gradient/LinearGradient';
 
 import NumberRangeValidator from 'HUDEngine/validators/NumberRangeValidator';
 import TextLengthValidator from 'HUDEngine/validators/TextLengthValidator';
@@ -33,7 +34,25 @@ export default class ColorDemoScene extends Scene {
     this.textGraphic.textStyle = textStyle;
 
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
-    this.rectangleFillStyle = this.rgbColor;
+    this.rectangle.geometryStyle.fillStyle = this.rgbColor;
+
+    const linearGradientRed = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    linearGradientRed.addColorStop(0, Color.WHITE);
+    linearGradientRed.addColorStop(1, Color.RED);
+    this.rectangleRed = new Rectangle(new Point(160, 5), 200, 30);
+    this.rectangleRed.geometryStyle.fillStyle = linearGradientRed.buildGradient();
+
+    const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    linearGradientGreen.addColorStop(0, Color.WHITE);
+    linearGradientGreen.addColorStop(1, Color.GREEN);
+    this.rectangleGreen = new Rectangle(new Point(160, 35), 200, 30);
+    this.rectangleGreen.geometryStyle.fillStyle = linearGradientGreen.buildGradient();
+
+    const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(360, 20));
+    linearGradientBlue.addColorStop(0, Color.WHITE);
+    linearGradientBlue.addColorStop(1, Color.BLUE);
+    this.rectangleBlue = new Rectangle(new Point(160, 65), 200, 30);
+    this.rectangleBlue.geometryStyle.fillStyle = linearGradientBlue.buildGradient();
 
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
     this.textInputRed = new Input(new Point(100, 162), 40);
@@ -77,9 +96,18 @@ export default class ColorDemoScene extends Scene {
     this.hslTextGraphic.textStyle = textStyle;
     this.rgbTextGraphic.textStyle = textStyle;
 
-    this.redTextGraphic.textStyle = textStyle;
-    this.greenTextGraphic.textStyle = textStyle;
-    this.blueTextGraphic.textStyle = textStyle;
+    const textStyleRed = textStyle.clone();
+    textStyleRed.fillStyle = Color.RED;
+
+    const textStyleGreen = textStyle.clone();
+    textStyleGreen.fillStyle = Color.GREEN;
+
+    const textStyleBlue = textStyle.clone();
+    textStyleBlue.fillStyle = Color.BLUE;
+
+    this.redTextGraphic.textStyle = textStyleRed;
+    this.greenTextGraphic.textStyle = textStyleGreen;
+    this.blueTextGraphic.textStyle = textStyleBlue;
 
     this.hueTextGraphic.textStyle = textStyle;
     this.saturationTextGraphic.textStyle = textStyle;
@@ -211,5 +239,9 @@ export default class ColorDemoScene extends Scene {
 
     this.rgbTextGraphic.draw();
     this.hslTextGraphic.draw();
+
+    this.rectangleRed.draw();
+    this.rectangleGreen.draw();
+    this.rectangleBlue.draw();
   }
 }

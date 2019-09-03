@@ -232,5 +232,17 @@ class DrawingStyle {
     }
     return newContext;
   }
+
+  clone() {
+    return new DrawingStyle({
+      fillStyle: this.fillStyle,
+      strokeStyle: this.StrokeStyle,
+      lineWidth: this.LineWidth,
+      shadowBlur: this.ShadowBlur,
+      shadowColor: this.ShadowColor,
+      shadowOffsetX: this.ShadowOffsetX,
+      shadowOffsetY: this.ShadowOffsetY,
+    });
+  }
 }
 export default DrawingStyle;

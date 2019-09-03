@@ -43,7 +43,8 @@ class Input extends GraphicComponent {
 
   set text(value) {
     this._text = value;
-    this.textGraphic.text = this.text;
+    this.updateText();
+    // this.textGraphic.text = this.text;
   }
 
   get text() {
@@ -104,6 +105,8 @@ class Input extends GraphicComponent {
         afterText = beforeText + event;
       } else if (event.toUpperCase() === 'BACKSPACE' && beforeText.length >= 1) {
         afterText = beforeText.substr(0, beforeText.length - 1);
+      } else {
+        afterText = beforeText;
       }
 
       const validators = this.getValidators();
@@ -114,7 +117,6 @@ class Input extends GraphicComponent {
         }
       }
       this.text = afterText;
-      this.updateText();
     }
   }
 
