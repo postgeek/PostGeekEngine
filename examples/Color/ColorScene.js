@@ -2,6 +2,7 @@ import Point from 'core/Point';
 import Scene from 'gameEngine/scene/Scene';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
+import Circle from 'renderingEngine/geometry/Circle';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
@@ -15,6 +16,10 @@ import LinearGradient from 'renderingEngine/colors/gradient/LinearGradient';
 
 import NumberRangeValidator from 'HUDEngine/validators/NumberRangeValidator';
 import TextLengthValidator from 'HUDEngine/validators/TextLengthValidator';
+
+/*
+  https://www.script-tutorials.com/html5-canvas-image-zoomer/
+*/
 
 export default class ColorDemoScene extends Scene {
   create() {
@@ -55,6 +60,15 @@ export default class ColorDemoScene extends Scene {
     this.rectangleHueSelectorOriginalX = 425;
     this.rectangleHueSelector = new Rectangle(new Point(this.rectangleHueSelectorOriginalX, 5), 1, 30);
     this.rectangleHueSelector.geometryStyle = rectangleHueSelectorGeometryStyle;
+
+    const circleHueSelectorGeometryStyle = new GeometryStyle({
+      strokeStyle: Color.BLACK,
+      fillStyle: this.hslColor,
+      lineWidth: 2,
+    });
+    this.circleHueSelectorOriginalX = 425;
+    this.circleHueSelector = new Circle(new Point(525, 20), 8);
+    this.circleHueSelector.geometryStyle = circleHueSelectorGeometryStyle;
 
     this.rectangleSaturation = new Rectangle(new Point(425, 35), 360, 30);
     const rectangleSaturationSelectorGeometryStyle = new GeometryStyle({
@@ -241,6 +255,7 @@ export default class ColorDemoScene extends Scene {
     const saturation = Math.round(hslColor.saturation);
     const lightness = Math.round(hslColor.lightness);
     this.rectangleHueSelector.point.x = this.rectangleHueSelectorOriginalX + hue;
+    this.circleHueSelector.point.x = this.circleHueSelectorOriginalX + hue;
     this.rectangleSaturationSelector.point.x = this.rectangleSaturationSelectorOriginalX + saturation * 3.6;
     this.rectangleLightnessSelector.point.x = this.rectangleLightnessSelectorOriginalX + lightness * 3.6;
 
@@ -288,10 +303,10 @@ export default class ColorDemoScene extends Scene {
 
   update() {
     if (this.game.Mouse.buttonDownOnce()) {
+      const mouseX = this.game.Mouse.x;
+      const mouseY = this.game.Mouse.y;
       for (let i = 0; i < this.inputs.length; i += 1) {
         const input = this.inputs[i];
-        const mouseX = this.game.Mouse.x;
-        const mouseY = this.game.Mouse.y;
         const inputX = input.point.x;
         const inputY = input.point.y;
         const inputWidth = input.width;
@@ -309,6 +324,27 @@ export default class ColorDemoScene extends Scene {
           input.focus = false;
         }
       }
+    }
+    if (this.game.Mouse.buttonPressed()) {
+      // TODO REFACTOR ALL THIS
+      const mouseX = this.game.Mouse.x;
+      const mouseY = this.game.Mouse.y;
+      const input = this.rectangleHue;
+      const inputX = input.point.x;
+      const inputY = input.point.y;
+      const inputWidth = input.width;
+      const inputHeight = input.height;
+
+      const maxX = inputWidth + inputX;
+      const maxY = inputHeight + inputY;
+      const minX = inputX;
+      const minY = inputY;
+
+      if (minX <= mouseX && mouseX <= maxX
+      && minY <= mouseY && mouseY <= maxY) {
+        this.textInputHue.text = mouseX - minX;
+      }
+      // TODO DONE REFACTOR
     }
 
     if (this.hasRGBColorTextChanged()) {
@@ -340,6 +376,7 @@ export default class ColorDemoScene extends Scene {
 
     this.rectangleHue.draw();
     this.rectangleHueSelector.draw();
+    this.circleHueSelector.draw();
 
     this.rectangleSaturation.draw();
     this.rectangleSaturationSelector.draw();
