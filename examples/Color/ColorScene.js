@@ -34,7 +34,9 @@ export default class ColorDemoScene extends Scene {
     this.rgbColor = rectangleColor.rgbaColor;
     this.hslColor = rectangleColor.hslaColor;
 
-    this.button = new Button(new Point(400, 150), (event) => this.handleButtonClick(event));
+    this.saveButton = new Button(new Point(400, 150), 'save color', (event) => this.handleSaveColorButtonClick(event));
+    this.clearButton = new Button(new Point(490, 150), 'clear', (event) => this.handleClearButtonClick(event));
+    this.randomButton = new Button(new Point(544, 150), 'random', (event) => this.handleRandomButtonClick(event));
 
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
     this.rectangle.geometryStyle.fillStyle = this.rgbColor;
@@ -380,25 +382,44 @@ export default class ColorDemoScene extends Scene {
     }
   }
 
-  handleButtonClick(clicked) {
+  handleRandomButtonClick(clicked) {
     if (clicked) {
-      if (this.maxSavedRectangles - 1 < this.currentSavedRectanglesIndex) {
-        this.currentSavedRectanglesIndex = 0;
-      }
-      const offsetX = this.currentSavedRectanglesIndex % 10;
-      const offsetY = Math.floor(this.currentSavedRectanglesIndex / 10);
-      const savedRectangle = new Rectangle(
-        new Point(400 + (offsetX * 25), 190 + (offsetY * 25)), 20, 20,
-      );
-      savedRectangle.geometryStyle = new GeometryStyle({
-        fillStyle: this.hslColor.clone(),
-        strokeStyle: Color.WHITE,
-        lineWidth: 2,
-      });
-      console.log(this.currentSavedRectanglesIndex);
-      this.savedRectangles[this.currentSavedRectanglesIndex] = savedRectangle;
-      this.currentSavedRectanglesIndex += 1;
+      const hue = Math.round(Math.random() * 360);
+      const saturation = Math.round(Math.random() * 100);
+      const lightness = Math.round(Math.random() * 100);
+      this.addSavedRectangle(new HSLAColor(hue, saturation, lightness, 1));
     }
+  }
+
+  handleClearButtonClick(clicked) {
+    if (clicked) {
+      this.currentSavedRectanglesIndex = 0;
+      this.savedRectangles = [];
+    }
+  }
+
+  handleSaveColorButtonClick(clicked) {
+    if (clicked) {
+      this.addSavedRectangle(this.hslColor);
+    }
+  }
+
+  addSavedRectangle(color) {
+    if (this.maxSavedRectangles - 1 < this.currentSavedRectanglesIndex) {
+      this.currentSavedRectanglesIndex = 0;
+    }
+    const offsetX = this.currentSavedRectanglesIndex % 10;
+    const offsetY = Math.floor(this.currentSavedRectanglesIndex / 10);
+    const savedRectangle = new Rectangle(
+      new Point(400 + (offsetX * 25), 190 + (offsetY * 25)), 20, 20,
+    );
+    savedRectangle.geometryStyle = new GeometryStyle({
+      fillStyle: color,
+      strokeStyle: Color.WHITE,
+      lineWidth: 2,
+    });
+    this.savedRectangles[this.currentSavedRectanglesIndex] = savedRectangle;
+    this.currentSavedRectanglesIndex += 1;
   }
 
   updateColorFromRectangle(color, value) {
@@ -466,7 +487,9 @@ export default class ColorDemoScene extends Scene {
     this.rectangleBlue.draw();
     this.rectangleBlueSelector.draw();
 
-    this.button.draw();
+    this.saveButton.draw();
+    this.clearButton.draw();
+    this.randomButton.draw();
 
     for (let i = 0; i < this.savedRectangles.length; i += 1) {
       this.savedRectangles[i].draw();

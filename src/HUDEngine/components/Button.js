@@ -8,9 +8,10 @@ import Color from '../../renderingEngine/colors/Color';
 import HSLColor from '../../renderingEngine/colors/HSLColor';
 
 class Button extends ClickableComponent {
-  constructor(point, clickCallback) {
+  constructor(point, text, clickCallback) {
     super(point);
 
+    this.text = text;
     this.handleClick = clickCallback;
 
     const textStyle = new TextStyle({
@@ -24,7 +25,7 @@ class Button extends ClickableComponent {
       lineJoin: 'round',
     });
 
-    this.textGraphic = new TextGraphic(point.clone(), 'save color');
+    this.textGraphic = new TextGraphic(point.clone(), this.text);
     this.textGraphic.textStyle = textStyle;
 
     const height = this.textGraphic.determineFontHeight() + 8;
