@@ -1,5 +1,5 @@
-import HSLColor from './HSLColor';
-import RGBColor from './RGBColor';
+import HSLAColor from './HSLColor';
+import RGBAColor from './RGBColor';
 /**
  * Defines a color converter used to convert colors from one form to another.
  * If Red is max, then Hue = (G-B)/(max-min)
@@ -8,9 +8,9 @@ If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
  */
 class ColorConverter {
   static RGBToHSL(rgbColor) {
-    let { red } = rgbColor;
-    let { green } = rgbColor;
-    let { blue } = rgbColor;
+    let {
+      red, green, blue, alpha,
+    } = rgbColor;
     const maxValue = 255;
 
     red /= maxValue;
@@ -47,7 +47,7 @@ class ColorConverter {
     saturation *= 100;
     lightness *= 100;
 
-    return new HSLColor(hue, saturation, lightness);
+    return new HSLAColor(hue, saturation, lightness, alpha);
   }
 
   /**
@@ -60,7 +60,9 @@ class ColorConverter {
    * @return  {RGBColor}            The RGB representation
    */
   static HSLToRGB(hslColor) {
-    let { hue, saturation, lightness } = hslColor;
+    let {
+      hue, saturation, lightness, alpha,
+    } = hslColor;
 
     saturation /= 100;
     lightness /= 100;
@@ -72,6 +74,6 @@ class ColorConverter {
     const green = func(8) * 255;
     const blue = func(4) * 255;
 
-    return new RGBColor(red, green, blue);
+    return new RGBAColor(red, green, blue, alpha);
   }
 } export default ColorConverter;

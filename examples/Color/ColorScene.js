@@ -39,6 +39,7 @@ export default class ColorDemoScene extends Scene {
     this.rectangle.geometryStyle.lineWidth = 5;
 
     this.inputs = [];
+    this.colorRectangles = [];
 
     this.createRGBColorComponents();
     this.createHSLColorComponents();
@@ -79,6 +80,14 @@ export default class ColorDemoScene extends Scene {
     this.rectangleSaturationSelector = new Rectangle(new Point(this.rectangleSaturationSelectorOriginalX, 35), 1, 30);
     this.rectangleSaturationSelector.geometryStyle = rectangleSaturationSelectorGeometryStyle;
 
+    const circleSaturationSelectorGeometryStyle = new GeometryStyle({
+      strokeStyle: Color.BLACK,
+      fillStyle: this.hslColor,
+      lineWidth: 2,
+    });
+    this.circleSaturationSelectorOriginalX = 425;
+    this.circleSaturationSelector = new Circle(new Point(525, 50), 8);
+    this.circleSaturationSelector.geometryStyle = circleSaturationSelectorGeometryStyle;
 
     this.rectangleLightness = new Rectangle(new Point(425, 65), 360, 30);
     const rectangleLightnessSelectorGeometryStyle = new GeometryStyle({
@@ -88,6 +97,15 @@ export default class ColorDemoScene extends Scene {
     this.rectangleLightnessSelectorOriginalX = 425;
     this.rectangleLightnessSelector = new Rectangle(new Point(this.rectangleLightnessSelectorOriginalX, 65), 1, 30);
     this.rectangleLightnessSelector.geometryStyle = rectangleLightnessSelectorGeometryStyle;
+
+    const circleLightnessSelectorGeometryStyle = new GeometryStyle({
+      strokeStyle: Color.BLACK,
+      fillStyle: this.hslColor,
+      lineWidth: 2,
+    });
+    this.circleLightnessSelectorOriginalX = 425;
+    this.circleLightnessSelector = new Circle(new Point(525, 80), 8);
+    this.circleLightnessSelector.geometryStyle = circleLightnessSelectorGeometryStyle;
 
     this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
     this.textInputHue = new Input(new Point(280, 162), 40);
@@ -196,9 +214,7 @@ export default class ColorDemoScene extends Scene {
     const redInput = this.textInputRed.text.toString() ? this.textInputRed.text.toString() : '0';
     const greenInput = this.textInputGreen.text.toString() ? this.textInputGreen.text.toString() : '0';
     const blueInput = this.textInputBlue.text.toString() ? this.textInputBlue.text.toString() : '0';
-    if (red !== redInput || green !== greenInput || blue !== blueInput) {
-      this.recalculateRectangleHSLColor();
-    }
+    return (red !== redInput || green !== greenInput || blue !== blueInput);
   }
 
   hasHSLColorTextChanged() {
@@ -208,9 +224,7 @@ export default class ColorDemoScene extends Scene {
     const hueInput = this.textInputHue.text.toString() ? this.textInputHue.text.toString() : '0';
     const saturationInput = this.textInputSaturation.text.toString() ? this.textInputSaturation.text.toString() : '0';
     const lightnessInput = this.textInputLightness.text.toString() ? this.textInputLightness.text.toString() : '0';
-    if (hue !== hueInput || saturation !== saturationInput || lightness !== lightnessInput) {
-      this.recalculateRectangleRGBColor();
-    }
+    return (hue !== hueInput || saturation !== saturationInput || lightness !== lightnessInput);
   }
 
   recalculateRectangleHSLColor() {
@@ -256,6 +270,9 @@ export default class ColorDemoScene extends Scene {
     const lightness = Math.round(hslColor.lightness);
     this.rectangleHueSelector.point.x = this.rectangleHueSelectorOriginalX + hue;
     this.circleHueSelector.point.x = this.circleHueSelectorOriginalX + hue;
+    this.circleSaturationSelector.point.x = this.circleSaturationSelectorOriginalX + saturation * 3.6;
+    this.circleLightnessSelector.point.x = this.circleLightnessSelectorOriginalX + lightness * 3.6;
+    this.circleHueSelector.geometryStyle.fillStyle = this.hslColor;
     this.rectangleSaturationSelector.point.x = this.rectangleSaturationSelectorOriginalX + saturation * 3.6;
     this.rectangleLightnessSelector.point.x = this.rectangleLightnessSelectorOriginalX + lightness * 3.6;
 
@@ -327,25 +344,28 @@ export default class ColorDemoScene extends Scene {
     }
     if (this.game.Mouse.buttonPressed()) {
       // TODO REFACTOR ALL THIS
-      const mouseX = this.game.Mouse.x;
-      const mouseY = this.game.Mouse.y;
-      const input = this.rectangleHue;
-      const inputX = input.point.x;
-      const inputY = input.point.y;
-      const inputWidth = input.width;
-      const inputHeight = input.height;
+      const iterator = ['hue', 'saturation', 'lightness', 'red', 'green', 'blue'];
+      for (let i = 0; i < iterator.length; i += 1) {
+        const mouseX = this.game.Mouse.x;
+        const mouseY = this.game.Mouse.y;
+        const input = this.getColorRectangle(iterator[i]);
+        const inputX = input.point.x;
+        const inputY = input.point.y;
+        const inputWidth = input.width;
+        const inputHeight = input.height;
 
-      const maxX = inputWidth + inputX;
-      const maxY = inputHeight + inputY;
-      const minX = inputX;
-      const minY = inputY;
+        const maxX = inputWidth + inputX;
+        const maxY = inputHeight + inputY;
+        const minX = inputX;
+        const minY = inputY;
 
-      if (minX <= mouseX && mouseX <= maxX
-      && minY <= mouseY && mouseY <= maxY) {
-        this.textInputHue.text = mouseX - minX;
+        if (minX <= mouseX && mouseX <= maxX
+        && minY <= mouseY && mouseY <= maxY) {
+          this.updateColorFromRectangle(iterator[i], mouseX - minX);
+        }
       }
-      // TODO DONE REFACTOR
     }
+    // TODO DONE REFACTOR
 
     if (this.hasRGBColorTextChanged()) {
       this.recalculateRectangleHSLColor();
@@ -354,6 +374,50 @@ export default class ColorDemoScene extends Scene {
       this.recalculateRectangleRGBColor();
     }
   }
+
+  // TODO REFACTOR
+  getColorRectangle(color) {
+    switch (color) {
+      case 'hue':
+        return this.rectangleHue;
+      case 'saturation':
+        return this.rectangleSaturation;
+      case 'lightness':
+        return this.rectangleLightness;
+      case 'red':
+        return this.rectangleRed;
+      case 'green':
+        return this.rectangleGreen;
+      case 'blue':
+        return this.rectangleBlue;
+      default:
+    }
+  }
+
+  updateColorFromRectangle(color, value) {
+    switch (color) {
+      case 'hue':
+        this.textInputHue.text = value;
+        break;
+      case 'saturation':
+        this.textInputSaturation.text = Math.round(value / 3.6);
+        break;
+      case 'lightness':
+        this.textInputLightness.text = Math.round(value / 3.6);
+        break;
+      case 'red':
+        this.textInputRed.text = value;
+        break;
+      case 'green':
+        this.textInputGreen.text = value;
+        break;
+      case 'blue':
+        this.textInputBlue.text = value;
+        break;
+      default:
+    }
+  }
+  // END REFACTOR
 
   draw() {
     this.rectangle.draw();
@@ -380,9 +444,11 @@ export default class ColorDemoScene extends Scene {
 
     this.rectangleSaturation.draw();
     this.rectangleSaturationSelector.draw();
+    this.circleSaturationSelector.draw();
 
     this.rectangleLightness.draw();
     this.rectangleLightnessSelector.draw();
+    this.circleLightnessSelector.draw();
 
     this.rectangleRed.draw();
     this.rectangleRedSelector.draw();
