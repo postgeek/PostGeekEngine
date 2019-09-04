@@ -2,13 +2,17 @@ import GraphicComponent from '../GraphicComponent';
 import ServiceLocator from '../../core/ServiceLocator';
 
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import TextStyle from '../../renderingEngine/text/TextStyle';
 import Color from '../../renderingEngine/colors/Color';
 
-class Input extends GraphicComponent {
+class TextInput extends GraphicComponent {
   constructor(point, width) {
     super(point);
+
+    this.defaultFocusStyle = new GeometryStyle({ fillStyle: Color.WHITE });
+    this.defaultUnFocusStyle = new GeometryStyle({ fillStyle: Color.LIGHTGRAY });
 
     const textStyle = new TextStyle({
       fillStyle: Color.BLACK,
@@ -56,9 +60,9 @@ class Input extends GraphicComponent {
   set focus(value) {
     this._focus = value;
     if (this.focus) {
-      this.rectangle.geometryStyle.fillStyle = Color.WHITE;
+      this.rectangle.geometryStyle = this.defaultFocusStyle;
     } else {
-      this.rectangle.geometryStyle.fillStyle = Color.LIGHTGRAY;
+      this.rectangle.geometryStyle = this.defaultUnFocusStyle;
     }
   }
 
@@ -111,6 +115,7 @@ class Input extends GraphicComponent {
     const minX = inputX;
     const minY = inputY;
 
+    // Check for collision with the mouse
     if (minX <= mouseX && mouseX <= maxX
     && minY <= mouseY && mouseY <= maxY) {
       this.focus = true;
@@ -163,4 +168,4 @@ class Input extends GraphicComponent {
     this.rectangle.draw();
     this.textGraphic.draw();
   }
-} export default Input;
+} export default TextInput;

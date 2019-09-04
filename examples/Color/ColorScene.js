@@ -11,7 +11,7 @@ import HSLAColor from 'renderingEngine/colors/HSLAColor';
 import ColorConverter from 'renderingEngine/colors/ColorConverter';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import Keyboard from 'inputEngine/KeyboardKey';
-import Input from 'HUDEngine/components/Input';
+import TextInput from 'HUDEngine/components/TextInput';
 import LinearGradient from 'renderingEngine/colors/gradient/LinearGradient';
 
 import NumberRangeValidator from 'HUDEngine/validators/NumberRangeValidator';
@@ -108,19 +108,19 @@ export default class ColorDemoScene extends Scene {
     this.circleLightnessSelector.geometryStyle = circleLightnessSelectorGeometryStyle;
 
     this.hueTextGraphic = new TextGraphic(new Point(200, 180), 'Hue: ');
-    this.textInputHue = new Input(new Point(280, 162), 40);
+    this.textInputHue = new TextInput(new Point(280, 162), 40);
     this.textInputHue.text = this.hslColor.hue;
     this.textInputHue.addValidator(textLengthValidator);
     this.textInputHue.addValidator(hueValidator);
 
     this.saturationTextGraphic = new TextGraphic(new Point(200, 210), 'Saturation: ');
-    this.textInputSaturation = new Input(new Point(280, 192), 40);
+    this.textInputSaturation = new TextInput(new Point(280, 192), 40);
     this.textInputSaturation.text = this.hslColor.saturation;
     this.textInputSaturation.addValidator(textLengthValidator);
     this.textInputSaturation.addValidator(lsValidator);
 
     this.lightnessTextGraphic = new TextGraphic(new Point(200, 240), 'Lightness: ');
-    this.textInputLightness = new Input(new Point(280, 222), 40);
+    this.textInputLightness = new TextInput(new Point(280, 222), 40);
     this.textInputLightness.text = this.hslColor.lightness;
     this.textInputLightness.addValidator(textLengthValidator);
     this.textInputLightness.addValidator(lsValidator);
@@ -172,19 +172,19 @@ export default class ColorDemoScene extends Scene {
     this.rectangleBlueSelector.geometryStyle = rectangleBlueSelectorGeometryStyle;
 
     this.redTextGraphic = new TextGraphic(new Point(20, 180), 'Red: ');
-    this.textInputRed = new Input(new Point(100, 162), 40);
+    this.textInputRed = new TextInput(new Point(100, 162), 40);
     this.textInputRed.text = this.rgbColor.red;
     this.textInputRed.addValidator(rgbNumberValidator);
     this.textInputRed.addValidator(textLengthValidator);
 
     this.greenTextGraphic = new TextGraphic(new Point(20, 210), 'Green: ');
-    this.textInputGreen = new Input(new Point(100, 192), 40);
+    this.textInputGreen = new TextInput(new Point(100, 192), 40);
     this.textInputGreen.text = this.rgbColor.green;
     this.textInputGreen.addValidator(rgbNumberValidator);
     this.textInputGreen.addValidator(textLengthValidator);
 
     this.blueTextGraphic = new TextGraphic(new Point(20, 240), 'Blue: ');
-    this.textInputBlue = new Input(new Point(100, 222), 40);
+    this.textInputBlue = new TextInput(new Point(100, 222), 40);
     this.textInputBlue.text = this.rgbColor.blue;
     this.textInputBlue.addValidator(rgbNumberValidator);
     this.textInputBlue.addValidator(textLengthValidator);
