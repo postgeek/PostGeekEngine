@@ -400,7 +400,7 @@ export default class ColorDemoScene extends Scene {
 
   handleSaveColorButtonClick(clicked) {
     if (clicked) {
-      this.addSavedRectangle(this.hslColor);
+      this.addSavedRectangle(this.hslColor.clone());
     }
   }
 
