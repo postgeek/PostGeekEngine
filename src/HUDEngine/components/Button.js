@@ -24,7 +24,7 @@ class Button extends ClickableComponent {
       lineJoin: 'round',
     });
 
-    this.textGraphic = new TextGraphic(point.clone(), 'button');
+    this.textGraphic = new TextGraphic(point.clone(), 'save color');
     this.textGraphic.textStyle = textStyle;
 
     const height = this.textGraphic.determineFontHeight() + 8;

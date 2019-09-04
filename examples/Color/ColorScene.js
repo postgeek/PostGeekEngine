@@ -41,11 +41,11 @@ export default class ColorDemoScene extends Scene {
     this.rectangle.geometryStyle.strokeStyle = Color.WHITE;
     this.rectangle.geometryStyle.lineWidth = 5;
 
-    this.savedRectangle = new Rectangle(new Point(400, 190), 20, 20);
-    this.savedRectangle.isVisible = false;
-
     this.inputs = [];
     this.colorRectangles = [];
+    this.savedRectangles = [];
+    this.maxSavedRectangles = 30;
+    this.currentSavedRectanglesIndex = 0;
 
     this.createRGBColorComponents();
     this.createHSLColorComponents();
@@ -382,8 +382,22 @@ export default class ColorDemoScene extends Scene {
 
   handleButtonClick(clicked) {
     if (clicked) {
-      this.savedRectangle.isVisible = true;
-      this.savedRectangle.geometryStyle.fillStyle = this.hslColor.clone();
+      if (this.maxSavedRectangles - 1 < this.currentSavedRectanglesIndex) {
+        this.currentSavedRectanglesIndex = 0;
+      }
+      const offsetX = this.currentSavedRectanglesIndex % 10;
+      const offsetY = Math.floor(this.currentSavedRectanglesIndex / 10);
+      const savedRectangle = new Rectangle(
+        new Point(400 + (offsetX * 25), 190 + (offsetY * 25)), 20, 20,
+      );
+      savedRectangle.geometryStyle = new GeometryStyle({
+        fillStyle: this.hslColor.clone(),
+        strokeStyle: Color.WHITE,
+        lineWidth: 2,
+      });
+      console.log(this.currentSavedRectanglesIndex);
+      this.savedRectangles[this.currentSavedRectanglesIndex] = savedRectangle;
+      this.currentSavedRectanglesIndex += 1;
     }
   }
 
@@ -453,6 +467,9 @@ export default class ColorDemoScene extends Scene {
     this.rectangleBlueSelector.draw();
 
     this.button.draw();
-    this.savedRectangle.draw();
+
+    for (let i = 0; i < this.savedRectangles.length; i += 1) {
+      this.savedRectangles[i].draw();
+    }
   }
 }
