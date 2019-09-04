@@ -21,7 +21,10 @@ class Input extends GraphicComponent {
 
     const eventbus = ServiceLocator.instance.locate('eventbus');
     const keyboard = ServiceLocator.instance.locate('keyboard');
+    const mouse = ServiceLocator.instance.locate('mouse');
+
     eventbus.register(keyboard.KEY_TYPED_EVENT, (event) => this.handleTypedKey(event));
+    eventbus.register(mouse.MOUSE_DOWN_EVENT, (event) => this.handleMouseDown(event));
 
     this.textGraphic = new TextGraphic(point.clone(), this.text);
     this.textGraphic.textStyle = textStyle;
@@ -44,7 +47,6 @@ class Input extends GraphicComponent {
   set text(value) {
     this._text = value;
     this.updateText();
-    // this.textGraphic.text = this.text;
   }
 
   get text() {
@@ -94,6 +96,27 @@ class Input extends GraphicComponent {
 
   getValidators() {
     return this.validators;
+  }
+
+  handleMouseDown(event) {
+    const mouseX = event.x;
+    const mouseY = event.y;
+    const inputX = this.point.x;
+    const inputY = this.point.y;
+    const inputWidth = this.width;
+    const inputHeight = this.height;
+
+    const maxX = inputWidth + inputX;
+    const maxY = inputHeight + inputY;
+    const minX = inputX;
+    const minY = inputY;
+
+    if (minX <= mouseX && mouseX <= maxX
+    && minY <= mouseY && mouseY <= maxY) {
+      this.focus = true;
+    } else {
+      this.focus = false;
+    }
   }
 
   handleTypedKey(event) {

@@ -132,6 +132,9 @@ export default class ColorDemoScene extends Scene {
     this.saturationTextGraphic.textStyle = this.textStyle;
     this.lightnessTextGraphic.textStyle = this.textStyle;
 
+    this.circleLightnessSelector.isVisible = false;
+    this.circleSaturationSelector.isVisible = false;
+
     this.inputs.push(this.textInputHue);
     this.inputs.push(this.textInputSaturation);
     this.inputs.push(this.textInputLightness);
@@ -319,29 +322,6 @@ export default class ColorDemoScene extends Scene {
   }
 
   update() {
-    if (this.game.Mouse.buttonDownOnce()) {
-      const mouseX = this.game.Mouse.x;
-      const mouseY = this.game.Mouse.y;
-      for (let i = 0; i < this.inputs.length; i += 1) {
-        const input = this.inputs[i];
-        const inputX = input.point.x;
-        const inputY = input.point.y;
-        const inputWidth = input.width;
-        const inputHeight = input.height;
-
-        const maxX = inputWidth + inputX;
-        const maxY = inputHeight + inputY;
-        const minX = inputX;
-        const minY = inputY;
-
-        if (minX <= mouseX && mouseX <= maxX
-        && minY <= mouseY && mouseY <= maxY) {
-          input.focus = true;
-        } else {
-          input.focus = false;
-        }
-      }
-    }
     if (this.game.Mouse.buttonPressed()) {
       // TODO REFACTOR ALL THIS
       const iterator = ['hue', 'saturation', 'lightness', 'red', 'green', 'blue'];

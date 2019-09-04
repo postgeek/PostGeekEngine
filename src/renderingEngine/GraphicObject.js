@@ -9,6 +9,15 @@ class GraphicObject {
   */
   constructor() {
     this._context = ServiceLocator.instance.locate('context');
+    this.isVisible = true;
+  }
+
+  set isVisible(value) {
+    this._isVisible = value;
+  }
+
+  get isVisible() {
+    return this._isVisible;
   }
 
   /**
@@ -58,9 +67,11 @@ class GraphicObject {
    * Ensures that the necessary methods are called in the right order
    */
   draw() {
-    this.preDraw();
-    this.internalDraw();
-    this.postDraw();
+    if (this.isVisible) {
+      this.preDraw();
+      this.internalDraw();
+      this.postDraw();
+    }
   }
 }
 export default GraphicObject;

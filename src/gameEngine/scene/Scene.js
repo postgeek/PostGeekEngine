@@ -1,5 +1,6 @@
 import BaseClassConstructedError from '../../core/errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
+import ServiceLocator from '../../core/ServiceLocator';
 
 class Scene {
   /**
@@ -25,17 +26,6 @@ class Scene {
     this.isActive = value;
   }
 
-  RegisterGraphicObject(graphicObject) {
-    this.drawableObjects.push(graphicObject);
-  }
-
-  /**
-   * Gets the drawable objects for the scene
-   */
-  get DrawableObjects() {
-    return this.drawableObjects;
-  }
-
   /**
   * Creates the scene.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
@@ -49,9 +39,7 @@ class Scene {
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
-    for (let i = 0; i < this.DrawableObjects.length; i += 1) {
-      this.DrawableObjects[i].draw();
-    }
+
   }
 
   /**

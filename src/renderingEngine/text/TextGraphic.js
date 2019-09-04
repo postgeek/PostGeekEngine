@@ -10,7 +10,7 @@ class TextGraphic extends GraphicObject {
       fillStyle: 'darkblue',
       strokeStyle: 'lightblue',
       lineWidth: 2,
-      font: '88px serif',
+      font: '14px serif',
     });
   }
 

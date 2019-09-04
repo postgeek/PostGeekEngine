@@ -1,5 +1,6 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import ServiceLocator from '../core/ServiceLocator';
 
 class Mouse {
   /**
@@ -18,6 +19,17 @@ class Mouse {
     });
 
     this._mouseState = this.MOUSE_STATE.RELEASED;
+
+    this.mouse_down_event = Symbol('mouse_down_event');
+    this.mouse_up_event = Symbol('mouse_up_event');
+  }
+
+  get MOUSE_DOWN_EVENT() {
+    return this.mouse_down_event;
+  }
+
+  get MOUSE_UP_EVENT() {
+    return this.mouse_up_event;
   }
 
   /**
@@ -75,15 +87,19 @@ class Mouse {
   /**
    * Handles the mouse down event.
    */
-  mouseDown() {
+  mouseDown(e) {
     this._buttonDown = true;
+    const eventbus = ServiceLocator.instance.locate('eventbus');
+    eventbus.emit(this.MOUSE_DOWN_EVENT, { x: this.x, y: this.y });
   }
 
   /**
    * Handles the mouse up event.
    */
-  mouseUp() {
+  mouseUp(e) {
     this._buttonDown = false;
+    const eventbus = ServiceLocator.instance.locate('eventbus');
+    eventbus.emit(this.MOUSE_UP_EVENT, { x: this.x, y: this.y });
   }
 
   /**

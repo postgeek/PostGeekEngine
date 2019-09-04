@@ -33,6 +33,8 @@ class EventBus {
     }
 
     const callbacks = this._registeredObservers[eventType];
-    callbacks.forEach((callback) => callback(event));
+    if (callbacks !== undefined) {
+      callbacks.forEach((callback) => callback(event));
+    }
   }
 } export default EventBus;
