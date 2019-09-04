@@ -12,6 +12,7 @@ import ColorConverter from 'renderingEngine/colors/ColorConverter';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import Keyboard from 'inputEngine/KeyboardKey';
 import TextInput from 'HUDEngine/components/TextInput';
+import Button from 'HUDEngine/components/Button';
 import LinearGradient from 'renderingEngine/colors/gradient/LinearGradient';
 
 import NumberRangeValidator from 'HUDEngine/validators/NumberRangeValidator';
@@ -33,10 +34,15 @@ export default class ColorDemoScene extends Scene {
     this.rgbColor = rectangleColor.rgbaColor;
     this.hslColor = rectangleColor.hslaColor;
 
+    this.button = new Button(new Point(400, 150), (event) => this.handleButtonClick(event));
+
     this.rectangle = new Rectangle(new Point(5, 5), 150, 150);
     this.rectangle.geometryStyle.fillStyle = this.rgbColor;
     this.rectangle.geometryStyle.strokeStyle = Color.WHITE;
     this.rectangle.geometryStyle.lineWidth = 5;
+
+    this.savedRectangle = new Rectangle(new Point(400, 190), 20, 20);
+    this.savedRectangle.isVisible = false;
 
     this.inputs = [];
     this.colorRectangles = [];
@@ -374,6 +380,13 @@ export default class ColorDemoScene extends Scene {
     }
   }
 
+  handleButtonClick(clicked) {
+    if (clicked) {
+      this.savedRectangle.isVisible = true;
+      this.savedRectangle.geometryStyle.fillStyle = this.hslColor.clone();
+    }
+  }
+
   updateColorFromRectangle(color, value) {
     switch (color) {
       case 'hue':
@@ -438,5 +451,8 @@ export default class ColorDemoScene extends Scene {
 
     this.rectangleBlue.draw();
     this.rectangleBlueSelector.draw();
+
+    this.button.draw();
+    this.savedRectangle.draw();
   }
 }

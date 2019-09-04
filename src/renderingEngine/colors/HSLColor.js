@@ -96,6 +96,10 @@ class HSLColor {
     return `hsl(${Math.round(this.hue)},${Math.round(this.saturation)}%,${Math.round(this.lightness)}%)`;
   }
 
+  clone() {
+    return new HSLColor(this.hue, this.saturation, this.lightness);
+  }
+
   /**
    * Builds a new HSLColor from the provided JSON object
    *

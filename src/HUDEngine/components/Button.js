@@ -1,29 +1,47 @@
-import GraphicComponent from '../GraphicComponent';
+import ClickableComponent from './ClickableComponent';
 
-class Button extends GraphicComponent {
-  constructor(point) {
+import Rectangle from '../../renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
+import TextGraphic from '../../renderingEngine/text/TextGraphic';
+import TextStyle from '../../renderingEngine/text/TextStyle';
+import Color from '../../renderingEngine/colors/Color';
+import HSLColor from '../../renderingEngine/colors/HSLColor';
+
+class Button extends ClickableComponent {
+  constructor(point, clickCallback) {
     super(point);
-    this.graphicObjects = [];
-  }
 
-  // TODO: Different button states
-  // TODO: Add the button events (click)
+    this.handleClick = clickCallback;
 
-  set Container(value) {
-    this.container = value;
-  }
+    const textStyle = new TextStyle({
+      fillStyle: Color.BLACK,
+      font: '14px Rockwell',
+    });
+    const geometryStyle = new GeometryStyle({
+      fillStyle: Color.WHITE,
+      strokeStyle: new HSLColor(177, 97, 58),
+      lineWidth: 4,
+      lineJoin: 'round',
+    });
 
-  get Container() {
-    return this.container;
-  }
+    this.textGraphic = new TextGraphic(point.clone(), 'button');
+    this.textGraphic.textStyle = textStyle;
 
-  addGraphicsObject(graphicObject) {
-    this.graphicObjects.push(graphicObject);
+    const height = this.textGraphic.determineFontHeight() + 8;
+    const width = this.textGraphic.measureText() + 10;
+
+    this.rectangle = new Rectangle(point.clone(), width, height);
+    this.rectangle.geometryStyle = geometryStyle;
+
+    this.textGraphic.point.y += height - 8;
+    this.textGraphic.point.x += 5;
+
+    this.width = width;
+    this.height = height;
   }
 
   draw() {
-    for (let i = 0; i < this.graphicObjects.length - 1; i += 1) {
-      this.graphicObjects[i].draw();
-    }
+    this.rectangle.draw();
+    this.textGraphic.draw();
   }
 } export default Button;
