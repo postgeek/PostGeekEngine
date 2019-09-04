@@ -272,7 +272,7 @@ export default class ColorDemoScene extends Scene {
     this.circleHueSelector.point.x = this.circleHueSelectorOriginalX + hue;
     this.circleSaturationSelector.point.x = this.circleSaturationSelectorOriginalX + saturation * 3.6;
     this.circleLightnessSelector.point.x = this.circleLightnessSelectorOriginalX + lightness * 3.6;
-    this.circleHueSelector.geometryStyle.fillStyle = this.hslColor;
+    this.circleHueSelector.geometryStyle.fillStyle = new HSLAColor(this.hslColor.hue, 100, 50, 1);
     this.rectangleSaturationSelector.point.x = this.rectangleSaturationSelectorOriginalX + saturation * 3.6;
     this.rectangleLightnessSelector.point.x = this.rectangleLightnessSelectorOriginalX + lightness * 3.6;
 
@@ -444,11 +444,11 @@ export default class ColorDemoScene extends Scene {
 
     this.rectangleSaturation.draw();
     this.rectangleSaturationSelector.draw();
-    this.circleSaturationSelector.draw();
+    // this.circleSaturationSelector.draw();
 
     this.rectangleLightness.draw();
     this.rectangleLightnessSelector.draw();
-    this.circleLightnessSelector.draw();
+    // this.circleLightnessSelector.draw();
 
     this.rectangleRed.draw();
     this.rectangleRedSelector.draw();
