@@ -108,6 +108,19 @@ class TextInput extends ClickableComponent {
     }
   }
 
+  isValidText(text) {
+    let isValid = true;
+    const validators = this.getValidators();
+    for (let i = 0; i < validators.length; i += 1) {
+      const validator = validators[i];
+      isValid = validator.validate(text);
+      if (!isValid) {
+        return isValid;
+      }
+    }
+    return isValid;
+  }
+
   handleTypedKey(event) {
     const beforeText = this.text.toString();
     let afterText = '';
@@ -120,15 +133,9 @@ class TextInput extends ClickableComponent {
       } else {
         afterText = beforeText;
       }
-
-      const validators = this.getValidators();
-      for (let i = 0; i < validators.length; i += 1) {
-        const validator = validators[i];
-        if (!validator.validate(afterText)) {
-          return;
-        }
+      if (this.isValidText(afterText)) {
+        this.text = afterText;
       }
-      this.text = afterText;
     }
   }
 

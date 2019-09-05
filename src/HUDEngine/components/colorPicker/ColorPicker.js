@@ -489,14 +489,6 @@ class ColorPicker {
       const { x, y } = this.mouse;
       for (let i = 0; i < this.colorSliders.length; i += 1) {
         this.colorSliders[i].update({ x, y });
-        /*
-        this.hueColorSlider.update({ x, y });
-        this.saturationColorSlider.update({ x, y });
-        this.lightnessColorSlider.update({ x, y });
-        this.redColorSlider.update({ x, y });
-        this.blueColorSlider.update({ x, y });
-        this.greenColorSlider.update({ x, y });
-        */
       }
     }
     if (this.hasColorValueChanged()) {
