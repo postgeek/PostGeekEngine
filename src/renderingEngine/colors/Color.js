@@ -178,17 +178,17 @@ class Color {
     if (this.hex !== undefined) {
       return this.hex;
     }
-    if (this.rgbColor !== undefined) {
-      return this.rgbColor.toString();
-    }
     if (this.rgbaColor !== undefined) {
       return this.rgbaColor.toString();
     }
-    if (this.hslColor !== undefined) {
-      return this.hslColor.toString();
+    if (this.rgbColor !== undefined) {
+      return this.rgbColor.toString();
     }
     if (this.hslaColor !== undefined) {
       return this.hslaColor.toString();
+    }
+    if (this.hslColor !== undefined) {
+      return this.hslColor.toString();
     }
   }
 

@@ -23,7 +23,7 @@ class ColorSlider extends ClickableComponent {
       strokeStyle: Color.BLACK,
       lineWidth: 2,
     });
-    this.circleSelector = new Circle(new Point(this.point.x, this.point.y + 15), 8);
+    this.circleSelector = new Circle(new Point(this.point.x + initialXPosition, this.point.y + 15), 8);
     this.circleSelector.geometryStyle = circleSelectorGeometryStyle;
 
     this.rectangle = new Rectangle(this.point, width, height);
@@ -32,6 +32,12 @@ class ColorSlider extends ClickableComponent {
 
   set sliderPositionX(value) {
     this._sliderPositionX = value;
+    if (this.rectangleSelector !== undefined) {
+      this.rectangleSelector.point.x = this.point.x + value;
+    }
+    if (this.circleSelector !== undefined) {
+      this.circleSelector.point.x = this.point.x + value;
+    }
   }
 
   get sliderPositionX() {

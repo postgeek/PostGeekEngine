@@ -53,7 +53,8 @@ class ColorConverter {
   /**
    * Wiki: https://en.wikipedia.org/wiki/HSL_and_HSV
    * Proof: https://jsfiddle.net/Lamik/reuk63ay
-   * Assumes h, s, and l are contained in the set [0, 1] and
+   * Assumes h is in the set [0 ,360]
+   * s, and l are contained in the set [0, 1] and
    * returns r, g, and b in the set [0, 255].
    *
    * @param   {HSLColor}  hslColor  The HSL representation
@@ -70,9 +71,9 @@ class ColorConverter {
     const a = saturation * Math.min(lightness, 1 - lightness);
     const func = (n, k = (n + hue / 30) % 12) => lightness - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
 
-    const red = func(0) * 255;
-    const green = func(8) * 255;
-    const blue = func(4) * 255;
+    const red = Math.round(func(0) * 255);
+    const green = Math.round(func(8) * 255);
+    const blue = Math.round(func(4) * 255);
 
     return new RGBAColor(red, green, blue, alpha);
   }

@@ -20,6 +20,7 @@ import TextLengthValidator from '../../validators/TextLengthValidator';
 
 /*
 * TODO: ADD A BUTTON THE SHOWS THE COLOR PICKER AND HIDES IT
+* TODO: Group Text and Slider in one wrapper class
 */
 
 class ColorPicker {
@@ -49,13 +50,50 @@ class ColorPicker {
 
     this.colorSliders = [];
 
-    this.hslaColor = this.color.hslaColor;
-    this.rgbaColor = this.color.rgbaColor;
-
     this.createRGBInputs();
     this.createRGBSliders();
     this.createHSLInputs();
     this.createHSLSliders();
+  }
+
+  set hslaColor(value) {
+    this._color.hslaColor = value;
+  }
+
+  get hslaColor() {
+    return this.color.hslaColor;
+  }
+
+  set rgbaColor(value) {
+    this._color.rgbaColor = value;
+  }
+
+  get rgbaColor() {
+    return this.color.rgbaColor;
+  }
+
+  get hue() {
+    return this.color.hslaColor.hue;
+  }
+
+  get saturation() {
+    return this.color.hslaColor.saturation;
+  }
+
+  get lightness() {
+    return this.color.hslaColor.lightness;
+  }
+
+  get red() {
+    return this.color.rgbaColor.red;
+  }
+
+  get green() {
+    return this.color.rgbaColor.green;
+  }
+
+  get blue() {
+    return this.color.rgbaColor.blue;
   }
 
   get mouse() {
@@ -85,7 +123,7 @@ class ColorPicker {
     const saturationSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientSaturation.buildGradient(),
     });
-    this.saturationColorSlider = new ColorSlider(new Point(425, 35), 360, 30, saturation, saturationSliderGeometryStyle);
+    this.saturationColorSlider = new ColorSlider(new Point(425, 35), 360, 30, saturation * 3.6, saturationSliderGeometryStyle);
 
     // Lightness Slider
     const linearGradientLightness = new LinearGradient(new Point(425, 30), new Point(785, 30));
@@ -95,7 +133,7 @@ class ColorPicker {
     const lightnessSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientLightness.buildGradient(),
     });
-    this.lightnessColorSlider = new ColorSlider(new Point(425, 65), 360, 30, lightness, lightnessSliderGeometryStyle);
+    this.lightnessColorSlider = new ColorSlider(new Point(425, 65), 360, 30, lightness * 3.6, lightnessSliderGeometryStyle);
 
     this.colorSliders.push(this.hueColorSlider);
     this.colorSliders.push(this.saturationColorSlider);
@@ -220,26 +258,6 @@ class ColorPicker {
     this.addSavedRectangle(this.hslaColor.clone());
   }
 
-  hasRGBColorTextChanged() {
-    const red = Math.round(this.rgbaColor.red).toString();
-    const green = Math.round(this.rgbaColor.green).toString();
-    const blue = Math.round(this.rgbaColor.blue).toString();
-    const redInput = this.textInputRed.text.toString() ? this.textInputRed.text.toString() : '0';
-    const greenInput = this.textInputGreen.text.toString() ? this.textInputGreen.text.toString() : '0';
-    const blueInput = this.textInputBlue.text.toString() ? this.textInputBlue.text.toString() : '0';
-    return (red !== redInput || green !== greenInput || blue !== blueInput);
-  }
-
-  hasHSLColorTextChanged() {
-    const hue = Math.round(this.hslaColor.hue).toString();
-    const saturation = Math.round(this.hslaColor.saturation).toString();
-    const lightness = Math.round(this.hslaColor.lightness).toString();
-    const hueInput = this.textInputHue.text.toString() ? this.textInputHue.text.toString() : '0';
-    const saturationInput = this.textInputSaturation.text.toString() ? this.textInputSaturation.text.toString() : '0';
-    const lightnessInput = this.textInputLightness.text.toString() ? this.textInputLightness.text.toString() : '0';
-    return (hue !== hueInput || saturation !== saturationInput || lightness !== lightnessInput);
-  }
-
   addSavedRectangle(color) {
     if (this.maxSavedRectangles - 1 < this.currentSavedRectanglesIndex) {
       this.currentSavedRectanglesIndex = 0;
@@ -306,35 +324,150 @@ class ColorPicker {
   }
 
   hasColorValueChanged() {
-    const { hue, saturation, lightness } = this.hslaColor;
-    const { red, green, blue } = this.rgbaColor;
+    return this.hasHSLInputChanged() || this.hasRGBInputChanged();
+  }
 
-    const textHue = Math.trunc(this.textInputHue.text);
-    const textSaturation = Math.trunc(this.textInputSaturation.text);
-    const textLightness = Math.trunc(this.textInputLightness.text);
+  hasRGBInputChanged() {
+    return this.hasRedTextValueChanged() || this.hasRedSliderValueChanged()
+      || this.hasGreenTextValueChanged() || this.hasGreenSliderValueChanged()
+      || this.hasBlueTextValueChanged() || this.hasBlueSliderValueChanged();
+  }
 
-    const textRed = Math.trunc(this.textInputRed.text);
-    const textGreen = Math.trunc(this.textInputGreen.text);
-    const textBlue = Math.trunc(this.textInputBlue.text);
+  hasHSLInputChanged() {
+    return this.hasHueTextValueChanged()
+      || this.hasHueSliderValueChanged()
+      || this.hasSaturationTextValueChanged()
+      || this.hasSaturationSliderValueChanged()
+      || this.hasLightnessTextValueChanged()
+      || this.hasLightnessSliderValueChanged();
+  }
 
-    const sliderHue = Math.trunc(this.hueColorSlider.sliderPositionX);
-    const sliderSaturation = Math.trunc(this.saturationColorSlider.sliderPositionX);
-    const sliderLightness = Math.trunc(this.lightnessColorSlider.sliderPositionX);
-
+  hasRedSliderValueChanged() {
     const sliderRed = Math.trunc(this.redColorSlider.sliderPositionX);
-    const sliderGreen = Math.trunc(this.greenColorSlider.sliderPositionX);
-    const sliderBlue = Math.trunc(this.blueColorSlider.sliderPositionX);
+    return this.red !== sliderRed;
+  }
 
-    return (hue !== textHue || hue !== sliderHue)
-      || (saturation !== textSaturation || saturation !== sliderSaturation)
-      || (lightness !== textLightness || lightness !== sliderLightness)
-      || (red !== textRed || red !== sliderRed)
-      || (green !== textGreen || green !== sliderGreen)
-      || (blue !== textBlue || blue !== sliderBlue);
+  hasRedTextValueChanged() {
+    const textRed = Math.trunc(this.textInputRed.text);
+    return this.red !== textRed;
+  }
+
+  hasGreenSliderValueChanged() {
+    const sliderGreen = Math.trunc(this.greenColorSlider.sliderPositionX);
+    return this.green !== sliderGreen;
+  }
+
+  hasGreenTextValueChanged() {
+    const textGreen = Math.trunc(this.textInputGreen.text);
+    return this.green !== textGreen;
+  }
+
+  hasBlueSliderValueChanged() {
+    const sliderBlue = Math.trunc(this.blueColorSlider.sliderPositionX);
+    return this.blue !== sliderBlue;
+  }
+
+  hasBlueTextValueChanged() {
+    const textBlue = Math.trunc(this.textInputBlue.text);
+    return this.blue !== textBlue;
+  }
+
+  hasHueSliderValueChanged() {
+    const sliderHue = this.hueColorSlider.sliderPositionX;
+    return Math.round(this.hue) !== sliderHue;
+  }
+
+  hasHueTextValueChanged() {
+    const textHue = this.textInputHue.text;
+    return Math.round(this.hue) !== textHue;
+  }
+
+  hasSaturationSliderValueChanged() {
+    const sliderSaturation = Math.round(this.saturationColorSlider.sliderPositionX / 3.6);
+    return Math.round(this.saturation) !== sliderSaturation;
+  }
+
+  hasSaturationTextValueChanged() {
+    const textSaturation = this.textInputSaturation.text;
+    return Math.round(this.saturation) !== textSaturation;
+  }
+
+  hasLightnessSliderValueChanged() {
+    const sliderLightness = Math.round(this.lightnessColorSlider.sliderPositionX / 3.6);
+    return Math.round(this.lightness) !== sliderLightness;
+  }
+
+  hasLightnessTextValueChanged() {
+    const textLightness = this.textInputLightness.text;
+    return Math.round(this.lightness) !== textLightness;
   }
 
   updateColors() {
-    console.log('updating');
+    if (this.hasRGBInputChanged()) {
+      if (this.hasRedSliderValueChanged()) {
+        this.rgbaColor.red = Math.round(this.redColorSlider.sliderPositionX);
+      } else if (this.hasRedTextValueChanged()) {
+        this.rgbaColor.red = Math.round(this.textInputRed.text);
+      }
+      if (this.hasGreenSliderValueChanged()) {
+        this.rgbaColor.green = Math.round(this.greenColorSlider.sliderPositionX);
+      } else if (this.hasGreenTextValueChanged()) {
+        this.rgbaColor.green = Math.round(this.textInputGreen.text);
+      }
+      if (this.hasBlueSliderValueChanged()) {
+        this.rgbaColor.blue = Math.round(this.blueColorSlider.sliderPositionX);
+      } else if (this.hasBlueTextValueChanged()) {
+        this.rgbaColor.blue = Math.round(this.textInputBlue.text);
+      }
+      this.hslaColor = ColorConverter.RGBToHSL(this.rgbaColor);
+      this.updateRGBInputs();
+      this.updateHSLInputs();
+      this.colorPreviewRectangle.geometryStyle.fillStyle = this.rgbaColor;
+    } else if (this.hasHSLInputChanged()) {
+      if (this.hasHueSliderValueChanged()) {
+        this.hslaColor.hue = Math.round(this.hueColorSlider.sliderPositionX);
+      } else if (this.hasHueTextValueChanged()) {
+        this.hslaColor.hue = Math.round(this.textInputHue.text);
+      }
+      if (this.hasSaturationSliderValueChanged()) {
+        this.hslaColor.saturation = Math.round(this.saturationColorSlider.sliderPositionX / 3.6);
+      } else if (this.hasSaturationTextValueChanged()) {
+        this.hslaColor.saturation = Math.round(this.textInputSaturation.text);
+      }
+      if (this.hasLightnessSliderValueChanged()) {
+        this.hslaColor.lightness = Math.round(this.lightnessColorSlider.sliderPositionX / 3.6);
+      } else if (this.hasLightnessTextValueChanged()) {
+        this.hslaColor.lightness = Math.round(this.textInputLightness.text);
+      }
+      this.rgbaColor = ColorConverter.HSLToRGB(this.hslaColor);
+      this.updateHSLInputs();
+      this.updateRGBInputs();
+      this.colorPreviewRectangle.geometryStyle.fillStyle = this.hslaColor;
+    }
+  }
+
+  updateHSLInputs() {
+    let { hue, saturation, lightness } = this.hslaColor;
+    hue = Math.round(hue);
+    saturation = Math.round(saturation);
+    lightness = Math.round(lightness);
+    this.hueColorSlider.sliderPositionX = hue;
+    this.textInputHue.text = hue;
+    this.saturationColorSlider.sliderPositionX = saturation * 3.6;
+    this.textInputSaturation.text = saturation;
+    this.lightnessColorSlider.sliderPositionX = lightness * 3.6;
+    this.textInputLightness.text = lightness;
+    this.hslTextGraphic.text = this.hslaColor.toString();
+  }
+
+  updateRGBInputs() {
+    this.redColorSlider.sliderPositionX = this.rgbaColor.red;
+    this.textInputRed.text = this.rgbaColor.red;
+    this.greenColorSlider.sliderPositionX = this.rgbaColor.green;
+    this.textInputGreen.text = this.rgbaColor.green;
+    this.blueColorSlider.sliderPositionX = this.rgbaColor.blue;
+    this.textInputBlue.text = this.rgbaColor.blue;
+    this.rgbTextGraphic.text = this.rgbaColor.toString();
   }
 
   update() {
