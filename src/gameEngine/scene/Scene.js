@@ -1,5 +1,9 @@
 import BaseClassConstructedError from '../../core/errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
+import World from './World';
+import ServiceLocator from '../../core/ServiceLocator';
+import Point from '../../core/Point';
+import Camera from '../Camera';
 
 class Scene {
   /**
@@ -11,29 +15,44 @@ class Scene {
     if (this.constructor === Scene) {
       throw new BaseClassConstructedError();
     }
+
+    this._context = ServiceLocator.instance.locate('context');
+
+    //TODO: For simplicity, the world and camera are the same size as the canvas for now.
+    this._world = new World(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
+    this._camera = new Camera(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
+
     this.create();
   }
 
   /**
-   * Whether the current scene is the active scene.
+   * Get the world for this scene
    */
-  get IsActive() {
-    return this.isActive;
-  }
-
-  set IsActive(value) {
-    this.isActive = value;
-  }
-
-  RegisterGraphicObject(graphicObject) {
-    this.drawableObjects.push(graphicObject);
+  get world() {
+    return this._world;
   }
 
   /**
-   * Gets the drawable objects for the scene
+   * Set the camera for this scene
+   * @param {Camera} value The new camera object for this scene.
    */
-  get DrawableObjects() {
-    return this.drawableObjects;
+  set camera(value) {
+    this._camera = value;
+  }
+
+  /**
+   * Get the camera for this scene
+   */
+  get camera() {
+    return this._camera;
+  }
+
+  /**
+   * Set the world for this scene
+   * @param {World} value The new world object for this scene.
+   */
+  set world(value) {
+    this._world = value;
   }
 
   /**
@@ -49,9 +68,6 @@ class Scene {
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
-    for (let i = 0; i < this.DrawableObjects.length; i += 1) {
-      this.DrawableObjects[i].draw();
-    }
   }
 
   /**
