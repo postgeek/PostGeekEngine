@@ -142,6 +142,7 @@ describe('Constructor', () => {
     const text = 'jest test text';
     const point = new Point(22, 33);
     const testGraphic = new TextGraphic(point, text);
+    testGraphic.textStyle.strokeStyle = 'red';
     const contextStrokeTextSpy = jest.spyOn(context, 'strokeText');
 
     // Act
