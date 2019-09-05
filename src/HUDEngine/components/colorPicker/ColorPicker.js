@@ -19,10 +19,7 @@ import NumberRangeValidator from '../../validators/NumberRangeValidator';
 import TextLengthValidator from '../../validators/TextLengthValidator';
 
 /*
-* TODO: CALCULATE THE RECTANGLE / COLOR TEXTS BASED ON THE WIDTH
-* TODO: MODIFY THE COLOR SCENE TO USE ONLY THE COLOR PICKER
 * TODO: ADD A BUTTON THE SHOWS THE COLOR PICKER AND HIDES IT
-* TODO: ADD THE ABILITY TO STOP CHECKING FOR MOUSE CLICKS ON INPUT
 */
 
 class ColorPicker {
@@ -70,6 +67,7 @@ class ColorPicker {
   }
 
   createHSLSliders() {
+    const { hue, saturation, lightness } = this.hslaColor;
     // Hue Slider
     const linearGradientHue = new LinearGradient(new Point(425, 30), new Point(785, 30));
     for (let gradientHue = 0; gradientHue <= 360; gradientHue += 60) {
@@ -78,7 +76,7 @@ class ColorPicker {
     const hueSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientHue.buildGradient(),
     });
-    this.hueColorSlider = new ColorSlider(new Point(425, 5), 360, 30, hueSliderGeometryStyle);
+    this.hueColorSlider = new ColorSlider(new Point(425, 5), 360, 30, hue, hueSliderGeometryStyle);
 
     // Saturation Slider
     const linearGradientSaturation = new LinearGradient(new Point(425, 30), new Point(785, 30));
@@ -87,7 +85,7 @@ class ColorPicker {
     const saturationSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientSaturation.buildGradient(),
     });
-    this.saturationColorSlider = new ColorSlider(new Point(425, 35), 360, 30, saturationSliderGeometryStyle);
+    this.saturationColorSlider = new ColorSlider(new Point(425, 35), 360, 30, saturation, saturationSliderGeometryStyle);
 
     // Lightness Slider
     const linearGradientLightness = new LinearGradient(new Point(425, 30), new Point(785, 30));
@@ -97,7 +95,7 @@ class ColorPicker {
     const lightnessSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientLightness.buildGradient(),
     });
-    this.lightnessColorSlider = new ColorSlider(new Point(425, 65), 360, 30, lightnessSliderGeometryStyle);
+    this.lightnessColorSlider = new ColorSlider(new Point(425, 65), 360, 30, lightness, lightnessSliderGeometryStyle);
 
     this.colorSliders.push(this.hueColorSlider);
     this.colorSliders.push(this.saturationColorSlider);
@@ -136,9 +134,7 @@ class ColorPicker {
   }
 
   createRGBSliders() {
-    const red = 200;
-    const green = 200;
-    const blue = 200;
+    const { red, green, blue } = this.rgbaColor;
 
     const linearGradientRed = new LinearGradient(new Point(160, 5), new Point(415, 20));
     linearGradientRed.addColorStop(0, new RGBAColor(0, green, blue, 1));
@@ -146,7 +142,7 @@ class ColorPicker {
     const redColorSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientRed.buildGradient(),
     });
-    this.redColorSlider = new ColorSlider(new Point(160, 5), 255, 30, redColorSliderGeometryStyle);
+    this.redColorSlider = new ColorSlider(new Point(160, 5), 255, 30, red, redColorSliderGeometryStyle);
 
     const linearGradientGreen = new LinearGradient(new Point(160, 20), new Point(415, 20));
     linearGradientGreen.addColorStop(0, new RGBAColor(red, 0, blue, 1));
@@ -154,7 +150,7 @@ class ColorPicker {
     const greenColorSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientGreen.buildGradient(),
     });
-    this.greenColorSlider = new ColorSlider(new Point(160, 35), 255, 30, greenColorSliderGeometryStyle);
+    this.greenColorSlider = new ColorSlider(new Point(160, 35), 255, 30, green, greenColorSliderGeometryStyle);
 
     const linearGradientBlue = new LinearGradient(new Point(160, 20), new Point(415, 20));
     linearGradientBlue.addColorStop(0, new RGBAColor(red, green, 0, 1));
@@ -162,7 +158,7 @@ class ColorPicker {
     const blueColorSliderGeometryStyle = new GeometryStyle({
       fillStyle: linearGradientBlue.buildGradient(),
     });
-    this.blueColorSlider = new ColorSlider(new Point(160, 65), 255, 30, blueColorSliderGeometryStyle);
+    this.blueColorSlider = new ColorSlider(new Point(160, 65), 255, 30, blue, blueColorSliderGeometryStyle);
 
     this.colorSliders.push(this.redColorSlider);
     this.colorSliders.push(this.blueColorSlider);
@@ -208,26 +204,20 @@ class ColorPicker {
     this.blueTextGraphic.textStyle = textStyleBlue;
   }
 
-  handleRandomButtonClick(clicked) {
-    if (clicked) {
-      const hue = Math.round(Math.random() * 360);
-      const saturation = Math.round(Math.random() * 100);
-      const lightness = Math.round(Math.random() * 100);
-      this.addSavedRectangle(new HSLAColor(hue, saturation, lightness, 1));
-    }
+  handleRandomButtonClick() {
+    const hue = Math.round(Math.random() * 360);
+    const saturation = Math.round(Math.random() * 100);
+    const lightness = Math.round(Math.random() * 100);
+    this.addSavedRectangle(new HSLAColor(hue, saturation, lightness, 1));
   }
 
-  handleClearButtonClick(clicked) {
-    if (clicked) {
-      this.currentSavedRectanglesIndex = 0;
-      this.savedRectangles = [];
-    }
+  handleClearButtonClick() {
+    this.currentSavedRectanglesIndex = 0;
+    this.savedRectangles = [];
   }
 
-  handleSaveColorButtonClick(clicked) {
-    if (clicked) {
-      this.addSavedRectangle(this.hslaColor.clone());
-    }
+  handleSaveColorButtonClick() {
+    this.addSavedRectangle(this.hslaColor.clone());
   }
 
   hasRGBColorTextChanged() {
@@ -315,7 +305,53 @@ class ColorPicker {
     this.rectangleGreen.geometryStyle.fillStyle = linearGradientGreen.buildGradient();
   }
 
+  hasColorValueChanged() {
+    const { hue, saturation, lightness } = this.hslaColor;
+    const { red, green, blue } = this.rgbaColor;
+
+    const textHue = Math.trunc(this.textInputHue.text);
+    const textSaturation = Math.trunc(this.textInputSaturation.text);
+    const textLightness = Math.trunc(this.textInputLightness.text);
+
+    const textRed = Math.trunc(this.textInputRed.text);
+    const textGreen = Math.trunc(this.textInputGreen.text);
+    const textBlue = Math.trunc(this.textInputBlue.text);
+
+    const sliderHue = Math.trunc(this.hueColorSlider.sliderPositionX);
+    const sliderSaturation = Math.trunc(this.saturationColorSlider.sliderPositionX);
+    const sliderLightness = Math.trunc(this.lightnessColorSlider.sliderPositionX);
+
+    const sliderRed = Math.trunc(this.redColorSlider.sliderPositionX);
+    const sliderGreen = Math.trunc(this.greenColorSlider.sliderPositionX);
+    const sliderBlue = Math.trunc(this.blueColorSlider.sliderPositionX);
+
+    return (hue !== textHue || hue !== sliderHue)
+      || (saturation !== textSaturation || saturation !== sliderSaturation)
+      || (lightness !== textLightness || lightness !== sliderLightness)
+      || (red !== textRed || red !== sliderRed)
+      || (green !== textGreen || green !== sliderGreen)
+      || (blue !== textBlue || blue !== sliderBlue);
+  }
+
+  updateColors() {
+    console.log('updating');
+  }
+
   update() {
+    if (this.mouse.buttonDownOnce()) {
+      const { x, y } = this.mouse;
+      this.saveButton.update({ x, y });
+      this.clearButton.update({ x, y });
+      this.randomButton.update({ x, y });
+
+      this.textInputRed.update({ x, y });
+      this.textInputBlue.update({ x, y });
+      this.textInputGreen.update({ x, y });
+
+      this.textInputHue.update({ x, y });
+      this.textInputSaturation.update({ x, y });
+      this.textInputLightness.update({ x, y });
+    }
     if (this.mouse.buttonPressed()) {
       const { x, y } = this.mouse;
       for (let i = 0; i < this.colorSliders.length; i += 1) {
@@ -329,6 +365,9 @@ class ColorPicker {
         this.greenColorSlider.update({ x, y });
         */
       }
+    }
+    if (this.hasColorValueChanged()) {
+      this.updateColors();
     }
   }
 

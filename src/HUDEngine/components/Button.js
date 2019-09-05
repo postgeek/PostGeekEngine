@@ -41,6 +41,12 @@ class Button extends ClickableComponent {
     this.height = height;
   }
 
+  update(event) {
+    if (this.isMouseColliding(event)) {
+      this.handleClick(event);
+    }
+  }
+
   draw() {
     this.rectangle.draw();
     this.textGraphic.draw();

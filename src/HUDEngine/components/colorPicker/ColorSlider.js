@@ -6,17 +6,17 @@ import GeometryStyle from '../../../renderingEngine/geometry/GeometryStyle';
 import Color from '../../../renderingEngine/colors/Color';
 
 class ColorSlider extends ClickableComponent {
-  constructor(point, width, height, geometryStyle) {
+  constructor(point, width, height, initialXPosition, geometryStyle) {
     super(point);
     this.width = width;
     this.height = height;
-    this.sliderPositionX = 0;
+    this.sliderPositionX = initialXPosition;
 
     const rectangleSelectorGeometryStyle = new GeometryStyle({
       fillStyle: Color.BLACK,
       lineWidth: 1,
     });
-    this.rectangleSelector = new Rectangle(new Point(this.point.x, this.point.y), 1, 30);
+    this.rectangleSelector = new Rectangle(new Point(this.point.x + initialXPosition, this.point.y), 1, 30);
     this.rectangleSelector.geometryStyle = rectangleSelectorGeometryStyle;
 
     const circleSelectorGeometryStyle = new GeometryStyle({

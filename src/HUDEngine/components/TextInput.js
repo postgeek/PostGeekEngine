@@ -100,8 +100,8 @@ class TextInput extends ClickableComponent {
     return this.validators;
   }
 
-  handleClick(clicked) {
-    if (clicked) {
+  update(event) {
+    if (this.isMouseColliding(event)) {
       this.focus = true;
     } else {
       this.focus = false;
