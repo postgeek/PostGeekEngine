@@ -6,17 +6,9 @@ import ServiceLocator from '../../core/ServiceLocator';
 class ClickableComponent extends GraphicComponent {
   constructor(point) {
     super(point);
-
-    const eventbus = ServiceLocator.instance.locate('eventbus');
-    const mouse = ServiceLocator.instance.locate('mouse');
-    eventbus.register(mouse.MOUSE_DOWN_EVENT, (event) => this.handleMouseDown(event));
   }
 
-  handleClick(event) {
-    throw new MethodNotImplementedError(this);
-  }
-
-  handleMouseDown(event) {
+  isMouseColliding(event) {
     const mouseX = event.x;
     const mouseY = event.y;
     const inputX = this.point.x;
@@ -30,11 +22,6 @@ class ClickableComponent extends GraphicComponent {
     const minY = inputY;
 
     // Check for collision with the mouse
-    if (minX <= mouseX && mouseX <= maxX
-    && minY <= mouseY && mouseY <= maxY) {
-      this.handleClick(true);
-    } else {
-      this.handleClick(false);
-    }
+    return (minX <= mouseX && mouseX <= maxX && minY <= mouseY && mouseY <= maxY);
   }
 } export default ClickableComponent;
