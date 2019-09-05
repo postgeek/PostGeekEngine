@@ -1,46 +1,50 @@
 class GameObject {
   /**
   * Constructor for the GameObject
-  *
-  * @param {Point} point game entities starting point
-  * @param {number} width the width of the game entity
-  * @param {number} height the height of the game entity
+  * @param {Scene} scene The scene the game object is found in
   */
-  constructor(point) {
-    this.Point = point;
+  constructor(scene) {
+    this._scene = scene;
   }
 
   /**
-  * The game entities point.
+  * Get the scene this object is part of.
+  * @returns {Scene} The scene
   */
-  get Point() {
-    return this.point;
-  }
-
-  set Point(value) {
-    this.point = value;
+  get scene() {
+    return this._scene;
   }
 
   /**
-   *  The X coordinate of the sprite.
+   * Get the graphics component
+   * @returns {GraphicsComponent} The graphics component
    */
-  get X() {
-    return this.Point.X;
-  }
-
-  set X(value) {
-    this.Point.X = value;
+  get graphics() {
+    return this._graphics;
   }
 
   /**
-  *  The Y coordinate of the sprite.
-  */
-  get Y() {
-    return this.Point.Y;
+   * Set the graphics component
+   * @param {GraphicsComponent} value The graphics component value
+   */
+  set graphics(value) {
+    this._graphics = value;
   }
 
-  set Y(value) {
-    return this.Point.Y;
+  /**
+   * Get the physics component
+   * @returns {PhysicsComponent} The physics component
+   */
+  get physics() {
+    return this._physics;
+  }
+
+  /**
+   * Set the physics component
+   * @param {PhysicsComponent} value The physics component value
+   */
+  set physics(value) {
+    this._physics = value;
   }
 
   /**
@@ -48,8 +52,8 @@ class GameObject {
    *
    * @param {string} key the key of the data to retrieve.
    */
-  GetData(key) {
-    return this.data[key];
+  getData(key) {
+    return this._data[key];
   }
 
   /**
@@ -58,8 +62,31 @@ class GameObject {
   * @param {string} key the key of the data to store to the GameObject's internal memory.
   * @param {object} value the object to store into the GameObject's internal memory.
   */
-  SetData(key, value) {
-    this.data[key] = value;
+  setData(key, value) {
+    this._data[key] = value;
+  }
+
+  /**
+   * Update the game object. This also calls update on the physics and graphics components.
+   */
+  update() {
+    if (this._physics && this._physics.update) {
+      this._physics.update();
+    }
+
+    if (this._graphics && this._graphics.update) {
+      this._graphics.update();
+    }
+  }
+
+  /**
+   * Draw the game object. This also calls draw on the graphics component.
+   */
+  draw() {
+    if (this._graphics && this._graphics.draw) {
+      this._graphics.draw();
+    }
   }
 }
+
 export default GameObject;

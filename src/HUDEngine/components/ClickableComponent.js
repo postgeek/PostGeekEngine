@@ -1,6 +1,6 @@
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
 
-import GraphicComponent from '../GraphicComponent';
+import GraphicComponent from '../HUDComponent';
 import ServiceLocator from '../../core/ServiceLocator';
 
 class ClickableComponent extends GraphicComponent {

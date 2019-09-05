@@ -62,12 +62,10 @@ class Game {
     this.Keyboard = new Keyboard();
 
     this.Canvas = this.config.canvas;
-    this.sceneManager = new SceneManager();
     this.middlewareManager = new MiddlewareManager();
 
-    if (config.debug) {
-      this.middlewareManager.add('debug', new PostGeekDebugger());
-    }
+    ServiceLocator.instance.register('sceneManager', new SceneManager());
+    this.sceneManager = ServiceLocator.instance.locate('sceneManager');
   }
 
   /**
@@ -87,6 +85,7 @@ class Game {
 
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', context);
+
     this._context = ServiceLocator.instance.locate('context');
 
     // Register the eventbus into the service locator
@@ -107,7 +106,11 @@ class Game {
     window.addEventListener('keyup', (event) => this.Keyboard.keyUp(event));
 
     addScene(this.config.initialScene);
-    startScene(this.config.initialScene.key, this);
+    startScene(this.config.initialScene.key);
+
+    if (this.config.debug) {
+      this.middlewareManager.add('debug', new PostGeekDebugger());
+    }
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
@@ -161,9 +164,8 @@ class Game {
    * draw - Draws the scene to the current canvas
    */
   draw() {
-    // Draw Background
-    this._context.fillStyle = '#000000';
-    this._context.fillRect(0, 0, 1550, 750);
+    // Clear the canvas to prepare for next draw
+    this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
 
     this.sceneManager.runningScene.draw();
     this.middlewareManager.draw();

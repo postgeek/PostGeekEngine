@@ -7,10 +7,8 @@ class TextGraphic extends GraphicObject {
     this.point = point;
     this.text = text;
     this.textStyle = new TextStyle({
-      fillStyle: 'darkblue',
-      strokeStyle: 'lightblue',
-      lineWidth: 2,
-      font: '14px serif',
+      fillStyle: 'black',
+      font: '12px serif',
     });
   }
 

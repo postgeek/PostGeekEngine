@@ -1,5 +1,6 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
+import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
@@ -43,6 +44,14 @@ Window.Main = class Main {
       debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'themeDemoScene', scene: ThemeDemoScene },
+    });
+  }
+
+  static start2CollisionDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'collisionScene', scene: CollisionScene },
     });
   }
 };

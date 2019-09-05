@@ -4,6 +4,7 @@ import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
 import Point from '../Point';
+import ServiceLocator from '../ServiceLocator';
 
 class PostGeekDebugger extends IMiddleware {
   init(middlewareManager) {
@@ -22,6 +23,11 @@ class PostGeekDebugger extends IMiddleware {
     this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
+    
+    this._sceneManager = ServiceLocator.instance.locate('sceneManager');
+    this._activeScene = this._sceneManager.runningScene;
+    this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
+    this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 
   update() {
@@ -30,6 +36,7 @@ class PostGeekDebugger extends IMiddleware {
 
   draw() {
     this.Text.draw();
+    this._worldRectangle.draw();
   }
 
   drawDebug(graphicObject) {

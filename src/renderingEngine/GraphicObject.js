@@ -1,5 +1,6 @@
 import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
 import ServiceLocator from '../core/ServiceLocator';
+
 /**
  * Defines a graphic object that is drawn to the screen
  */
