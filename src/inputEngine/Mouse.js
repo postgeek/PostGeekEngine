@@ -19,17 +19,6 @@ class Mouse {
     });
 
     this._mouseState = this.MOUSE_STATE.RELEASED;
-
-    this.mouse_down_event = Symbol('mouse_down_event');
-    this.mouse_up_event = Symbol('mouse_up_event');
-  }
-
-  get MOUSE_DOWN_EVENT() {
-    return this.mouse_down_event;
-  }
-
-  get MOUSE_UP_EVENT() {
-    return this.mouse_up_event;
   }
 
   /**
@@ -52,26 +41,6 @@ class Mouse {
   }
 
   /**
-   * Handles the possible mouse events
-   * @param {MouseEvent} evt The MouseEvent
-   */
-  handleEvent(evt) {
-    switch (evt.type) {
-      case 'mousemove':
-        this.mouseMove(evt);
-        break;
-      case 'mousedown':
-        this.mouseDown(evt);
-        break;
-      case 'mouseup':
-        this.mouseUp(evt);
-        break;
-      default:
-        throw new UnhandledHtmlEventError();
-    }
-  }
-
-  /**
    * Handles the mouse mouve event
    * @param {MouseEvent} e The MouseEvent
    */
@@ -89,8 +58,6 @@ class Mouse {
    */
   mouseDown(e) {
     this._buttonDown = true;
-    const eventbus = ServiceLocator.instance.locate('eventbus');
-    eventbus.emit(this.MOUSE_DOWN_EVENT, { x: this.x, y: this.y });
   }
 
   /**
@@ -98,8 +65,6 @@ class Mouse {
    */
   mouseUp(e) {
     this._buttonDown = false;
-    const eventbus = ServiceLocator.instance.locate('eventbus');
-    eventbus.emit(this.MOUSE_UP_EVENT, { x: this.x, y: this.y });
   }
 
   /**
