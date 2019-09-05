@@ -3,8 +3,8 @@ import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
-import RenderingContext2D from './renderingEngine/context/RenderingContext2D';
 import ServiceLocator from './core/ServiceLocator';
+import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
 let game = null;
 
@@ -61,8 +61,10 @@ class Game {
     this.Keyboard = new Keyboard();
 
     this.Canvas = this.config.canvas;
-    this.sceneManager = new SceneManager();
-    this.middlewareManager = new MiddlewareManager(this);
+    this.middlewareManager = new MiddlewareManager();
+
+    ServiceLocator.instance.register('sceneManager', new SceneManager());
+    this.sceneManager = ServiceLocator.instance.locate('sceneManager');
   }
 
   /**
@@ -82,7 +84,12 @@ class Game {
 
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', context);
+
     this._context = ServiceLocator.instance.locate('context');
+
+    // Resgiter the inputs into the service locator
+    ServiceLocator.instance.register('keyboard', this.Keyboard);
+    ServiceLocator.instance.register('mouse', this.Mouse);
 
     this.Canvas.addEventListener('mousemove', this.Mouse, false);
     this.Canvas.addEventListener('mouseup', this.Mouse, false);
@@ -96,9 +103,13 @@ class Game {
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key);
 
+    if (this.config.debug) {
+      this.middlewareManager.add('debug', new PostGeekDebugger());
+    }
+
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
-        this.middlewareManager.addMiddleware(this.config.middleware[key]);
+        this.middlewareManager.add(key, this.config.middleware[key]);
       }
     }
 
@@ -170,7 +181,7 @@ class Game {
         || window.msRequestAnimationFrame;
 
     if (!func) {
-      func = callback => setTimeout(callback, 1000 / 24);
+      func = (callback) => setTimeout(callback, 1000 / 24);
     }
 
     func(callback.bind(this));

@@ -4,6 +4,12 @@
       "browser": true
     },
     "rules": {
-      "no-underscore-dangle": "off"
+      "no-underscore-dangle": "off",
+      "no-restricted-syntax": [
+        "error",
+        {
+          "selector": "FunctionExpression[operator='in']"
+        }
+      ]
     }
 }

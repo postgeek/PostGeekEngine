@@ -1,30 +1,38 @@
+import { isPowerOfTwo } from '../../../core/utils/Math';
+
 /**
  * Defines the configuration object for a SpriteSheet
  */
 class SpriteSheetConfig {
-  constructor(config) {
+  constructor({ width, height } = {}) {
     this.spriteConfigurations = {};
-    if ('width' in config) {
-      this.Width = config.width;
+    if (width !== undefined) {
+      this.width = width;
     }
-    if ('height' in config) {
-      this.Height = config.height;
+    if (height !== undefined) {
+      this.height = height;
     }
   }
 
-  get Width() {
-    return this.width;
+  get width() {
+    return this._width;
   }
 
-  set Width(value) {
-    this.width = value;
+  set width(value) {
+    if (!isPowerOfTwo(value)) {
+      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+    }
+    this._width = value;
   }
 
-  get Height() {
-    return this.height;
+  get height() {
+    return this._height;
   }
 
-  set Height(value) {
-    this.height = value;
+  set height(value) {
+    if (!isPowerOfTwo(value)) {
+      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+    }
+    this._height = value;
   }
 } export default SpriteSheetConfig;

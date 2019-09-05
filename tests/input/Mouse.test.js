@@ -1,6 +1,6 @@
-import UnhandledHtmlEventError from '../src/core/errorHandling/errors/UnhandledHtmlEventError';
-import InvalidArguementError from '../src/core/errorHandling/errors/InvalidArguementError';
-import Mouse from '../src/inputEngine/Mouse';
+import UnhandledHtmlEventError from '../../src/core/errorHandling/errors/UnhandledHtmlEventError';
+import InvalidArguementError from '../../src/core/errorHandling/errors/InvalidArguementError';
+import Mouse from '../../src/inputEngine/Mouse';
 
 describe('buttonDownOnce', () => {
   it('should be true when mouse button is down once', () => {

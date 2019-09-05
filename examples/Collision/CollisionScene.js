@@ -1,6 +1,6 @@
 import Scene from 'gameEngine/scene/Scene';
 import Point from '../../src/core/Point';
-import Text from '../../src/renderingEngine/text/Text';
+import TextGraphic from '../../src/renderingEngine/text/TextGraphic';
 import GameObject from '../../src/gameEngine/gameObjects/GameObject';
 import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
 import PhysicsComponent from '../../src/physicsEngine/PhysicsComponent';
@@ -37,7 +37,7 @@ class RectanglePhysicsComponent extends PhysicsComponent {
     }
 
     // Should be throwing an event here to update the rectangle.
-    this.gameObject.graphics.rectangle.X += this._velocity;
+    this.gameObject.graphics.rectangle.x += this._velocity;
     this.hitBox.x += this._velocity;
   }
 }
@@ -54,12 +54,12 @@ class RectangleGameObject extends GameObject {
 export default class CollisionScene extends Scene {
   create() {
     this.rectangle = new RectangleGameObject(this);
-    this.rectangleText = new Text(new Point(3, 12), '');
+    this.rectangleText = new TextGraphic(new Point(3, 12), '');
   }
 
   update() {
     this.rectangle.update();
-    this.rectangleText.Text = `Rectangle is at x: '${this.rectangle.graphics.rectangle.X}' y: '${this.rectangle.graphics.rectangle.Y}'`;
+    this.rectangleText.text = `Rectangle is at x: '${this.rectangle.graphics.rectangle.x}' y: '${this.rectangle.graphics.rectangle.y}'`;
   }
 
   draw() {

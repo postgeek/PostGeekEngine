@@ -1,7 +1,9 @@
+import ItemAlreadyExistsError from '../errorHandling/errors/ItemAlreadyExistsError';
+import InvalidArguementError from '../errorHandling/errors/InvalidArguementError';
+
 class MiddlewareManager {
-  constructor(game) {
-    this.Game = game;
-    this.Middleware = [];
+  constructor() {
+    this._middleware = new Map();
   }
 
   /**
@@ -9,9 +11,13 @@ class MiddlewareManager {
    * @param {string} key the key for the middleware.
    * @param {Middleware} middleware the middleware to add to the game engine.
    */
-  addMiddleware(middleware) {
-    middleware.init(this);
-    this.Middleware.push(middleware);
+  add(key, middleware) {
+    if (!this._middleware.has(key)) {
+      middleware.init(this);
+      this._middleware.set(key, middleware);
+    } else {
+      throw new ItemAlreadyExistsError(this);
+    }
   }
 
   /**
@@ -19,27 +25,29 @@ class MiddlewareManager {
    * @param {string} key the key for the middleware
    * @return the middleware for the provided key.
    */
-  getMiddleware(key) {
-    return this.Middleware[key];
+  get(key) {
+    if (this._middleware.has(key)) {
+      return this._middleware.get(key);
+    }
+
+    throw new InvalidArguementError(this);
   }
 
   /**
-   * Runs the middleware.
+   * Updates the middleware.
    */
   update() {
-    for (let i = 0; i < this.Middleware.length; i += 1) {
-      this.Middleware[i].update();
-    }
+    this._middleware.forEach((middleware) => {
+      middleware.update();
+    });
   }
 
   /**
    * Draws the middleware to the screen if necessary.
    */
   draw() {
-    for (let i = 0; i < this.Middleware.length; i += 1) {
-      this.Middleware[i].draw();
-    }
+    this._middleware.forEach((middleware) => {
+      middleware.draw();
+    });
   }
-}
-
-export default MiddlewareManager;
+} export default MiddlewareManager;

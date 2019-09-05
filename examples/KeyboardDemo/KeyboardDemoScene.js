@@ -1,15 +1,16 @@
 import Scene from 'gameEngine/scene/Scene';
-import Text from 'renderingEngine/text/Text';
 import KeyboardKey from 'inputEngine/KeyboardKey';
+import ServiceLocator from '../../src/core/ServiceLocator';
 
-export default class KeyboardDemoScene extends Scene {
+export default class KeyboardDemoScene extends Scene {  
   create() {
     console.log(KeyboardKey.A);
-    this.game.Keyboard.registerKey(KeyboardKey.A);
+    this.keyboard = ServiceLocator.instance.locate('keyboard');
+    this.keyboard.registerKey(KeyboardKey.A);
   }
 
   update() {
-    if (this.game.Keyboard.keyDownHeld(KeyboardKey.A)) {
+    if (this.keyboard.keyDownHeld(KeyboardKey.A)) {
       console.log('A is down');
     }
   }

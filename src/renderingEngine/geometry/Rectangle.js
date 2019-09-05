@@ -10,71 +10,80 @@ class Rectangle extends Shape {
   */
   constructor(point, width, height) {
     super();
-    this.Point = point;
-    this.Width = width;
-    this.Height = height;
+    this.point = point;
+    this.width = width;
+    this.height = height;
   }
 
   /**
   * The rectangle's starting
   */
-  get Point() {
-    return this.point;
+  get point() {
+    return this._point;
   }
 
-  set Point(value) {
-    this.point = value;
+  set point(value) {
+    this._point = value;
   }
 
   /**
    *  The X coordinate of the rectangle.
    */
-  get X() {
-    return this.Point.X;
+  get x() {
+    return this.point.x;
   }
 
-  set X(value) {
-    this.Point.X = value;
+  set x(value) {
+    this.point.x = value;
   }
 
   /**
-  *  The Y coordinate of the rectangle.
+  *  The x coordinate of the rectangle.
   */
-  get Y() {
-    return this.Point.Y;
+  get y() {
+    return this.point.y;
   }
 
-  set Y(value) {
-    return this.Point.Y;
+  set y(value) {
+    this.point.y = value;
   }
 
   /**
   * The rectangle's width.
   */
-  get Width() {
-    return this.width;
+  get width() {
+    return this._width;
   }
 
-  set Width(value) {
-    this.width = value;
+  set width(value) {
+    this._width = value;
   }
 
   /**
   * The rectangle's height.
   */
-  get Height() {
-    return this.height;
+  get height() {
+    return this._height;
   }
 
-  set Height(value) {
-    this.height = value;
+  set height(value) {
+    this._height = value;
   }
 
   /**
   * Draws the rectangle to the current context.
   */
   internalDraw() {
-    this.context.rect(this.Point.X, this.Point.Y, this.Width, this.Height);
+    this.context.rect(this.point.x, this.point.y, this.width, this.height);
+  }
+
+  /**
+   *  Clones the current rectangle into a new Circle object
+   *
+   * @return {Rectangle}  the new rectangle with the same parameters as the old one
+   */
+  clone() {
+    return new Rectangle(this.point.clone(), this.width, this.height);
   }
 }
 export default Rectangle;

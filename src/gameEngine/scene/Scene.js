@@ -3,7 +3,7 @@ import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNot
 import World from './World';
 import ServiceLocator from '../../core/ServiceLocator';
 import Point from '../../core/Point';
-import Camera from './Camera';
+import Camera from '../Camera';
 
 class Scene {
   /**

@@ -26,7 +26,7 @@ class RectangleHitBox {
    * @returns {number} the X coordinate value
    */
   get x() {
-    return this._point.X;
+    return this._point.x;
   }
 
   /**
@@ -34,7 +34,7 @@ class RectangleHitBox {
    * @param {number} value The X coordinate value
    */
   set x(value) {
-    this._point.X = value;
+    this._point.x = value;
   }
 
   /**
@@ -42,7 +42,7 @@ class RectangleHitBox {
   * @returns {number} the Y coordinate value
   */
   get y() {
-    return this._point.Y;
+    return this._point.y;
   }
 
   /**
@@ -50,7 +50,7 @@ class RectangleHitBox {
    * @param {number} value The Y coordinate value
    */
   set y(value) {
-    this._point = value;
+    this._point.y = value;
   }
 
   /**
