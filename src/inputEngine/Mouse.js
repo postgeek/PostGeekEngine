@@ -1,5 +1,6 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import ServiceLocator from '../core/ServiceLocator';
 
 class Mouse {
   /**
@@ -30,32 +31,12 @@ class Mouse {
           this._mouseState = this.MOUSE_STATE.PRESSED;
           break;
         case this.MOUSE_STATE.RELEASED:
-        default:
           this._mouseState = this.MOUSE_STATE.DOWN_ONCE;
           break;
+        default:
       }
     } else {
       this._mouseState = this.MOUSE_STATE.RELEASED;
-    }
-  }
-
-  /**
-   * Handles the possible mouse events
-   * @param {MouseEvent} evt The MouseEvent
-   */
-  handleEvent(evt) {
-    switch (evt.type) {
-      case 'mousemove':
-        this.mouseMove(evt);
-        break;
-      case 'mousedown':
-        this.mouseDown(evt);
-        break;
-      case 'mouseup':
-        this.mouseUp(evt);
-        break;
-      default:
-        throw new UnhandledHtmlEventError();
     }
   }
 
@@ -64,9 +45,9 @@ class Mouse {
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.clientX || e.clientX === 0) {
-      this._dx = e.clientX;
-      this._dy = e.clientX;
+    if (e.offsetX || e.offsetX === 0) {
+      this._dx = e.offsetX;
+      this._dy = e.offsetY;
     } else {
       throw new InvalidArguementError();
     }
@@ -75,14 +56,14 @@ class Mouse {
   /**
    * Handles the mouse down event.
    */
-  mouseDown() {
+  mouseDown(e) {
     this._buttonDown = true;
   }
 
   /**
    * Handles the mouse up event.
    */
-  mouseUp() {
+  mouseUp(e) {
     this._buttonDown = false;
   }
 

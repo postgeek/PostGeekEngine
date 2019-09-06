@@ -92,7 +92,7 @@ class RGBColor {
    * @return {string} The string represenation of the RGBColor.
    */
   toString() {
-    return `rgb(${this.red},${this.green},${this.blue})`;
+    return `rgb(${Math.round(this.red)},${Math.round(this.green)},${Math.round(this.blue)})`;
   }
 
   /**

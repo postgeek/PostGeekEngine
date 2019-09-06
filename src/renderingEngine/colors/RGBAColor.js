@@ -46,7 +46,7 @@ class RGBAColor extends RGBColor {
    * @return {string}  The string represenation of the RGBAColor.
    */
   toString() {
-    return `rgba(${this.red},${this.green},${this.blue},${this.alpha})`;
+    return `rgba(${Math.round(this.red)},${Math.round(this.green)},${Math.round(this.blue)},${this.alpha})`;
   }
 
   /**

@@ -171,6 +171,27 @@ class Color {
     return this._alpha;
   }
 
+  toString() {
+    if (this.name !== undefined) {
+      return this.name;
+    }
+    if (this.hex !== undefined) {
+      return this.hex;
+    }
+    if (this.rgbaColor !== undefined) {
+      return this.rgbaColor.toString();
+    }
+    if (this.rgbColor !== undefined) {
+      return this.rgbColor.toString();
+    }
+    if (this.hslaColor !== undefined) {
+      return this.hslaColor.toString();
+    }
+    if (this.hslColor !== undefined) {
+      return this.hslColor.toString();
+    }
+  }
+
   // https://htmlcolorcodes.com/color-names/
   /** @static */
   static get INDIANRED() {

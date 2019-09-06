@@ -18,7 +18,7 @@ class Scene {
 
     this._context = ServiceLocator.instance.locate('context');
 
-    //TODO: For simplicity, the world and camera are the same size as the canvas for now.
+    // TODO: For simplicity, the world and camera are the same size as the canvas for now.
     this._world = new World(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
     this._camera = new Camera(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
 

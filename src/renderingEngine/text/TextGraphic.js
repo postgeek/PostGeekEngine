@@ -78,7 +78,10 @@ class TextGraphic extends GraphicObject {
     this.context = this.textStyle.apply(this.context);
     const textMetrics = this.context.measureText(this.text);
     this.context.restore();
-    return textMetrics;
+    if (textMetrics !== undefined) {
+      return textMetrics.width;
+    }
+    return undefined;
   }
 
   /**
@@ -100,7 +103,7 @@ class TextGraphic extends GraphicObject {
 
   internalDraw() {
     this.context = this.textStyle.apply(this.context);
-    if (this.textStyle.FillStyle !== undefined) {
+    if (this.textStyle.fillStyle !== undefined) {
       this.context.fillText(this.text, this.point.x, this.point.y);
     }
     if (this.textStyle.StrokeStyle !== undefined) {
