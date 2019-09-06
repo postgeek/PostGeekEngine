@@ -1,8 +1,8 @@
 class World {
   constructor(point, width, height) {
-    this._point = point;
-    this._width = width;
-    this._height = height;
+    this.point = point;
+    this.width = width;
+    this.height = height;
   }
 
   get point() {

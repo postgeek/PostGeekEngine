@@ -71,11 +71,11 @@ class GameObject {
    */
   update() {
     if (this._physics && this._physics.update) {
-      this._physics.update();
+      this._physics.update(this);
     }
 
     if (this._graphics && this._graphics.update) {
-      this._graphics.update();
+      this._graphics.update(this);
     }
   }
 

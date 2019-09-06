@@ -1,17 +1,19 @@
+import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
+
 class PhysicsComponent {
-  constructor(gameObject, hitbox) {
-    this._gameObject = gameObject;
+  constructor(world, hitbox) {
+    this.world = world;
 
-    this._isEnabled = false;
-    this._hitBox = hitbox;
+    this.isEnabled = false;
+    this.hitBox = hitbox;
   }
 
-  get gameObject() {
-    return this._gameObject;
+  get world() {
+    return this._world;
   }
 
-  set gameObject(value) {
-    this._gameObject = value;
+  set world(value) {
+    this._world = value;
   }
 
   get isEnabled() {
@@ -34,37 +36,38 @@ class PhysicsComponent {
    * Checks if this physics object is colliding with  the world bounds.
    * TODO: Move this to an actual collision detection engine.
    */
-  isCollidingWithWorldBounds(world) {
-    return this.isCollidingWithLeftBound(world)
-    || this.isCollidingWithRightBound(world)
-    || this.isCollidingWithTopBound(world)
-    || this.isCollidingWithBottomBound(world);
+  isCollidingWithWorldBounds() {
+    return this.isCollidingWithLeftBound(this.world)
+    || this.isCollidingWithRightBound(this.world)
+    || this.isCollidingWithTopBound(this.world)
+    || this.isCollidingWithBottomBound(this.world);
   }
 
-  isCollidingWithLeftBound(world) {
-    return this.hitBox.x <= world.x;
+  isCollidingWithLeftBound() {
+    return this.hitBox.x <= this.world.x;
   }
 
-  isCollidingWithRightBound(world) {
-    return this.hitBox.x + this.hitBox.width >= world.x + world.width;
+  isCollidingWithRightBound() {
+    return this.hitBox.x + this.hitBox.width >= this.world.x + this.world.width;
   }
 
-  isCollidingWithTopBound(world) {
-    return this.hitBox.y <= world.y;
+  isCollidingWithTopBound() {
+    return this.hitBox.y <= this.world.y;
   }
 
-  isCollidingWithBottomBound(world) {
-    return this.hitBox.y + this.hitBox.height >= world.y + world.height;
+  isCollidingWithBottomBound() {
+    return this.hitBox.y + this.hitBox.height >= this.world.y + this.world.height;
   }
 
   /**
    * Override this function to update physics.
    */
   internalUpdate() {
+    throw new MethodNotImplementedError(this);
   }
 
   update() {
-    if (this._isEnabled) {
+    if (this.isEnabled) {
       this.internalUpdate();
     }
   }
