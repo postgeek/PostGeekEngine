@@ -32,7 +32,7 @@ class RectanglePhysicsComponent extends PhysicsComponent {
   }
 
   internalUpdate() {
-    if (this.isCollidingWithWorldBounds) {
+    if (this.isCollidingWithWorldBounds(this.gameObject.scene.world)) {
       this._velocity = -this._velocity;
     }
 

@@ -34,30 +34,27 @@ class PhysicsComponent {
    * Checks if this physics object is colliding with  the world bounds.
    * TODO: Move this to an actual collision detection engine.
    */
-  get isCollidingWithWorldBounds() {
-    const { world } = this._gameObject.scene;
-    if (this._hitBox.x <= world.x) {
-      // Colliding with left bound
-      return true;
-    }
+  isCollidingWithWorldBounds(world) {
+    return this.isCollidingWithLeftBound(world)
+    || this.isCollidingWithRightBound(world)
+    || this.isCollidingWithTopBound(world)
+    || this.isCollidingWithBottomBound(world);
+  }
 
-    if (this._hitBox.x + this._hitBox.width >= world.x + world.width) {
-      // Colliding with right bound
-      return true;
-    }
+  isCollidingWithLeftBound(world) {
+    return this.hitBox.x <= world.x;
+  }
 
-    if (this._hitBox.y <= world.y) {
-      // Colliding with top bound
-      return true;
-    }
+  isCollidingWithRightBound(world) {
+    return this.hitBox.x + this.hitBox.width >= world.x + world.width;
+  }
 
-    if (this._hitBox.y + this._hitBox.height >= world.y + world.height) {
-      // Colliding with bottom bound
-      return true;
-    }
+  isCollidingWithTopBound(world) {
+    return this.hitBox.y <= world.y;
+  }
 
-    // Not colliding with world bounds
-    return false;
+  isCollidingWithBottomBound(world) {
+    return this.hitBox.y + this.hitBox.height >= world.y + world.height;
   }
 
   /**

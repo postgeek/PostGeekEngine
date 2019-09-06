@@ -4,6 +4,7 @@ import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
+import PongScene from './Games/Pong/PongScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 
 Window.Main = class Main {
@@ -54,6 +55,14 @@ Window.Main = class Main {
       initialScene: { key: 'collisionScene', scene: CollisionScene },
     });
   }
+
+  static startPongDemo() {
+    start({
+      debug: false,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'gamescene', scene: PongScene },
+    });
+  }
 };
 
-Window.Main.startColorScene();
+Window.Main.startPongDemo();
