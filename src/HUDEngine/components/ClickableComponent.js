@@ -1,9 +1,9 @@
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
 
-import GraphicComponent from '../HUDComponent';
+import HUDComponent from '../HUDComponent';
 import ServiceLocator from '../../core/ServiceLocator';
 
-class ClickableComponent extends GraphicComponent {
+class ClickableComponent extends HUDComponent {
   constructor(point) {
     super(point);
   }
