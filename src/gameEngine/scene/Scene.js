@@ -67,7 +67,8 @@ class Scene {
   * draws the scene to the canvas.
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
-  draw() {
+  draw(timeStep) {
+    throw new MethodNotImplementedError(this);
   }
 
   /**

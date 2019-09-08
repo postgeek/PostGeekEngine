@@ -118,7 +118,10 @@ class Game {
       }
     }
 
-    this.animate();
+    this.timeStep = 0;
+    this.previousTimeStep = 0;
+
+    this.animate(0);
     setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
   }
 
@@ -136,8 +139,12 @@ class Game {
    *
    * @param  {type} timeStamp the delta between now and the last animate method call
    */
-  animate(timeStamp) {
+  animate(timeStep) {
+    this.timeStep = (timeStep / 1000) - this.previousTimeStep;
+    if (!this.startTime) this.startTime = timeStep / 1000;
     this.requestAnimFrame(this.animate);
+    const timeStepInSeconds = timeStep / 1000;
+    this.previousTimeStep = timeStepInSeconds;
     this.draw();
   }
 
@@ -167,8 +174,8 @@ class Game {
     // Clear the canvas to prepare for next draw
     this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
 
-    this.sceneManager.runningScene.draw();
-    this.middlewareManager.draw();
+    this.sceneManager.runningScene.draw(this.timeStep);
+    this.middlewareManager.draw(this.timeStep);
   }
 
 

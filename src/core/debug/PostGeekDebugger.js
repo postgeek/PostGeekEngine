@@ -3,6 +3,7 @@ import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
+import Color from '../../renderingEngine/colors/Color';
 import Point from '../Point';
 import ServiceLocator from '../ServiceLocator';
 
@@ -19,24 +20,50 @@ class PostGeekDebugger extends IMiddleware {
       lineWidth: 1,
       font: '48px serif',
     });
+    this.FPSTextStyle = new TextStyle({
+      fillStyle: Color.BLACK,
+      lineWidth: 1,
+      font: '14px serif',
+    });
+    this.FPSTextBoxStyle = new GeometryStyle({
+      strokeStyle: Color.BLACK,
+      fillStyle: Color.MINTCREAM,
+      lineWidth: 2,
+    });
     this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
     this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    
+
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
+
+    this.FPSCounter = new TextGraphic(new Point(20, 50), 'FPS: {0}');
+    this.FPSCounter.textStyle = this.FPSTextStyle;
+
+    this.FPSRectangle = new Rectangle(
+      new Point(20 - this.FPSTextBoxStyle.lineWidth,
+        50 - this.FPSCounter.determineFontHeight() + this.FPSTextBoxStyle.lineWidth),
+      this.FPSCounter.measureText(),
+      this.FPSCounter.determineFontHeight(),
+    );
+    this.FPSRectangle.geometryStyle = this.FPSTextBoxStyle;
   }
 
   update() {
     // console.log('Updating the PostGeekDebugger');
   }
 
-  draw() {
+  draw(timeStep) {
     this.Text.draw();
     this._worldRectangle.draw();
+
+    this.FPSCounter.text = `FPS:${Math.round(1 / timeStep)}`;
+    this.FPSRectangle.width = this.FPSCounter.measureText() + this.FPSRectangle.geometryStyle.lineWidth * 2;
+    this.FPSRectangle.draw();
+    this.FPSCounter.draw();
   }
 
   drawDebug(graphicObject) {

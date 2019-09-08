@@ -14,7 +14,7 @@ class CollisionScene extends Scene {
     this.rectangleText.text = `Rectangle is at x: '${this.rectangle.graphics.rectangle.x}' y: '${this.rectangle.graphics.rectangle.y}'`;
   }
 
-  draw() {
+  draw(timeStep) {
     this.rectangle.draw();
     this.rectangleText.draw();
   }

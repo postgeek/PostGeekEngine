@@ -45,9 +45,9 @@ class MiddlewareManager {
   /**
    * Draws the middleware to the screen if necessary.
    */
-  draw() {
+  draw(timeStep) {
     this._middleware.forEach((middleware) => {
-      middleware.draw();
+      middleware.draw(timeStep);
     });
   }
 } export default MiddlewareManager;

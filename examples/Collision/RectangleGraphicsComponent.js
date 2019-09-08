@@ -18,6 +18,6 @@ class RectangleGraphicsComponent extends GraphicsComponent {
   }
 
   update(gameObject) {
-    this._rectangle.point = gameObject.point.clone();
+    this.rectangle.point = gameObject.point.clone();
   }
 } export default RectangleGraphicsComponent;
