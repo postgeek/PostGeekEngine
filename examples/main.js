@@ -65,4 +65,4 @@ Window.Main = class Main {
   }
 };
 
-Window.Main.start2CollisionDemo();
+Window.Main.startPongDemo();
