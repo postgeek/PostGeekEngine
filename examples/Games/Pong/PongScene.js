@@ -3,6 +3,7 @@ import Point from 'core/Point';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import Color from 'renderingEngine/colors/Color';
+import DefaultColors from 'renderingEngine/colors/DefaultColors';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Circle from 'renderingEngine/geometry/Circle';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
@@ -20,10 +21,10 @@ class PongScene extends Scene {
     this.lastPositionY = 200;
     this.positionX = 200;
     this.positionY = 200;
-    this.velocityX = 0.02;
+    this.velocityX = 0.2;
     this.velocityY = 0.05;
 
-    for (let i = 0; i < 20; i += 1) {
+    for (let i = 0; i < 100; i += 1) {
       this.createNewCircle();
     }
   }
@@ -40,7 +41,12 @@ class PongScene extends Scene {
     newCircle.push(newY);
     newCircle.push(velocityX);
     newCircle.push(velocityY);
-    newCircle.push(new Circle(new Point(newX, newY), 20));
+    const circle = new Circle(new Point(newX, newY), 20);
+    const index = Math.round(Math.random() * DefaultColors.length);
+    circle.geometryStyle = new GeometryStyle({
+      fillStyle: DefaultColors[index],
+    });
+    newCircle.push(circle);
     this.circles.push(newCircle);
   }
 
