@@ -39,31 +39,15 @@ class PostGeekDebugger extends IMiddleware {
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
-
-    this.FPSCounter = new TextGraphic(new Point(20, 50), 'FPS: {0}');
-    this.FPSCounter.textStyle = this.FPSTextStyle;
-
-    this.FPSRectangle = new Rectangle(
-      new Point(20 - this.FPSTextBoxStyle.lineWidth,
-        50 - this.FPSCounter.determineFontHeight() + this.FPSTextBoxStyle.lineWidth),
-      this.FPSCounter.measureText(),
-      this.FPSCounter.determineFontHeight(),
-    );
-    this.FPSRectangle.geometryStyle = this.FPSTextBoxStyle;
   }
 
   update() {
-    // console.log('Updating the PostGeekDebugger');
+
   }
 
   draw(timeStep) {
-    this.Text.draw();
+    // this.Text.draw();
     this._worldRectangle.draw();
-
-    this.FPSCounter.text = `FPS:${Math.round(1 / timeStep)}`;
-    this.FPSRectangle.width = this.FPSCounter.measureText() + this.FPSRectangle.geometryStyle.lineWidth * 2;
-    this.FPSRectangle.draw();
-    this.FPSCounter.draw();
   }
 
   drawDebug(graphicObject) {

@@ -5,6 +5,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import PongScene from './Games/Pong/PongScene';
+import GraphicDemoScene from './GraphicTests/GraphicDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 
 Window.Main = class Main {
@@ -58,11 +59,20 @@ Window.Main = class Main {
 
   static startPongDemo() {
     start({
-      debug: false,
+      debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'gamescene', scene: PongScene },
+    });
+  }
+
+  static startGraphicDemoScene() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'graphicTests', scene: GraphicDemoScene },
     });
   }
 };
 
 Window.Main.startPongDemo();
+// Window.Main.startGraphicDemoScene();

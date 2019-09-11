@@ -69,17 +69,21 @@ class PongPaddleGraphicsComponent extends Component {
     } else if (player === 2) {
       this.pongPaddleGraphic = new Rectangle(new Point(970, 30), 20, 100);
     }
+    this.velocityY = 0;
   }
 
   receive(message) {
     const { x, y } = message;
-    if (x || y) {
+    if (x !== undefined) {
       this.pongPaddleGraphic.point.x += x;
-      this.pongPaddleGraphic.point.y += y;
+    }
+    if (y !== undefined) {
+      this.velocityY = y;
     }
   }
 
   draw(timeStep) {
+    this.pongPaddleGraphic.point.y += this.velocityY * timeStep;
     this.pongPaddleGraphic.draw(timeStep);
   }
 }
@@ -104,9 +108,10 @@ class PongPaddleInputComponent extends Component {
   update() {
     if (this.keyboard.keyDownHeld(this.keyUp) && this.collision !== 'top') {
       this.containerObject.send({ x: 0, y: -4 });
-    }
-    if (this.keyboard.keyDownHeld(this.keyDown) && this.collision !== 'bottom') {
+    } else if (this.keyboard.keyDownHeld(this.keyDown) && this.collision !== 'bottom') {
       this.containerObject.send({ x: 0, y: 4 });
+    } else {
+      this.containerObject.send({ x: 0, y: 0 });
     }
   }
 }

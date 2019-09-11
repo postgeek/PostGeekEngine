@@ -19,12 +19,12 @@ class ContainerObject {
     }
   }
 
-  update() {
+  update(timeStep) {
     const components = this.getComponents();
     for (let i = 0; i < components.length; i += 1) {
       const component = components[i];
       if (typeof component.update !== 'undefined') {
-        component.update();
+        component.update(timeStep);
       }
     }
   }
