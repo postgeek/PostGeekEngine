@@ -1,6 +1,7 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import CollisionScene from './Collision/CollisionScene';
+import BallCollisionScene from './Collision/Ball/BallCollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
@@ -57,6 +58,14 @@ Window.Main = class Main {
     });
   }
 
+  static startBallCollisionDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'ballCollisionScene', scene: BallCollisionScene },
+    });
+  }
+
   static startPongDemo() {
     start({
       debug: true,
@@ -74,5 +83,6 @@ Window.Main = class Main {
   }
 };
 
-Window.Main.startPongDemo();
+// Window.Main.startPongDemo();
+Window.Main.startBallCollisionDemo();
 // Window.Main.startGraphicDemoScene();

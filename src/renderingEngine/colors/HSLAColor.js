@@ -50,7 +50,7 @@ class HSLAColor extends HSLColor {
   }
 
   clone() {
-    return new HSLColor(this.hue, this.saturation, this.lightness, this.alpha);
+    return new HSLAColor(this.hue, this.saturation, this.lightness, this.alpha);
   }
 
   /**

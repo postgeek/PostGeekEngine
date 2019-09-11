@@ -42,9 +42,13 @@ class PongScene extends Scene {
     newCircle.push(velocityX);
     newCircle.push(velocityY);
     const circle = new Circle(new Point(newX, newY), 20);
-    const index = Math.round(Math.random() * DefaultColors.length);
+    const index = Math.round(Math.random() * (DefaultColors.length - 1));
+    const color2 = DefaultColors[index].hslaColor.clone();
+    color2.saturation = Math.floor(Math.random() * 100);
     circle.geometryStyle = new GeometryStyle({
       fillStyle: DefaultColors[index],
+      strokeStyle: color2,
+      lineWidth: 5,
     });
     newCircle.push(circle);
     this.circles.push(newCircle);
