@@ -2,7 +2,6 @@ import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
-import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 
@@ -12,14 +11,6 @@ Window.Main = class Main {
       debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'demoScene', scene: DemoScene },
-    });
-  }
-
-  static startColorScene() {
-    start({
-      debug: false,
-      canvas: document.getElementById('canvas'),
-      initialScene: { key: 'colorscene', scene: ColorScene },
     });
   }
 
@@ -55,5 +46,3 @@ Window.Main = class Main {
     });
   }
 };
-
-Window.Main.startColorScene();
