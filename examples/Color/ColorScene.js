@@ -1,19 +1,21 @@
-import Point from 'core/Point';
 import Scene from 'gameEngine/scene/Scene';
-import TextGraphic from 'renderingEngine/text/TextGraphic';
-import Color from 'renderingEngine/colors/Color';
-import ColorConverter from 'renderingEngine/colors/ColorConverter';
+import Point from 'core/Point';
+import Rectangle from 'renderingEngine/geometry/Rectangle';
+import ColorPickerComponent from 'HUDEngine/components/colorPicker/ColorPickerComponent';
 
-export default class KeyboardDemoScene extends Scene {
+export default class ColorDemoScene extends Scene {
   create() {
-    this.textGraphic = new TextGraphic(new Point(100, 100), 'Test');
+    this.colorPicker = new ColorPickerComponent(new Point(5, 5));
+    this.rectangle = new Rectangle(new Point(0, 0), 800, 300);
+    this.rectangle.geometryStyle.fillStyle = 'black';
   }
 
   update() {
-
+    this.colorPicker.update();
   }
 
   draw() {
-    this.textGraphic.draw();
+    this.rectangle.draw();
+    this.colorPicker.draw();
   }
 }

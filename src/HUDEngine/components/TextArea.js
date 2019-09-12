@@ -4,7 +4,7 @@ import HUDComponent from '../HUDComponent';
 
 class TextArea extends HUDComponent {
   constructor(point, text, width, height, textStyle) {
-    super();
+    super(point);
 
     this.TextStyle = textStyle;
 

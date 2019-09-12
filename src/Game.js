@@ -3,6 +3,7 @@ import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
+import EventBus from './core/messaging/EventBus';
 import ServiceLocator from './core/ServiceLocator';
 import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
@@ -87,18 +88,22 @@ class Game {
 
     this._context = ServiceLocator.instance.locate('context');
 
+    // Register the eventbus into the service locator
+    ServiceLocator.instance.register('eventbus', new EventBus());
+
     // Resgiter the inputs into the service locator
     ServiceLocator.instance.register('keyboard', this.Keyboard);
     ServiceLocator.instance.register('mouse', this.Mouse);
 
-    this.Canvas.addEventListener('mousemove', this.Mouse, false);
-    this.Canvas.addEventListener('mouseup', this.Mouse, false);
-    this.Canvas.addEventListener('mousedown', this.Mouse, false);
+    this.Canvas.addEventListener('mousemove', (event) => this.Mouse.mouseMove(event), false);
+    this.Canvas.addEventListener('mouseup', (event) => this.Mouse.mouseUp(event), false);
+    this.Canvas.addEventListener('mousedown', (event) => this.Mouse.mouseDown(event), false);
 
     // Attach the keyboard events to the window itself
     // (this way we don't need focus on the canvas, which is preferable)
-    window.addEventListener('keydown', this.Keyboard, false);
-    window.addEventListener('keyup', this.Keyboard, false);
+    window.addEventListener('keydown', (event) => this.Keyboard.keyDown(event));
+    window.addEventListener('keydown', (event) => this.Keyboard.typedKeyHandler(event));
+    window.addEventListener('keyup', (event) => this.Keyboard.keyUp(event));
 
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key);

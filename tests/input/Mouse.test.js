@@ -11,7 +11,7 @@ describe('buttonDownOnce', () => {
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseDown(mouseEvent);
     mouse.poll();
 
     // Assert
@@ -35,7 +35,7 @@ describe('buttonDownOnce', () => {
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseDown(mouseEvent);
     mouse.poll();
     mouse.poll();
 
@@ -53,9 +53,9 @@ describe('buttonDownOnce', () => {
     };
 
     // Act
-    mouse.handleEvent(mouseEventMouseDown);
+    mouse.mouseDown(mouseEventMouseDown);
     mouse.poll();
-    mouse.handleEvent(mouseEventMouseUp);
+    mouse.mouseUp(mouseEventMouseUp);
     mouse.poll();
 
     // Assert
@@ -73,7 +73,7 @@ describe('buttonDown', () => {
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseDown(mouseEvent);
     mouse.poll();
 
     // Assert
@@ -97,7 +97,7 @@ describe('buttonDown', () => {
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseDown(mouseEvent);
     mouse.poll();
     mouse.poll();
 
@@ -112,12 +112,12 @@ describe('mouseMove', () => {
     const mouse = new Mouse();
     const mouseEvent = {
       type: 'mousemove',
-      clientX: 5,
-      clientY: 5,
+      offsetX: 5,
+      offsetY: 5,
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseMove(mouseEvent);
 
     // Assert
     expect(mouse.x).toBe(5);
@@ -129,12 +129,12 @@ describe('mouseMove', () => {
     const mouse = new Mouse();
     const mouseEvent = {
       type: 'mousemove',
-      clientX: 0,
-      clientY: 0,
+      offsetX: 0,
+      offsetY: 0,
     };
 
     // Act
-    mouse.handleEvent(mouseEvent);
+    mouse.mouseMove(mouseEvent);
 
     // Assert
     expect(mouse.x).toBe(0);
@@ -152,21 +152,6 @@ describe('mouseMove', () => {
     // Act
 
     // Assert
-    expect(() => { mouse.handleEvent(mouseEvent); }).toThrow(InvalidArguementError);
-  });
-});
-
-describe('handleEvent', () => {
-  it('should throw an error if the event is unhandled', () => {
-    // Arrange
-    const mouse = new Mouse();
-    const mouseEvent = {
-      type: 'undefinedmouseevent',
-    };
-
-    // Act
-
-    // Assert
-    expect(() => { mouse.handleEvent(mouseEvent); }).toThrow(UnhandledHtmlEventError);
+    expect(() => { mouse.mouseMove(mouseEvent); }).toThrow(InvalidArguementError);
   });
 });

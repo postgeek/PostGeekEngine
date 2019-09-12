@@ -93,7 +93,11 @@ class HSLColor {
    * @return {string} The string represenation of the HSLColor.
    */
   toString() {
-    return `hsl(${this.hue},${this.saturation}%,${this.lightness}%)`;
+    return `hsl(${Math.round(this.hue)},${Math.round(this.saturation)}%,${Math.round(this.lightness)}%)`;
+  }
+
+  clone() {
+    return new HSLColor(this.hue, this.saturation, this.lightness);
   }
 
   /**

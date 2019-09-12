@@ -1,4 +1,5 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
+import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * Class that defines a keyboard input
@@ -17,6 +18,13 @@ class Keyboard {
 
     // An array of registered keys that the engine will listen for
     this._registeredKeys = [];
+    this._typedKey = '';
+
+    this.key_typed_event = Symbol('key_typed_event');
+  }
+
+  get KEY_TYPED_EVENT() {
+    return this.key_typed_event;
   }
 
   /**
@@ -51,22 +59,10 @@ class Keyboard {
     }
   }
 
-  /**
-   * Handles the possible keyboard events
-   * @param {HTMLEvent} evt The KeyboardEvent
-   */
-  handleEvent(KeyboardEvent) {
-    this._typedKey = KeyboardEvent.key || String.fromCharCode(KeyboardEvent.charCode);
-    switch (KeyboardEvent.type) {
-      case 'keydown':
-        this.keyDown(KeyboardEvent);
-        break;
-      case 'keyup':
-        this.keyUp(KeyboardEvent);
-        break;
-      default:
-        throw new UnhandledHtmlEventError();
-    }
+  typedKeyHandler(keyboardEvent) {
+    const typedKey = keyboardEvent.key || String.fromCharCode(keyboardEvent.charCode);
+    const eventbus = ServiceLocator.instance.locate('eventbus');
+    eventbus.emit(this.KEY_TYPED_EVENT, typedKey);
   }
 
   /**
@@ -109,14 +105,6 @@ class Keyboard {
   keyDownOnce(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
     return currentKey.state === this.KEY_STATE.DOWN_ONCE;
-  }
-
-  /**
-   * Gets the character key for the last typed key.
-   * @return {String} the character code representation.
-   */
-  getKeyCharacter() {
-    return this._typedKey;
   }
 
   /**
