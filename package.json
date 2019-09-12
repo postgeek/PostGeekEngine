@@ -7,6 +7,7 @@
     "lint": "eslint ./app --fix",
     "docs": "esdoc -c .esdoc.json",
     "test": "jest --config jest-config.js",
+    "test:new": "jest --config jest-config-new.js -o",
     "start": "webpack-dev-server --config ./webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js"
   },
