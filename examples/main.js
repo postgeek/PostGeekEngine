@@ -83,6 +83,6 @@ Window.Main = class Main {
   }
 };
 
-// Window.Main.startPongDemo();
-Window.Main.startBallCollisionDemo();
+Window.Main.startPongDemo();
+// Window.Main.startBallCollisionDemo();
 // Window.Main.startGraphicDemoScene();

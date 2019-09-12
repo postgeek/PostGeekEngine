@@ -1,14 +1,9 @@
-/* eslint no-unused-vars: 0 */
-
-import MethodNotImplementedError from './errorHandling/errors/MethodNotImplementedError';
-
 class Component {
-  constructor(containerObject) {
-    this.containerObject = containerObject;
-    this.containerObject.addComponent(this);
+  set eventBus(value) {
+    this._eventBus = value;
   }
 
-  receive(message) {
-    throw new MethodNotImplementedError(this);
+  get eventBus() {
+    return this._eventBus;
   }
 } export default Component;

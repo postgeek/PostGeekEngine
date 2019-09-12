@@ -1,22 +1,19 @@
+import EventBus from './messaging/EventBus';
+
 class ContainerObject {
   constructor() {
     this.components = [];
+    this.eventBus = new EventBus();
   }
 
   addComponent(component) {
+    const concreteComponent = component;
+    concreteComponent.eventBus = this.eventBus;
     this.components.push(component);
   }
 
   getComponents() {
     return this.components;
-  }
-
-  send(message) {
-    const components = this.getComponents();
-    for (let i = 0; i < components.length; i += 1) {
-      const component = components[i];
-      component.receive(message);
-    }
   }
 
   update(timeStep) {

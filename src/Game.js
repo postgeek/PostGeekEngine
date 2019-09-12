@@ -56,7 +56,7 @@ class Game {
   constructor(config) {
     this.config = config;
     this.deltaTime = 0;
-    this.UPDATE_RATE = 25;
+    this.UPDATE_RATE = 60;
     this.TIME_STEP = (1000 / this.UPDATE_RATE);
 
     this.Mouse = new Mouse();
@@ -240,7 +240,6 @@ class Game {
     this.lastFrameTimeMs = timeStamp;
 
     // this.begin(timeStamp, this.deltaTime);
-    this.pollInput();
 
     if (timeStamp > this.lastFPSUpdate + 1000) {
       this.fps = this.weightedFPSMultipler * this.framesThisSecond
@@ -253,6 +252,7 @@ class Game {
 
     let numUpdateSteps = 0;
     while (this.deltaTime >= this.TIME_STEP) {
+      this.pollInput();
       this.update(this.TIME_STEP);
       this.deltaTime -= this.TIME_STEP;
 
