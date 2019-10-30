@@ -1,12 +1,12 @@
 import Component from 'core/Component';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import RectangleHitBox from 'physicsEngine/hitBoxes/RectangleHitBox';
 
 class HipSquarePhysicsComponent extends Component {
   constructor(containerObject) {
     super(containerObject);
-    this.hitBox = new RectangleHitBox(new Point(120, 100), 100, 100);
-    this.world = new RectangleHitBox(new Point(0, 0), 1000, 550);
+    this.hitBox = new RectangleHitBox(new Vec2D(120, 100), 100, 100);
+    this.world = new RectangleHitBox(new Vec2D(0, 0), 1000, 550);
     this.velocity = 10;
   }
 

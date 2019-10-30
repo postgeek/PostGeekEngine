@@ -1,4 +1,4 @@
-class Point {
+class Vec2D {
   /**
   * The point object's Constructor
   * @param {number} x the point's x coordinate
@@ -32,7 +32,7 @@ class Point {
   }
 
   clone() {
-    return new Point(this.x, this.y);
+    return new Vec2D(this.x, this.y);
   }
 }
-export default Point;
+export default Vec2D;

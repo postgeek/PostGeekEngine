@@ -1,12 +1,12 @@
 import Camera from '../../src/gameEngine/Camera';
-import Point from '../../src/core/Point';
+import Vec2D from '../../src/core/Vec2D';
 
 describe('originalPoint', () => {
   it('should properly set the original point of the camera', () => {
     // Arrange
     const originalX = 0;
     const originalY = 0;
-    const camera = new Camera(new Point(originalX, originalY), 100, 200);
+    const camera = new Camera(new Vec2D(originalX, originalY), 100, 200);
 
     // Assert
     expect(camera.originalPoint.x).toBe(originalX);
@@ -16,8 +16,8 @@ describe('originalPoint', () => {
     // Arrange
     const originalX = 0;
     const originalY = 0;
-    const camera = new Camera(new Point(originalX, originalY), 100, 200);
-    const newPoint = new Point(29, 63);
+    const camera = new Camera(new Vec2D(originalX, originalY), 100, 200);
+    const newPoint = new Vec2D(29, 63);
 
     // Act
     camera.point = newPoint;
@@ -31,8 +31,8 @@ describe('originalPoint', () => {
 describe('point', () => {
   it('should properly set the point of the camera', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
-    const newPoint = new Point(34, 86);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
+    const newPoint = new Vec2D(34, 86);
 
     // Act
     camera.point = newPoint;
@@ -46,7 +46,7 @@ describe('point', () => {
 describe('width', () => {
   it('should properly set the width of the camera', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const newWidth = 738;
 
     // Act
@@ -60,7 +60,7 @@ describe('width', () => {
 describe('height', () => {
   it('should properly set the height of the camera', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const newHeight = 378;
 
     // Act
@@ -74,7 +74,7 @@ describe('height', () => {
 describe('scrollSpeed', () => {
   it('should properly set the scroll speed of the camera', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const cameraSpeed = 5;
 
     // Act
@@ -88,7 +88,7 @@ describe('scrollSpeed', () => {
 describe('movement', () => {
   it('should move the camera to the left by 5 pixels', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const cameraSpeed = 5;
     const newCameraPositionX = -5;
 
@@ -101,7 +101,7 @@ describe('movement', () => {
   });
   it('should move the camera to the right by 5 pixels', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const cameraSpeed = 5;
     const newCameraPositionX = 5;
 
@@ -114,7 +114,7 @@ describe('movement', () => {
   });
   it('should move the camera to the top by 5 pixels', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const cameraSpeed = 5;
     const newCameraPositionY = -5;
 
@@ -127,7 +127,7 @@ describe('movement', () => {
   });
   it('should move the camera to the bottom by 5 pixels', () => {
     // Arrange
-    const camera = new Camera(new Point(0, 0), 100, 200);
+    const camera = new Camera(new Vec2D(0, 0), 100, 200);
     const cameraSpeed = 5;
     const newCameraPositionY = 5;
 

@@ -1,4 +1,4 @@
-import ServiceLocator from "../../core/ServiceLocator";
+import ServiceLocator from '../../core/ServiceLocator';
 
 /**
  * Defines the transformation class
@@ -7,7 +7,7 @@ class Transform {
   /**
    * creates the transform class
    */
-  constructor() {
+  constructor(context) {
     this._context = ServiceLocator.instance.locate('context');
   }
 

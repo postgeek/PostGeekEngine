@@ -7,10 +7,10 @@ class BezierCurve extends Shape {
   /**
   * Constructs a new BezierCurve object.
   *
-  * @param {Point} startPoint the curve's starting point.
-  * @param {Point} firstControlPoint the curve's first control point.
-  * @param {Point} secondControlPoint the curve's second control point.
-  * @param {Point} endPoint the curve's end point.
+  * @param {Vec2D} startPoint the curve's starting point.
+  * @param {Vec2D} firstControlPoint the curve's first control point.
+  * @param {Vec2D} secondControlPoint the curve's second control point.
+  * @param {Vec2D} endPoint the curve's end point.
   */
   constructor(startPoint, firstControlPoint, secondControlPoint, endPoint) {
     super();
@@ -23,7 +23,7 @@ class BezierCurve extends Shape {
   /**
    * The starting {@link Point} for the bezier curve.
    *
-   * @return {Point} the starting point of the bezier curve
+   * @return {Vec2D} the starting point of the bezier curve
    */
   get startPoint() {
     return this._startPoint;
@@ -32,7 +32,7 @@ class BezierCurve extends Shape {
   /**
    * Specifies the starting point of the bezier curve
    *
-   * @param  {Point} value the starting point for the bezier curve
+   * @param  {Vec2D} value the starting point for the bezier curve
    * @return {undefined}
    */
   set startPoint(value) {
@@ -43,7 +43,7 @@ class BezierCurve extends Shape {
   /**
   * The first control {@link Point} for the bezier curve.
   *
-  * @return {Point} the first control point of the bezier curve
+  * @return {Vec2D} the first control point of the bezier curve
   */
   get firstControlPoint() {
     return this._firstControlPoint;
@@ -52,7 +52,7 @@ class BezierCurve extends Shape {
   /**
    * Specifies the first control point for the bezier curve
    *
-   * @param  {Point} value the first control point of the bezier curve
+   * @param  {Vec2D} value the first control point of the bezier curve
    * @return {undefined}
    */
   set firstControlPoint(value) {
@@ -63,7 +63,7 @@ class BezierCurve extends Shape {
   /**
   * The second control {@link Point} for the bezier curve.
   *
-  * @return {Point} the second control point of the bezier curve
+  * @return {Vec2D} the second control point of the bezier curve
   */
   get secondControlPoint() {
     return this._secondControlPoint;
@@ -72,7 +72,7 @@ class BezierCurve extends Shape {
   /**
    * Specifies the second control point for the bezier curve
    *
-   * @param  {Point} value the second control point of the bezier curve
+   * @param  {Vec2D} value the second control point of the bezier curve
    * @return {undefined}
    */
   set secondControlPoint(value) {
@@ -83,7 +83,7 @@ class BezierCurve extends Shape {
   /**
    * The end {@link Point} for the bezier curve.
    *
-   * @return {Point} the end point of the bezier curve
+   * @return {Vec2D} the end point of the bezier curve
    */
   get endPoint() {
     return this._endPoint;
@@ -92,7 +92,7 @@ class BezierCurve extends Shape {
   /**
    * Specifies the end point of the bezier curve
    *
-   * @param  {Point} value the end point for the bezier curve
+   * @param  {Vec2D} value the end point for the bezier curve
    * @return {undefined}
    */
   set endPoint(value) {

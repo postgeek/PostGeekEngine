@@ -7,7 +7,7 @@ class Circle extends Shape {
   /**
   * Constructs a new Circle object.
   *
-  * @param {Point} point the starting point of the circle.
+  * @param {Vec2D} point the starting point of the circle.
   * @param {number} radius the radius of the circle.
   */
   constructor(point, radius) {
@@ -18,7 +18,7 @@ class Circle extends Shape {
 
   /**
   * The starting {@link Point} of the circle.
-  * @return {Point} the top left corner for the circle.
+  * @return {Vec2D} the top left corner for the circle.
   */
   get point() {
     return this._point;
@@ -28,7 +28,7 @@ class Circle extends Shape {
   /**
    * Sets the starting {@link Point} of the circle
    *
-   * @param  {Point} value the top left corner for the circle.
+   * @param  {Vec2D} value the top left corner for the circle.
    */
   set point(value) {
     /**

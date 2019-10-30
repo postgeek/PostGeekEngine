@@ -7,7 +7,7 @@ class RectangleHitBox {
 
   /**
   * Get the hit boxes point in relation to the world.
-  * @returns {Point} The hit boxes point
+  * @returns {Vec2D} The hit boxes point
   */
   get point() {
     return this._point;
@@ -15,7 +15,7 @@ class RectangleHitBox {
 
   /**
   * Set the hit boxes point in relation to the world.
-  * @param {Point} value The point value
+  * @param {Vec2D} value The point value
   */
   set point(value) {
     this._point = value;

@@ -7,9 +7,9 @@ class QuadraticCurve extends Shape {
   /**
   * Constructs a new QuadraticCurve object.
   *
-  * @param {Point} controlPoint the control point for the quadratic curve.
-  * @param {Point} startPoint the starting point for the quadratic curve.
-  * @param {Point} endPoint the end point for the quadratic curve.
+  * @param {Vec2D} controlPoint the control point for the quadratic curve.
+  * @param {Vec2D} startPoint the starting point for the quadratic curve.
+  * @param {Vec2D} endPoint the end point for the quadratic curve.
   */
   constructor(startPoint, controlPoint, endPoint) {
     super();
@@ -20,7 +20,7 @@ class QuadraticCurve extends Shape {
 
   /**
   * Gets the starting point for the quadratic curve.
-  * @return {Point} The starting point of the quadratic curve
+  * @return {Vec2D} The starting point of the quadratic curve
   */
   get startPoint() {
     return this._startPoint;
@@ -29,7 +29,7 @@ class QuadraticCurve extends Shape {
   /**
    * Specifies the starting point for the quadratic curve.
    *
-   * @param  {Point} value The starting point of the quadratic curve
+   * @param  {Vec2D} value The starting point of the quadratic curve
    * @return {undefined}
    */
   set startPoint(value) {
@@ -39,7 +39,7 @@ class QuadraticCurve extends Shape {
 
   /**
   * the control point for the quadratic curve.
-  * @return {Point} the control point for the quadratic curve.
+  * @return {Vec2D} the control point for the quadratic curve.
   */
   get controlPoint() {
     return this._controlPoint;
@@ -48,7 +48,7 @@ class QuadraticCurve extends Shape {
   /**
    * Specifies the control point  for the quadratic curve.
    *
-   * @param  {Point} value the new control point for the quadratic curve.
+   * @param  {Vec2D} value the new control point for the quadratic curve.
    * @return {undefined}
    */
   set controlPoint(value) {
@@ -58,7 +58,7 @@ class QuadraticCurve extends Shape {
 
   /**
   * the end point for the quadratic curve.
-* @return {Point} the end point for the quadratic curve.
+* @return {Vec2D} the end point for the quadratic curve.
   */
   get endPoint() {
     return this._endPoint;
@@ -67,7 +67,7 @@ class QuadraticCurve extends Shape {
   /**
    * Specifies the end point for the quadratic curve.
    *
-   * @param  {Point} value the new end point for the quadratic curve.
+   * @param  {Vec2D} value the new end point for the quadratic curve.
    * @return {undefined}
    */
   set endPoint(value) {

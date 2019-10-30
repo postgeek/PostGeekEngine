@@ -1,12 +1,12 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import AssetCache from 'core/managers/AssetCache';
 import FromTiledJsonToMap2DConfig from 'gameEngine/maps/converters/FromTiledJsonToMap2DConfig';
 import Map2D from 'gameEngine/maps/Map2D';
 
 export default class DemoScene extends Scene {
   create() {
-    this.Point = new Point(0, 0);
+    this.Point = new Vec2D(0, 0);
     this.animation = 0;
     this.loaded = false;
     this.cache = new AssetCache();

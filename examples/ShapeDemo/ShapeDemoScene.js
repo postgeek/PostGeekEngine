@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Transform from 'renderingEngine/context/Transform';
 import QuadraticCurve from 'renderingEngine/geometry/QuadraticCurve';
@@ -30,7 +30,7 @@ export default class ShapeDemoScene extends Scene {
     this.circles = [];
     let circleStyle;
     for (let i = 0; i < DefaultColors.length - 1; i += 1) {
-      const circle = new Rectangle(new Point(i * 8, 0), 8, 400);
+      const circle = new Rectangle(new Vec2D(i * 8, 0), 8, 400);
       circleStyle = new GeometryStyle({
         lineWidth: 1,
         fillStyle: DefaultColors[i].Name,

@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Circle from 'renderingEngine/geometry/Circle';
 import Transform from 'renderingEngine/context/Transform';
@@ -26,17 +26,17 @@ export default class DesignSystemScene extends Scene {
 
     const paragraphFont = `14px ${font}`;
 
-    const heading1 = new TextGraphic(new Point(100, 100), 'Heading 1');
-    const heading2 = new TextGraphic(new Point(100, 160), 'Heading 2');
-    const heading3 = new TextGraphic(new Point(100, 220), 'Heading 3');
-    const heading4 = new TextGraphic(new Point(100, 280), 'Heading 4');
-    const heading5 = new TextGraphic(new Point(100, 340), 'Heading 5');
+    const heading1 = new TextGraphic(new Vec2D(100, 100), 'Heading 1');
+    const heading2 = new TextGraphic(new Vec2D(100, 160), 'Heading 2');
+    const heading3 = new TextGraphic(new Vec2D(100, 220), 'Heading 3');
+    const heading4 = new TextGraphic(new Vec2D(100, 280), 'Heading 4');
+    const heading5 = new TextGraphic(new Vec2D(100, 340), 'Heading 5');
 
-    const paragraph1 = new TextGraphic(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
-    const paragraph2 = new TextGraphic(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraph1 = new TextGraphic(new Vec2D(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
+    const paragraph2 = new TextGraphic(new Vec2D(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
     const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    const textArea = new TextArea(new Point(500, 200),
+    const textArea = new TextArea(new Vec2D(500, 200),
       'Lorem ipsum dolor sit amet, elit rutrum fusce pulvinar, lorem fermentum pellentesque mauris. Risus commodo tristique per quis, hendrerit a morbi. Nunc quis. Condimentum amet quisque ligula, consectetuer sodales placerat cras etiam egestas ultrices. Ligula lobortis non non varius, sociosqu viverra vel in aliquet phasellus tortor, lacus tincidunt molestie consectetuer vitae ullamcorper sit.',
       300, 200, textAreaStyle);
 

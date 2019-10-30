@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
@@ -53,10 +53,10 @@ export default class GraphicDemoScene extends Scene {
       strokeStyle: Color.BLACK,
       font: '14px serif',
     });
-    this.timeStepInformation = new TextGraphic(new Point(20, 20), 'TimeStep');
-    this.containerObjectInformation = new TextGraphic(new Point(20, 20), 'Container Object Information');
-    this.graphicInformation = new TextGraphic(new Point(20, 20), 'Graphic Information');
-    this.physicInformation = new TextGraphic(new Point(20, 20), 'Physics Information');
+    this.timeStepInformation = new TextGraphic(new Vec2D(20, 20), 'TimeStep');
+    this.containerObjectInformation = new TextGraphic(new Vec2D(20, 20), 'Container Object Information');
+    this.graphicInformation = new TextGraphic(new Vec2D(20, 20), 'Graphic Information');
+    this.physicInformation = new TextGraphic(new Vec2D(20, 20), 'Physics Information');
     this.textGraphics.push(this.timeStepInformation);
     this.textGraphics.push(this.containerObjectInformation);
     this.textGraphics.push(this.graphicInformation);

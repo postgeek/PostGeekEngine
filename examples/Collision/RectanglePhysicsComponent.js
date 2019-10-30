@@ -1,4 +1,4 @@
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import RectangleHitBox from 'physicsEngine/hitBoxes/RectangleHitBox';
 import PhysicsComponent from 'physicsEngine/PhysicsComponent';
 

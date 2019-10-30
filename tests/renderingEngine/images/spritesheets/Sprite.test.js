@@ -1,6 +1,6 @@
 import Sprite from '../../../../src/renderingEngine/images/spritesheets/Sprite';
 import SpriteSheet from '../../../../src/renderingEngine/images/spritesheets/SpriteSheet';
-import Point from '../../../../src/core/Point';
+import Vec2D from '../../../../src/core/Vec2D';
 
 import ContextMock from '../../../mocks/ContextMock';
 import SpriteConfigMock from '../../../mocks/SpriteConfigMock';
@@ -46,7 +46,7 @@ describe('drawAtPoint', () => {
     const spriteSheet = new SpriteSheet();
     const spriteConfig = new SpriteConfigMock();
     const sprite = new Sprite(spriteSheet, spriteConfig);
-    const point = new Point(20, 10);
+    const point = new Vec2D(20, 10);
     const spriteSheetDrawImageWithMaskSpy = jest.spyOn(spriteSheet, 'drawImageWithMask');
 
     // Act

@@ -1,11 +1,11 @@
 import Sprite from '../../renderingEngine/images/spritesheets/Sprite';
-import Point from '../../core/Point';
+import Vec2D from '../../core/Vec2D';
 
 class Tile extends Sprite {
   constructor(tileset, config) {
     super(tileset, {
       id: config.gid,
-      point: new Point(config.col * tileset.TileWidth, config.row * tileset.TileHeight),
+      point: new Vec2D(config.col * tileset.TileWidth, config.row * tileset.TileHeight),
       width: tileset.TileWidth,
       height: tileset.TileHeight,
     });

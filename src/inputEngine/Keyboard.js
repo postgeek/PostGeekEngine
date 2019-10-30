@@ -1,4 +1,5 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
+import KeyboardKey from './KeyboardKey';
 import ServiceLocator from '../core/ServiceLocator';
 
 /**
@@ -25,6 +26,13 @@ class Keyboard {
 
   get KEY_TYPED_EVENT() {
     return this.key_typed_event;
+  }
+
+  registerArrowKeys() {
+    this.registerKey(KeyboardKey.LEFT);
+    this.registerKey(KeyboardKey.RIGHT);
+    this.registerKey(KeyboardKey.UP);
+    this.registerKey(KeyboardKey.DOWN);
   }
 
   /**

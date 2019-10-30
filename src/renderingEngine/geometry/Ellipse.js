@@ -7,7 +7,7 @@ class Ellipse extends Shape {
   /**
   * Builds a new ellipse shape for drawing on the canvas
   *
-  * @param {Point} startingPoint the starting point for the Ellipse.
+  * @param {Vec2D} startingPoint the starting point for the Ellipse.
   * @param {number} radiusX the x's radius.
   * @param {number} radiusY the y's radius.
   * @param {number} rotation the rotation.
@@ -23,7 +23,7 @@ class Ellipse extends Shape {
   /**
    * Gets the ellipse's starting point
    *
-   * @return {Point} the starting point of the ellipse
+   * @return {Vec2D} the starting point of the ellipse
    */
   get point() {
     return this._point;
@@ -32,7 +32,7 @@ class Ellipse extends Shape {
   /**
    * Sets the ellipse's starting point
    *
-   * @param  {Point} value the ellipse's new starting point
+   * @param  {Vec2D} value the ellipse's new starting point
    * @return {undefined}       description
    */
   set point(value) {

@@ -1,6 +1,6 @@
 import GraphicImage from '../../../src/renderingEngine/images/GraphicImage';
 import UndefinedError from '../../../src/core/errorHandling/errors/UndefinedError';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 import ContextMock from '../../mocks/ContextMock';
 import ImageMock from '../../mocks/ImageMock';
 
@@ -75,7 +75,7 @@ describe('draw', () => {
     const contextDrawImageSpy = jest.spyOn(context, 'drawImage');
 
     // Act
-    image.drawImageWithMask(new Point(0, 0), new Point(11, 22), 12, 12);
+    image.drawImageWithMask(new Vec2D(0, 0), new Vec2D(11, 22), 12, 12);
 
     // Assert
     expect(contextDrawImageSpy).toHaveBeenCalledTimes(1);

@@ -4,7 +4,7 @@ import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextStyle from '../../renderingEngine/text/TextStyle';
 import Color from '../../renderingEngine/colors/Color';
-import Point from '../Point';
+import Vec2D from '../Vec2D';
 import ServiceLocator from '../ServiceLocator';
 
 class PostGeekDebugger extends IMiddleware {
@@ -30,7 +30,7 @@ class PostGeekDebugger extends IMiddleware {
       fillStyle: Color.MINTCREAM,
       lineWidth: 2,
     });
-    this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
+    this.Text = new TextGraphic(new Vec2D(20, 50), 'Debug mode enabled');
     this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
@@ -61,14 +61,14 @@ class PostGeekDebugger extends IMiddleware {
   }
 
   drawDebugCircle(circle) {
-    const rectPoint = new Point(circle.X - circle.Radius, circle.Y - circle.Radius);
+    const rectPoint = new Vec2D(circle.X - circle.Radius, circle.Y - circle.Radius);
     const rectSize = circle.Radius * 2;
     const rectangle = new Rectangle(rectPoint, rectSize, rectSize);
     rectangle.GeometryStyle = this.debugGeometryStyle;
 
-    const circleTextX = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
+    const circleTextX = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
     circleTextX.TextStyle = this.debugTextStyle;
-    const circleTextY = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
+    const circleTextY = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
     circleTextY.TextStyle = this.debugTextStyle;
 
     rectangle.draw();

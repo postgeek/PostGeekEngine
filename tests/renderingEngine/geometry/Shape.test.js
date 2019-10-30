@@ -5,7 +5,7 @@ import Ellipse from '../../../src/renderingEngine/geometry/Ellipse';
 import QuadraticCurve from '../../../src/renderingEngine/geometry/QuadraticCurve';
 import Rectangle from '../../../src/renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../../src/renderingEngine/geometry/GeometryStyle';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 
 import MethodNotImplementedError from '../../../src/core/errorHandling/errors/MethodNotImplementedError';
 
@@ -107,7 +107,7 @@ describe('Circle', () => {
   it('Should properly draw the circle to the screen', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const circle = new Circle(new Point(10, 20), 20);
+    const circle = new Circle(new Vec2D(10, 20), 20);
     const circleInternalDrawSpy = jest.spyOn(circle, 'internalDraw');
     const contextArcSpy = jest.spyOn(context, 'arc');
 
@@ -120,7 +120,7 @@ describe('Circle', () => {
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const circle = new Circle(point, 20);
     const newX = 45;
 
@@ -134,7 +134,7 @@ describe('Circle', () => {
   });
   it('Should properly set the point\'s y coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const circle = new Circle(point, 20);
     const newY = 66;
 
@@ -148,7 +148,7 @@ describe('Circle', () => {
   });
   it('Should copy the given circle', () => {
     // Arrange
-    const circle = new Circle(new Point(10, 20), 20);
+    const circle = new Circle(new Vec2D(10, 20), 20);
 
     // GraphicObject
     const clonedCircle = circle.clone();
@@ -165,7 +165,7 @@ describe('Ellipse', () => {
   it('Should properly draw the ellipse to the screen', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const ellipse = new Ellipse(new Point(10, 20), 20, 31, 70);
+    const ellipse = new Ellipse(new Vec2D(10, 20), 20, 31, 70);
     const ellipseInternalDrawSpy = jest.spyOn(ellipse, 'internalDraw');
     const contextEllipseSpy = jest.spyOn(context, 'ellipse');
 
@@ -178,7 +178,7 @@ describe('Ellipse', () => {
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const ellipse = new Ellipse(point, 20, 45, 49);
     const newX = 45;
 
@@ -192,7 +192,7 @@ describe('Ellipse', () => {
   });
   it('Should properly set the point\'s y coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const ellipse = new Ellipse(point, 20);
     const newY = 66;
 
@@ -206,7 +206,7 @@ describe('Ellipse', () => {
   });
   it('Should copy the given ellipse', () => {
     // Arrange
-    const ellipse = new Ellipse(new Point(10, 20), 20, 56, 75);
+    const ellipse = new Ellipse(new Vec2D(10, 20), 20, 56, 75);
 
     // GraphicObject
     const clonedEllipse = ellipse.clone();
@@ -225,7 +225,7 @@ describe('Rectangle', () => {
   it('Should properly draw the rectangle to the screen', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const rectangle = new Rectangle(new Point(10, 20), 20, 56);
+    const rectangle = new Rectangle(new Vec2D(10, 20), 20, 56);
     const rectangleInternalDraw = jest.spyOn(rectangle, 'internalDraw');
     const contextRectSpy = jest.spyOn(context, 'rect');
 
@@ -238,7 +238,7 @@ describe('Rectangle', () => {
   });
   it('Should properly set the point\'s x coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const rectangle = new Rectangle(point, 20, 89);
     const newX = 45;
 
@@ -252,7 +252,7 @@ describe('Rectangle', () => {
   });
   it('Should properly set the point\'s y coordinate', () => {
     // Arrange
-    const point = new Point(10, 20);
+    const point = new Vec2D(10, 20);
     const rectangle = new Rectangle(point, 20, 90);
     const newY = 66;
 
@@ -266,7 +266,7 @@ describe('Rectangle', () => {
   });
   it('Should copy the given rectangle', () => {
     // Arrange
-    const rectangle = new Rectangle(new Point(10, 20), 20, 65);
+    const rectangle = new Rectangle(new Vec2D(10, 20), 20, 65);
 
     // GraphicObject
     const clonedRectangle = rectangle.clone();

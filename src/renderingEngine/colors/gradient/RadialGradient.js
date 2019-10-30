@@ -7,10 +7,10 @@ class RadialGradient extends Gradient {
   /**
   * Constructor for the RadialGradient class
   *
-  * @param {Point} startCirclePoint the starting point of the start circle.
+  * @param {Vec2D} startCirclePoint the starting point of the start circle.
   * @param {number} startCircleRadius The radius of the start circle.
   * Must be non-negative and finite.
-  * @param {Point} endCirclePoint The starting point of the end circle.
+  * @param {Vec2D} endCirclePoint The starting point of the end circle.
   * @param {number} endCircleRadius The radius of the end circle. Must be non-negative and finite.
   */
   constructor(startCirclePoint, startCircleRadius, endCirclePoint, endCircleRadius) {
@@ -24,7 +24,7 @@ class RadialGradient extends Gradient {
   /**
    * Gets the gradient's starting circle point
    *
-   * @return {Point} the gradient's starting circle point
+   * @return {Vec2D} the gradient's starting circle point
    */
   get startCirclePoint() {
     return this._startCirclePoint;
@@ -33,7 +33,7 @@ class RadialGradient extends Gradient {
   /**
    * Specifies the gradient's starting circle point
    *
-   * @param  {Point} value the gradient's new starting circle point
+   * @param  {Vec2D} value the gradient's new starting circle point
    * @return {undefined}
    */
   set startCirclePoint(value) {
@@ -64,7 +64,7 @@ class RadialGradient extends Gradient {
   /**
    * Gets the gradient's ending circle point
    *
-   * @return {Point} the gradient's ending circle point
+   * @return {Vec2D} the gradient's ending circle point
    */
   get endCirclePoint() {
     return this._endCirclePoint;
@@ -73,7 +73,7 @@ class RadialGradient extends Gradient {
   /**
    * Specifies the gradient's ending circle point
    *
-   * @param  {Point} value the gradient's new ending circle point
+   * @param  {Vec2D} value the gradient's new ending circle point
    * @return {undefined}
    */
   set endCirclePoint(value) {

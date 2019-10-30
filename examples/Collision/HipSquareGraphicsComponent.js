@@ -1,11 +1,11 @@
 import Component from 'core/Component';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 
 class HipSquareGraphicsComponent extends Component {
   constructor(containerObject) {
     super(containerObject);
-    this.rectangle = new Rectangle(new Point(120, 100), 100, 100);
+    this.rectangle = new Rectangle(new Vec2D(120, 100), 100, 100);
   }
 
   receive(message) {

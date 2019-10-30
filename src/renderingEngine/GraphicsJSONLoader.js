@@ -16,7 +16,7 @@ import RGBAColor from './colors/RGBAColor';
 import RGBColor from './colors/RGBColor';
 
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
-import Point from '../core/Point';
+import Vec2D from '../core/Vec2D';
 import ServiceLocator from '../core/ServiceLocator';
 
 /**
@@ -179,13 +179,13 @@ class GraphicsJSONLoader {
    * @static parse the point
    *
    * @param  {string} pointJson The JSON for the point
-   * @return {Point}            The created Point object
+   * @return {Vec2D}            The created Point object
    */
   static parsePoint2D({ x, y }) {
     if (x === undefined || y === undefined) {
       throw new InvalidArguementError();
     }
-    return new Point(x, y);
+    return new Vec2D(x, y);
   }
 
 

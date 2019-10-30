@@ -71,9 +71,9 @@ class GraphicImage extends GraphicObject {
   /**
    * Draws and image within an image.
    *
-   * @param  {Point} destrinationPoint   The coordinates in the destination canvas at which
+   * @param  {Vec2D} destrinationPoint   The coordinates in the destination canvas at which
    * to place the top-left corner of the source image.
-   * @param  {Point} subRectanglePoint   The coordinates of the top left corner of
+   * @param  {Vec2D} subRectanglePoint   The coordinates of the top left corner of
    * the sub-rectangle of the source image to draw into the destination context.
    * @param  {Number} width  the sub-image's width
    * @param  {Number} height the sub-image's height

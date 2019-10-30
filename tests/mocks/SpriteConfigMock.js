@@ -1,5 +1,5 @@
 import SpriteConfig from '../../src/renderingEngine/images/spritesheets/SpriteConfig';
-import Point from '../../src/core/Point';
+import Vec2D from '../../src/core/Vec2D';
 
 class SpriteConfigMock extends SpriteConfig {
   constructor() {

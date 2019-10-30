@@ -2,7 +2,7 @@ import Gradient from '../../../src/renderingEngine/colors/gradient/Gradient';
 import LinearGradient from '../../../src/renderingEngine/colors/gradient/LinearGradient';
 import RadialGradient from '../../../src/renderingEngine/colors/gradient/RadialGradient';
 import ServiceLocator from '../../../src/core/ServiceLocator';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 import BaseClassConstructedError from '../../../src/core/errorHandling/errors/BaseClassConstructedError';
 import MethodNotImplementedError from '../../../src/core/errorHandling/errors/MethodNotImplementedError';
 
@@ -32,8 +32,8 @@ describe('Gradient', () => {
 describe('LinearGradient', () => {
   it('should create a linear gradient with the provided properties', () => {
     // Arrange
-    const startPoint = new Point(10, 30);
-    const endPoint = new Point(40, 50);
+    const startPoint = new Vec2D(10, 30);
+    const endPoint = new Vec2D(40, 50);
 
     // Act
     const linearGradient = new LinearGradient(startPoint, endPoint);
@@ -49,8 +49,8 @@ describe('LinearGradient', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const contextCreateLinearGradientSpy = jest.spyOn(context, 'createLinearGradient');
-    const startPoint = new Point(10, 30);
-    const endPoint = new Point(40, 50);
+    const startPoint = new Vec2D(10, 30);
+    const endPoint = new Vec2D(40, 50);
     const linearGradient = new LinearGradient(startPoint, endPoint);
 
     // Act
@@ -64,8 +64,8 @@ describe('LinearGradient', () => {
     const context = ServiceLocator.instance.locate('context');
     const gradient = context.createGradientMock();
     const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
-    const startPoint = new Point(10, 30);
-    const endPoint = new Point(40, 50);
+    const startPoint = new Vec2D(10, 30);
+    const endPoint = new Vec2D(40, 50);
     const linearGradient = new LinearGradient(startPoint, endPoint);
     linearGradient.addColorStop(0.5, 'red');
     linearGradient.addColorStop(0.7, 'blue');
@@ -82,9 +82,9 @@ describe('LinearGradient', () => {
 describe('RadialGradient', () => {
   it('should create a radial gradient with the provided properties', () => {
     // Arrange
-    const startPoint = new Point(10, 30);
+    const startPoint = new Vec2D(10, 30);
     const startRadius = 4;
-    const endPoint = new Point(40, 50);
+    const endPoint = new Vec2D(40, 50);
     const endRadius = 6;
 
     // Act
@@ -103,9 +103,9 @@ describe('RadialGradient', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const contextCreateRadialGradientSpy = jest.spyOn(context, 'createRadialGradient');
-    const startPoint = new Point(10, 30);
+    const startPoint = new Vec2D(10, 30);
     const startRadius = 4;
-    const endPoint = new Point(40, 50);
+    const endPoint = new Vec2D(40, 50);
     const endRadius = 6;
     const radialGradient = new RadialGradient(startPoint, startRadius, endPoint, endRadius);
 
@@ -120,9 +120,9 @@ describe('RadialGradient', () => {
     const context = ServiceLocator.instance.locate('context');
     const gradient = context.createGradientMock();
     const contextAddColorStopSpy = jest.spyOn(gradient, 'addColorStop');
-    const startPoint = new Point(10, 30);
+    const startPoint = new Vec2D(10, 30);
     const startRadius = 4;
-    const endPoint = new Point(40, 50);
+    const endPoint = new Vec2D(40, 50);
     const endRadius = 6;
     const radialGradient = new RadialGradient(startPoint, startRadius, endPoint, endRadius);
     radialGradient.addColorStop(0.5, 'red');

@@ -1,5 +1,5 @@
 import BezierCurve from '../../../src/renderingEngine/geometry/BezierCurve';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 
 import ContextMock from '../../mocks/ContextMock';
 
@@ -14,10 +14,10 @@ describe('BezierCurve', () => {
   it('Should properly draw the bezierCurve to the screen', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
     const bezierCurveInternalDrawSpy = jest.spyOn(bezierCurve, 'internalDraw');
     const contextMoveToSpy = jest.spyOn(context, 'moveTo');
@@ -33,12 +33,12 @@ describe('BezierCurve', () => {
   });
   it('Should properly set startPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
-    const newStartPoint = new Point(123, 432);
+    const newStartPoint = new Vec2D(123, 432);
 
     // Act
     bezierCurve.startPoint = newStartPoint;
@@ -49,12 +49,12 @@ describe('BezierCurve', () => {
   });
   it('Should properly set the first controlPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
-    const newControlPoint = new Point(123, 231);
+    const newControlPoint = new Vec2D(123, 231);
 
     // Act
     bezierCurve.firstControlPoint = newControlPoint;
@@ -65,12 +65,12 @@ describe('BezierCurve', () => {
   });
   it('Should properly set the first controlPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
-    const newControlPoint = new Point(123, 231);
+    const newControlPoint = new Vec2D(123, 231);
 
     // Act
     bezierCurve.secondControlPoint = newControlPoint;
@@ -81,12 +81,12 @@ describe('BezierCurve', () => {
   });
   it('Should properly set the endPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
-    const newEndPoint = new Point(192, 234);
+    const newEndPoint = new Vec2D(192, 234);
 
     // Act
     bezierCurve.endPoint = newEndPoint;
@@ -97,10 +97,10 @@ describe('BezierCurve', () => {
   });
   it('Should copy the given bezierCurve', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint1 = new Point(54, 23);
-    const controlPoint2 = new Point(120, 64);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint1 = new Vec2D(54, 23);
+    const controlPoint2 = new Vec2D(120, 64);
+    const endPoint = new Vec2D(65, 89);
     const bezierCurve = new BezierCurve(startPoint, controlPoint1, controlPoint2, endPoint);
 
     // GraphicObject

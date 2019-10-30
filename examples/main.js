@@ -2,6 +2,7 @@ import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import CollisionScene from './Collision/CollisionScene';
 import BallCollisionScene from './Collision/Ball/BallCollisionScene';
+import PhysicsEngineScene from './Collision/PhysicsEngine/PhysicsEngineScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
@@ -81,8 +82,17 @@ Window.Main = class Main {
       initialScene: { key: 'graphicTests', scene: GraphicDemoScene },
     });
   }
+
+  static startPhysicsDemoScene() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'physicsDemo', scene: PhysicsEngineScene },
+    });
+  }
 };
 
-Window.Main.startPongDemo();
+Window.Main.startPhysicsDemoScene();
+// Window.Main.startPongDemo();
 // Window.Main.startBallCollisionDemo();
 // Window.Main.startGraphicDemoScene();

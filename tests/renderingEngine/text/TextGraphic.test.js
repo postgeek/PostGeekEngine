@@ -1,6 +1,6 @@
 /* eslint no-undef: 0 */
 import TextGraphic from '../../../src/renderingEngine/text/TextGraphic';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 
 import ContextMock from '../../mocks/ContextMock';
 import ServiceLocator from '../../../src/core/ServiceLocator';
@@ -14,7 +14,7 @@ describe('Constructor', () => {
   it('should properly create a text object with the provided parameters', () => {
     // Arrange
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
 
     // Act
     const textGraphic = new TextGraphic(point, text);
@@ -27,7 +27,7 @@ describe('Constructor', () => {
   it('should properly set the X coordinate of the textGraphic\'s point', () => {
     // Arrange
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const newX = 87;
     const textGraphic = new TextGraphic(point, text);
 
@@ -40,7 +40,7 @@ describe('Constructor', () => {
   it('should properly set the Y coordinate of the textGraphic\'s point', () => {
     // Arrange
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const newY = 87;
     const textGraphic = new TextGraphic(point, text);
 
@@ -54,7 +54,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     const contextSaveSpy = jest.spyOn(context, 'save');
     const contextMeasureTextSpy = jest.spyOn(context, 'measureText');
@@ -75,7 +75,7 @@ describe('Constructor', () => {
     Object.defineProperty(document, 'document', {});
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     const documentGetElementsByTagNameSpy = jest.spyOn(document, 'getElementsByTagName');
     const documentCreateElementSpy = jest.spyOn(document, 'createElement');
@@ -93,7 +93,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     const contextSaveSpy = jest.spyOn(context, 'save');
     const textStyleApplySpy = jest.spyOn(testGraphic.textStyle, 'apply');
@@ -111,7 +111,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     const contextFillTextSpy = jest.spyOn(context, 'fillText');
 
@@ -125,7 +125,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     testGraphic.textStyle.fillStyle = undefined;
     const contextFillTextSpy = jest.spyOn(context, 'fillText');
@@ -140,7 +140,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     testGraphic.textStyle.strokeStyle = 'red';
     const contextStrokeTextSpy = jest.spyOn(context, 'strokeText');
@@ -155,7 +155,7 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
-    const point = new Point(22, 33);
+    const point = new Vec2D(22, 33);
     const testGraphic = new TextGraphic(point, text);
     testGraphic.textStyle.strokeStyle = undefined;
     const contextStrokeTextSpy = jest.spyOn(context, 'strokeText');

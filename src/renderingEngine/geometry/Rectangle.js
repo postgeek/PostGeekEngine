@@ -4,7 +4,7 @@ class Rectangle extends Shape {
   /**
   * Constructs a new Rectangle object.
   *
-  * @param {Point} point the starting point of the rectangle.
+  * @param {Vec2D} point the starting point of the rectangle.
   * @param {number} width the width of the rectangle.
   * @param {number} height the height of the rectangle.
   */

@@ -30,7 +30,7 @@ class PathBuilder {
 
   /**
   * Moves the current point to the provided point.
-  * @param {Point} point the point to move to.
+  * @param {Vec2D} point the point to move to.
   */
   moveTo(point) {
     this.path.moveTo(point.X, point.Y);
@@ -38,7 +38,7 @@ class PathBuilder {
 
   /**
   * Draws a line from the current point to the next point.
-  * @param {Point} point the point to draw a line to
+  * @param {Vec2D} point the point to draw a line to
   */
   lineTo(point) {
     this.path.lineTo(point.X, point.Y);
@@ -47,9 +47,9 @@ class PathBuilder {
   /**
   * Draws a bezier curve using the provided control points and end point.
   *
-  * @param {Point} controlPoint1 the first control point.
-  * @param {Point} controlPoint2 the second control point.
-  * @param {Point} endPoint the end point of the bezier curve.
+  * @param {Vec2D} controlPoint1 the first control point.
+  * @param {Vec2D} controlPoint2 the second control point.
+  * @param {Vec2D} endPoint the end point of the bezier curve.
   */
   bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
     this.path.bezierCurveTo(
@@ -65,8 +65,8 @@ class PathBuilder {
   /**
   * Draws a quadratic curve using the provided control point and end point1
   *
-  * @param {Point} controlPoint the control point to use.
-  * @param {Point} endPoint the end point of the quadratic curve.
+  * @param {Vec2D} controlPoint the control point to use.
+  * @param {Vec2D} endPoint the end point of the quadratic curve.
   */
   quadraticCurveTo(controlPoint, endPoint) {
     this.path.quadraticCurveTo(
@@ -80,8 +80,8 @@ class PathBuilder {
   /**
   * Draws an arc using the provided control points and radius
   *
-  * @param {Point} controlPoint1 the first control point to use.
-  * @param {Point} controlPoint2 the second control point to use.
+  * @param {Vec2D} controlPoint1 the first control point to use.
+  * @param {Vec2D} controlPoint2 the second control point to use.
   * @param {number} radius the radius to use for the arc.
   */
   arcTo(controlPoint1, controlPoint2, radius) {

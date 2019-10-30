@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import Color from 'renderingEngine/colors/Color';
 import Circle from 'renderingEngine/geometry/Circle';
@@ -8,9 +8,9 @@ import Ball from './Ball';
 class BallCollisionScene extends Scene {
   create() {
     this.circles = [];
-    this.background = new Rectangle(new Point(0, 0), 1000, 550);
+    this.background = new Rectangle(new Vec2D(0, 0), 1000, 550);
     this.background.geometryStyle.fillStyle = Color.LIGHTPINK;
-    this.circle = new Circle(new Point(200, 200), 20);
+    this.circle = new Circle(new Vec2D(200, 200), 20);
     this.lastPositionX = 200;
     this.lastPositionY = 200;
     this.positionX = 200;

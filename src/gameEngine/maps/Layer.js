@@ -1,4 +1,4 @@
-import Point from '../../core/Point';
+import Vec2D from '../../core/Vec2D';
 
 class Layer {
   constructor(map, config) {
@@ -16,7 +16,7 @@ class Layer {
       if (tileset !== undefined) {
         const row = Math.floor(index / this.Map.ColumnCount);
         const col = index % this.Map.ColumnCount;
-        tileset.drawTile(gid, new Point(col * this.Map.TileWidth, row * this.Map.TileHeight));
+        tileset.drawTile(gid, new Vec2D(col * this.Map.TileWidth, row * this.Map.TileHeight));
       }
     });
   }

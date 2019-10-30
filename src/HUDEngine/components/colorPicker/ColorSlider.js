@@ -1,4 +1,4 @@
-import Point from '../../../core/Point';
+import Vec2D from '../../../core/Vec2D';
 import ClickableComponent from '../ClickableComponent';
 import Rectangle from '../../../renderingEngine/geometry/Rectangle';
 import Circle from '../../../renderingEngine/geometry/Circle';
@@ -16,14 +16,14 @@ class ColorSlider extends ClickableComponent {
       fillStyle: Color.BLACK,
       lineWidth: 1,
     });
-    this.rectangleSelector = new Rectangle(new Point(this.point.x + initialXPosition, this.point.y), 1, 30);
+    this.rectangleSelector = new Rectangle(new Vec2D(this.point.x + initialXPosition, this.point.y), 1, 30);
     this.rectangleSelector.geometryStyle = rectangleSelectorGeometryStyle;
 
     const circleSelectorGeometryStyle = new GeometryStyle({
       strokeStyle: Color.BLACK,
       lineWidth: 2,
     });
-    this.circleSelector = new Circle(new Point(this.point.x + initialXPosition, this.point.y + 15), 8);
+    this.circleSelector = new Circle(new Vec2D(this.point.x + initialXPosition, this.point.y + 15), 8);
     this.circleSelector.geometryStyle = circleSelectorGeometryStyle;
 
     this.rectangle = new Rectangle(this.point, width, height);

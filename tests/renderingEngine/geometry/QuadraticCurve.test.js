@@ -1,5 +1,5 @@
 import QuadraticCurve from '../../../src/renderingEngine/geometry/QuadraticCurve';
-import Point from '../../../src/core/Point';
+import Vec2D from '../../../src/core/Vec2D';
 
 import ContextMock from '../../mocks/ContextMock';
 
@@ -15,9 +15,9 @@ describe('QuadraticCurve', () => {
   it('Should properly draw the quadraticCurve to the screen', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint = new Vec2D(54, 23);
+    const endPoint = new Vec2D(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
     const quadraticCurveInternalDrawSpy = jest.spyOn(quadraticCurve, 'internalDraw');
     const contextMoveToSpy = jest.spyOn(context, 'moveTo');
@@ -34,11 +34,11 @@ describe('QuadraticCurve', () => {
   });
   it('Should properly set startPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint = new Vec2D(54, 23);
+    const endPoint = new Vec2D(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newStartPoint = new Point(123, 432);
+    const newStartPoint = new Vec2D(123, 432);
 
     // Act
     quadraticCurve.startPoint = newStartPoint;
@@ -49,11 +49,11 @@ describe('QuadraticCurve', () => {
   });
   it('Should properly set the controlPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint = new Vec2D(54, 23);
+    const endPoint = new Vec2D(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newControlPoint = new Point(123, 231);
+    const newControlPoint = new Vec2D(123, 231);
 
     // Act
     quadraticCurve.controlPoint = newControlPoint;
@@ -64,11 +64,11 @@ describe('QuadraticCurve', () => {
   });
   it('Should properly set the endPoint', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint = new Vec2D(54, 23);
+    const endPoint = new Vec2D(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
-    const newEndPoint = new Point(192, 234);
+    const newEndPoint = new Vec2D(192, 234);
 
     // Act
     quadraticCurve.endPoint = newEndPoint;
@@ -79,9 +79,9 @@ describe('QuadraticCurve', () => {
   });
   it('Should copy the given quadraticCurve', () => {
     // Arrange
-    const startPoint = new Point(48, 34);
-    const controlPoint = new Point(54, 23);
-    const endPoint = new Point(65, 89);
+    const startPoint = new Vec2D(48, 34);
+    const controlPoint = new Vec2D(54, 23);
+    const endPoint = new Vec2D(65, 89);
     const quadraticCurve = new QuadraticCurve(startPoint, controlPoint, endPoint);
 
     // GraphicObject

@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import ContainerObject from 'core/ContainerObject';
 import HipSquarePhysicsComponent from './HipSquarePhysicsComponent';
@@ -15,7 +15,7 @@ class CollisionScene extends Scene {
 
   createEddyCollision() {
     this.rectangle = new RectangleGameObject(this);
-    this.rectangleText = new TextGraphic(new Point(3, 12), '');
+    this.rectangleText = new TextGraphic(new Vec2D(3, 12), '');
   }
 
   updateEddyCollision() {

@@ -1,4 +1,4 @@
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Rectangle from 'renderingEngine/geometry/Rectangle';
 import GraphicsComponent from 'renderingEngine/GraphicsComponent';
 

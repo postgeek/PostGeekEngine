@@ -1,5 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import Color from 'renderingEngine/colors/Color';
@@ -17,20 +17,17 @@ class PongScene extends Scene {
     this.keyboard.registerKey(KeyboardKey.S);
     this.keyboard.registerKey(KeyboardKey.UP);
     this.keyboard.registerKey(KeyboardKey.DOWN);
-    this.background = new Rectangle(new Point(0, 0), 1000, 550);
+    this.background = new Rectangle(new Vec2D(0, 0), 1000, 550);
     this.background.geometryStyle.fillStyle = Color.LIGHTPINK;
-    this.pongPaddleOne = new Rectangle(new Point(10, 200), 20, 100);
+    this.pongPaddleOne = new Rectangle(new Vec2D(10, 200), 20, 100);
     this.pongPaddleOneVelocity = 0.4;
 
-    this.pongPaddleTwo = new Rectangle(new Point(960, 200), 20, 100);
+    this.pongPaddleTwo = new Rectangle(new Vec2D(960, 200), 20, 100);
     this.pongPaddleTwoVelocity = 0.4;
 
-    this.pongBall = new Circle(new Point(500, 225), 10);
-    // this.pongBall.geometryStyle = new GeometryStyle({
-    //  fillStyle: Color.WHITE,
-    // });
-    this.pongBallVelocityX = 0.4;
-    this.pongBallVelocityY = 0.2;
+    this.pongBall = new Circle(new Vec2D(500, 225), 10);
+    this.pongBallVelocityX = 0.1;
+    this.pongBallVelocityY = 0.0;
   }
 
   update(timeStep) {

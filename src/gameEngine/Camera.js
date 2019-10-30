@@ -2,7 +2,7 @@ class Camera {
   /**
   * Creates a new Camera object.
   *
-  * @param {Point} point the starting point of the camera.
+  * @param {Vec2D} point the starting point of the camera.
   * @param {number} width the width of the camera.
   * @param {number} height the height of the camera.
   */

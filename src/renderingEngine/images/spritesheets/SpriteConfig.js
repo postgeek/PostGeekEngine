@@ -1,4 +1,4 @@
-import Point from '../../../core/Point';
+import Vec2D from '../../../core/Vec2D';
 import { isPowerOfTwo } from '../../../core/utils/Math';
 
 /**
@@ -7,7 +7,7 @@ import { isPowerOfTwo } from '../../../core/utils/Math';
 class SpriteConfig {
   constructor(id, x, y, width, height) {
     this.id = id;
-    this.point = new Point(x, y);
+    this.point = new Vec2D(x, y);
     this.width = width;
     this.height = height;
   }

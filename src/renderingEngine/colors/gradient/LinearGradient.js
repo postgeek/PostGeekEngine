@@ -7,8 +7,8 @@ class LinearGradient extends Gradient {
   /**
   * Constructs a new LinearGradient object.
   *
-  * @param {Point} startPoint the starting point of the gradient.
-  * @param {Point} endPoint the ending point of the gradient.
+  * @param {Vec2D} startPoint the starting point of the gradient.
+  * @param {Vec2D} endPoint the ending point of the gradient.
   */
   constructor(startPoint, endPoint) {
     super();
@@ -19,7 +19,7 @@ class LinearGradient extends Gradient {
   /**
    * Gets the graident's start point
    *
-   * @return {Point} the graident's start point
+   * @return {Vec2D} the graident's start point
    */
   get startPoint() {
     return this._startPoint;
@@ -28,7 +28,7 @@ class LinearGradient extends Gradient {
   /**
    * Specifies the gradient's start point
    *
-   * @param  {Point} value the new start point
+   * @param  {Vec2D} value the new start point
    * @return {undefined}
    */
   set startPoint(value) {
@@ -39,7 +39,7 @@ class LinearGradient extends Gradient {
   /**
    * Gets the graident's end point
    *
-   * @return {Point} the graident's end point
+   * @return {Vec2D} the graident's end point
    */
   get endPoint() {
     return this._endPoint;
@@ -48,7 +48,7 @@ class LinearGradient extends Gradient {
   /**
    * Specifies the gradient's end point
    *
-   * @param  {Point} value the new end point
+   * @param  {Vec2D} value the new end point
    * @return {undefined}
    */
   set endPoint(value) {

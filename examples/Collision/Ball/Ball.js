@@ -1,4 +1,4 @@
-import Point from 'core/Point';
+import Vec2D from 'core/Vec2D';
 import Circle from 'renderingEngine/geometry/Circle';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import DefaultColors from 'renderingEngine/colors/DefaultColors';
@@ -14,7 +14,7 @@ class Ball {
     this.velocityX = velocityX;
     this.velocityY = velocityY;
 
-    this.circle = new Circle(new Point(x, y), radius);
+    this.circle = new Circle(new Vec2D(x, y), radius);
     const color = DefaultColors[Math.round(Math.random() * (DefaultColors.length - 1))];
     const alpha = Math.random();
     const fillColor = color.hslaColor.clone();

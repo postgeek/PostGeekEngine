@@ -1,4 +1,5 @@
 import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
+import Transform from './context/Transform';
 import ServiceLocator from '../core/ServiceLocator';
 
 /**
@@ -10,7 +11,22 @@ class GraphicObject {
   */
   constructor() {
     this._context = ServiceLocator.instance.locate('context');
+    this.transform = new Transform(this.context);
     this.isVisible = true;
+  }
+
+  /**
+   * sets the graphic objects's rotation when drawn to the screen.
+   *
+   * @return {Number} the graphic objects's rotation when drawn to the screen.
+   */
+  set rotation(value) {
+    this._rotation = value;
+  }
+
+  get rotation() {
+    /** @private */
+    return this._rotation;
   }
 
   set isVisible(value) {
@@ -19,6 +35,14 @@ class GraphicObject {
 
   get isVisible() {
     return this._isVisible;
+  }
+
+  set transform(value) {
+    this._transform = value;
+  }
+
+  get transform() {
+    return this._transform;
   }
 
   /**
@@ -49,6 +73,14 @@ class GraphicObject {
     throw new MethodNotImplementedError(this);
   }
 
+  applyTransformations() {
+    if (this.rotation !== undefined) {
+      this.transform.translate(this.point.x + this.width / 2, this.point.y + this.height / 2);
+      this.transform.rotate(this.rotation);
+      this.transform.translate(-1 * (this.point.x + this.width / 2), -1 * (this.point.y + this.height / 2));
+    }
+  }
+
   /**
    * Saves the current context to the stack and applies the new styling.
    */
@@ -70,6 +102,7 @@ class GraphicObject {
   draw() {
     if (this.isVisible) {
       this.preDraw();
+      this.applyTransformations();
       this.internalDraw();
       this.postDraw();
     }
