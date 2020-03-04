@@ -63,6 +63,7 @@ class PhysicsComponent {
    * Override this function to update physics.
    */
   internalUpdate() {
+    // Add physics engine?
     throw new MethodNotImplementedError(this);
   }
 

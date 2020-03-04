@@ -14,6 +14,7 @@ class SceneManager {
 
   startScene(key) {
     const scene = this.getScene(key);
+    // TODO: Change to initialize the scene and not instantiate it here ??
     this.runningScene = new (scene)();
     this.runningScene.IsActive = true;
   }

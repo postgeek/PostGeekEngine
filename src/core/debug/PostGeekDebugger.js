@@ -20,6 +20,12 @@ class PostGeekDebugger extends IMiddleware {
       lineWidth: 1,
       font: '48px serif',
     });
+    this.sceneTitleStyle = new TextStyle({
+      fillStyle: 'white',
+      strokeStyle: 'black',
+      lineWidth: 1,
+      font: '48px sans-serif',
+    });
     this.FPSTextStyle = new TextStyle({
       fillStyle: Color.BLACK,
       lineWidth: 1,
@@ -30,7 +36,7 @@ class PostGeekDebugger extends IMiddleware {
       fillStyle: Color.MINTCREAM,
       lineWidth: 2,
     });
-    this.Text = new TextGraphic(new Vec2D(20, 50), 'Debug mode enabled');
+    this.Text = new TextGraphic(new Vec2D(20, 50), 'Debug');
     this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
@@ -39,6 +45,8 @@ class PostGeekDebugger extends IMiddleware {
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
+    this.SceneTitleText = new TextGraphic(new Vec2D(160, 55), this._activeScene.title);
+    this.SceneTitleText.textStyle = this.sceneTitleStyle;
   }
 
   update() {
@@ -46,7 +54,8 @@ class PostGeekDebugger extends IMiddleware {
   }
 
   draw(timeStep) {
-    // this.Text.draw();
+    this.Text.draw();
+    this.SceneTitleText.draw();
     this._worldRectangle.draw();
   }
 

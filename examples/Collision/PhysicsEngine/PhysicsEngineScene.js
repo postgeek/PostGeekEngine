@@ -3,6 +3,7 @@ import BoxStack from './levels/BoxStack';
 
 class PhysicsEngineScene extends Scene {
   create() {
+    this.title = 'PhysicsEngineScene';
     this.boxStack = new BoxStack();
     this.boxStack.create();
   }

@@ -48,6 +48,7 @@ class BoxStack {
   }
 
   draw(timeStep) {
+    this.rectangleTextGraphic.draw();
     this.rectangle2.draw();
     this.rectangle.draw();
     // this.rectangle3.draw();

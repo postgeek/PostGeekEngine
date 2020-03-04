@@ -26,6 +26,21 @@ class Scene {
   }
 
   /**
+   * Get the title for this scene
+   */
+  get title() {
+    return this._title;
+  }
+
+  /**
+   * Set the title for this scene
+   * @param {String} value The new title for this scene
+   */
+  set title(value) {
+    this._title = value;
+  }
+
+  /**
    * Get the world for this scene
    */
   get world() {
