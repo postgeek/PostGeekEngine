@@ -41,11 +41,12 @@ class PostGeekDebugger extends IMiddleware {
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
 
+
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
-    this.SceneTitleText = new TextGraphic(new Vec2D(160, 55), this._activeScene.title);
+    this.SceneTitleText = new TextGraphic(new Vec2D(160, 55), this._activeScene.constructor.name);
     this.SceneTitleText.textStyle = this.sceneTitleStyle;
   }
 

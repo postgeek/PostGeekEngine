@@ -19,6 +19,7 @@ class Scene {
     this._context = ServiceLocator.instance.locate('context');
 
     // TODO: For simplicity, the world and camera are the same size as the canvas for now.
+    this._title = constructor.name;
     this._world = new World(new Vec2D(0, 0), this._context.canvas.width, this._context.canvas.height);
     this._camera = new Camera(new Vec2D(0, 0), this._context.canvas.width, this._context.canvas.height);
 
@@ -30,14 +31,6 @@ class Scene {
    */
   get title() {
     return this._title;
-  }
-
-  /**
-   * Set the title for this scene
-   * @param {String} value The new title for this scene
-   */
-  set title(value) {
-    this._title = value;
   }
 
   /**
