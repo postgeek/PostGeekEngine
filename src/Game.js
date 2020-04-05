@@ -63,10 +63,6 @@ class Game {
     this.Canvas = this.config.canvas;
     this.sceneManager = new SceneManager();
     this.middlewareManager = new MiddlewareManager();
-
-    if (config.debug) {
-      this.middlewareManager.add('debug', new PostGeekDebugger());
-    }
   }
 
   /**
@@ -87,6 +83,10 @@ class Game {
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', context);
     this._context = ServiceLocator.instance.locate('context');
+
+    if (this.config.debug) {
+      this.middlewareManager.add('debug', new PostGeekDebugger());
+    }
 
     this.Canvas.addEventListener('mousemove', this.Mouse, false);
     this.Canvas.addEventListener('mouseup', this.Mouse, false);
