@@ -5,7 +5,7 @@ import BallCollisionScene from './Collision/Ball/BallCollisionScene';
 import PhysicsEngineScene from './Collision/PhysicsEngine/PhysicsEngineScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
-import ThemeDemoScene from './Theme/ThemeDemoScene';
+import ThemeDemoScene from './Theme/DesignSystemScene';
 import PongScene from './Games/Pong/PongScene';
 import GraphicDemoScene from './GraphicTests/GraphicDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';

@@ -1,6 +1,7 @@
 import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
 import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
+import PhysicsEngine from './physicsEngine/PhysicsEngine';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
 import EventBus from './core/messaging/EventBus';
@@ -10,7 +11,7 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 let game = null;
 
 /**
- * start - starts a new Game
+ * Starts a new Game
  *
  * @param  {String} config the config to use when initializing the game
  */
@@ -20,7 +21,7 @@ function start(config) {
 }
 
 /**
- * addScene - adds a scene to the sceneManager
+ * Adds a scene to the sceneManager
  *
  * @param  {String} key   the key for the scene
  * @param  {Scene} scene  the Scene object to add
@@ -35,7 +36,7 @@ function addScene({ key, scene }) {
 
 
 /**
- * startScene - starts the scene corresponding to the provided key
+ * Starts the scene corresponding to the provided key
  *
  * @param  {String} key the key associated to a scene
  */
@@ -49,7 +50,7 @@ function startScene(key) {
 
 class Game {
   /**
-   * constructor - Constructs a new Game object
+   * Constructs a new Game object
    *
    * @param  {String} config the configuration for the Game
    */
@@ -65,8 +66,11 @@ class Game {
     this.Canvas = this.config.canvas;
     this.middlewareManager = new MiddlewareManager();
 
-    ServiceLocator.instance.register('sceneManager', new SceneManager());
-    this.sceneManager = ServiceLocator.instance.locate('sceneManager');
+    this.sceneManager = new SceneManager();
+    this.physicsEngine = new PhysicsEngine();
+
+    ServiceLocator.instance.register('sceneManager', this.sceneManager);
+    ServiceLocator.instance.register('physicsEngine', this.physicsEngine);
   }
 
   set isStarted(value) {
@@ -142,7 +146,7 @@ class Game {
   }
 
   /**
-   * init - Initializes all the necessary objects
+   * Initializes all the necessary objects
    */
   init() {
     if (!this.Canvas || !this.Canvas.getContext) {
@@ -239,8 +243,6 @@ class Game {
     this.deltaTime += timeStamp - this.lastFrameTimeMs;
     this.lastFrameTimeMs = timeStamp;
 
-    // this.begin(timeStamp, this.deltaTime);
-
     if (timeStamp > this.lastFPSUpdate + 1000) {
       this.fps = this.weightedFPSMultipler * this.framesThisSecond
       + (1 - this.weightedFPSMultipler) * this.fps;
@@ -280,6 +282,7 @@ class Game {
    */
   update(timeStep) {
     this.sceneManager.runningScene.update(timeStep);
+    this.physicsEngine.update();
     this.middlewareManager.update(timeStep);
   }
 
