@@ -9,6 +9,7 @@ export default class KeyboardDemoScene extends Scene {
     this.game.Keyboard.registerKey(KeyboardKey.A);
     this.game.Keyboard.registerKey(KeyboardKey.B);
     this.game.Keyboard.registerKey(KeyboardKey.C);
+    this.game.Keyboard.registerKey(KeyboardKey.D);
     this.KeyboardKeyPressed = new TextGraphic(new Point(100, 140), '');
   }
 
@@ -21,6 +22,9 @@ export default class KeyboardDemoScene extends Scene {
     }
     if (this.game.Keyboard.keyDownHeld(KeyboardKey.C)) {
       this.KeyboardKeyPressed.text = "C";
+    }
+    if (this.game.Keyboard.keyDownHeld(KeyboardKey.D)) {
+      this.KeyboardKeyPressed.text = "D";
     }
   }
 
