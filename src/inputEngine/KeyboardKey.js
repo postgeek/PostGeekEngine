@@ -100,7 +100,7 @@ class KeyboardKey {
    * @param  {Number} value the location of the physical key on the keyboard
    */
   set location(value) {
-    if (value > 0 && value < 2) {
+    if (value < 0 && value > 2) {
       throw new InvalidArguementError();
     }
     this._location = value;
@@ -113,6 +113,29 @@ class KeyboardKey {
    */
   get location() {
     return this._location;
+  }
+
+  /** @static */
+  static get ALL_KEYS() {
+    return [
+      KeyboardKey.BACKSPACE, KeyboardKey.TAB, KeyboardKey.CLEAR, KeyboardKey.ENTER, KeyboardKey.SHIFTLEFT, 
+      KeyboardKey.SHIFTRIGHT, KeyboardKey.CONTROLLEFT, KeyboardKey.CONTROLRIGHT, KeyboardKey.ALTLEFT, 
+      KeyboardKey.ALTRIGHT, KeyboardKey.PAUSE, KeyboardKey.CAPS_LOCK, KeyboardKey.ESC, KeyboardKey.SPACEBAR, 
+      KeyboardKey.PAGE_UP, KeyboardKey.PAGE_DOWN, KeyboardKey.END, KeyboardKey.HOME, KeyboardKey.LEFT, KeyboardKey.UP, 
+      KeyboardKey.RIGHT, KeyboardKey.DOWN, KeyboardKey.INSERT, KeyboardKey.DELETE, KeyboardKey.HELP, KeyboardKey.ZERO, 
+      KeyboardKey.ONE, KeyboardKey.TWO, KeyboardKey.THREE, KeyboardKey.FOUR, KeyboardKey.FIVE, KeyboardKey.SIX, KeyboardKey.SEVEN,
+      KeyboardKey.EIGHT, KeyboardKey.NINE, KeyboardKey.A, KeyboardKey.B, KeyboardKey.C, KeyboardKey.D, KeyboardKey.E, KeyboardKey.F, 
+      KeyboardKey.G, KeyboardKey.H, KeyboardKey.I, KeyboardKey.J, KeyboardKey.K, KeyboardKey.L, KeyboardKey.M, KeyboardKey.N, 
+      KeyboardKey.O, KeyboardKey.P, KeyboardKey.Q, KeyboardKey.R, KeyboardKey.S, KeyboardKey.T, KeyboardKey.U, KeyboardKey.V, 
+      KeyboardKey.W, KeyboardKey.X, KeyboardKey.Y, KeyboardKey.Z, KeyboardKey.METALEFT, KeyboardKey.METARIGHT, KeyboardKey.NUMPAD_0, 
+      KeyboardKey.NUMEPAD_1, KeyboardKey.NUMEPAD_2, KeyboardKey.NUMEPAD_3, KeyboardKey.NUMEPAD_4, KeyboardKey.NUMEPAD_5, KeyboardKey.NUMEPAD_6,
+      KeyboardKey.NUMEPAD_7, KeyboardKey.NUMEPAD_8, KeyboardKey.NUMEPAD_9, KeyboardKey.NUMEPAD_MULTIPLY, KeyboardKey.NUMEPAD_ADD, 
+      KeyboardKey.NUMEPAD_ENTER, KeyboardKey.NUMEPAD_SUBTRACT, KeyboardKey.NUMEPAD_DECIMAL, KeyboardKey.NUMEPAD_DIVIDE, KeyboardKey.F1, 
+      KeyboardKey.F2, KeyboardKey.F3, KeyboardKey.F4, KeyboardKey.F5, KeyboardKey.F6, KeyboardKey.F7, KeyboardKey.F8, KeyboardKey.F9, 
+      KeyboardKey.F10, KeyboardKey.F11, KeyboardKey.F12, KeyboardKey.F13, KeyboardKey.F14, KeyboardKey.F15, KeyboardKey.NUM_LOCK, KeyboardKey.SEMICOLONG, 
+      KeyboardKey.EQUALS, KeyboardKey.COMMA, KeyboardKey.MINUS, KeyboardKey.PERIOD, KeyboardKey.SLASH, KeyboardKey.BACKQUOTE, KeyboardKey.BRACKETLEFT, 
+      KeyboardKey.BACKSLASH, KeyboardKey.BRACKETRIGHT 
+    ];
   }
 
   /** @static */
@@ -570,7 +593,10 @@ class KeyboardKey {
 
   /** @static */
   static get V() {
-    return 86;
+    return new KeyboardKey({
+      keyCode: 86,
+      code: 'KeyV',
+    });
   }
 
   /** @static */

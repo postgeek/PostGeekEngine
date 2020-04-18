@@ -28,6 +28,15 @@ class Keyboard {
     return this.key_typed_event;
   }
 
+  registerAllKeys() {
+    KeyboardKey.ALL_KEYS.forEach(key => this.registerKey(key));
+    /*
+    var allKeys = KeyboardKey.ALL_KEYS;
+    for(let i = 0; i < allKeys.length; i++) {
+      this.registerKey(allKeys[i]);
+    } */
+  }
+
   registerArrowKeys() {
     this.registerKey(KeyboardKey.LEFT);
     this.registerKey(KeyboardKey.RIGHT);
