@@ -7,6 +7,47 @@ beforeEach(() => {
   ServiceLocator.instance.register('context', undefined);
 });
 
+describe('createLine', () => {
+  it('should throw an error when creating a line if no parameters are passed', () => {
+    // Arrange
+    const lineJson = '{}';
+
+    // Assert
+    expect(() => { GraphicsJSONLoader.createLine(JSON.parse(lineJson)); }).toThrow(InvalidArguementError);
+  });
+  it('should throw an error when creating a line if no startPoint is passed', () => {
+    // Arrange
+    const lineJson = '{"endPoint":{"x":50,"y":50}}';
+
+    // Assert
+    expect(() => { GraphicsJSONLoader.createLine(JSON.parse(lineJson)); }).toThrow(InvalidArguementError);
+  });
+  it('should throw an error when creating a line if no endPoint is passed', () => {
+    // Arrange
+    const lineJson = '{"startPoint":{"x":50,"y":50}}';
+
+    // Assert
+    expect(() => { GraphicsJSONLoader.createLine(JSON.parse(lineJson)); }).toThrow(InvalidArguementError);
+  });
+  it('should create a line with the configuration provided', () => {
+    // Arrange
+    const lineJson = '{"startPoint":{"x":231,"y":745},"endPoint":{"x":123,"y":456}}';
+    const startX = 231;
+    const startY = 745;
+    const endX = 123;
+    const endY = 456;
+
+    // Assert
+    const line = GraphicsJSONLoader.createLine(JSON.parse(lineJson));
+
+    // Assert
+    expect(line).toBeDefined();
+    expect(line.startPoint.x).toBe(startX);
+    expect(line.startPoint.y).toBe(startY);
+    expect(line.endPoint.x).toBe(endX);
+    expect(line.endPoint.y).toBe(endY);
+  });
+});
 describe('createCircle', () => {
   it('should throw an error when creating a circle if no parameters are passed', () => {
     // Arange

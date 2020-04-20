@@ -1,3 +1,4 @@
+import Line from './geometry/Line'
 import Circle from './geometry/Circle';
 import Rectangle from './geometry/Rectangle';
 import Ellipse from './geometry/Ellipse';
@@ -23,6 +24,26 @@ import ServiceLocator from '../core/ServiceLocator';
  * The graphic objects JSON loader
  */
 class GraphicsJSONLoader {
+  /**
+   * @static Creates a line with the supplied properties
+   *
+   * @param  {string} config The JSON configuration for the line
+   * @return {Line}        The newly created line
+   */
+  static createLine({startPoint, endPoint, geometryStyle}) {
+    if(startPoint === undefined || endPoint === undefined) {
+      throw new InvalidArguementError();
+    }
+    const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
+    const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
+    const line = new Line(parsedStartPoint, parsedEndPoint);
+    if (geometryStyle !== undefined) {
+      line.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
+    }
+
+    return line;
+  }
+
   /**
    * @static Creates a circle with the supplied properties
    *
