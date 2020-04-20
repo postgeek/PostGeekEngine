@@ -92,7 +92,7 @@ Window.Main = class Main {
   }
 };
 
-Window.Main.startKeyboardDemo();
+Window.Main.startPhysicsDemoScene();
 // Window.Main.startPongDemo();
 // Window.Main.startBallCollisionDemo();
 // Window.Main.startGraphicDemoScene();

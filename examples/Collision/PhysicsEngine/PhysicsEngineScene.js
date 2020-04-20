@@ -1,9 +1,9 @@
 import Scene from 'gameEngine/scene/Scene';
-import BoxStackAll from './levels/BoxStackAll';
+import BoxStack from './levels/BoxStack';
 
 class PhysicsEngineScene extends Scene {
   create() {
-    this.boxStack = new BoxStackAll();
+    this.boxStack = new BoxStack();
     this.boxStack.create();
   }
 

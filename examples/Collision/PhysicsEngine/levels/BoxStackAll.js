@@ -71,7 +71,7 @@ class BoxStackAll {
               this.printCount <= this.maxPrintCount;
           },
           print: function() {
-            console.log(`Particle-0: (${position.x},${position.y})`)
+            //console.log(`Particle-0: (${position.x},${position.y})`)
           },
       };
   }
