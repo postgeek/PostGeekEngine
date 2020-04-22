@@ -4,6 +4,7 @@ import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
+import QaudTreeDemoScene from './QuadTreeDemo/QuadTreeDemoScene';
 
 Window.Main = class Main {
   static start2DMapDemo() {
@@ -45,4 +46,14 @@ Window.Main = class Main {
       initialScene: { key: 'collisionScene', scene: CollisionScene },
     });
   }
+
+  static startQuadTreeDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'QaudTreeDemoScene', scene: QaudTreeDemoScene },
+    });
+  }
 };
+
+Window.Main.startQuadTreeDemo();
