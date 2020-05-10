@@ -93,12 +93,12 @@ class Game {
     return this._isRunning;
   }
 
-  set fps(value) {
-    this._fps = value;
+  set framesPerSecond(value) {
+    this._framesPerSecond = value;
   }
 
-  get fps() {
-    return this._fps;
+  get framesPerSecond() {
+    return this._framesPerSecond;
   }
 
   set framesThisSecond(value) {
@@ -236,8 +236,8 @@ class Game {
     this.lastFrameTimeMs = timeStamp;
 
     if (timeStamp > this.lastFPSUpdate + 1000) {
-      this.fps = this.weightedFPSMultipler * this.framesThisSecond
-      + (1 - this.weightedFPSMultipler) * this.fps;
+      this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond
+      + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
 
       this.lastFPSUpdate = timeStamp;
       this.framesThisSecond = 0;
