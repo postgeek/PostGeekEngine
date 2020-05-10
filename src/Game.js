@@ -9,7 +9,7 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 let game = null;
 
 /**
- * start - starts a new Game
+ * Starts a new Game
  *
  * @param  {String} config the config to use when initializing the game
  */
@@ -19,7 +19,7 @@ function start(config) {
 }
 
 /**
- * addScene - adds a scene to the sceneManager
+ * Adds a scene to the sceneManager
  *
  * @param  {String} key   the key for the scene
  * @param  {Scene} scene  the Scene object to add
@@ -34,7 +34,7 @@ function addScene({ key, scene }) {
 
 
 /**
- * startScene - starts the scene corresponding to the provided key
+ * Starts the scene corresponding to the provided key
  *
  * @param  {String} key the key associated to a scene
  */
@@ -48,25 +48,101 @@ function startScene(key) {
 
 class Game {
   /**
-   * constructor - Constructs a new Game object
+   * Constructs a new Game object
    *
    * @param  {String} config the configuration for the Game
    */
   constructor(config) {
     this.config = config;
-    this.UPDATE_RATE = 25;
-    this.INTERVAL_TIME = (1000 / this.UPDATE_RATE);
+    this.deltaTime = 0;
+    this.UPDATE_RATE = 60;
+    this.TIME_STEP = (1000 / this.UPDATE_RATE);
 
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
 
     this.Canvas = this.config.canvas;
-    this.sceneManager = new SceneManager();
     this.middlewareManager = new MiddlewareManager();
+
+    this.sceneManager = new SceneManager();
+
+    ServiceLocator.instance.register('sceneManager', this.sceneManager);
+  }
+
+  set isStarted(value) {
+    this._isStarted = value;
+  }
+
+  get isStarted() {
+    return this._isStarted;
+  }
+
+  set deltaTime(value) {
+    this._deltaTime = value;
+  }
+
+  get deltaTime() {
+    return this._deltaTime;
+  }
+
+  set isRunning(value) {
+    this._isRunning = value;
+  }
+
+  get isRunning() {
+    return this._isRunning;
+  }
+
+  set fps(value) {
+    this._fps = value;
+  }
+
+  get fps() {
+    return this._fps;
+  }
+
+  set framesThisSecond(value) {
+    this._framesThisSecond = value;
+  }
+
+  get framesThisSecond() {
+    return this._framesThisSecond;
+  }
+
+  set lastFrameTimeMs(value) {
+    this._lastFrameTimeMs = value;
+  }
+
+  get lastFrameTimeMs() {
+    return this._lastFrameTimeMs;
+  }
+
+  set lastFpsUpdate(value) {
+    this._lastFpsUpdate = value;
+  }
+
+  get lastFpsUpdate() {
+    return this._lastFpsUpdate;
+  }
+
+  set framesSinceLastFpsUpdate(value) {
+    this._framesSinceLastFpsUpdate = value;
+  }
+
+  get framesSinceLastFpsUpdate() {
+    return this._framesSinceLastFpsUpdate;
+  }
+
+  set rafHandle(value) {
+    this._rafHandle = value;
+  }
+
+  get rafHandle() {
+    return this._rafHandle;
   }
 
   /**
-   * init - Initializes all the necessary objects
+   * Initializes all the necessary objects
    */
   init() {
     if (!this.Canvas || !this.Canvas.getContext) {
@@ -82,23 +158,28 @@ class Game {
 
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', context);
+
     this._context = ServiceLocator.instance.locate('context');
+
+    // Resgiter the inputs into the service locator
+    ServiceLocator.instance.register('keyboard', this.Keyboard);
+    ServiceLocator.instance.register('mouse', this.Mouse);
+
+    this.Canvas.addEventListener('mousemove', (event) => this.Mouse.mouseMove(event), false);
+    this.Canvas.addEventListener('mouseup', (event) => this.Mouse.mouseUp(event), false);
+    this.Canvas.addEventListener('mousedown', (event) => this.Mouse.mouseDown(event), false);
+
+    // Attach the keyboard events to the window itself
+    // (this way we don't need focus on the canvas, which is preferable)
+    window.addEventListener('keydown', (event) => this.Keyboard.keyDown(event));
+    window.addEventListener('keyup', (event) => this.Keyboard.keyUp(event));
+
+    addScene(this.config.initialScene);
+    startScene(this.config.initialScene.key);
 
     if (this.config.debug) {
       this.middlewareManager.add('debug', new PostGeekDebugger());
     }
-
-    this.Canvas.addEventListener('mousemove', this.Mouse, false);
-    this.Canvas.addEventListener('mouseup', this.Mouse, false);
-    this.Canvas.addEventListener('mousedown', this.Mouse, false);
-
-    // Attach the keyboard events to the window itself
-    // (this way we don't need focus on the canvas, which is preferable)
-    window.addEventListener('keydown', this.Keyboard, false);
-    window.addEventListener('keyup', this.Keyboard, false);
-
-    addScene(this.config.initialScene);
-    startScene(this.config.initialScene.key, this);
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
@@ -106,29 +187,78 @@ class Game {
       }
     }
 
-    this.animate();
-    setInterval(() => this.gameLoop(), this.INTERVAL_TIME);
+    this.start();
+  }
+
+  start() {
+    if (!this.isStarted) {
+      this.isStarted = true;
+
+      this.rafHandle = requestAnimationFrame((timestamp) => {
+        // Render the initial state before any updates occur.
+        this.draw(1);
+
+        // The application isn't considered "running" until the
+        // application starts drawing.
+        this.isRunning = true;
+
+        // Reset variables that are used for tracking time so that we
+        // don't simulate time passed while the application was paused.
+        this.lastFrameTimeMs = timestamp;
+        this.lastFpsUpdate = timestamp;
+        this.framesSinceLastFpsUpdate = 0;
+
+
+        this.rafHandle = requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
+      });
+    }
+  }
+
+  stop() {
+    this.isRunning = false;
+    this.isStarted = false;
+    cancelAnimationFrame(this.rafHandle);
+    return this;
+  }
+
+  panic() {
+    this.deltaTime = 0;
+    console.log('panic');
   }
 
   /**
    * gameLoop - The game loop takes care of polling for input and updating the game
    */
-  gameLoop() {
-    this.pollInput();
-    this.update();
+  gameLoop(timeStamp) {
+    this.rafHandle = requestAnimationFrame((timeStamp) => this.gameLoop(timeStamp));
+
+    this.deltaTime += timeStamp - this.lastFrameTimeMs;
+    this.lastFrameTimeMs = timeStamp;
+
+    if (timeStamp > this.lastFPSUpdate + 1000) {
+      this.fps = this.weightedFPSMultipler * this.framesThisSecond
+      + (1 - this.weightedFPSMultipler) * this.fps;
+
+      this.lastFPSUpdate = timeStamp;
+      this.framesThisSecond = 0;
+    }
+    this.framesThisSecond += 1;
+
+    let numUpdateSteps = 0;
+    while (this.deltaTime >= this.TIME_STEP) {
+      this.pollInput();
+      this.update(this.TIME_STEP);
+      this.deltaTime -= this.TIME_STEP;
+
+      numUpdateSteps += 1;
+      if (numUpdateSteps >= 240) {
+        this.panic();
+        break;
+      }
+    }
+
+    this.draw(this.deltaTime / this.TIME_STEP);
   }
-
-
-  /**
-   * animate - Draws the canvas onto the screen
-   *
-   * @param  {type} timeStamp the delta between now and the last animate method call
-   */
-  animate(timeStamp) {
-    this.requestAnimFrame(this.animate);
-    this.draw();
-  }
-
 
   /**
    * pollInput - Polls the input from the provided input devices
@@ -142,22 +272,23 @@ class Game {
   /**
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
-  update() {
-    this.sceneManager.runningScene.update();
-    this.middlewareManager.update();
+  update(timeStep) {
+    this.sceneManager.runningScene.update(timeStep);
+    this.middlewareManager.update(timeStep);
   }
 
 
   /**
    * draw - Draws the scene to the current canvas
    */
-  draw() {
-    // Draw Background
+  draw(deltaTime) {
+    // Clear the canvas to prepare for next draw
+    this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
     this._context.fillStyle = '#000000';
     this._context.fillRect(0, 0, 1550, 750);
 
-    this.sceneManager.runningScene.draw();
-    this.middlewareManager.draw();
+    this.sceneManager.runningScene.draw(deltaTime);
+    this.middlewareManager.draw(deltaTime);
   }
 
 
