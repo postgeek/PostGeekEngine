@@ -9,16 +9,7 @@ import Color from 'renderingEngine/colors/Color'
 
 export default class QuadTreeDemoScene extends Scene {  
   create() {
-    this.keyboard = ServiceLocator.instance.locate('keyboard');
-    this.keyboard.registerKey(KeyboardKey.W);
-    this.keyboard.registerKey(KeyboardKey.A);
-    this.keyboard.registerKey(KeyboardKey.S);
-    this.keyboard.registerKey(KeyboardKey.D);
-    this.keyboard.registerKey(KeyboardKey.UP);
-    this.keyboard.registerKey(KeyboardKey.RIGHT);
-    this.keyboard.registerKey(KeyboardKey.DOWN);
-    this.keyboard.registerKey(KeyboardKey.LEFT);
-    this.keyboard.registerKey(KeyboardKey.P);
+    this.registerKeys();
 
     this.isPaused = true;
     this.useAcceleration = true;
@@ -102,6 +93,19 @@ export default class QuadTreeDemoScene extends Scene {
             rightRect1 > leftRect2 && 
             topRect1 < botRect2 && 
             botRect1 > topRect2);
+  }
+
+  registerKeys() {
+    this.keyboard = ServiceLocator.instance.locate('keyboard');
+    this.keyboard.registerKey(KeyboardKey.W);
+    this.keyboard.registerKey(KeyboardKey.A);
+    this.keyboard.registerKey(KeyboardKey.S);
+    this.keyboard.registerKey(KeyboardKey.D);
+    this.keyboard.registerKey(KeyboardKey.UP);
+    this.keyboard.registerKey(KeyboardKey.RIGHT);
+    this.keyboard.registerKey(KeyboardKey.DOWN);
+    this.keyboard.registerKey(KeyboardKey.LEFT);
+    this.keyboard.registerKey(KeyboardKey.P);
   }
 
   handleInput() {
