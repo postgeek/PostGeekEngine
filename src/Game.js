@@ -288,7 +288,7 @@ class Game {
     // Clear the canvas to prepare for next draw
     this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
     this._context.fillStyle = '#000000';
-    this._context.fillRect(0, 0, 1550, 750);
+    //this._context.fillRect(0, 0, 1550, 750);
 
     this.sceneManager.runningScene.draw(deltaTime);
     this.middlewareManager.draw(deltaTime);

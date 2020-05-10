@@ -21,6 +21,8 @@ export default class QuadTreeDemoScene extends Scene {
       fillStyle: Color.RED,
     });
 
+    this.createdRectangles = [];
+
     this.movingBoxAcceleration = new Point(0,0);
 
     this.collisionBox = new Rectangle(new Point(20, 100), 1160, 470);
@@ -55,6 +57,7 @@ export default class QuadTreeDemoScene extends Scene {
       }
     }
 
+    this.updateCreatedRectangles();
     this.printDebugInformation();
   }
 
@@ -64,6 +67,7 @@ export default class QuadTreeDemoScene extends Scene {
     this.movingBoxAccelerationText.draw();
     this.movingBoxText.draw();
     this.collisionDebugInformation.draw();
+    this.drawCreatedRectangles();
   }
 
   isInsideView(camera, rectangle) {
@@ -106,6 +110,8 @@ export default class QuadTreeDemoScene extends Scene {
     this.keyboard.registerKey(KeyboardKey.DOWN);
     this.keyboard.registerKey(KeyboardKey.LEFT);
     this.keyboard.registerKey(KeyboardKey.P);
+    this.keyboard.registerKey(KeyboardKey.X);
+    this.keyboard.registerKey(KeyboardKey.C);
   }
 
   handleInput() {
@@ -133,16 +139,37 @@ export default class QuadTreeDemoScene extends Scene {
       else
         this.movingBox.x += 1;
     }
-    if(this.keyboard.keyDownOnce(KeyboardKey.P)) {
-      this.isPaused = !this.isPaused;
+    if(this.keyboard.keyDownOnce(KeyboardKey.X)) {
+      this.movingBoxAcceleration.x = 0;
+      this.movingBoxAcceleration.y = 0;
+    }
+    if(this.keyboard.keyDownOnce(KeyboardKey.C)) {
+      this.createRectangle();
     }
   }
 
+  createRectangle() {
+    let x =  Math.random() * (1169 - 31) + 31;
+    let y =  Math.random() * (559 - 109) + 109;
+    let rectPoint = new Point(x,y)
+    let rectangle = new Rectangle(rectPoint, 10, 10)
+    let rectangleStyle = new GeometryStyle({
+      fillStyle: Color.PINK,
+      strokeStyle: Color.BLACK
+    });
+    rectangle.geometryStyle = rectangleStyle
+    this.createdRectangles.push(rectangle);
+  }
+
+  updateCreatedRectangles() {
+    // Do nothing for now
+  }
+
+  drawCreatedRectangles() {
+    this.createdRectangles.forEach(rectangle => rectangle.draw())
+  }
+
   printDebugInformation() {
-    if(!this.isPaused) {
-      console.log(`MovingBox:(x:${this.movingBox.x}, y:${this.movingBox.y})`);
-      console.log(`CollisionBox:(x:${this.collisionBox.x}, y:${this.collisionBox.y}, width:${this.collisionBox.width}, height:${this.collisionBox.height})`);
-    }
     this.movingBoxAccelerationText.text = `MB- {x:${this.movingBoxAcceleration.x} y:${this.movingBoxAcceleration.y}}`;
     this.movingBoxText.text = `MB-{Top:${this.movingBox.y} Bottom:${this.movingBox.y + this.movingBox.height}, Left:${this.movingBox.x}, Right:${this.movingBox.x + this.movingBox.width}}`;
     this.collisionDebugInformation.text = `MB-{Top:${this.collisionBox.y} Bottom:${this.collisionBox.y + this.collisionBox.height}, Left:${this.collisionBox.x}, Right:${this.collisionBox.x + this.collisionBox.width}}`;
