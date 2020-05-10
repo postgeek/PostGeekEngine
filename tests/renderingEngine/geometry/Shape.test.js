@@ -1,8 +1,7 @@
 import Shape from '../../../src/renderingEngine/geometry/Shape';
-import BezierCurve from '../../../src/renderingEngine/geometry/BezierCurve';
 import Circle from '../../../src/renderingEngine/geometry/Circle';
+import Line from '../../../src/renderingEngine/geometry/Line';
 import Ellipse from '../../../src/renderingEngine/geometry/Ellipse';
-import QuadraticCurve from '../../../src/renderingEngine/geometry/QuadraticCurve';
 import Rectangle from '../../../src/renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../../src/renderingEngine/geometry/GeometryStyle';
 import Point from '../../../src/core/Point';
@@ -100,6 +99,39 @@ describe('Shape', () => {
     expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
     expect(contextFillSpy).toHaveBeenCalledTimes(0);
     expect(contextStrokeSpy).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Line', () => {
+  it('Should properly draw the line to the screen', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const line = new Line(new Point(10, 20), new Point(21, 45));
+    const lineInternalDrawSpy = jest.spyOn(line, 'internalDraw');
+    const contextMoveToSpy = jest.spyOn(context, 'moveTo');
+    const contextLineToSpy = jest.spyOn(context, 'lineTo');
+
+    // Act
+    line.draw();
+
+    // Assert
+    expect(lineInternalDrawSpy).toHaveBeenCalledTimes(1);
+    expect(contextMoveToSpy).toHaveBeenCalledTimes(1);
+    expect(contextLineToSpy).toHaveBeenCalledTimes(1);
+  });
+  it('Should copy the given circle', () => {
+    // Arrange
+    const line = new Line(new Point(10, 20), new Point(21, 45));
+
+    // GraphicObject
+    const clonedLine = line.clone();
+
+    // Asset
+    expect(clonedLine).toBeDefined();
+    expect(clonedLine.startPoint.x).toBe(line.startPoint.x);
+    expect(clonedLine.startPoint.y).toBe(line.startPoint.y);
+    expect(clonedLine.endPoint.x).toBe(line.endPoint.x);
+    expect(clonedLine.endPoint.y).toBe(line.endPoint.y);
   });
 });
 

@@ -9,9 +9,11 @@ import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import GraphicsJSONLoader from 'renderingEngine/GraphicsJSONLoader';
 import AssetCache from 'core/managers/AssetCache';
 import { AssetType } from 'core/managers/Asset';
+import Line from '../../src/renderingEngine/geometry/Line';
 
 export default class ShapeDemoScene extends Scene {
   create() {
+    const lineJson = '{"startPoint":{"x":100 ,"y":100}, "endPoint":{"x":400, "y":125}, "geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1}, "lineWidth":4}}';
     const circleJson = '{"point":{"x":100,"y":100},"radius":20,"geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1},"lineWidth":3}}';
     const rectJson = '{"point":{"x":0,"y":0},"width":3,"height":400,"geometryStyle":{"fillStyle":{"name":"indianred"},"strokeStyle":{"name":"indianred"},"lineWidth":1}}';
     const ellipseJson = '{"point":{"x":300,"y":300},"radiusX":50,"radiusY":75,"rotation":0.7853981633974483,"geometryStyle":{"fillStyle":{"hue":302,"saturation":59,"lightness":65,"alpha":1},"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":10}}';
@@ -19,6 +21,7 @@ export default class ShapeDemoScene extends Scene {
     const bezierCurveJson = '{"startPoint":{"x":50,"y":200},"firstControlPoint":{"x":800,"y":480},"secondControlPoint":{"x":100,"y":150},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
     const quadraticCurveJson = '{"controlPoint":{"x":50,"y":200},"startPoint":{"x":800,"y":480},"endPoint":{"x":340,"y":280},"geometryStyle":{"strokeStyle":{"hue":0,"saturation":0,"lightness":100,"alpha":1},"lineWidth":2}}';
 
+    this.testLine = GraphicsJSONLoader.createLine(JSON.parse(lineJson));
     this.testCircle = GraphicsJSONLoader.createCircle(JSON.parse(circleJson));
     this.testRectangle = GraphicsJSONLoader.createRectangle(JSON.parse(rectJson));
     this.testEllipse = GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
@@ -46,6 +49,7 @@ export default class ShapeDemoScene extends Scene {
   }
 
   draw() {
+    this.testLine.draw();
     this.testCircle.draw();
     this.testRectangle.draw();
     this.testText.draw();

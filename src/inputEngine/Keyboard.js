@@ -59,12 +59,6 @@ class Keyboard {
     }
   }
 
-  typedKeyHandler(keyboardEvent) {
-    const typedKey = keyboardEvent.key || String.fromCharCode(keyboardEvent.charCode);
-    const eventbus = ServiceLocator.instance.locate('eventbus');
-    eventbus.emit(this.KEY_TYPED_EVENT, typedKey);
-  }
-
   /**
    * Handles the key down event
    * @param {KeyboardEvent} e The KeyboardEvent
