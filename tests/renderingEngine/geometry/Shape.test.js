@@ -300,14 +300,27 @@ describe('Rectangle', () => {
     // Arrange
     const rectangle = new Rectangle(new Point(10, 20), 20, 65);
 
-    // GraphicObject
+    // Act
     const clonedRectangle = rectangle.clone();
 
-    // Asset
+    // Assert
     expect(clonedRectangle).toBeDefined();
     expect(clonedRectangle.point.x).toBe(rectangle.point.x);
     expect(clonedRectangle.point.y).toBe(rectangle.point.y);
     expect(clonedRectangle.width).toBe(rectangle.width);
     expect(clonedRectangle.height).toBe(rectangle.height);
+  });
+  it('Should retrieve the center point of the rectangle', () => {
+    // Arrange
+    const rectangle = new Rectangle(new Point(20, 20), 20, 65)
+    const rectangleCenterPointX = 30;
+    const rectangleCenterPointY = 53;
+
+    // Act
+    const centerPointOfRectangle = rectangle.centerPoint;
+
+    // Assert
+    expect(centerPointOfRectangle.x).toBe(rectangleCenterPointX);
+    expect(centerPointOfRectangle.y).toBe(rectangleCenterPointY);
   });
 });
