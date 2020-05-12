@@ -6,6 +6,7 @@ import Rectangle from 'renderingEngine/geometry/Rectangle';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import Color from 'renderingEngine/colors/Color'
+import Line from '../../src/renderingEngine/geometry/Line';
 
 export default class QuadTreeDemoScene extends Scene {  
   create() {
@@ -22,6 +23,7 @@ export default class QuadTreeDemoScene extends Scene {
     });
 
     this.createdRectangles = [];
+    this.createdLines = [];
 
     this.movingBoxAcceleration = new Point(0,0);
 
@@ -159,6 +161,12 @@ export default class QuadTreeDemoScene extends Scene {
     });
     rectangle.geometryStyle = rectangleStyle
     this.createdRectangles.push(rectangle);
+
+    const rectangleCenterPoint = rectangle.centerPoint;
+    const movingBoxCenterPoint = this.movingBox.centerPoint;
+
+    let line = new Line(rectangleCenterPoint, movingBoxCenterPoint);
+    this.createdLines.push(line);
   }
 
   updateCreatedRectangles() {
@@ -167,6 +175,7 @@ export default class QuadTreeDemoScene extends Scene {
 
   drawCreatedRectangles() {
     this.createdRectangles.forEach(rectangle => rectangle.draw())
+    this.createdLines.forEach(line => line.draw())
   }
 
   printDebugInformation() {
