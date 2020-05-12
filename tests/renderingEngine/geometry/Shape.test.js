@@ -123,7 +123,7 @@ describe('Line', () => {
     // Arrange
     const line = new Line(new Point(10, 20), new Point(21, 45));
 
-    // GraphicObject
+    // Act
     const clonedLine = line.clone();
 
     // Asset
@@ -182,7 +182,7 @@ describe('Circle', () => {
     // Arrange
     const circle = new Circle(new Point(10, 20), 20);
 
-    // GraphicObject
+    // Act
     const clonedCircle = circle.clone();
 
     // Asset
@@ -190,6 +190,19 @@ describe('Circle', () => {
     expect(clonedCircle.point.x).toBe(circle.point.x);
     expect(clonedCircle.point.y).toBe(circle.point.y);
     expect(clonedCircle.radius).toBe(circle.radius);
+  });
+  it('Should get the center point of the circle', () => {
+    // Arrange
+    const circle = new Circle(new Point(10, 20), 20);
+    const circleCenterPointX = 10;
+    const circleCenterPointY = 20;
+
+    // Act
+    const centerPointOfCircle = circle.centerPoint;
+
+    // Asset
+    expect(centerPointOfCircle.x).toBe(circleCenterPointX);
+    expect(centerPointOfCircle.y).toBe(circleCenterPointY);
   });
 });
 
@@ -240,7 +253,7 @@ describe('Ellipse', () => {
     // Arrange
     const ellipse = new Ellipse(new Point(10, 20), 20, 56, 75);
 
-    // GraphicObject
+    // Act
     const clonedEllipse = ellipse.clone();
 
     // Asset
