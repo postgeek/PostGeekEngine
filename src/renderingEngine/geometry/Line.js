@@ -2,7 +2,7 @@ import Shape from './Shape';
 
 class Line extends Shape {
   /**
-  * Constructs a new Rectangle object.
+  * Constructs a new Line object.
   *
   * @param {Vec2D} startPoint   the start point of the line.
   * @param {Vec2D} endPoint     the end point of the line.

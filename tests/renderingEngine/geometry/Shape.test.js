@@ -123,7 +123,7 @@ describe('Line', () => {
     // Arrange
     const line = new Line(new Point(10, 20), new Point(21, 45));
 
-    // GraphicObject
+    // Act
     const clonedLine = line.clone();
 
     // Asset
@@ -182,7 +182,7 @@ describe('Circle', () => {
     // Arrange
     const circle = new Circle(new Point(10, 20), 20);
 
-    // GraphicObject
+    // Act
     const clonedCircle = circle.clone();
 
     // Asset
@@ -190,6 +190,19 @@ describe('Circle', () => {
     expect(clonedCircle.point.x).toBe(circle.point.x);
     expect(clonedCircle.point.y).toBe(circle.point.y);
     expect(clonedCircle.radius).toBe(circle.radius);
+  });
+  it('Should get the center point of the circle', () => {
+    // Arrange
+    const circle = new Circle(new Point(10, 20), 20);
+    const circleCenterPointX = 10;
+    const circleCenterPointY = 20;
+
+    // Act
+    const centerPointOfCircle = circle.centerPoint;
+
+    // Asset
+    expect(centerPointOfCircle.x).toBe(circleCenterPointX);
+    expect(centerPointOfCircle.y).toBe(circleCenterPointY);
   });
 });
 
@@ -240,7 +253,7 @@ describe('Ellipse', () => {
     // Arrange
     const ellipse = new Ellipse(new Point(10, 20), 20, 56, 75);
 
-    // GraphicObject
+    // Act
     const clonedEllipse = ellipse.clone();
 
     // Asset
@@ -300,14 +313,27 @@ describe('Rectangle', () => {
     // Arrange
     const rectangle = new Rectangle(new Point(10, 20), 20, 65);
 
-    // GraphicObject
+    // Act
     const clonedRectangle = rectangle.clone();
 
-    // Asset
+    // Assert
     expect(clonedRectangle).toBeDefined();
     expect(clonedRectangle.point.x).toBe(rectangle.point.x);
     expect(clonedRectangle.point.y).toBe(rectangle.point.y);
     expect(clonedRectangle.width).toBe(rectangle.width);
     expect(clonedRectangle.height).toBe(rectangle.height);
+  });
+  it('Should retrieve the center point of the rectangle', () => {
+    // Arrange
+    const rectangle = new Rectangle(new Point(20, 20), 20, 65)
+    const rectangleCenterPointX = 30;
+    const rectangleCenterPointY = 53;
+
+    // Act
+    const centerPointOfRectangle = rectangle.centerPoint;
+
+    // Assert
+    expect(centerPointOfRectangle.x).toBe(rectangleCenterPointX);
+    expect(centerPointOfRectangle.y).toBe(rectangleCenterPointY);
   });
 });
