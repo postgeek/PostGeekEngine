@@ -90,6 +90,10 @@ class Circle extends Shape {
     this._radius = value;
   }
 
+  get centerPoint() {
+    return this.point.clone();
+  }
+
   /**
   * Draws the Circle to the current context.
   */
