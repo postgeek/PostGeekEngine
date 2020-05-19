@@ -1,6 +1,18 @@
 import Point from '../../src/core/Point';
 
 describe('Point', () => {
+    it('Should properly return the same point if no vectors provided', () => {
+    // Arrange
+    const firstPoint = new Point(10,10);
+    const expectedPoint = new Point(10,10);
+
+    // Act
+    var result = firstPoint.add();
+
+    // Assert
+    expect(result.x).toBe(expectedPoint.x);
+    expect(result.y).toBe(expectedPoint.y);
+  });
   it('Should properly add two points together', () => {
     // Arrange
     const firstPoint = new Point(10,10);
