@@ -5,6 +5,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import QaudTreeDemoScene from './QuadTreeDemo/QuadTreeDemoScene';
+import PhysicsEngineDemoScene from './PhysicsEngineDemo/PhysicsEngineDemoScene';
 
 Window.Main = class Main {
   static start2DMapDemo() {
@@ -54,6 +55,14 @@ Window.Main = class Main {
       initialScene: { key: 'QaudTreeDemoScene', scene: QaudTreeDemoScene },
     });
   }
+
+  static startPhysicsEngineDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'PhysicsEngineDemoScene', scene: PhysicsEngineDemoScene },
+    });
+  }
 };
 
-Window.Main.startQuadTreeDemo();
+Window.Main.startPhysicsEngineDemo();

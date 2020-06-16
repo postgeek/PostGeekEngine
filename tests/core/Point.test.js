@@ -70,7 +70,7 @@ describe('Point', () => {
     var expectedDotProduct = 35;
 
     // Act
-    var result = Point.dotProduct(firstPoint, secondPoint);
+    var result = Point.dot(firstPoint, secondPoint);
 
     // Assert
     expect(result).toBe(expectedDotProduct);
@@ -82,9 +82,37 @@ describe('Point', () => {
     var expectedDotProduct = 35;
 
     // Act
-    var result = firstPoint.dotProduct(secondPoint);
+    var result = firstPoint.dot(secondPoint);
 
     // Assert
     expect(result).toBe(expectedDotProduct);
+  });
+  it('Should rotate the vector by 90 degrees', () => {
+    // Arrange
+    var firstPoint = new Point(0,1);
+    const degrees = 90;
+    var expectedRotatedPoint = new Point(-1,0);
+
+    // Act
+    var result = firstPoint.rotate(degrees);
+
+    // Assert
+    expect(result.x).toBe(expectedRotatedPoint.x);
+    expect(result.y).toBe(expectedRotatedPoint.y);
+  });
+  it('Should properly rotate the vector by 180 degrees', () => {
+    // Arrange
+    var firstPoint = new Point(0,1);
+    const degrees = 180;
+    var expectedRotatedPoint = new Point(0,-1);
+
+    // Act
+    var result = firstPoint.rotate(degrees);
+
+    // Assert
+    // This rotation gives -0, which is not exactly 0. We don't care about the signed zeros, so this is a hack.
+    // https://stackoverflow.com/questions/48405174/how-to-make-jest-not-distinguish-between-negative-zero-and-positive-zero
+    expect(result.x == expectedRotatedPoint.x).toBe(true);
+    expect(result.y).toBe(expectedRotatedPoint.y);
   });
 });

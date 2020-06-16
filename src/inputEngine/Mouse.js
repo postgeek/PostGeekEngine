@@ -1,6 +1,6 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
-import ServiceLocator from '../core/ServiceLocator';
+import Point from '../core/Point';
 
 class Mouse {
   /**
@@ -83,6 +83,10 @@ class Mouse {
    */
   get y() {
     return this._dy;
+  }
+
+  get point() {
+    return new Point(this._dx, this._dy); 
   }
 
   /**

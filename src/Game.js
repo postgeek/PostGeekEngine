@@ -250,7 +250,7 @@ class Game {
     let numUpdateSteps = 0;
     while (this.deltaTime >= this.TIME_STEP) {
       this.pollInput();
-      this.update(this.TIME_STEP);
+      this.update(this.TIME_STEP / 1000);
       this.deltaTime -= this.TIME_STEP;
 
       numUpdateSteps += 1;

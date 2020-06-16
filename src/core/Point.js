@@ -66,8 +66,45 @@ class Point {
    * Returns the dot product of two vectors.
    * @param {Point} point the vector to dot product with
    */
-  dotProduct(point) {
+  dot(point) {
     return (this.x * point.x) + (this.y * point.y);
+  }
+
+  /**
+   * Since our vectors are 2D we just return the scalar value of the Z-Axis
+   * @param {Point} point the vector to cross product with
+   */
+  cross(point) {
+    return (this.x * point.x - this.y * point.y);
+  }
+
+  /**
+   * Rotates the vector by the provided degree
+   * @param {Number} degrees the angle in degrees
+   * @param {Point} vector the vector to rotate from
+   */
+  rotate(degrees, vector) {
+    if(vector === undefined) {
+      vector = new Point(0,0);
+    }
+    var x = this.x - vector.x;
+    var y = this.y - vector.y;
+
+    let radians = degrees * (Math.PI / 180);
+    let cos = Math.cos(radians);
+    let sin = Math.sin(radians);
+
+    let xPrime = Math.round(x * cos - y * sin);
+    let yPrime = Math.round(x * sin + y * cos);
+    return new Point(xPrime,yPrime);
+  }
+
+  /**
+   * Scales the vector by the provided amount
+   * @param {Number} scaleAmount the amount to scale by
+   */
+  scale(scaleAmount) {
+    return new Point(this.x * scaleAmount, this.y * scaleAmount);
   }
 
   /**
@@ -82,7 +119,7 @@ class Point {
    * @param {Point} firstPoint the first vector 
    * @param {Point} secondPoint the second vector
    */
-  static dotProduct(firstPoint, secondPoint) {
+  static dot(firstPoint, secondPoint) {
     return (firstPoint.x * secondPoint.x) + (firstPoint.y * secondPoint.y);
   }
 }
