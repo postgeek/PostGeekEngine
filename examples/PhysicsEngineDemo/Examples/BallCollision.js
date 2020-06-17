@@ -1,11 +1,14 @@
 import Point from "../../../src/core/Point";
 import Circle from "../../../src/renderingEngine/geometry/Circle";
 import Color from "../../../src/renderingEngine/colors/Color";
+import DefaultColors from "../../../src/renderingEngine/colors/DefaultColors";
+import TextGraphic from "../../../src/renderingEngine/text/TextGraphic";
 import GeometryStyle from "../../../src/renderingEngine/geometry/GeometryStyle";
 import Line from '../../../src/renderingEngine/geometry/Line';
 import Ball from "./entities/Ball";
 import ServiceLocator from '../../../src/core/ServiceLocator';
 import LineSegment from "./entities/LineSegment";
+import TextStyle from "../../../src/renderingEngine/text/TextStyle";
 
 export default class BoxSpring {  
     constructor() {
@@ -23,6 +26,12 @@ export default class BoxSpring {
         this.collidingPairs = [];
         this.mouse = ServiceLocator.instance.locate('mouse');
 
+        this.debugText = new TextGraphic(new Point(600, 50), "[Insert text here]");
+        this.debugText.textStyle = new TextStyle({
+            font: "32px Rockwell",
+            fillStyle: Color.BLACK,
+        });
+
         var lineRadius = 10;
         for(var i = 0; i < MAX_LINES; i++) {
             var lineSegment = new LineSegment(new Point(30,120 + i * 80), new Point(300, 120 + i * 80), lineRadius);
@@ -32,7 +41,8 @@ export default class BoxSpring {
         for(var i = 0; i < MAX_BALLS; i++) {
             let x = Math.random() * this.width;
             let y = Math.random() * this.height;
-            var circle = new Circle(new Point(x, y), Math.random() * 10 + 2);
+            var circle = new Circle(new Point(x, y), Math.random() * 10 + 5);
+            circle.geometryStyle.fillStyle = DefaultColors[Math.floor(Math.random() * DefaultColors.length)];
             this.createBallAndAddToArray(circle, this.balls.length);
         }
     }
@@ -98,8 +108,10 @@ export default class BoxSpring {
 
                         var closestPointX = lineSegment.startPoint.x + t * lineX1;
                         var closestPointY = lineSegment.startPoint.y + t * lineY1;
+                        var closestPoint = new Point(closestPointX, closestPointY) 
 
-                        var distance = Math.sqrt((ball.x - closestPointX)*(ball.x - closestPointX) + (ball.y - closestPointY)*(ball.y - closestPointY));
+                        var distance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, closestPoint);
+                        //var distance = Math.sqrt((ball.x - closestPointX)*(ball.x - closestPointX) + (ball.y - closestPointY)*(ball.y - closestPointY));
 
                         if(distance <= (ball.radius + lineSegment.radius)) {
 
@@ -133,7 +145,8 @@ export default class BoxSpring {
                     // Time Displacement
                     var intendedSpeed = ball.velocity.magnitude();
                     var intendedDistance = intendedSpeed * ball.simulationTimeRemaining;
-                    var actualDistance = Math.sqrt((ball.x - ball.oldPosition.x)*(ball.x - ball.oldPosition.x) + (ball.y - ball.oldPosition.y)*(ball.y - ball.oldPosition.y));
+                    var actualDistance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, ball.oldPosition);
+                    //var actualDistance = Math.sqrt((ball.x - ball.oldPosition.x)*(ball.x - ball.oldPosition.x) + (ball.y - ball.oldPosition.y)*(ball.y - ball.oldPosition.y));
                     var actualTime = actualDistance / intendedSpeed;
 
                     ball.simulationTimeRemaining = ball.simulationTimeRemaining - actualTime;
@@ -181,6 +194,11 @@ export default class BoxSpring {
             var lineSegment = this.lineSegments[i];
             this.drawLineSegment(lineSegment);  
         }
+        this.debugText.draw();
+    }
+
+    calculateDistanceBetweenTwoPoints(point1, point2) {
+        return Math.sqrt((point1.x - point2.x)*(point1.x - point2.x) + (point1.y - point2.y)*(point1.y - point2.y));
     }
 
     updatePhysicsObjects(ball, elapsedTime) {
@@ -213,7 +231,9 @@ export default class BoxSpring {
 
     resolveStaticCollisions(ball, target) {
         // Distance between ball centers
-        var distance = Math.sqrt((ball.x - target.x)*(ball.x - target.x) + (ball.y - target.y)*(ball.y - target.y));
+        var distance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, target.circle.point);
+        //var distance = Math.sqrt((ball.x - target.x)*(ball.x - target.x) + (ball.y - target.y)*(ball.y - target.y));
+
         var overlap = 0.5 * (distance - ball.radius - target.radius);
 
         // Resolve static collision
@@ -225,7 +245,8 @@ export default class BoxSpring {
     }
 
     resolveDynamicCollisions(ball, target) {
-        var distance = Math.sqrt((ball.x - target.x)*(ball.x - target.x) + (ball.y - target.y)*(ball.y - target.y));
+        var distance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, target.circle.point);
+        //var distance = Math.sqrt((ball.x - target.x)*(ball.x - target.x) + (ball.y - target.y)*(ball.y - target.y));
 
         // normal vector
         var nx = (target.x - ball.x) / distance;
@@ -315,9 +336,15 @@ export default class BoxSpring {
             fillStyle: Color.GRAY,
         });
 
+        var newEndPoint = lineSegment.endPoint.clone();
+        var newStartPoint = lineSegment.startPoint.clone();
+        newEndPoint.y *= -1;
+        newStartPoint.y *= -1;
+
         var nx = -(lineSegment.endPoint.y - lineSegment.startPoint.y);
         var ny = (lineSegment.endPoint.x - lineSegment.startPoint.x);
-        var d = Math.sqrt(nx*nx + ny*ny);
+        var d = this.calculateDistanceBetweenTwoPoints(newEndPoint, newStartPoint);
+        //var d = Math.sqrt(nx*nx + ny*ny);
         nx /= d;
         ny /= d;
 
