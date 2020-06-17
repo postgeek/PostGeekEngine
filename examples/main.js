@@ -4,6 +4,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
+import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
 Window.Main = class Main {
   static start2DMapDemo() {
@@ -35,6 +36,14 @@ Window.Main = class Main {
       debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'KeyboardDemoScene', scene: KeyboardDemoScene },
+    });
+  }
+
+  static startMouseDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'MouseDemoScene', scene: MouseDemoScene },
     });
   }
 
