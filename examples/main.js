@@ -6,6 +6,7 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import QaudTreeDemoScene from './QuadTreeDemo/QuadTreeDemoScene';
 import PhysicsEngineDemoScene from './PhysicsEngineDemo/PhysicsEngineDemoScene';
+import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
 Window.Main = class Main {
   static start2DMapDemo() {
@@ -29,6 +30,14 @@ Window.Main = class Main {
       debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: { key: 'KeyboardDemoScene', scene: KeyboardDemoScene },
+    });
+  }
+
+  static startMouseDemo() {
+    start({
+      debug: true,
+      canvas: document.getElementById('canvas'),
+      initialScene: { key: 'MouseDemoScene', scene: MouseDemoScene },
     });
   }
 
