@@ -1,12 +1,15 @@
 import UnhandledHtmlEventError from '../../src/core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../../src/core/errorHandling/errors/InvalidArguementError';
 import Mouse from '../../src/inputEngine/Mouse';
+import MouseButton from '../../src/inputEngine/MouseButton';
 
 describe('buttonDownOnce', () => {
   it('should be true when mouse button is down once', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
     const mouseEvent = {
+      button: 0,
       type: 'mousedown',
     };
 
@@ -15,22 +18,25 @@ describe('buttonDownOnce', () => {
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonDownOnce()).toBe(true);
+    expect(mouse.buttonDownOnce(mouseButton)).toBe(true);
   });
   it('should be false when mouse button is not clicked', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
 
     // Act
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonDownOnce()).toBe(false);
+    expect(mouse.buttonDownOnce(mouseButton)).toBe(false);
   });
   it('should be false when mouse button is held down', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
     const mouseEvent = {
+      button: 0,
       type: 'mousedown',
     };
 
@@ -40,15 +46,18 @@ describe('buttonDownOnce', () => {
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonDownOnce()).toBe(false);
+    expect(mouse.buttonDownOnce(mouseButton)).toBe(false);
   });
   it('should be false when the mouse button is released after having been down once', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
     const mouseEventMouseUp = {
+      button: '1',
       type: 'mouseup',
     };
     const mouseEventMouseDown = {
+      button: '1',
       type: 'mousedown',
     };
 
@@ -59,7 +68,7 @@ describe('buttonDownOnce', () => {
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonDownOnce()).toBe(false);
+    expect(mouse.buttonDownOnce(mouseButton)).toBe(false);
   });
 });
 
@@ -67,8 +76,10 @@ describe('buttonDownOnce', () => {
 describe('buttonDown', () => {
   it('should be true when the mouse button is pressed', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
     const mouseEvent = {
+      button: 0,
       type: 'mousedown',
     };
 
@@ -77,22 +88,25 @@ describe('buttonDown', () => {
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonPressed()).toBe(true);
+    expect(mouse.buttonPressed(mouseButton)).toBe(true);
   });
   it('should be false when the mouse button is not pressed', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
 
     // Act
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonPressed()).toBe(false);
+    expect(mouse.buttonPressed(mouseButton)).toBe(false);
   });
   it('should be true when mouse button is held down', () => {
     // Arrange
+    const mouseButton = MouseButton.LEFT_BUTTON;
     const mouse = new Mouse();
     const mouseEvent = {
+      button: 0,
       type: 'mousedown',
     };
 
@@ -102,7 +116,7 @@ describe('buttonDown', () => {
     mouse.poll();
 
     // Assert
-    expect(mouse.buttonPressed()).toBe(true);
+    expect(mouse.buttonPressed(mouseButton)).toBe(true);
   });
 });
 

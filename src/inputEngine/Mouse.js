@@ -143,7 +143,8 @@ class Mouse {
         if (buttonToSearch.which === which) {
           return buttonToSearch;
         }
-        else if (buttonToSearch.button === button) {
+      } else if(button != undefined) {
+        if (buttonToSearch.button === button) {
           return buttonToSearch;
         }
       }
