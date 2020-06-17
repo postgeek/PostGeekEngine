@@ -55,5 +55,3 @@ Window.Main = class Main {
     });
   }
 };
-
-Window.Main.startMouseDemo();
