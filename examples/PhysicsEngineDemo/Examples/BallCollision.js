@@ -9,6 +9,7 @@ import Ball from "./entities/Ball";
 import ServiceLocator from '../../../src/core/ServiceLocator';
 import LineSegment from "./entities/LineSegment";
 import TextStyle from "../../../src/renderingEngine/text/TextStyle";
+import MouseButton from "../../../src/inputEngine/MouseButton";
 
 export default class BoxSpring {  
     constructor() {
@@ -49,29 +50,7 @@ export default class BoxSpring {
 
     update(timestep) {
         this.collidingPairs = [];
-        if(this.mouse.buttonDownOnce()) {
-            this.selectedBall = this.selectBallInMousePointer();
-            this.selectedLine = this.selectLinePointInMousePoint();
-        }
-        else if(this.mouse.buttonPressed()) {
-            //this.moveSelectedBall();
-            if(this.selectedLine !== undefined) {
-                if(this.selectedLineStart) {
-                    this.selectedLine.startPoint.x = this.mouse.x;
-                    this.selectedLine.startPoint.y = this.mouse.y;
-                }
-                else {
-                    this.selectedLine.endPoint.x = this.mouse.x;
-                    this.selectedLine.endPoint.y = this.mouse.y;
-                }
-            }
-        } else {
-            if(this.selectedBall !== undefined) {
-                this.accelerateSelectedBall();
-            }
-            this.selectedBall = undefined;
-            this.selectedLine = undefined;
-        }
+        this.handleMouseInput();
 
         var numberOfSimulationUpdates = 4;
         var simulationElapsedTime = timestep / numberOfSimulationUpdates;
@@ -90,47 +69,17 @@ export default class BoxSpring {
                     this.updatePhysicsObjects(ball, simulationElapsedTime);
                 }
                 
-                // Static collisions
+                // Static collisions 
                 for(var i = 0; i < this.balls.length; i++) {
                     var ball = this.balls[i];
 
+                    // Go through all line segments
                     for(var k = 0; k < this.lineSegments.length; k++) {
                         var lineSegment = this.lineSegments[k];
-                        var lineX1 = lineSegment.endPoint.x - lineSegment.startPoint.x;
-                        var lineY1 = lineSegment.endPoint.y - lineSegment.startPoint.y;
-
-                        var lineX2 = ball.x - lineSegment.startPoint.x;
-                        var lineY2 = ball.y - lineSegment.startPoint.y;
-
-                        var edgeLength = lineX1 * lineX1 + lineY1 * lineY1;
-
-                        var t = Math.max(0, Math.min(edgeLength, (lineX1 * lineX2 + lineY1 * lineY2))) / edgeLength;
-
-                        var closestPointX = lineSegment.startPoint.x + t * lineX1;
-                        var closestPointY = lineSegment.startPoint.y + t * lineY1;
-                        var closestPoint = new Point(closestPointX, closestPointY) 
-
-                        var distance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, closestPoint);
-                        //var distance = Math.sqrt((ball.x - closestPointX)*(ball.x - closestPointX) + (ball.y - closestPointY)*(ball.y - closestPointY));
-
-                        if(distance <= (ball.radius + lineSegment.radius)) {
-
-                            // Static collision has occured
-                            var fakeCircle = new Circle(new Point(closestPointX, closestPointY), lineSegment.radius);
-                            var fakeBall = new Ball(fakeCircle, 0);
-                            fakeBall.mass = ball.mass * 0.8;
-                            fakeBall.velocity.x = -ball.velocity.x;
-                            fakeBall.velocity.y = -ball.velocity.y;
-
-                            this.collidingPairs.push([ball, fakeBall]);
-                            var overlap = (distance - ball.radius - fakeBall.radius);
-
-                            // Resolve static collision
-                            ball.circle.x -= overlap * (ball.x - fakeBall.x) / distance;
-                            ball.circle.y -= overlap * (ball.y - fakeBall.y) / distance;
-                        }
+                        this.resolveCapsuleCollisions(ball, lineSegment);
                     }
 
+                    // Right now we're looping through all the balls & checking with all the other balls this is useless
                     for(var k = 0; k < this.balls.length; k++) {
                         var target = this.balls[k];
                         if(ball.id != target.id) {
@@ -155,6 +104,7 @@ export default class BoxSpring {
                 
 
                 // Now work out dynamic collisions
+                // Right now we're looping trhough all the balls & checking with all the other balls this is useless
                 for(var i = 0; i < this.collidingPairs.length; i++) {
                     let ball = this.collidingPairs[i][0];
                     let target = this.collidingPairs[i][1];
@@ -226,6 +176,77 @@ export default class BoxSpring {
                 ball.velocity.x = 0;
                 ball.velocity.y = 0;    
             }
+        }
+    }
+
+    handleMouseInput() {
+        if(this.mouse.buttonDownOnce(MouseButton.LEFT_BUTTON) || 
+        this.mouse.buttonDownOnce(MouseButton.RIGHT_BUTTON)) 
+    {
+        this.selectedBall = this.selectBallInMousePointer();
+        this.selectedLine = this.selectLinePointInMousePoint();
+    }
+    if(this.mouse.buttonPressed(MouseButton.LEFT_BUTTON)) {
+        this.moveSelectedBall();
+        if(this.selectedLine !== undefined) {
+            if(this.selectedLineStart) {
+                this.selectedLine.startPoint.x = this.mouse.x;
+                this.selectedLine.startPoint.y = this.mouse.y;
+            }
+            else {
+                this.selectedLine.endPoint.x = this.mouse.x;
+                this.selectedLine.endPoint.y = this.mouse.y;
+            }
+        }
+    }
+    if(this.mouse.buttonPressed(MouseButton.RIGHT_BUTTON)) {
+        this.mouseRightButtonDown = true;
+        // We need this to know if the right button was dowwn
+    }
+    if(!this.mouse.buttonPressed(MouseButton.LEFT_BUTTON) && 
+        !this.mouse.buttonPressed(MouseButton.RIGHT_BUTTON)) {
+            if(this.selectedBall !== undefined && this.mouseRightButtonDown) {  
+                this.mouseRightButtonDown = false;
+                this.accelerateSelectedBall();
+            }
+
+            this.selectedBall = undefined;
+        }
+    }
+
+    resolveCapsuleCollisions(ball, lineSegment) {
+        var lineX1 = lineSegment.endPoint.x - lineSegment.startPoint.x;
+        var lineY1 = lineSegment.endPoint.y - lineSegment.startPoint.y;
+
+        var lineX2 = ball.x - lineSegment.startPoint.x;
+        var lineY2 = ball.y - lineSegment.startPoint.y;
+
+        var edgeLength = lineX1 * lineX1 + lineY1 * lineY1;
+
+        var t = Math.max(0, Math.min(edgeLength, (lineX1 * lineX2 + lineY1 * lineY2))) / edgeLength;
+
+        var closestPointX = lineSegment.startPoint.x + t * lineX1;
+        var closestPointY = lineSegment.startPoint.y + t * lineY1;
+        var closestPoint = new Point(closestPointX, closestPointY) 
+
+        var distance = this.calculateDistanceBetweenTwoPoints(ball.circle.point, closestPoint);
+        //var distance = Math.sqrt((ball.x - closestPointX)*(ball.x - closestPointX) + (ball.y - closestPointY)*(ball.y - closestPointY));
+
+        if(distance <= (ball.radius + lineSegment.radius)) {
+
+            // Static collision has occured
+            var fakeCircle = new Circle(new Point(closestPointX, closestPointY), lineSegment.radius);
+            var fakeBall = new Ball(fakeCircle, 0);
+            fakeBall.mass = ball.mass * 0.8;
+            fakeBall.velocity.x = -ball.velocity.x;
+            fakeBall.velocity.y = -ball.velocity.y;
+
+            this.collidingPairs.push([ball, fakeBall]);
+            var overlap = (distance - ball.radius - fakeBall.radius);
+
+            // Resolve static collision
+            ball.circle.x -= overlap * (ball.x - fakeBall.x) / distance;
+            ball.circle.y -= overlap * (ball.y - fakeBall.y) / distance;
         }
     }
 
