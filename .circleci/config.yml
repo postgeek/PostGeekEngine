@@ -37,3 +37,6 @@ jobs:
       - run: npm run test
       - store_artifacts:
           path: coverage
+      
+      # run linting
+      - run: npm run lint:ci

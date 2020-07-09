@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint ./src --fix",
+    "lint:ci": "eslint ./src",
     "docs": "esdoc -c .esdoc.json",
     "test": "jest --config jest-config.js",
     "start": "webpack-dev-server --config ./webpack.dev.js",
