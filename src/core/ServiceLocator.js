@@ -1,5 +1,4 @@
 import InvalidArguementError from './errorHandling/errors/InvalidArguementError';
-import Point from './Point';
 
 /**
 * Defines the service locator class
