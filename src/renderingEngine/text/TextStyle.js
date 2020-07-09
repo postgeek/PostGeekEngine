@@ -29,7 +29,6 @@ export default class TextStyle extends DrawingStyle {
     this.Direction = direction;
   }
 
-
   get Font() {
     return this.font;
   }
@@ -61,7 +60,6 @@ export default class TextStyle extends DrawingStyle {
   set Direction(value) {
     this.direction = value;
   }
-
 
   /**
    * apply - applies the text styling to the current context.

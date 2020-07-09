@@ -39,7 +39,6 @@ class AssetCache {
     this.assetDictionary[key] = new Asset(key, path, assetType);
   }
 
-
   /**
    * @todo Move to a utility class.
    * getExtension - Gets the files extension

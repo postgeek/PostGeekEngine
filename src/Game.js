@@ -32,7 +32,6 @@ function addScene({ key, scene }) {
   game.sceneManager.addScene({ key, scene });
 }
 
-
 /**
  * Starts the scene corresponding to the provided key
  *
@@ -208,7 +207,6 @@ class Game {
         this.lastFpsUpdate = timestamp;
         this.framesSinceLastFpsUpdate = 0;
 
-
         this.rafHandle = requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
       });
     }
@@ -268,7 +266,6 @@ class Game {
     this.Keyboard.poll();
   }
 
-
   /**
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
@@ -276,7 +273,6 @@ class Game {
     this.sceneManager.runningScene.update(timeStep);
     this.middlewareManager.update(timeStep);
   }
-
 
   /**
    * draw - Draws the scene to the current canvas
@@ -290,7 +286,6 @@ class Game {
     this.sceneManager.runningScene.draw(deltaTime);
     this.middlewareManager.draw(deltaTime);
   }
-
 
   /**
    * requestAnimFrame - Method that allows us to draw everytime the browser allows us to.

@@ -42,7 +42,6 @@ class ColorConverter {
     return new HSLColor(hue, saturation, luminance);
   }
 
-
   /**
    * Wiki: https://en.wikipedia.org/wiki/HSL_and_HSV
    * Proof: https://jsfiddle.net/Lamik/reuk63ay

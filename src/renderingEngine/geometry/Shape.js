@@ -42,7 +42,7 @@ class Shape extends GraphicObject {
    * @return {Point} the center point of the shape
    */
   get centerPoint() {
-    throw new Point(0,0);
+    throw new Point(0, 0);
   }
 
   /**
