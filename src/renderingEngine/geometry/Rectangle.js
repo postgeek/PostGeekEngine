@@ -50,8 +50,8 @@ class Rectangle extends Shape {
   }
 
   get centerPoint() {
-    let xCoordinateOfCenter = Math.ceil((2 * this.x + this.width) / 2);
-    let yCoordinateofCenter = Math.ceil((2 * this.y + this.height) / 2);
+    const xCoordinateOfCenter = Math.ceil((2 * this.x + this.width) / 2);
+    const yCoordinateofCenter = Math.ceil((2 * this.y + this.height) / 2);
     return new Point(xCoordinateOfCenter, yCoordinateofCenter);
   }
 

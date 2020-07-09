@@ -56,7 +56,6 @@ class DrawingStyle {
     this.fillStyle = value;
   }
 
-
   /**
    * Gets the strokeStyle for the drawing context
    *
@@ -79,7 +78,6 @@ class DrawingStyle {
      */
     this.strokeStyle = value;
   }
-
 
   /**
    * Gets the shadow blur for the drawing context.
@@ -104,7 +102,6 @@ class DrawingStyle {
     this.shadowBlur = value;
   }
 
-
   /**
    * Gets the line width for the drawing context
    *
@@ -128,7 +125,6 @@ class DrawingStyle {
     this.lineWidth = value;
   }
 
-
   /**
    * Gets the shadow color for the drawing context
    *
@@ -137,7 +133,6 @@ class DrawingStyle {
   get ShadowColor() {
     return this.shadowColor;
   }
-
 
   /**
    * Specifies the shadow color to be used
@@ -152,7 +147,6 @@ class DrawingStyle {
      */
     this.shadowColor = value;
   }
-
 
   /**
    * Gets the shadow's x offset
@@ -199,7 +193,6 @@ class DrawingStyle {
      */
     this.shadowOffsetY = value;
   }
-
 
   /**
    * Applies the drawing style to the canvas' context.

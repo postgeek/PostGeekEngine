@@ -9,6 +9,8 @@
         {
           "selector": "FunctionExpression[operator='in']"
         }
-      ]
+      ],
+      "no-underscore-dangle": "off",
+      "no-plusplus": "off"
     }
 }

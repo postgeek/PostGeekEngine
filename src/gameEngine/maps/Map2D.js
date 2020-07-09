@@ -20,7 +20,7 @@ class Map2D {
       return new Tileset(tileset, img);
     }));
 
-    this.Layers = this.Config.layers.map(layer => new Layer(this, layer));
+    this.Layers = this.Config.layers.map((layer) => new Layer(this, layer));
   }
 
   loadTileset(tileset) {
@@ -39,7 +39,7 @@ class Map2D {
   }
 
   draw() {
-    this.Layers.map(layer => layer.draw());
+    this.Layers.map((layer) => layer.draw());
   }
 }
 

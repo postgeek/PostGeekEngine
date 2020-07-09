@@ -31,7 +31,6 @@ class AssetLoader {
     throw new InvalidArguementError('url');
   }
 
-
   /**
    * @todo Add all asset types here.
    * extractAssetType - extract the asset type from the Asset to load the asset correctly

@@ -1,6 +1,6 @@
 import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
-import MouseButton from './MouseButton'
+import MouseButton from './MouseButton';
 
 class Mouse {
   /**
@@ -35,10 +35,9 @@ class Mouse {
     for (let i = 0; i < this._registeredMouseButtons.length; i++) {
       const buttonToCheck = this._registeredMouseButtons[i];
       if (buttonToCheck.isButtonDown) {
-        if(buttonToCheck.state === this.MOUSE_STATE.RELEASED) {
-          buttonToCheck.state = this.MOUSE_STATE.DOWN_ONCE
-        } 
-        else if (buttonToCheck.state === this.MOUSE_STATE.DOWN_ONCE) {
+        if (buttonToCheck.state === this.MOUSE_STATE.RELEASED) {
+          buttonToCheck.state = this.MOUSE_STATE.DOWN_ONCE;
+        } else if (buttonToCheck.state === this.MOUSE_STATE.DOWN_ONCE) {
           buttonToCheck.state = this.MOUSE_STATE.PRESSED;
         }
       } else {
@@ -122,7 +121,7 @@ class Mouse {
    * Checks if the mouse button is down for the first time.
    */
   buttonDownOnce(mouseButton) {
-    var button = this.retrieveMouseButton(mouseButton);
+    const button = this.retrieveMouseButton(mouseButton);
     return button.state === this.MOUSE_STATE.DOWN_ONCE;
   }
 
@@ -130,20 +129,20 @@ class Mouse {
    * Checks if the mouse button is down.
    */
   buttonPressed(mouseButton) {
-    var button = this.retrieveMouseButton(mouseButton);
+    const button = this.retrieveMouseButton(mouseButton);
     return button.state === this.MOUSE_STATE.DOWN_ONCE
     || button.state === this.MOUSE_STATE.PRESSED;
   }
 
-  retrieveMouseButton({button, which}) {
-    //console.log(`Button: ${button} Which: ${which}`)
+  retrieveMouseButton({ button, which }) {
+    // console.log(`Button: ${button} Which: ${which}`)
     for (let i = 0; i < this._registeredMouseButtons.length; i++) {
       const buttonToSearch = this._registeredMouseButtons[i];
-      if(which != undefined) {
+      if (which != undefined) {
         if (buttonToSearch.which === which) {
           return buttonToSearch;
         }
-      } else if(button != undefined) {
+      } else if (button != undefined) {
         if (buttonToSearch.button === button) {
           return buttonToSearch;
         }
