@@ -1,4 +1,4 @@
-import InvalidArguementError from "./errorHandling/errors/InvalidArguementError";
+import InvalidArguementError from './errorHandling/errors/InvalidArguementError';
 
 /**
 * Defines the service locator class

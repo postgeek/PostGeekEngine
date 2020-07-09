@@ -3,4 +3,4 @@ function isPowerOfTwo(numberToCheck) {
   && ((numberToCheck & (numberToCheck - 1)) === 0); // eslint-disable-line no-bitwise
 }
 
-export { isPowerOfTwo };
+export { isPowerOfTwo }; // eslint-disable-line import/prefer-default-export

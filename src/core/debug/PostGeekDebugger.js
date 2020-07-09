@@ -24,6 +24,7 @@ class PostGeekDebugger extends IMiddleware {
     console.log('================================');
   }
 
+  // eslint-disable-next-line class-methods-use-this
   update() {
     // console.log('Updating the PostGeekDebugger');
   }

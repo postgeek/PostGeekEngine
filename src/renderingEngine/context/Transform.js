@@ -27,7 +27,7 @@ class Transform {
    * @return {undefined}
    */
   rotate(degree) {
-    this._context.rotate(degree * Math.PI / 180);
+    this._context.rotate(degree * (Math.PI / 180));
   }
 
   /**

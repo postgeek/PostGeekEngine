@@ -1,11 +1,22 @@
+/**
+ * @constant
+ * The valid statuses for a mouse button.
+ */
+const MOUSE_BUTTON_STATE = Object.freeze({
+  RELEASED: { id: 0, value: 'RELEASED' }, // Not down
+  PRESSED: { id: 1, value: 'PRESSED' }, // Down but not the first time
+  DOWN_ONCE: { id: 2, value: 'DOWN_ONCE' }, // Down for the first time
+});
+
 class MouseButton {
   constructor({ button, which } = {}) {
     this.button = button;
     this.which = which;
+    this.state = MOUSE_BUTTON_STATE.RELEASED;
   }
 
   set button(value) {
-    return this._button = value;
+    this._button = value;
   }
 
   get button() {
@@ -75,4 +86,7 @@ class MouseButton {
       which: 3,
     });
   }
-} export default MouseButton;
+}
+
+export default MouseButton;
+export { MOUSE_BUTTON_STATE };

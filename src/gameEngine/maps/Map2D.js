@@ -2,6 +2,16 @@ import Layer from './Layer';
 import Tileset from './Tileset';
 import AssetCache from '../../core/managers/AssetCache';
 
+function addImageAsync(assetUrl) {
+  return new Promise((resolve) => {
+    const tilesetImg = new Image();
+    tilesetImg.src = window.URL.createObjectURL(assetUrl);
+    tilesetImg.onload = () => {
+      resolve(tilesetImg);
+    };
+  });
+}
+
 class Map2D {
   constructor(config) {
     this.Config = config;
@@ -23,19 +33,12 @@ class Map2D {
     this.Layers = this.Config.layers.map((layer) => new Layer(this, layer));
   }
 
-  loadTileset(tileset) {
-    return new Promise(async (resolve) => {
-      const tileSetId = `${tileset.name}.TilesetImg`;
+  async loadTileset(tileset) {
+    const tileSetId = `${tileset.name}.TilesetImg`;
 
-      this.cache.registerAsset(tileSetId, tileset.imagePath);
-      await this.cache.loadAsset(tileSetId);
-
-      const tilesetImg = new Image();
-      tilesetImg.src = window.URL.createObjectURL(this.cache.getAsset(tileSetId));
-      tilesetImg.onload = () => {
-        resolve(tilesetImg);
-      };
-    });
+    this.cache.registerAsset(tileSetId, tileset.imagePath);
+    await this.cache.loadAsset(tileSetId);
+    return addImageAsync(this.cache.getAsset(tileSetId));
   }
 
   draw() {
