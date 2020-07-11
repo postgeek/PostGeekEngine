@@ -193,7 +193,7 @@ class Game {
         // application starts drawing.
         this.isRunning = true;
 
-        // Reset variables that are used for tracking time so that we
+        // Reset variables that are used for tracking time so that wethis.sceneManager
         // don't simulate time passed while the application was paused.
         this.lastFrameTimeMs = timestamp;
         this.lastFpsUpdate = timestamp;
@@ -304,10 +304,12 @@ class Game {
  * Starts a new Game
  *
  * @param  {String} config the config to use when initializing the game
+ * @returns {Game} the new instance of the game class.
  */
 function start(config) {
   game = new Game(config);
   game.init();
+  return game;
 }
 
 export { addScene, startScene };
