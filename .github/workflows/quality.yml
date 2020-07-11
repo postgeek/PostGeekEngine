@@ -1,4 +1,4 @@
-name: CI/CD - Development
+name: CI
 
 on: [push]
 
