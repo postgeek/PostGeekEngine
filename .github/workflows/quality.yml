@@ -5,6 +5,7 @@ on: [push]
 jobs:
   quality_tests:
     name: "Quality Tests"
+    runs-on: ubuntu-latest
     container: node:14-slim
     steps:
     - uses: actions/checkout@v2
