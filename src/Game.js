@@ -193,7 +193,7 @@ class Game {
         // application starts drawing.
         this.isRunning = true;
 
-        // Reset variables that are used for tracking time so that wethis.sceneManager
+        // Reset variables that are used for tracking time so that we
         // don't simulate time passed while the application was paused.
         this.lastFrameTimeMs = timestamp;
         this.lastFpsUpdate = timestamp;
