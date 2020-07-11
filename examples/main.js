@@ -6,7 +6,9 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
-class Main {  
+import './style.scss';
+
+class Main {
   start() {
     this._game = start({
       debug: true,
