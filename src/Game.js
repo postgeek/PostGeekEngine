@@ -9,16 +9,6 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 let game = null;
 
 /**
- * Starts a new Game
- *
- * @param  {String} config the config to use when initializing the game
- */
-function start(config) {
-  game = new Game(config);
-  game.init();
-}
-
-/**
  * Adds a scene to the sceneManager
  *
  * @param  {String} key   the key for the scene
@@ -182,7 +172,9 @@ class Game {
 
     if ('middleware' in this.config) {
       for (const key in this.config.middleware) {
-        this.middlewareManager.add(key, this.config.middleware[key]);
+        if (!this.middlewareManager.hasKey(key)) {
+          this.middlewareManager.add(key, this.config.middleware[key]);
+        }
       }
     }
 
@@ -207,7 +199,7 @@ class Game {
         this.lastFpsUpdate = timestamp;
         this.framesSinceLastFpsUpdate = 0;
 
-        this.rafHandle = requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
+        this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
       });
     }
   }
@@ -228,7 +220,7 @@ class Game {
    * gameLoop - The game loop takes care of polling for input and updating the game
    */
   gameLoop(timeStamp) {
-    this.rafHandle = requestAnimationFrame((timeStamp) => this.gameLoop(timeStamp));
+    this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
 
     this.deltaTime += timeStamp - this.lastFrameTimeMs;
     this.lastFrameTimeMs = timeStamp;
@@ -301,11 +293,21 @@ class Game {
         || window.msRequestAnimationFrame;
 
     if (!func) {
-      func = (callback) => setTimeout(callback, 1000 / 24);
+      func = (cb) => setTimeout(cb, 1000 / 24);
     }
 
     func(callback.bind(this));
   }
+}
+
+/**
+ * Starts a new Game
+ *
+ * @param  {String} config the config to use when initializing the game
+ */
+function start(config) {
+  game = new Game(config);
+  game.init();
 }
 
 export { addScene, startScene };

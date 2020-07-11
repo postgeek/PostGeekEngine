@@ -1,4 +1,4 @@
-import BaseClassConstructedError from '../errorHandling/errors/BaseClassConstructedError';
+import BaseClassConstructedError from '../core/errorHandling/errors/BaseClassConstructedError';
 
 class ICollideable {
   /**

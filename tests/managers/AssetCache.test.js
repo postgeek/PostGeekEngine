@@ -1,11 +1,11 @@
 import AssetCache from '../../src/core/managers/AssetCache';
-import AssetLoader from '../../src/core/managers/AssetLoader';
+import { downloadAsset } from '../../src/core/managers/AssetUtils';
 import { AssetLoadingStatus } from '../../src/core/managers/Asset';
 
-jest.mock('../../src/core/managers/AssetLoader');
+jest.mock('../../src/core/managers/AssetUtils');
 
 beforeEach(() => {
-  AssetLoader.mockClear();
+  downloadAsset.mockClear();
 });
 
 describe('registerAsset', () => {
@@ -48,9 +48,7 @@ describe('registerAsset', () => {
 describe('loadAsset', () => {
   it('should set asset status to loaded when load is successful', () => {
     // Arange
-    AssetLoader.mockImplementation(() => ({
-      load: () => new Promise((resolve, reject) => resolve('Good!')),
-    }));
+    downloadAsset.mockImplementation(() => new Promise((resolve, reject) => resolve('Good!')));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -65,9 +63,7 @@ describe('loadAsset', () => {
   });
   it('should set asset status to error when load is unsuccessful', async () => {
     // Arange
-    AssetLoader.mockImplementation(() => ({
-      load: () => new Promise((resolve, reject) => reject()),
-    }));
+    downloadAsset.mockImplementation(() => new Promise((resolve, reject) => reject()));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -82,9 +78,7 @@ describe('loadAsset', () => {
   });
   it('should not load an asset twice when called twice', () => {
     // Arange
-    const func = AssetLoader.mockImplementation(() => ({
-      load: () => new Promise((resolve, reject) => resolve('Good!')),
-    }));
+    const func = downloadAsset.mockImplementation(() => new Promise((resolve, reject) => resolve('Good!')));
 
     const cache = new AssetCache();
     cache.registerAsset('someKey', 'somePath');
@@ -94,16 +88,14 @@ describe('loadAsset', () => {
     cache.loadAsset('someKey');
 
     // Assert
-    expect(func).toHaveBeenCalledTimes(1);
+    expect(func.mock.calls.length).toBe(1);
   });
 });
 
 describe('getAsset', () => {
   it('should return the asset value when the asset had been loaded', async () => {
     // Arange
-    AssetLoader.mockImplementation(() => ({
-      load: () => new Promise((resolve, reject) => resolve('Good!')),
-    }));
+    downloadAsset.mockImplementation(() => new Promise((resolve, reject) => resolve('Good!')));
 
     const cache = new AssetCache();
     let actualAssetValue;
@@ -118,9 +110,7 @@ describe('getAsset', () => {
   });
   it('should not return the asset value when the asset has not been loaded', () => {
     // Arange
-    AssetLoader.mockImplementation(() => ({
-      load: () => new Promise((resolve, reject) => resolve('Good!')),
-    }));
+    downloadAsset.mockImplementation(() => new Promise((resolve, reject) => resolve('Good!')));
 
     const cache = new AssetCache();
     let actualAssetValue;

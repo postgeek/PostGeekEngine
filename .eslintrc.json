@@ -1,5 +1,6 @@
 {
     "extends": "airbnb-base",
+    "parser": "babel-eslint",
     "env": {
       "browser": true
     },
@@ -11,6 +12,7 @@
         }
       ],
       "no-underscore-dangle": "off",
-      "no-plusplus": "off"
+      "no-plusplus": "off",
+      "max-len": "off"
     }
 }
