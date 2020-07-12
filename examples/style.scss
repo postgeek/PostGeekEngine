@@ -9,14 +9,18 @@
 }
 
 .menu-container {
-    width: 100%;
-    order: 0;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
-    align-self: auto;
+    display: flex;
     background-color: #2a2e33;
     font-family: 'Open Sans';
+    
+    .logo {
+        padding: 10px;
+
+        img {
+            height: 40px;
+            width: 40px;
+        }
+    }
     
     .menu-list {
         display: flex;
@@ -48,12 +52,6 @@
 }
 
 .sub-menu-container {
-    width: 100%;
-    order: 0;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
-    align-self: auto;
     background-color: #64696e;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-bottom: 1px solid rgb(88, 88, 88);
@@ -63,6 +61,7 @@
         display: flex;
         width: 100%;
         justify-content: stretch;
+        padding-left: 60px;
     }
 
     .option-item {
@@ -75,14 +74,7 @@
 }
 
 .canvas-container {
-    order: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: auto;
-    align-self: auto;
     z-index: 1000;
-
     padding: 20px;
-
     text-align: center;
 }
