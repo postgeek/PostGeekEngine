@@ -31,11 +31,17 @@ class Main {
       const demoLinkElement = document.createElement('a');
       demoLinkElement.href = 'javascript:;';
       demoLinkElement.onclick = () => Window.Main.runDemo(demo.key);
-      demoLinkElement.appendChild(document.createTextNode(`Start ${demo.name}`));
+      demoLinkElement.appendChild(document.createTextNode(demo.name));
 
       demoElement.appendChild(demoLinkElement);
       menuElement.appendChild(demoElement);
     });
+  }
+
+  initSubMenu() {
+    const debugOptionElement = document.getElementById('debug-option');
+    debugOptionElement.checked = true;
+    debugOptionElement.disabled = true;
   }
 
   runDemo(key) {
@@ -55,4 +61,5 @@ class Main {
 
 Window.Main = new Main();
 Window.Main.initMenu();
+Window.Main.initSubMenu();
 Window.Main.start();
