@@ -304,10 +304,12 @@ class Game {
  * Starts a new Game
  *
  * @param  {String} config the config to use when initializing the game
+ * @returns {Game} the new instance of the game class.
  */
 function start(config) {
   game = new Game(config);
   game.init();
+  return game;
 }
 
 export { addScene, startScene };
