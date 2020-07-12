@@ -6,46 +6,60 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
-class Main {  
+import './style.scss';
+
+class Main {
+  constructor() {
+    this._demos = [
+      { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
+      { key: 'colorscene', scene: ColorScene, name: 'Color Demo' },
+      { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
+      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
+      { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
+      { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' }
+    ]
+  }
+
+  initMenu() {
+    const menuElement = document.getElementById('menu');
+
+    this._demos.forEach(demo => {      
+      const demoElement = document.createElement('li');
+      demoElement.id = demo.key;
+      demoElement.className = 'menu-item';
+
+      const demoLinkElement = document.createElement('a');
+      demoLinkElement.href = 'javascript:;';
+      demoLinkElement.onclick = () => Window.Main.runDemo(demo.key);
+      demoLinkElement.appendChild(document.createTextNode(demo.name));
+
+      demoElement.appendChild(demoLinkElement);
+      menuElement.appendChild(demoElement);
+    });
+  }
+
+  initSubMenu() {
+    const debugOptionElement = document.getElementById('debug-option');
+    debugOptionElement.checked = true;
+    debugOptionElement.disabled = true;
+  }
+
+  runDemo(key) {
+    const demo = this._demos.find(d => d.key === key);
+    this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
+    this._game.sceneManager.startScene(demo.key, this._game);
+  }
+
   start() {
     this._game = start({
       debug: true,
       canvas: document.getElementById('canvas'),
-      initialScene: { key: 'demoScene', scene: DemoScene },
+      initialScene: this._demos[0]
     });
-  }
-
-  start2DMapDemo() {
-    this._game.sceneManager.addScene({ key: 'demoScene', scene: DemoScene });
-    this._game.sceneManager.startScene('demoScene', this._game);
-  }
-
-  startColorScene() {
-    this._game.sceneManager.addScene({ key: 'colorscene', scene: ColorScene });
-    this._game.sceneManager.startScene('colorscene', this._game);
-  }
-
-  startShapeDemo() {
-    this._game.sceneManager.addScene({ key: 'shapeDemoScene', scene: ShapeDemoScene });
-    this._game.sceneManager.startScene('shapeDemoScene', this._game);
-  }
-
-  startKeyboardDemo() {
-    this._game.sceneManager.addScene({ key: 'KeyboardDemoScene', scene: KeyboardDemoScene });
-    this._game.sceneManager.startScene('KeyboardDemoScene', this._game);
-  }
-
-  startMouseDemo() {
-    this._game.sceneManager.addScene({ key: 'MouseDemoScene', scene: MouseDemoScene });
-    this._game.sceneManager.startScene('MouseDemoScene', this._game);
-  }
-
-  startThemeDemo() {
-    this._game.sceneManager.addScene({ key: 'themeDemoScene', scene: ThemeDemoScene });
-    this._game.sceneManager.startScene('themeDemoScene', this._game);
   }
 };
 
-
 Window.Main = new Main();
+Window.Main.initMenu();
+Window.Main.initSubMenu();
 Window.Main.start();

@@ -3,19 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>PostGeek</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto">
 </head>
-<body oncontextmenu="return false;">
-	<div>
-		<a href="javascript:;" onclick="Window.Main.start2DMapDemo()">Start 2D Map Demo</a><br />
-		<a href="javascript:;" onclick="Window.Main.startShapeDemo()">Start Shape Demo</a><br />
-		<a href="javascript:;" onclick="Window.Main.startKeyboardDemo()">Start Keyboard Demo</a><br />
-		<a href="javascript:;" onclick="Window.Main.startThemeDemo()">Start Theme Demo</a><br />
-		<a href="javascript:;" onclick="Window.Main.startColorScene()">Start Color Demo</a>
-	</div>
-	<div style="position:absolute; z-index:1000">
-		<canvas id="canvas" width="1200" height="900">
-			Your browser does not support HTML5 Canvas.
-		</canvas>
+<body>
+	<div class="content">
+		<div class="menu-container">
+			<div class="logo">
+				<img src="assets/post-geek-logo.png" />
+			</div>
+			<ul id="menu" class="menu-list"></ul>
+		</div>
+		<div class="sub-menu-container">
+			<div class="options-list">
+				<div class="option-item">
+					<input type="checkbox" name="debug-option" id="debug-option">
+					<label for="debug-option">Debug Mode</label>
+				</div>
+			</div>
+		</div>
+		<div class="canvas-container" oncontextmenu="return false;">
+			<canvas id="canvas" width="1200" height="900">
+				Your browser does not support HTML5 Canvas.
+			</canvas>
+		</div>
 	</div>
 </body>
 </html>
