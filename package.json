@@ -1,8 +1,16 @@
 {
-  "name": "game-2",
-  "version": "1.0.0",
-  "description": "ISO GameFramework",
+  "name": "@postgeek/post-geek-engine",
+  "version": "0.0.1",
+  "description": "Building a game engine one line of code at a time",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository" : {
+    "type" : "git",
+    "url": "git@github.com:postgeek/PostGeekEngine.git",
+    "directory": "@postgeek/post-geek-engine"
+  },
   "scripts": {
     "lint": "eslint ./src --fix",
     "lint:ci": "eslint ./src",
@@ -12,7 +20,7 @@
     "start": "webpack-dev-server --config ./webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js"
   },
-  "author": "Alexandre Sanscartier",
+  "author": "PostGeek",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.10.5",
