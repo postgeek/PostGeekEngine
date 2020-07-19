@@ -467,10 +467,10 @@ describe('createText', () => {
 
     // Assert
     expect(textObject.textStyle).toBeDefined();
-    expect(textObject.textStyle.FillStyle.hue).toBe(hue);
-    expect(textObject.textStyle.FillStyle.saturation).toBe(saturation);
-    expect(textObject.textStyle.FillStyle.lightness).toBe(lightness);
-    expect(textObject.textStyle.FillStyle.alpha).toBe(alpha);
+    expect(textObject.textStyle.fillStyle.hue).toBe(hue);
+    expect(textObject.textStyle.fillStyle.saturation).toBe(saturation);
+    expect(textObject.textStyle.fillStyle.lightness).toBe(lightness);
+    expect(textObject.textStyle.fillStyle.alpha).toBe(alpha);
     expect(textObject.textStyle.lineWidth).toBe(lineWidth);
   });
 });

@@ -1,4 +1,3 @@
-import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
 import MouseButton, { MOUSE_BUTTON_STATE } from './MouseButton';
 
@@ -39,33 +38,13 @@ class Mouse {
   }
 
   /**
-   * Handles the possible mouse events
-   * @param {MouseEvent} evt The MouseEvent
-   */
-  handleEvent(evt) {
-    switch (evt.type) {
-      case 'mousemove':
-        this.mouseMove(evt);
-        break;
-      case 'mousedown':
-        this.mouseDown(evt);
-        break;
-      case 'mouseup':
-        this.mouseUp(evt);
-        break;
-      default:
-        throw new UnhandledHtmlEventError();
-    }
-  }
-
-  /**
    * Handles the mouse mouve event
    * @param {MouseEvent} e The MouseEvent
    */
   mouseMove(e) {
-    if (e.clientX || e.clientX === 0) {
-      this._dx = e.clientX;
-      this._dy = e.clientX;
+    if (e.offsetX || e.offsetX === 0) {
+      this._dx = e.offsetX;
+      this._dy = e.offsetY;
     } else {
       throw new InvalidArguementError();
     }
@@ -127,7 +106,6 @@ class Mouse {
   }
 
   retrieveMouseButton({ button, which }) {
-    // console.log(`Button: ${button} Which: ${which}`)
     for (let i = 0; i < this._registeredMouseButtons.length; i++) {
       const buttonToSearch = this._registeredMouseButtons[i];
       if (which !== undefined) {

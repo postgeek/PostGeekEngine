@@ -83,4 +83,20 @@ export default class TextStyle extends DrawingStyle {
     }
     return newContext;
   }
+
+  clone() {
+    return new TextStyle({
+      fillStyle: this.fillStyle,
+      strokeStyle: this.StrokeStyle,
+      lineWidth: this.LineWidth,
+      shadowBlur: this.ShadowBlur,
+      shadowColor: this.ShadowColor,
+      shadowOffsetX: this.ShadowOffsetX,
+      shadowOffsetY: this.ShadowOffsetY,
+      font: this.Font,
+      textAlign: this.TextAlign,
+      textBaseLine: this.TextBaseline,
+      direction: this.Direction,
+    });
+  }
 }

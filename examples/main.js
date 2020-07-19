@@ -1,7 +1,8 @@
 import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
+import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
+import CollisionScene from './Collision/CollisionScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
-import ColorScene from './Color/ColorScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
@@ -12,7 +13,8 @@ class Main {
   constructor() {
     this._demos = [
       { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
-      { key: 'colorscene', scene: ColorScene, name: 'Color Demo' },
+      { key: 'colorPickerDemoscene', scene: ColorPickerDemoScene, name: 'Color Demo' },
+      { key: 'collisionscene', scene: CollisionScene, name: 'Collision Demo' },
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
@@ -57,7 +59,7 @@ class Main {
       initialScene: this._demos[0]
     });
   }
-};
+}
 
 Window.Main = new Main();
 Window.Main.initMenu();

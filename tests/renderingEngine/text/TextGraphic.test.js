@@ -50,7 +50,7 @@ describe('Constructor', () => {
     // Assert
     expect(textGraphic.point.y).toBe(newY);
   });
-  it('should measure the text widthh with the given style', () => {
+  it('should measure the text width with the given style', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
@@ -142,6 +142,7 @@ describe('Constructor', () => {
     const text = 'jest test text';
     const point = new Point(22, 33);
     const testGraphic = new TextGraphic(point, text);
+    testGraphic.textStyle.strokeStyle = 'red';
     const contextStrokeTextSpy = jest.spyOn(context, 'strokeText');
 
     // Act

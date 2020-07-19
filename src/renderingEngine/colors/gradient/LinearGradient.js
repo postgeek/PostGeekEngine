@@ -63,12 +63,12 @@ class LinearGradient extends Gradient {
    */
   buildGradient() {
     const gradient = this.context.createLinearGradient(
-      this.startPoint.X, this.startPoint.X, this.endPoint.X, this.endPoint.Y,
+      this.startPoint.x, this.startPoint.y, this.endPoint.x, this.endPoint.y,
     );
     const colorStops = this.getColorStops();
     for (let i = 0; i < colorStops.length; i += 1) {
-      const offSet = colorStops[i].Offset;
-      const color = colorStops[i].Color;
+      const offSet = colorStops[i].offset;
+      const { color } = colorStops[i];
       gradient.addColorStop(offSet, color);
     }
     return gradient;

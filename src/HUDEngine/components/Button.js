@@ -1,38 +1,54 @@
-import GraphicComponent from '../GraphicComponent';
+import ClickableComponent from './ClickableComponent';
 
-class Button extends GraphicComponent {
-  constructor(point) {
-    super();
-    this.point = point;
-    this.graphicObjects = [];
+import Rectangle from '../../renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
+import TextGraphic from '../../renderingEngine/text/TextGraphic';
+import TextStyle from '../../renderingEngine/text/TextStyle';
+import Color from '../../renderingEngine/colors/Color';
+import HSLColor from '../../renderingEngine/colors/HSLColor';
+
+class Button extends ClickableComponent {
+  constructor(point, text, clickCallback) {
+    super(point);
+
+    this.text = text;
+    this.handleClick = clickCallback;
+
+    const textStyle = new TextStyle({
+      fillStyle: Color.BLACK,
+      font: '14px Rockwell',
+    });
+    const geometryStyle = new GeometryStyle({
+      fillStyle: Color.WHITE,
+      strokeStyle: new HSLColor(177, 97, 58),
+      lineWidth: 4,
+      lineJoin: 'round',
+    });
+
+    this.textGraphic = new TextGraphic(point.clone(), this.text);
+    this.textGraphic.textStyle = textStyle;
+
+    const height = this.textGraphic.determineFontHeight() + 8;
+    const width = this.textGraphic.measureText() + 10;
+
+    this.rectangle = new Rectangle(point.clone(), width, height);
+    this.rectangle.geometryStyle = geometryStyle;
+
+    this.textGraphic.point.y += height - 8;
+    this.textGraphic.point.x += 5;
+
+    this.width = width;
+    this.height = height;
   }
 
-  // TODO: Different button states
-  // TODO: Add the button events (click)
-
-  set Point(value) {
-    this.point = value;
-  }
-
-  get Point() {
-    return this.point;
-  }
-
-  set Container(value) {
-    this.container = value;
-  }
-
-  get Container() {
-    return this.container;
-  }
-
-  addGraphicsObject(graphicObject) {
-    this.graphicObjects.push(graphicObject);
+  update(event) {
+    if (this.isMouseColliding(event)) {
+      this.handleClick(event);
+    }
   }
 
   draw() {
-    for (let i = 0; i < this.graphicObjects.length - 1; i += 1) {
-      this.graphicObjects[i].draw();
-    }
+    this.rectangle.draw();
+    this.textGraphic.draw();
   }
 } export default Button;

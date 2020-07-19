@@ -53,15 +53,6 @@ class Shape extends GraphicObject {
   }
 
   /**
-   * Ensures that the necessary methods are called in the right order
-   */
-  draw() {
-    this.preDraw();
-    this.internalDraw();
-    this.postDraw();
-  }
-
-  /**
    * Fills the shape on the screen.
    * Restores the previously saved context.
    */

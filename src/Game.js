@@ -3,6 +3,7 @@ import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
 import MiddlewareManager from './core/managers/MiddlewareManager';
+import EventBus from './core/messaging/EventBus';
 import ServiceLocator from './core/ServiceLocator';
 import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
@@ -52,7 +53,6 @@ class Game {
 
     this.Canvas = this.config.canvas;
     this.middlewareManager = new MiddlewareManager();
-
     this.sceneManager = new SceneManager();
 
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
@@ -149,6 +149,9 @@ class Game {
     ServiceLocator.instance.register('context', context);
 
     this._context = ServiceLocator.instance.locate('context');
+
+    // Register the eventbus into the service locator
+    ServiceLocator.instance.register('eventbus', new EventBus());
 
     // Resgiter the inputs into the service locator
     ServiceLocator.instance.register('keyboard', this.Keyboard);
