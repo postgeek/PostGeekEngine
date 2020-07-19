@@ -189,6 +189,7 @@ class Color {
     if (this.hslColor !== undefined) {
       return this.hslColor.toString();
     }
+    return new Color.WHITE();
   }
 
   // https://htmlcolorcodes.com/color-names/

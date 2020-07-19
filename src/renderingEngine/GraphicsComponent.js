@@ -12,7 +12,7 @@ class GraphicsComponent {
   }
 
   draw() {
-    this._graphicObjects.forEach(obj => obj.draw());
+    this._graphicObjects.forEach((obj) => obj.draw());
   }
 }
 

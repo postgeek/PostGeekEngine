@@ -1,6 +1,3 @@
-import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
-import ServiceLocator from '../core/ServiceLocator';
-
 /**
  * Class that defines a keyboard input
  */
