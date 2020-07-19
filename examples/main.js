@@ -42,8 +42,8 @@ class Main {
 
   initSubMenu() {
     const debugOptionElement = document.getElementById('debug-option');
-    debugOptionElement.checked = true;
-    debugOptionElement.disabled = true;
+    debugOptionElement.checked = false;
+    debugOptionElement.onclick = () => Window.Main.debugClicked(debugOptionElement.checked);
   }
 
   runDemo(key) {
@@ -51,10 +51,13 @@ class Main {
     this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
     this._game.sceneManager.startScene(demo.key, this._game);
   }
+  
+  debugClicked(checked) {
+    this._game.toggleDebug()
+  }
 
   start() {
     this._game = start({
-      debug: true,
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[0]
     });
