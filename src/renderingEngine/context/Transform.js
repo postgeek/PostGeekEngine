@@ -1,4 +1,4 @@
-import ServiceLocator from "../../core/ServiceLocator";
+import ServiceLocator from '../../core/ServiceLocator';
 
 /**
  * Defines the transformation class
@@ -27,7 +27,7 @@ class Transform {
    * @return {undefined}
    */
   rotate(degree) {
-    this._context.rotate(degree * Math.PI / 180);
+    this._context.rotate(degree * (Math.PI / 180));
   }
 
   /**
@@ -52,7 +52,6 @@ class Transform {
     this._context.translate(x, y);
   }
 
-
   /**
    * Skews the current context using the given x and y parameters.
    *
@@ -63,7 +62,6 @@ class Transform {
   skew(x, y) {
     this._context.transform(1, x, y, 1, 1, 1);
   }
-
 
   /**
    * Resets the current transformation matrix.

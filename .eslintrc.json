@@ -1,5 +1,6 @@
 {
     "extends": "airbnb-base",
+    "parser": "babel-eslint",
     "env": {
       "browser": true
     },
@@ -10,6 +11,9 @@
         {
           "selector": "FunctionExpression[operator='in']"
         }
-      ]
+      ],
+      "no-underscore-dangle": "off",
+      "no-plusplus": "off",
+      "max-len": "off"
     }
 }

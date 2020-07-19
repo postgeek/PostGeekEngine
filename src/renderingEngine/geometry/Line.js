@@ -2,31 +2,31 @@ import Shape from './Shape';
 
 class Line extends Shape {
   /**
-  * Constructs a new Rectangle object.
+  * Constructs a new Line object.
   *
   * @param {Vec2D} startPoint   the start point of the line.
   * @param {Vec2D} endPoint     the end point of the line.
   */
- constructor(startPoint, endPoint) {
+  constructor(startPoint, endPoint) {
     super();
     this.startPoint = startPoint;
     this.endPoint = endPoint;
   }
 
   get startPoint() {
-      return this._startPoint;
+    return this._startPoint;
   }
 
   set startPoint(value) {
-      this._startPoint = value;
+    this._startPoint = value;
   }
 
   get endPoint() {
-      return this._endPoint;
+    return this._endPoint;
   }
 
   set endPoint(value) {
-      this._endPoint = value;
+    this._endPoint = value;
   }
 
   internalDraw() {

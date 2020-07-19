@@ -81,7 +81,6 @@ class Keyboard {
     }
   }
 
-
   /**
    * Handles the key down held event
    * @param {KeyCode} keyCode The key code for the key to check.

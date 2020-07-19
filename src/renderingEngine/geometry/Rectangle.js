@@ -1,4 +1,5 @@
 import Shape from './Shape';
+import Point from '../../core/Point';
 
 class Rectangle extends Shape {
   /**
@@ -46,6 +47,12 @@ class Rectangle extends Shape {
 
   set y(value) {
     this.point.y = value;
+  }
+
+  get centerPoint() {
+    const xCoordinateOfCenter = Math.ceil((2 * this.x + this.width) / 2);
+    const yCoordinateofCenter = Math.ceil((2 * this.y + this.height) / 2);
+    return new Point(xCoordinateOfCenter, yCoordinateofCenter);
   }
 
   /**

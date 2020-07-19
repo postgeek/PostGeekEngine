@@ -30,6 +30,7 @@ class PostGeekDebugger extends IMiddleware {
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   update() {
     // console.log('Updating the PostGeekDebugger');
   }

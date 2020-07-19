@@ -1,5 +1,5 @@
-import AssetLoader from './AssetLoader';
-import Asset, { AssetLoadingStatus, AssetType } from './Asset';
+import Asset, { AssetLoadingStatus } from './Asset';
+import * as utils from './AssetUtils';
 
 /**
  * @example
@@ -18,7 +18,6 @@ class AssetCache {
    */
   constructor() {
     this.assetDictionary = [];
-    this.assetLoader = new AssetLoader();
   }
 
   /**
@@ -34,65 +33,31 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    const extension = this.getExtension(path);
-    const assetType = this.getAssetTypeFromExtension(extension);
+    const extension = utils.getExtension(path);
+    const assetType = utils.getAssetTypeFromExtension(extension);
     this.assetDictionary[key] = new Asset(key, path, assetType);
-  }
-
-
-  /**
-   * @todo Move to a utility class.
-   * getExtension - Gets the files extension
-   *
-   * @param  {type} path the path to the file
-   * @return {string}    the file's extension
-   */
-  getExtension(path) {
-    const fileParts = path.split('.');
-    return fileParts[fileParts.length - 1];
-  }
-
-  getAssetTypeFromExtension(extension) {
-    if (this.isTextFileExtension(extension)) {
-      return AssetType.TEXT;
-    }
-    if (this.isImageFileExtension(extension)) {
-      return AssetType.BLOB;
-    }
-  }
-
-  /** @todo Move to a utility class or to the asset loader */
-  isTextFileExtension(extension) {
-    return extension === 'json';
-  }
-
-  /** @todo Move to a utility class or to the asset loader */
-  isImageFileExtension(extension) {
-    return extension === 'png' || extension === 'jpeg';
   }
 
   /**
    * Load the asset into memory.
    * @param {string} key The key used when the asset you want to load was registered.
-   * @returns {Promise} The registered asset information.
+   * @returns {Asset} The registered asset information.
    */
-  loadAsset(key) {
-    return new Promise(async (resolve, reject) => {
-      if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
-        this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
+  async loadAsset(key) {
+    if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
+      this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
 
-        try {
-          const value = await this.assetLoader.load(this.assetDictionary[key]);
-          this.assetDictionary[key].value = value;
-          this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
-        } catch (e) {
-          this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
-          reject();
-        }
-
-        resolve(this.assetDictionary[key]);
+      try {
+        const value = await utils.downloadAsset(this.assetDictionary[key]);
+        this.assetDictionary[key].value = value;
+        this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
+      } catch (e) {
+        this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
+        throw e;
       }
-    });
+    }
+
+    return this.assetDictionary[key];
   }
 
   /**
