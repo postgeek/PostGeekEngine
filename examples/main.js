@@ -6,6 +6,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
+import SoundScene from './Sound/SoundScene';
 
 import './style.scss';
 
@@ -18,7 +19,8 @@ class Main {
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
-      { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' }
+      { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
+      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' }
     ]
   }
 
