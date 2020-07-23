@@ -55,6 +55,8 @@ class Game {
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
 
+    this._isDebugEnabled = false;
+
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
   }
 
@@ -130,6 +132,10 @@ class Game {
     return this._rafHandle;
   }
 
+  get isDebugEnabled() {
+    return this._isDebugEnabled;
+  }
+
   /**
    * Initializes all the necessary objects
    */
@@ -169,15 +175,11 @@ class Game {
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key);
 
-    if (this.config.debug) {
-      this.middlewareManager.add('debug', new PostGeekDebugger());
-    }
+    this.middlewareManager.add('debug', new PostGeekDebugger(this._isDebugEnabled));
 
-    if ('middleware' in this.config) {
-      for (const key in this.config.middleware) {
-        if (!this.middlewareManager.hasKey(key)) {
-          this.middlewareManager.add(key, this.config.middleware[key]);
-        }
+    for (const key in this.config.middleware) {
+      if (!this.middlewareManager.hasKey(key)) {
+        this.middlewareManager.add(key, this.config.middleware[key]);
       }
     }
 
@@ -217,6 +219,13 @@ class Game {
   panic() {
     this.deltaTime = 0;
     console.log('panic');
+  }
+
+  toggleDebug() {
+    this._isDebugEnabled = !this._isDebugEnabled;
+
+    const debugMiddleWare = this.middlewareManager.get('debug');
+    debugMiddleWare.enabled = this._isDebugEnabled;
   }
 
   /**

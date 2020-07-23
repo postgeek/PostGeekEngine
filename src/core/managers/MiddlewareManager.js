@@ -47,7 +47,9 @@ class MiddlewareManager {
    */
   update() {
     this._middleware.forEach((middleware) => {
-      middleware.update();
+      if (middleware.enabled) {
+        middleware.update();
+      }
     });
   }
 
@@ -56,7 +58,9 @@ class MiddlewareManager {
    */
   draw() {
     this._middleware.forEach((middleware) => {
-      middleware.draw();
+      if (middleware.enabled) {
+        middleware.draw();
+      }
     });
   }
 } export default MiddlewareManager;
