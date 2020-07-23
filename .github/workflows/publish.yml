@@ -31,4 +31,4 @@ jobs:
       - run: git push --tags && git push
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.PUBLISH_PACKAGE_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
