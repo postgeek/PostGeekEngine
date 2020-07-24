@@ -1,9 +1,9 @@
 /* eslint class-methods-use-this: 0 */
 /* eslint no-empty-function: 0 */
 
-import IMiddleware from '../../src/core/middleware/IMiddleware';
+import MiddlewareBase from '../../src/core/middleware/MiddlewareBase';
 
-class MiddlewareMock extends IMiddleware {
+class MiddlewareMock extends MiddlewareBase {
   init() {
 
   }

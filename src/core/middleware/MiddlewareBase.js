@@ -1,6 +1,18 @@
 import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
 
-class IMiddleware {
+class MiddlewareBase {
+  constructor(enabled = true) {
+    this._enabled = enabled;
+  }
+
+  get enabled() {
+    return this._enabled;
+  }
+
+  set enabled(value) {
+    this._enabled = value;
+  }
+
   init() {
     throw new MethodNotImplementedError(this);
   }
@@ -12,4 +24,6 @@ class IMiddleware {
   draw() {
     throw new MethodNotImplementedError(this);
   }
-} export default IMiddleware;
+}
+
+export default MiddlewareBase;

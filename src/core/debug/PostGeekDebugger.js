@@ -1,4 +1,4 @@
-import IMiddleware from '../middleware/IMiddleware';
+import MiddlewareBase from '../middleware/MiddlewareBase';
 import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
@@ -6,7 +6,7 @@ import TextStyle from '../../renderingEngine/text/TextStyle';
 import Point from '../Point';
 import ServiceLocator from '../ServiceLocator';
 
-class PostGeekDebugger extends IMiddleware {
+class PostGeekDebugger extends MiddlewareBase {
   init(middlewareManager) {
     this.middlewareManager = middlewareManager;
     this.debugGeometryStyle = new GeometryStyle({
