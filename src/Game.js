@@ -55,6 +55,9 @@ class Game {
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
 
+    this._canvasHeight = document.querySelector('#canvas').height;
+    this._canvasWidth = document.querySelector('#canvas').width;
+
     this._isDebugEnabled = false;
 
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
@@ -134,6 +137,14 @@ class Game {
 
   get isDebugEnabled() {
     return this._isDebugEnabled;
+  }
+
+  get canvasHeight() {
+    return this._canvasHeight;
+  }
+
+  get canvasWidth() {
+    return this._canvasWidth;
   }
 
   /**
@@ -285,7 +296,7 @@ class Game {
     // Clear the canvas to prepare for next draw
     this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
     this._context.fillStyle = '#000000';
-    this._context.fillRect(0, 0, 1550, 750);
+    this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
     this.sceneManager.runningScene.draw(deltaTime);
     this.middlewareManager.draw(deltaTime);
