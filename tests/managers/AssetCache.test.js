@@ -1,11 +1,15 @@
 import AssetCache from '../../src/core/managers/AssetCache';
-import { downloadAsset } from '../../src/core/managers/AssetUtils';
-import { AssetLoadingStatus } from '../../src/core/managers/Asset';
+import { downloadAsset, getAssetTypeFromExtension } from '../../src/core/managers/AssetUtils';
+import Asset, { AssetLoadingStatus, AssetType } from '../../src/core/managers/Asset';
+import AudioContextMock from '../mocks/AudioContextMock';
+import ServiceLocator from '../../src/core/ServiceLocator';
 
 jest.mock('../../src/core/managers/AssetUtils');
 
 beforeEach(() => {
   downloadAsset.mockClear();
+  ServiceLocator.instance.clear();
+  ServiceLocator.instance.register('audioContext', new AudioContextMock());
 });
 
 describe('registerAsset', () => {
@@ -89,6 +93,23 @@ describe('loadAsset', () => {
 
     // Assert
     expect(func.mock.calls.length).toBe(1);
+  });
+  it('should decode audio data when audio asset is loaded', async () => {
+    // Arrange 
+    downloadAsset.mockImplementation(() => new Promise((resolve, reject) => resolve('Good!')));
+    getAssetTypeFromExtension.mockImplementation(() => { return AssetType.AUDIO; });
+
+    const cache = new AssetCache();
+    cache.registerAsset('someKey', 'somePath.mp3');
+
+    const audioContext = ServiceLocator.instance.locate('audioContext');
+    const audioContextdecodeAudioDataSpy = jest.spyOn(audioContext, 'decodeAudioData');
+
+    // Act
+    await cache.loadAsset('someKey');
+
+    // Assert
+    expect(audioContextdecodeAudioDataSpy).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -1,9 +1,9 @@
 import ServiceLocator from '../core/ServiceLocator';
 
 class SoundObject {
-  constructor(audioData) {
+  constructor(audioBuffer) {
     this._audioContext = ServiceLocator.instance.locate('audioContext');
-    this._audioData = audioData;
+    this._audioBuffer = audioBuffer;
   }
 
   get audioContext() {
@@ -14,10 +14,10 @@ class SoundObject {
     this._audioContext = value;
   }
 
-  async getSound() {
+  getSound() {
     if (!this._sound) {
       this._sound = this._audioContext.createBufferSource();
-      this._sound.buffer = await this._audioContext.decodeAudioData(this._audioData);
+      this._sound.buffer = this._audioBuffer;
       this._sound.connect(this._audioContext.destination);
     }
 
@@ -25,19 +25,17 @@ class SoundObject {
   }
 
   play(ms) {
-    this.getSound().then((sound) => {
-      sound.start(0);
+    const sound = this.getSound();
+    sound.start(0);
 
-      if (ms) {
-        setTimeout(() => { sound.stop(0); }, ms);
-      }
-    });
+    if (ms) {
+      setTimeout(() => { sound.stop(0); }, ms);
+    }
   }
 
   stop() {
-    this.getSound().then((sound) => {
-      sound.stop(0);
-    });
+    const sound = this.getSound();
+    sound.stop(0);
   }
 }
 export default SoundObject;

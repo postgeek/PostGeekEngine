@@ -1,5 +1,6 @@
-import Asset, { AssetLoadingStatus } from './Asset';
+import Asset, { AssetLoadingStatus, AssetType } from './Asset';
 import * as utils from './AssetUtils';
+import ServiceLocator from '../ServiceLocator';
 
 /**
  * @example
@@ -18,6 +19,7 @@ class AssetCache {
    */
   constructor() {
     this.assetDictionary = [];
+    this._audioContext = ServiceLocator.instance.locate('audioContext');
   }
 
   /**
@@ -44,20 +46,28 @@ class AssetCache {
    * @returns {Asset} The registered asset information.
    */
   async loadAsset(key) {
-    if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
-      this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
+    const asset = this.assetDictionary[key];
+    console.log(asset.type);
+
+    if (asset.status === AssetLoadingStatus.NEW) {
+      asset.status = AssetLoadingStatus.LOADING;
 
       try {
-        const value = await utils.downloadAsset(this.assetDictionary[key]);
-        this.assetDictionary[key].value = value;
-        this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
+        let value = await utils.downloadAsset(asset);
+
+        if (asset.type === AssetType.AUDIO) {
+          value = await this._audioContext.decodeAudioData(value);
+        }
+
+        asset.value = value;
+        asset.status = AssetLoadingStatus.LOADED;
       } catch (e) {
-        this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
+        asset.status = AssetLoadingStatus.ERROR;
         throw e;
       }
     }
 
-    return this.assetDictionary[key];
+    return asset;
   }
 
   /**
