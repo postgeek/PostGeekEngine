@@ -8,7 +8,6 @@ class AudioContextMock {
   }
 
   decodeAudioData(audioData) {
-    console.log('boom!');
     return new Promise((resolve) => {
       resolve({});
     });

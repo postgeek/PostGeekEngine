@@ -47,7 +47,6 @@ class AssetCache {
    */
   async loadAsset(key) {
     const asset = this.assetDictionary[key];
-    console.log(asset.type);
 
     if (asset.status === AssetLoadingStatus.NEW) {
       asset.status = AssetLoadingStatus.LOADING;
