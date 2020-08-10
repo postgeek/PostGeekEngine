@@ -14,6 +14,7 @@ export default class SoundScene extends Scene {
     this.cache = new AssetCache();
     this.cache.registerAsset('audio', './assets/sound/gametheme.mp3');
     this.cache.loadAsset('audio').then(() => {
+      this.sound = new SoundObject(this.cache.getAsset('audio'));
       /*
       var t0 = performance.now()
       this.sound = new SoundObject(this.cache.getAsset('audio'));
@@ -24,6 +25,7 @@ export default class SoundScene extends Scene {
       console.log("Call to New Sound Object took " + (t1 - t0) + " milliseconds.")
       console.log("Call to play sound took " + (t2 - t1) + " milliseconds.")
       */
+     console.log("loaded asset #1");
     });
 
     this.cache.registerAsset('audio-2', './assets/sound/music_zapsplat_game_music_action_uplifting_electro_house_anthem_retro_melody_026.mp3');

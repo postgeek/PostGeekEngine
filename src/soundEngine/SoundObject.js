@@ -1,5 +1,11 @@
 import ServiceLocator from '../core/ServiceLocator';
 
+const SOUND_PLAY_STATE = Object.freeze({
+  PLAYING: { id: 0, value: 'PLAYING' }, // Playing
+  PAUSED: { id: 1, value: 'PAUSED' }, // Paused
+  STOPPED: { id: 2, value: 'STOPPED' }, // Stopped
+});
+
 /**
  * ABSTRACT THE AUDIO CONTEXT OUT OF HERE
  * MANIPULATE SOUNDS PAUSE / RESUME WITHOUT SUSPENDING AUDIO CONTEXT
@@ -12,40 +18,26 @@ class SoundObject {
   constructor(audioBuffer) {
     this._audioContext = ServiceLocator.instance.locate('audioContext');
     this._audioBuffer = audioBuffer;
-    this._isPlaying = false;
-    this._isPaused = false;
-  }
-
-  get audioContext() {
-    return this._audioContext;
-  }
-
-  set audioContext(value) {
-    this._audioContext = value;
-  }
+    this._state = SOUND_PLAY_STATE.STOPPED;
+   }
 
   get isPlaying() {
-    return this._isPlaying;
+    return this._state === SOUND_PLAY_STATE.PLAYING;
   }
 
   get isPaused() {
-    return this._isPaused;
+    return this._state === SOUND_PLAY_STATE.PAUSED;
   }
 
   get currentTime() {
     if (this._sound !== undefined && this._sound.context !== undefined) {
-      if (this.isPlaying) {
-        if (this.isPaused) {
-          return this._restartAt;
-        }
+      if(this._state === SOUND_PLAY_STATE.PAUSED) {
+        return this._restartAt;
+      }
+      if(this._state === SOUND_PLAY_STATE.PLAYING) {
         const { currentTime } = this._sound.context;
-        if (this.duration <= currentTime - this._startTime) {
-          return this.duration;
-        }
         return currentTime - this._startTime;
       }
-
-      return 0;
     }
     return 0;
   }
@@ -60,6 +52,9 @@ class SoundObject {
   createNewBufferSource() {
     this._sound = this._audioContext.createBufferSource();
     this._sound.buffer = this._audioBuffer;
+    this._sound.onended = function () {
+      this._state === SOUND_PLAY_STATE.STOPPED;
+    };
     this._sound.connect(this._audioContext.destination);
   }
 
@@ -68,12 +63,11 @@ class SoundObject {
   }
 
   pause() {
-    if (this.isPlaying && !this.isPaused) {
-      console.log('paused');
+    if (this._state === SOUND_PLAY_STATE.PLAYING) { 
       const { currentTime } = this._sound.context;
       this.getSound().stop();
       this._restartAt = currentTime - this._startTime;
-      this._isPaused = true;
+      this._state = SOUND_PLAY_STATE.PAUSED;     
     }
   }
 
@@ -84,21 +78,18 @@ class SoundObject {
   }
 
   play(ms) {
-    if (this.isPaused && this.isPlaying) {
+    if (this._state === SOUND_PLAY_STATE.PAUSED) { 
       this.createNewBufferSource();
       const sound = this.getSound();
-      console.log('resumed');
-      console.log(`restart at: ${this._restartAt}`);
       sound.start(0, this._restartAt);
-      this._isPaused = false;
-    } else if (!this.isPlaying) {
+      this._startTime = this._sound.context.currentTime - this._restartAt;
+      this._state = SOUND_PLAY_STATE.PLAYING;
+    } else if (this._state === SOUND_PLAY_STATE.STOPPED) { 
       this.createNewBufferSource();
       const sound = this.getSound();
-      console.log('started');
       this._startTime = this._sound.context.currentTime;
       sound.start(this._startTime);
-      this._isPaused = false;
-      this._isPlaying = true;
+      this._state = SOUND_PLAY_STATE.PLAYING;
 
       if (ms) {
         setTimeout(() => {
@@ -109,13 +100,11 @@ class SoundObject {
   }
 
   stop() {
-    if (this.isPlaying) {
-      console.log('stopped');
+    if (this._state !== SOUND_PLAY_STATE.STOPPED) { 
       const sound = this.getSound();
       sound.stop();
       this._restartAt = 0;
-      this._isPlaying = false;
-      this._isPaused = false;
+      this._state = SOUND_PLAY_STATE.STOPPED;
     }
   }
 }
