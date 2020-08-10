@@ -34,6 +34,9 @@ export default class SoundScene extends Scene {
       console.log("loaded asset #2");
       this.playPauseButton.disabled = false;
       this.stopButton.disabled = false;
+      for(let i = 0; i < 10; i++) {
+        this.volumeButtons.disabled = false;
+      }
     });
 
     this.cache.registerAsset('audio-3', './assets/sound/Retro - Chip Power.wav');
@@ -85,6 +88,12 @@ export default class SoundScene extends Scene {
     this.soundBoardChipPowerButton = new Button(new Point(20,160), "CP", (event) => this.playChipPower(event));
     this.soundBoardSonarButton = new Button(new Point(60,160), "Sonar", (event) => this.PlaySonar(event));
     this.soundBoardCrystalButton = new Button(new Point(120,160), "Crystal", (event) => this.PlayCrystal(event));
+
+    this.volumeButtons = [];
+    for(let i = 0; i < 10; i++) {
+      this.volumeButtons.push(new Button(new Point(130 + i * 25, 60), `${i+1}`, (event) => this.setVolume((((i + 1) * 10) / 100) )));
+      this.volumeButtons.disabled = true;
+    }
  }
 
   update() {
@@ -95,6 +104,10 @@ export default class SoundScene extends Scene {
       this.soundBoardChipPowerButton.update({x,y});
       this.soundBoardSonarButton.update({x,y});
       this.soundBoardCrystalButton.update({x,y});
+      for(let i = 0; i < 10; i++) {
+        let volumeButton = this.volumeButtons[i];
+        volumeButton.update({x,y});
+      }
     }
     if(this.sound2 != undefined) {
       this.currentStateText.text = `CurrentState: ${this.sound2._state.value}`;
@@ -113,6 +126,10 @@ export default class SoundScene extends Scene {
     this.durationTimeText.draw();
     this.currentStateText.draw();
     this.soundBoardText.draw();
+    for(let i = 0; i < 10; i++) {
+      let volumeButton = this.volumeButtons[i];
+      volumeButton.draw();
+    }
   }
 
   playChipPower() {
@@ -140,5 +157,10 @@ export default class SoundScene extends Scene {
   stopSound() {
     this.sound2.stop();
     this.playPauseButton.text = "Play";
+  }
+
+  setVolume(volume) {
+    console.log(volume);
+    this.sound2.setVolume(volume);
   }
 }
