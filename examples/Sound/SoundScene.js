@@ -32,6 +32,8 @@ export default class SoundScene extends Scene {
     this.cache.loadAsset('audio-2').then(() => {
       this.sound2 = new SoundObject(this.cache.getAsset('audio-2'));
       console.log("loaded asset #2");
+      this.playPauseButton.disabled = false;
+      this.stopButton.disabled = false;
     });
 
     this.cache.registerAsset('audio-3', './assets/sound/Retro - Chip Power.wav');
@@ -62,6 +64,10 @@ export default class SoundScene extends Scene {
     this.durationTimeText.textStyle = new TextStyle({
       strokeStyle: Color.WHITE,
     });
+    this.currentStateText = new TextGraphic(new Point(20,40), "");
+    this.currentStateText.textStyle = new TextStyle({
+      strokeStyle: Color.WHITE,
+    });
 
     this.soundBoardText = new TextGraphic(new Point(20,140), "Sound Board");
     this.soundBoardText.textStyle = new TextStyle({
@@ -70,9 +76,11 @@ export default class SoundScene extends Scene {
     });
 
     // point, text, clickCallback
-    this.playButton = new Button(new Point(20,60), "Play", (event) => this.playSound(event));
-    this.pauseButton = new Button(new Point(70,60), "Pause", (event) => this.pauseSound(event));
-    this.stopButton = new Button(new Point(130,60), "Stop", (event) => this.stopSound(event));
+    this.playPauseButton = new Button(new Point(20,60), "Play", (event) => this.playOrResumeSound(event));
+    this.stopButton = new Button(new Point(80,60), "Stop", (event) => this.stopSound(event));
+
+    this.playPauseButton.disabled = true;
+    this.stopButton.disabled = true;
 
     this.soundBoardChipPowerButton = new Button(new Point(20,160), "CP", (event) => this.playChipPower(event));
     this.soundBoardSonarButton = new Button(new Point(60,160), "Sonar", (event) => this.PlaySonar(event));
@@ -82,28 +90,28 @@ export default class SoundScene extends Scene {
   update() {
     if (this.mouse.buttonDownOnce(MouseButton.LEFT_BUTTON)) {
       const { x, y } = this.mouse;
-      this.playButton.update({x,y});
+      this.playPauseButton.update({x,y});
       this.stopButton.update({x,y});
-      this.pauseButton.update({x,y});
       this.soundBoardChipPowerButton.update({x,y});
       this.soundBoardSonarButton.update({x,y});
       this.soundBoardCrystalButton.update({x,y});
     }
     if(this.sound2 != undefined) {
+      this.currentStateText.text = `CurrentState: ${this.sound2._state.value}`;
       this.currentAudioTimeText.text = `CurrentTime: ${this.sound2.currentTime}`;
       this.durationTimeText.text = `Max: ${this.sound2.duration}`;
     }
   }
 
   draw() {
-    this.playButton.draw();
-    this.pauseButton.draw();
+    this.playPauseButton.draw();
     this.stopButton.draw();
     this.soundBoardChipPowerButton.draw();
     this.soundBoardSonarButton.draw();
     this.soundBoardCrystalButton.draw();
     this.currentAudioTimeText.draw();
     this.durationTimeText.draw();
+    this.currentStateText.draw();
     this.soundBoardText.draw();
   }
 
@@ -119,15 +127,18 @@ export default class SoundScene extends Scene {
     this.sound5.play2();
   }
 
-  playSound() {
-    this.sound2.play();
+  playOrResumeSound() {
+    if(this.sound2.isPlaying) {
+      this.sound2.pause();
+      this.playPauseButton.text = "Play";
+    } else {
+      this.sound2.play();
+      this.playPauseButton.text = "Pause";
+    }
   }
 
   stopSound() {
     this.sound2.stop();
-  }
-
-  pauseSound() {
-    this.sound2.pause();
+    this.playPauseButton.text = "Play";
   }
 }

@@ -52,9 +52,11 @@ class SoundObject {
   createNewBufferSource() {
     this._sound = this._audioContext.createBufferSource();
     this._sound.buffer = this._audioBuffer;
-    this._sound.onended = function () {
-      this._state === SOUND_PLAY_STATE.STOPPED;
-    };
+    this._sound.onended = () => {
+      if(this._state !== SOUND_PLAY_STATE.PAUSED) {
+        this._state = SOUND_PLAY_STATE.STOPPED;
+      }
+    }
     this._sound.connect(this._audioContext.destination);
   }
 
@@ -75,6 +77,7 @@ class SoundObject {
     this.createNewBufferSource();
     const sound = this.getSound();
     sound.start(0);
+    this._state = SOUND_PLAY_STATE.PLAYING;
   }
 
   play(ms) {
@@ -102,9 +105,9 @@ class SoundObject {
   stop() {
     if (this._state !== SOUND_PLAY_STATE.STOPPED) { 
       const sound = this.getSound();
+      this._state = SOUND_PLAY_STATE.STOPPED;
       sound.stop();
       this._restartAt = 0;
-      this._state = SOUND_PLAY_STATE.STOPPED;
     }
   }
 }

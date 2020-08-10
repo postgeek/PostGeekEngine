@@ -11,7 +11,7 @@ class Button extends ClickableComponent {
   constructor(point, text, clickCallback) {
     super(point);
 
-    this.text = text;
+    this._text = text;
     this.handleClick = clickCallback;
 
     const textStyle = new TextStyle({
@@ -41,8 +41,33 @@ class Button extends ClickableComponent {
     this.height = height;
   }
 
+  set text(value) {
+    this._text = value;
+    this.textGraphic.text = this.text;
+    this.recalculateBorders();
+  }
+
+  get text() {
+    return this._text;
+  }
+
+  get disabled() {
+    return this._disabled;
+  }
+
+  set disabled(value) {
+    this._disabled = value;
+  }
+
+  recalculateBorders() {
+    this.height = this.textGraphic.determineFontHeight() + 8;
+    this.width = this.textGraphic.measureText() + 10;
+    this.rectangle.width = this.width;
+    this.rectangle.height = this.height;
+  }
+
   update(event) {
-    if (this.isMouseColliding(event)) {
+    if (this.isMouseColliding(event) && !this.disabled) {
       this.handleClick(event);
     }
   }
