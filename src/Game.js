@@ -157,7 +157,7 @@ class Game {
     this._context = ServiceLocator.instance.locate('context');
 
     // Create the audio context
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
     ServiceLocator.instance.register('audioContext', audioContext);
 

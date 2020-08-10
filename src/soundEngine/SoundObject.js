@@ -1,5 +1,13 @@
 import ServiceLocator from '../core/ServiceLocator';
 
+/**
+ * ABSTRACT THE AUDIO CONTEXT OUT OF HERE
+ * MANIPULATE SOUNDS PAUSE / RESUME WITHOUT SUSPENDING AUDIO CONTEXT
+ * https://www.html5rocks.com/en/tutorials/webaudio/intro/
+ * https://sonoport.github.io/web-audio-clock.html
+ *
+ *
+ */
 class SoundObject {
   constructor(audioBuffer) {
     this._audioContext = ServiceLocator.instance.locate('audioContext');
@@ -24,41 +32,76 @@ class SoundObject {
     return this._isPaused;
   }
 
-  getSound() {
-    if(!this.isPlaying) {
-      this._sound = this._audioContext.createBufferSource();
-      this._sound.buffer = this._audioBuffer;
-      this._sound.connect(this._audioContext.destination);
+  get currentTime() {
+    if (this._sound !== undefined && this._sound.context !== undefined) {
+      if (this.isPlaying) {
+        if (this.isPaused) {
+          return this._restartAt;
+        }
+        const { currentTime } = this._sound.context;
+        if (this.duration <= currentTime - this._startTime) {
+          return this.duration;
+        }
+        return currentTime - this._startTime;
+      }
+
+      return 0;
     }
- 
+    return 0;
+  }
+
+  get duration() {
+    if (this._audioBuffer !== undefined) {
+      return this._audioBuffer.duration;
+    }
+    return 0;
+  }
+
+  createNewBufferSource() {
+    this._sound = this._audioContext.createBufferSource();
+    this._sound.buffer = this._audioBuffer;
+    this._sound.connect(this._audioContext.destination);
+  }
+
+  getSound() {
     return this._sound;
   }
 
   pause() {
-    if(this.isPlaying && !this.isPaused) {
-      console.log("paused");
-      this._audioContext.suspend();
+    if (this.isPlaying && !this.isPaused) {
+      console.log('paused');
+      const { currentTime } = this._sound.context;
+      this.getSound().stop();
+      this._restartAt = currentTime - this._startTime;
       this._isPaused = true;
     }
   }
 
+  play2() {
+    this.createNewBufferSource();
+    const sound = this.getSound();
+    sound.start(0);
+  }
+
   play(ms) {
-    if(this.isPaused && this.isPlaying) {
-      console.log("resumed");
-      this._audioContext.resume();
-      this._isPaused = false;
-    } else  if (!this.isPlaying) {
+    if (this.isPaused && this.isPlaying) {
+      this.createNewBufferSource();
       const sound = this.getSound();
-      console.log("started");
-      sound.start(0);
-      if(this.isAudioContextSuspended()) {
-        this._audioContext.resume();
-      }  
+      console.log('resumed');
+      console.log(`restart at: ${this._restartAt}`);
+      sound.start(0, this._restartAt);
+      this._isPaused = false;
+    } else if (!this.isPlaying) {
+      this.createNewBufferSource();
+      const sound = this.getSound();
+      console.log('started');
+      this._startTime = this._sound.context.currentTime;
+      sound.start(this._startTime);
       this._isPaused = false;
       this._isPlaying = true;
 
       if (ms) {
-        setTimeout(() => { 
+        setTimeout(() => {
           this.stop();
         }, ms);
       }
@@ -66,17 +109,14 @@ class SoundObject {
   }
 
   stop() {
-    if(this.isPlaying) {
-      console.log("stopped");
+    if (this.isPlaying) {
+      console.log('stopped');
       const sound = this.getSound();
-      sound.stop(0);
+      sound.stop();
+      this._restartAt = 0;
       this._isPlaying = false;
       this._isPaused = false;
     }
-  }
-
-  isAudioContextSuspended() {
-    return this._audioContext.state === 'suspended';
   }
 }
 export default SoundObject;
