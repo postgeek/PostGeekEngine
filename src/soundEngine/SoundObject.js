@@ -22,7 +22,7 @@ class SoundObject {
     this._volumeLeft = 1;
     this._volumeRight = 1;
     this.NodeIndex = 0;
-   }
+  }
 
   get isPlaying() {
     return this._state === SOUND_PLAY_STATE.PLAYING;
@@ -38,10 +38,10 @@ class SoundObject {
 
   get currentTime() {
     if (this._sound !== undefined && this._sound.context !== undefined) {
-      if(this.isPaused) {
+      if (this.isPaused) {
         return this._restartAt;
       }
-      if(this.isPlaying) {
+      if (this.isPlaying) {
         const { currentTime } = this._sound.context;
         return currentTime - this._startTime;
       }
@@ -65,14 +65,14 @@ class SoundObject {
   }
 
   createNewBufferSource() {
-    if(this.nodeIndex === 0) {
+    if (this.nodeIndex === 0) {
       return this.createSoundWithGainNode();
     }
-    if(this.nodeIndex === 1) {
+    if (this.nodeIndex === 1) {
       return this.createSoundWithLeftAndRightChannel();
     }
 
-    return this.createSoundWithGainNode(); 
+    return this.createSoundWithGainNode();
   }
 
   setVolumeLeft(volume) {
@@ -88,11 +88,11 @@ class SoundObject {
   }
 
   pause() {
-    if (this.isPlaying) { 
+    if (this.isPlaying) {
       const { currentTime } = this._sound.context;
       this.getSound().stop();
       this._restartAt = currentTime - this._startTime;
-      this._state = SOUND_PLAY_STATE.PAUSED;     
+      this._state = SOUND_PLAY_STATE.PAUSED;
     }
   }
 
@@ -101,10 +101,10 @@ class SoundObject {
     this._sound = this._audioContext.createBufferSource();
     this._sound.buffer = this._audioBuffer;
     this._sound.onended = () => {
-      if(!this.isPaused) {
+      if (!this.isPaused) {
         this._state = SOUND_PLAY_STATE.STOPPED;
       }
-    }
+    };
     this._sound.connect(this._gainNode);
     this._gainNode.connect(this._audioContext.destination);
     this._gainNode.gain.setValueAtTime(this._volumeLeft, this._sound.context.currentTime);
@@ -114,17 +114,17 @@ class SoundObject {
     this._sound = this._audioContext.createBufferSource();
     this._sound.buffer = this._audioBuffer;
     this._sound.onended = () => {
-      if(!this.isPaused) {
+      if (!this.isPaused) {
         this._state = SOUND_PLAY_STATE.STOPPED;
       }
-    }
+    };
 
-    var splitter = this._audioContext.createChannelSplitter(2);
+    const splitter = this._audioContext.createChannelSplitter(2);
     this._sound.connect(splitter);
-    var merger = this._audioContext.createChannelMerger(2);
+    const merger = this._audioContext.createChannelMerger(2);
 
-    var gainNodeL = this._audioContext.createGain();
-    var gainNodeR = this._audioContext.createGain();
+    const gainNodeL = this._audioContext.createGain();
+    const gainNodeR = this._audioContext.createGain();
     gainNodeL.gain.setValueAtTime(this._volumeLeft, this._audioContext.currentTime);
     gainNodeR.gain.setValueAtTime(this._volumeRight, this._audioContext.currentTime);
     splitter.connect(gainNodeL, 0);
@@ -132,7 +132,7 @@ class SoundObject {
 
     gainNodeL.connect(merger, 0, 0);
     gainNodeR.connect(merger, 0, 1);
-    
+
     merger.connect(this._audioContext.destination);
   }
 
@@ -144,13 +144,13 @@ class SoundObject {
   }
 
   play(ms) {
-    if (this.isPaused) { 
+    if (this.isPaused) {
       this.createNewBufferSource();
       const sound = this.getSound();
       sound.start(0, this._restartAt);
       this._startTime = this._sound.context.currentTime - this._restartAt;
       this._state = SOUND_PLAY_STATE.PLAYING;
-    } else if (this.isStopped) { 
+    } else if (this.isStopped) {
       this.createNewBufferSource();
       const sound = this.getSound();
       this._startTime = this._sound.context.currentTime;
@@ -166,7 +166,7 @@ class SoundObject {
   }
 
   stop() {
-    if (!this.isStopped) { 
+    if (!this.isStopped) {
       const sound = this.getSound();
       this._state = SOUND_PLAY_STATE.STOPPED;
       sound.stop();
