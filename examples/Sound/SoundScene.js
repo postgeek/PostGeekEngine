@@ -8,6 +8,7 @@ import ServiceLocator from 'core/ServiceLocator';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
+import HSLColor from 'renderingEngine/colors/HSLColor';
 
 export default class SoundScene extends Scene {
   create() {
@@ -35,7 +36,13 @@ export default class SoundScene extends Scene {
       this.playPauseButton.disabled = false;
       this.stopButton.disabled = false;
       for(let i = 0; i < 10; i++) {
-        this.volumeButtons.disabled = false;
+        this.volumeButtonsLeft[i].disabled = false;
+      }
+      for(let i = 0; i < 10; i++) {
+        this.volumeButtonsRight[i].disabled = false;
+      }
+      for(let i = 0; i < 2; i++) {
+        this.nodeButtons[i].disabled = false;
       }
     });
 
@@ -72,7 +79,7 @@ export default class SoundScene extends Scene {
       strokeStyle: Color.WHITE,
     });
 
-    this.soundBoardText = new TextGraphic(new Point(20,140), "Sound Board");
+    this.soundBoardText = new TextGraphic(new Point(20,160), "Sound Board");
     this.soundBoardText.textStyle = new TextStyle({
       fillStyle: Color.WHITE,
       font: "36px Rockwell",
@@ -85,14 +92,77 @@ export default class SoundScene extends Scene {
     this.playPauseButton.disabled = true;
     this.stopButton.disabled = true;
 
-    this.soundBoardChipPowerButton = new Button(new Point(20,160), "CP", (event) => this.playChipPower(event));
-    this.soundBoardSonarButton = new Button(new Point(60,160), "Sonar", (event) => this.PlaySonar(event));
-    this.soundBoardCrystalButton = new Button(new Point(120,160), "Crystal", (event) => this.PlayCrystal(event));
+    this.soundBoardChipPowerButton = new Button(new Point(20,180), "CP", () => this.playChipPower());
+    this.soundBoardSonarButton = new Button(new Point(60,180), "Sonar", () => this.PlaySonar());
+    this.soundBoardCrystalButton = new Button(new Point(120,180), "Crystal", () => this.PlayCrystal());
 
-    this.volumeButtons = [];
+    this.nodeTypeText = new TextGraphic(new Point(200,30), "Node");
+    this.nodeTypeText.textStyle = new TextStyle({
+      fillStyle: Color.WHITE,
+      font: "18px Rockwell",
+    });
+
+    this.nodeButtons = [];
+    for(let i = 0; i < 2; i++) {
+      this.nodeButtons.push(new Button(new Point(280 + i * 25, 10), `${i+1}`, () => {
+        this.setNodeType(i);
+        for(let i = 0; i < 2; i++) {
+          this.nodeButtons[i].setRectangleColor(new HSLColor(177, 97, 58));
+          this.nodeButtons[i].setRectangleBackgroundColor(Color.WHITE);
+          this.nodeButtons[i].setTextColor(Color.BLACK);
+        }
+        this.nodeButtons[i].setRectangleBackgroundColor(new HSLColor(204, 64, 23));
+        this.nodeButtons[i].setRectangleColor(new HSLColor(204, 70, 81));
+        this.nodeButtons[i].setTextColor(Color.WHITE);
+
+      }));
+      this.nodeButtons[i].disabled = true;
+    }
+
+    this.volumeLeftText = new TextGraphic(new Point(200,70), "Volume (L)");
+    this.volumeLeftText.textStyle = new TextStyle({
+      fillStyle: Color.WHITE,
+      font: "18px Rockwell",
+    });
+
+    this.volumeButtonsLeft = [];
     for(let i = 0; i < 10; i++) {
-      this.volumeButtons.push(new Button(new Point(130 + i * 25, 60), `${i+1}`, (event) => this.setVolume((((i + 1) * 10) / 100) )));
-      this.volumeButtons.disabled = true;
+      this.volumeButtonsLeft.push(new Button(new Point(310 + i * 25, 50), `${i+1}`, () => {
+        this.setVolumeLeft((((i + 1) * 10) / 100) );
+        for(let i = 0; i < 10; i++) {
+          this.volumeButtonsLeft[i].setRectangleColor(new HSLColor(177, 97, 58));
+          this.volumeButtonsLeft[i].setRectangleBackgroundColor(Color.WHITE);
+          this.volumeButtonsLeft[i].setTextColor(Color.BLACK);
+        }
+        this.volumeButtonsLeft[i].setRectangleBackgroundColor(new HSLColor(204, 64, 23));
+        this.volumeButtonsLeft[i].setRectangleColor(new HSLColor(204, 70, 81));
+        this.volumeButtonsLeft[i].setTextColor(Color.WHITE);
+        
+      }));
+      this.volumeButtonsLeft[i].disabled = true;
+    }
+
+    this.volumeRightText = new TextGraphic(new Point(200,110), "Volume (R)");
+    this.volumeRightText.textStyle = new TextStyle({
+      fillStyle: Color.WHITE,
+      font: "18px Rockwell",
+    });
+
+    this.volumeButtonsRight = [];
+    for(let i = 0; i < 10; i++) {
+      this.volumeButtonsRight.push(new Button(new Point(310 + i * 25, 90), `${i+1}`, () => {
+        this.setVolumeRight((((i + 1) * 10) / 100) );
+        for(let i = 0; i < 10; i++) {
+          this.volumeButtonsRight[i].setRectangleColor(new HSLColor(177, 97, 58));
+          this.volumeButtonsRight[i].setRectangleBackgroundColor(Color.WHITE);
+          this.volumeButtonsRight[i].setTextColor(Color.BLACK);
+        }
+        this.volumeButtonsRight[i].setRectangleBackgroundColor(new HSLColor(204, 64, 23));
+        this.volumeButtonsRight[i].setRectangleColor(new HSLColor(204, 70, 81));
+        this.volumeButtonsRight[i].setTextColor(Color.WHITE);
+        
+      }));
+      this.volumeButtonsRight[i].disabled = true;
     }
  }
 
@@ -105,8 +175,16 @@ export default class SoundScene extends Scene {
       this.soundBoardSonarButton.update({x,y});
       this.soundBoardCrystalButton.update({x,y});
       for(let i = 0; i < 10; i++) {
-        let volumeButton = this.volumeButtons[i];
+        let volumeButton = this.volumeButtonsLeft[i];
         volumeButton.update({x,y});
+      }
+      for(let i = 0; i < 10; i++) {
+        let volumeButton = this.volumeButtonsRight[i];
+        volumeButton.update({x,y});
+      }
+      for(let i = 0; i < 2; i++) {
+        let nodeButton = this.nodeButtons[i];
+        nodeButton.update({x,y});
       }
     }
     if(this.sound2 != undefined) {
@@ -126,9 +204,20 @@ export default class SoundScene extends Scene {
     this.durationTimeText.draw();
     this.currentStateText.draw();
     this.soundBoardText.draw();
+    this.nodeTypeText.draw();
+    this.volumeLeftText.draw();
+    this.volumeRightText.draw();
     for(let i = 0; i < 10; i++) {
-      let volumeButton = this.volumeButtons[i];
+      let volumeButton = this.volumeButtonsLeft[i];
       volumeButton.draw();
+    }
+    for(let i = 0; i < 10; i++) {
+      let volumeButton = this.volumeButtonsRight[i];
+      volumeButton.draw();
+    }
+    for(let i = 0; i < 2; i++) {
+      let nodeButton = this.nodeButtons[i];
+      nodeButton.draw();
     }
   }
 
@@ -159,8 +248,15 @@ export default class SoundScene extends Scene {
     this.playPauseButton.text = "Play";
   }
 
-  setVolume(volume) {
-    console.log(volume);
-    this.sound2.setVolume(volume);
+  setVolumeLeft(volume) {
+    this.sound2.setVolumeLeft(volume);
+  }
+
+  setVolumeRight(volume) {
+    this.sound2.setVolumeRight(volume);
+  }
+
+  setNodeType(nodeIndex) {
+    this.sound2.nodeIndex = nodeIndex;
   }
 }

@@ -59,6 +59,18 @@ class Button extends ClickableComponent {
     this._disabled = value;
   }
 
+  setTextColor(color) {
+    this.textGraphic.textStyle.fillStyle = color;
+  }
+
+  setRectangleColor(color) {
+    this.rectangle.geometryStyle.strokeStyle = color;
+  }
+
+  setRectangleBackgroundColor(color) {
+    this.rectangle.geometryStyle.fillStyle = color;
+  }
+
   recalculateBorders() {
     this.height = this.textGraphic.determineFontHeight() + 8;
     this.width = this.textGraphic.measureText() + 10;

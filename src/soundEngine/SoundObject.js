@@ -19,7 +19,9 @@ class SoundObject {
     this._audioContext = ServiceLocator.instance.locate('audioContext');
     this._audioBuffer = audioBuffer;
     this._state = SOUND_PLAY_STATE.STOPPED;
-    this._volume = 1;
+    this._volumeLeft = 1;
+    this._volumeRight = 1;
+    this.NodeIndex = 0;
    }
 
   get isPlaying() {
@@ -54,25 +56,31 @@ class SoundObject {
     return 0;
   }
 
-  createNewBufferSource() {
-    this._gainNode = this._audioContext.createGain();
-    this._sound = this._audioContext.createBufferSource();
-    this._sound.buffer = this._audioBuffer;
-    this._sound.onended = () => {
-      if(!this.isPaused) {
-        this._state = SOUND_PLAY_STATE.STOPPED;
-      }
-    }
-    this._sound.connect(this._gainNode);
-    this._gainNode.connect(this._audioContext.destination);
-    this._gainNode.gain.setValueAtTime(this._volume, this._sound.context.currentTime);
+  set nodeIndex(value) {
+    this._nodeIndex = value;
   }
 
-  setVolume(volume) {
-    this._volume = volume;
-    if(this._gainNode !== undefined) {
-      this._gainNode.gain.setValueAtTime(this._volume, this._sound.context.currentTime);
+  get nodeIndex() {
+    return this._nodeIndex;
+  }
+
+  createNewBufferSource() {
+    if(this.nodeIndex === 0) {
+      return this.createSoundWithGainNode();
     }
+    if(this.nodeIndex === 1) {
+      return this.createSoundWithLeftAndRightChannel();
+    }
+
+    return this.createSoundWithGainNode(); 
+  }
+
+  setVolumeLeft(volume) {
+    this._volumeLeft = volume;
+  }
+
+  setVolumeRight(volume) {
+    this._volumeRight = volume;
   }
 
   getSound() {
@@ -86,6 +94,46 @@ class SoundObject {
       this._restartAt = currentTime - this._startTime;
       this._state = SOUND_PLAY_STATE.PAUSED;     
     }
+  }
+
+  createSoundWithGainNode() {
+    this._gainNode = this._audioContext.createGain();
+    this._sound = this._audioContext.createBufferSource();
+    this._sound.buffer = this._audioBuffer;
+    this._sound.onended = () => {
+      if(!this.isPaused) {
+        this._state = SOUND_PLAY_STATE.STOPPED;
+      }
+    }
+    this._sound.connect(this._gainNode);
+    this._gainNode.connect(this._audioContext.destination);
+    this._gainNode.gain.setValueAtTime(this._volumeLeft, this._sound.context.currentTime);
+  }
+
+  createSoundWithLeftAndRightChannel() {
+    this._sound = this._audioContext.createBufferSource();
+    this._sound.buffer = this._audioBuffer;
+    this._sound.onended = () => {
+      if(!this.isPaused) {
+        this._state = SOUND_PLAY_STATE.STOPPED;
+      }
+    }
+
+    var splitter = this._audioContext.createChannelSplitter(2);
+    this._sound.connect(splitter);
+    var merger = this._audioContext.createChannelMerger(2);
+
+    var gainNodeL = this._audioContext.createGain();
+    var gainNodeR = this._audioContext.createGain();
+    gainNodeL.gain.setValueAtTime(this._volumeLeft, this._audioContext.currentTime);
+    gainNodeR.gain.setValueAtTime(this._volumeRight, this._audioContext.currentTime);
+    splitter.connect(gainNodeL, 0);
+    splitter.connect(gainNodeR, 1);
+
+    gainNodeL.connect(merger, 0, 0);
+    gainNodeR.connect(merger, 0, 1);
+    
+    merger.connect(this._audioContext.destination);
   }
 
   play2() {
