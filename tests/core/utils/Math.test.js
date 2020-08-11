@@ -16,7 +16,7 @@ describe('isPowerOfTwo', () => {
   });
   it('should return that the number provided is not a power of two', () => {
     // Arrange
-    const numberToCheck = 4;
+    const numberToCheck = 3;
 
     // Act
     const result = isPowerOfTwo(numberToCheck);
