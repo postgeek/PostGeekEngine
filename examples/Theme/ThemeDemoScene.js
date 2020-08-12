@@ -9,6 +9,7 @@ import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextArea from 'HUDEngine/components/TextArea';
+import ToggleButton from 'HUDEngine/components/buttons/ToggleButton';
 
 export default class DesignSystemScene extends Scene {
   create() {
@@ -35,6 +36,8 @@ export default class DesignSystemScene extends Scene {
     const paragraph1 = new TextGraphic(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
     const paragraph2 = new TextGraphic(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
+    this.button = new ToggleButton(new Point(500, 40), DesignSystemScene.writeToConsole);
+
     const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
     const textArea = new TextArea(new Point(500, 200),
       'Lorem ipsum dolor sit amet, elit rutrum fusce pulvinar, lorem fermentum pellentesque mauris. Risus commodo tristique per quis, hendrerit a morbi. Nunc quis. Condimentum amet quisque ligula, consectetuer sodales placerat cras etiam egestas ultrices. Ligula lobortis non non varius, sociosqu viverra vel in aliquet phasellus tortor, lacus tincidunt molestie consectetuer vitae ullamcorper sit.',
@@ -59,6 +62,7 @@ export default class DesignSystemScene extends Scene {
     this.addComponentToSystem(paragraph1);
     this.addComponentToSystem(paragraph2);
     this.addComponentToSystem(textArea);
+    this.addComponentToSystem(this.button);
   }
 
   addComponentToSystem(drawableObject) {
@@ -81,7 +85,12 @@ export default class DesignSystemScene extends Scene {
     });
   }
 
+  static writeToConsole() {
+    console.log("Button clicked");
+  }
+
   update() {
+    this.button.update();
   }
 
   draw() {

@@ -470,11 +470,11 @@ class ColorPicker {
   }
 
   update() {
+    this.saveButton.update();
+    this.clearButton.update();
+    this.randomButton.update();
     if (this.mouse.buttonDownOnce(MouseButton.LEFT_BUTTON)) {
       const { x, y } = this.mouse;
-      this.saveButton.update({ x, y });
-      this.clearButton.update({ x, y });
-      this.randomButton.update({ x, y });
 
       this.textInputRed.update({ x, y });
       this.textInputBlue.update({ x, y });
