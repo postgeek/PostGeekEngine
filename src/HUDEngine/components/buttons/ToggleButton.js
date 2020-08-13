@@ -67,7 +67,7 @@ class ToggleButton extends ClickableComponent {
     } else {
       this.rectangle.geometryStyle = this.untoggledGeometryStyle;
     }
-    callback();
+    callback(this.isToggled);
   }
 
   draw() {

@@ -1,11 +1,11 @@
-import ClickableComponent from './ClickableComponent';
+import ClickableComponent from '../ClickableComponent';
 
-import Rectangle from '../../renderingEngine/geometry/Rectangle';
-import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
-import TextGraphic from '../../renderingEngine/text/TextGraphic';
-import TextStyle from '../../renderingEngine/text/TextStyle';
-import Color from '../../renderingEngine/colors/Color';
-import HSLColor from '../../renderingEngine/colors/HSLColor';
+import Rectangle from '../../../renderingEngine/geometry/Rectangle';
+import GeometryStyle from '../../../renderingEngine/geometry/GeometryStyle';
+import TextGraphic from '../../../renderingEngine/text/TextGraphic';
+import TextStyle from '../../../renderingEngine/text/TextStyle';
+import Color from '../../../renderingEngine/colors/Color';
+import HSLColor from '../../../renderingEngine/colors/HSLColor';
 
 class Button extends ClickableComponent {
   constructor(point, text, clickCallback) {

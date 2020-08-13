@@ -10,10 +10,14 @@ import TextStyle from 'renderingEngine/text/TextStyle';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextArea from 'HUDEngine/components/TextArea';
 import ToggleButton from 'HUDEngine/components/buttons/ToggleButton';
+import Button from 'HUDEngine/components/buttons/Button';
+import RadioButtonGroup from 'HUDEngine/components/buttons/RadioButtonGroup';
+import RadioButton from 'HUDEngine/components/buttons/RadioButton';
 
 export default class DesignSystemScene extends Scene {
   create() {
     this.components = [];
+    this.buttons = [];
 
     const fillStyle = Color.MIDNIGHTBLUE.rgbaColor;
     const strokeStyle = Color.WHITE.rgbaColor;
@@ -36,7 +40,18 @@ export default class DesignSystemScene extends Scene {
     const paragraph1 = new TextGraphic(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
     const paragraph2 = new TextGraphic(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
-    this.button = new ToggleButton(new Point(500, 40), DesignSystemScene.writeToConsole);
+    this.buttons.push(new ToggleButton(new Point(500, 40), DesignSystemScene.writeToConsoleToggle));
+    this.buttons.push(new Button(new Point(540, 38), "Button", DesignSystemScene.writeToConsole));
+
+
+    //  constructor(point, clickCallback) {
+    const radioButtonGroup = new RadioButtonGroup();
+    radioButtonGroup.addRadioButton(new RadioButton(new Point(500, 200), DesignSystemScene.writeToConsoleToggle));
+    radioButtonGroup.addRadioButton(new RadioButton(new Point(500, 230), DesignSystemScene.writeToConsoleToggle));
+    radioButtonGroup.addRadioButton(new RadioButton(new Point(500, 260), DesignSystemScene.writeToConsoleToggle));
+    radioButtonGroup.addRadioButton(new RadioButton(new Point(500, 290), DesignSystemScene.writeToConsoleToggle));
+
+    this.buttons.push(radioButtonGroup);
 
     const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
     const textArea = new TextArea(new Point(500, 200),
@@ -61,8 +76,12 @@ export default class DesignSystemScene extends Scene {
     this.addComponentToSystem(heading5);
     this.addComponentToSystem(paragraph1);
     this.addComponentToSystem(paragraph2);
-    this.addComponentToSystem(textArea);
-    this.addComponentToSystem(this.button);
+    //this.addComponentToSystem(textArea);
+    this.addComponentToSystem(radioButtonGroup);
+    for(let i = 0; i < this.buttons.length; i++) {
+      let button = this.buttons[i];
+      this.addComponentToSystem(button);
+    }
   }
 
   addComponentToSystem(drawableObject) {
@@ -89,13 +108,21 @@ export default class DesignSystemScene extends Scene {
     console.log("Button clicked");
   }
 
+  static writeToConsoleToggle(isToggled) {
+    console.log(`Button click ${isToggled}`)
+  }
+
   update() {
-    this.button.update();
+    for(let i = 0; i < this.buttons.length; i++) {
+      let button = this.buttons[i];
+      button.update();
+    }
   }
 
   draw() {
     for (let i = 0; i < this.components.length; i += 1) {
-      this.components[i].draw();
+      let component = this.components[i];
+      component.draw();
     }
   }
 }
