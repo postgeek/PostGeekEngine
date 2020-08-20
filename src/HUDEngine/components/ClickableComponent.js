@@ -7,9 +7,9 @@ class ClickableComponent extends HUDComponent {
     super();
 
     this.point = point;
-    this._clickCallback = clickCallback || function() {};
-    this._mouseOverCallback = function() {};
-    this._mouseOutCallback = function() {};
+    this._clickCallback = clickCallback || function () {};
+    this._mouseOverCallback = function () {};
+    this._mouseOutCallback = function () {};
 
     this.mouse = ServiceLocator.instance.locate('mouse');
   }
@@ -65,19 +65,17 @@ class ClickableComponent extends HUDComponent {
   }
 
   update() {
-    if(this.isMouseColliding(this.mouse)) {
-      if(!this.isMouseOver) {
+    if (this.isMouseColliding(this.mouse)) {
+      if (!this.isMouseOver) {
         this.mouseOverCallback();
         this.isMouseOver = true;
       }
       if (this.mouse.buttonDownOnce(MouseButton.LEFT_BUTTON)) {
         this.clickCallback();
       }
-    } else {
-      if(this.isMouseOver) {
-        this.mouseOutCallback();
-        this.isMouseOver = false;
-      }
+    } else if (this.isMouseOver) {
+      this.mouseOutCallback();
+      this.isMouseOver = false;
     }
   }
 } export default ClickableComponent;

@@ -10,7 +10,7 @@ import RGBAColor from '../../../renderingEngine/colors/RGBAColor';
 import HSLAColor from '../../../renderingEngine/colors/HSLAColor';
 import ColorConverter from '../../../renderingEngine/colors/ColorConverter';
 import TextInput from '../TextInput';
-import Button from '../buttons/Button'
+import Button from '../buttons/Button';
 import LinearGradient from '../../../renderingEngine/colors/gradient/LinearGradient';
 import ColorSlider from './ColorSlider';
 import MouseButton from '../../../inputEngine/MouseButton';
