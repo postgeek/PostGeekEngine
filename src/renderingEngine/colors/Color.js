@@ -1,3 +1,4 @@
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 
@@ -171,8 +172,8 @@ class Color {
   }
 
   /**
-   * Specifies the alpha value of the color. 
-   * 
+   * Specifies the alpha value of the color.
+   *
    * @param {Number} value the alpha value
    * @return {undefined}
    */
@@ -181,10 +182,10 @@ class Color {
       throw new InvalidArguementError(this);
     }
     this._alpha = value;
-    if(this.rgbaColor !== undefined) {
+    if (this.rgbaColor !== undefined) {
       this.rgbaColor.alpha = this.alpha;
     }
-    if(this.hslaColor !== undefined) {
+    if (this.hslaColor !== undefined) {
       this.hslaColor.alpha = this.alpha;
     }
   }
