@@ -2,6 +2,7 @@ import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
 import CollisionScene from './Collision/CollisionScene';
+import DefaultColorDemoScene from './DefaultColorDemo/DefaultColorDemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
@@ -9,11 +10,13 @@ import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
 import './style.scss';
 
+
 class Main {
   constructor() {
     this._demos = [
       { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
       { key: 'colorPickerDemoscene', scene: ColorPickerDemoScene, name: 'Color Demo' },
+      { key: 'defaultColorDemoScene', scene: DefaultColorDemoScene, name: 'Default Color Demo' },
       { key: 'collisionscene', scene: CollisionScene, name: 'Collision Demo' },
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
