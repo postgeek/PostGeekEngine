@@ -1,4 +1,5 @@
 import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
+import InvalidArguementError from './core/errorHandling/errors/InvalidArguementError';
 import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
@@ -43,6 +44,9 @@ class Game {
    * @param  {String} config the configuration for the Game
    */
   constructor(config) {
+    if(!this.isConfigValid(config)) {
+      throw new InvalidArguementError(this);
+    }
     this.config = config;
     this.deltaTime = 0;
     this.UPDATE_RATE = 60;
@@ -61,6 +65,10 @@ class Game {
     this._isDebugEnabled = false;
 
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
+  }
+
+  isConfigValid(config) {
+    return (config !== undefined) && ('canvas' in config) && ('initialScene' in config);
   }
 
   set isStarted(value) {
