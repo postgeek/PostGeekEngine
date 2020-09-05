@@ -33,7 +33,7 @@ function startScene(key) {
   if (!game) {
     throw new InvalidStateOperationError(this);
   }
-  
+
   game.sceneManager.startScene(key, game);
 }
 
@@ -44,7 +44,7 @@ class Game {
    * @param  {String} config the configuration for the Game
    */
   constructor(config) {
-    if(!this.isConfigValid(config)) {
+    if (!this.isConfigValid(config)) {
       throw new InvalidArguementError(this);
     }
     this.config = config;
@@ -67,7 +67,7 @@ class Game {
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
   }
 
-  isConfigValid(config) {
+  static isConfigValid(config) {
     return (config !== undefined) && ('canvas' in config) && ('initialScene' in config);
   }
 
