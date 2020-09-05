@@ -44,7 +44,7 @@ class Game {
    * @param  {String} config the configuration for the Game
    */
   constructor(config) {
-    if (!this.isConfigValid(config)) {
+    if (!Game.isConfigValid(config)) {
       throw new InvalidArguementError(this);
     }
     this.config = config;
