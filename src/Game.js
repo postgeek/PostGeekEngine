@@ -1,4 +1,3 @@
-import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
 import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
@@ -7,7 +6,7 @@ import EventBus from './core/messaging/EventBus';
 import ServiceLocator from './core/ServiceLocator';
 import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
-let game = null;
+const game = null;
 
 class Game {
   /**
@@ -25,7 +24,7 @@ class Game {
     this.Keyboard = new Keyboard();
 
     this.Canvas = this.config.canvas;
-    
+
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
 
@@ -121,7 +120,7 @@ class Game {
     return this._canvasWidth;
   }
 
-    /**
+  /**
    * Adds a scene to the sceneManager
    *
    * @param  {String} key   the key for the scene

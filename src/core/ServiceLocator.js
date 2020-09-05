@@ -38,7 +38,7 @@ class ServiceLocator {
   }
 
   /**
-   * 
+   *
    * @param {String} key the key to store the service with
    * @returns {Boolean} whether the service locator contains the key
    */
