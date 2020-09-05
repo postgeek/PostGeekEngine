@@ -1,28 +1,57 @@
 import Game from '../src/Game'
-import start from '../src/Game';
 import InvalidArguementError from '../src/core/errorHandling/errors/InvalidArguementError';
 import SceneMock from './mocks/SceneMock';
+import GameConfiguration from '../src/GameConfiguration';
+import InitialSceneConfiguration from '../src/InitialSceneConfiguration';
+import ServiceLocator from '../src/core/ServiceLocator';
 
-let config = undefined;
+let initialScene = null;
+let canvas = null;
 
 beforeEach(() => {
-    config = new Object();
-    const canvas = document.createElement('canvas');
+    canvas = document.createElement('canvas');
     canvas.id = "canvas";
     canvas.height = 800;
     canvas.width = 1200;
-    config.initialScene = { scene: SceneMock, key: "sceneMock" };
-    config.canvas = canvas;
+    initialScene = new InitialSceneConfiguration('sceneMock', 'MockScene', SceneMock);
+    ServiceLocator.instance.clear();
 });
 
-describe('Game', () => {
-    it('Should throw Invalid arguement error if an invalid config file is provided', () => {
+describe('GameConfiguration', () => {
+    it('Should throw Invalid arguement error if an invalid game configuration is provided', () => {
         // Assert
-        expect(() => { new Game() }).toThrow(InvalidArguementError);
+        expect(() => { new GameConfiguration() }).toThrow(InvalidArguementError);
+    });
+});
+describe('Game', () => {
+    let gameConfiguration = null;
+    let game = null;
+    beforeEach(() => {
+        gameConfiguration = new GameConfiguration(canvas, initialScene);
+        game = null;
+    });
+    describe('Game - Scene setup', () => {
+        it.skip('Should throw an error ', () => {
+
+        });
+        it.skip('Should properly add a scene to the game', () => {
+
+        });
+    });
+    it("Should correctly start the game", () => {
+        // Arrange 
+        game = new Game(gameConfiguration);
+        const gameStart = jest.spyOn(game, 'start');
+
+        // Act
+        game.init();
+
+        // Assert
+        expect(gameStart).toHaveBeenCalledTimes(1);
     });
     it("Should get the canvas width", () => {
         // Arrange
-        var game = new Game(config);
+        game = new Game(gameConfiguration);
         var expectedWidth = 1200;
 
         // Act
@@ -33,7 +62,7 @@ describe('Game', () => {
     });
     it("Should get the canvas height", () => {
         // Arrange
-        var game = new Game(config);
+        game = new Game(gameConfiguration);
         var expectedHeight = 800;
 
         // Act

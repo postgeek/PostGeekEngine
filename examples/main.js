@@ -8,6 +8,7 @@ import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 
 import './style.scss';
+import Game from '../src/Game';
 
 class Main {
   constructor() {
@@ -57,10 +58,11 @@ class Main {
   }
 
   start() {
-    this._game = start({
+    this._game = new Game({
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[0]
     });
+    this._game.init();
   }
 }
 

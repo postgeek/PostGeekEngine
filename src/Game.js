@@ -1,5 +1,4 @@
 import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
-import InvalidArguementError from './core/errorHandling/errors/InvalidArguementError';
 import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
@@ -10,33 +9,6 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 
 let game = null;
 
-/**
- * Adds a scene to the sceneManager
- *
- * @param  {String} key   the key for the scene
- * @param  {Scene} scene  the Scene object to add
- */
-function addScene({ key, scene }) {
-  if (!game) {
-    throw new InvalidStateOperationError(this);
-  }
-
-  game.sceneManager.addScene({ key, scene });
-}
-
-/**
- * Starts the scene corresponding to the provided key
- *
- * @param  {String} key the key associated to a scene
- */
-function startScene(key) {
-  if (!game) {
-    throw new InvalidStateOperationError(this);
-  }
-
-  game.sceneManager.startScene(key, game);
-}
-
 class Game {
   /**
    * Constructs a new Game object
@@ -44,9 +16,6 @@ class Game {
    * @param  {String} config the configuration for the Game
    */
   constructor(config) {
-    if (!Game.isConfigValid(config)) {
-      throw new InvalidArguementError(this);
-    }
     this.config = config;
     this.deltaTime = 0;
     this.UPDATE_RATE = 60;
@@ -56,6 +25,7 @@ class Game {
     this.Keyboard = new Keyboard();
 
     this.Canvas = this.config.canvas;
+    
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
 
@@ -65,10 +35,6 @@ class Game {
     this._isDebugEnabled = false;
 
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
-  }
-
-  static isConfigValid(config) {
-    return (config !== undefined) && ('canvas' in config) && ('initialScene' in config);
   }
 
   set isStarted(value) {
@@ -155,6 +121,25 @@ class Game {
     return this._canvasWidth;
   }
 
+    /**
+   * Adds a scene to the sceneManager
+   *
+   * @param  {String} key   the key for the scene
+   * @param  {Scene} scene  the Scene object to add
+   */
+  addScene({ key, scene }) {
+    this.sceneManager.addScene({ key, scene });
+  }
+
+  /**
+   * Starts the scene corresponding to the provided key
+   *
+   * @param  {String} key the key associated to a scene
+   */
+  startScene(key) {
+    this.sceneManager.startScene(key, game);
+  }
+
   /**
    * Initializes all the necessary objects
    */
@@ -164,16 +149,14 @@ class Game {
       return;
     }
 
-    const context = this.Canvas.getContext('2d');
-    if (!context) {
+    this._context = this.Canvas.getContext('2d');
+    if (!this._context) {
       // console.log('error getting the canvas 2d context');
       return;
     }
 
     // Register the rendering context into the service locator
-    ServiceLocator.instance.register('context', context);
-
-    this._context = ServiceLocator.instance.locate('context');
+    ServiceLocator.instance.register('context', this._context);
 
     // Register the eventbus into the service locator
     ServiceLocator.instance.register('eventbus', new EventBus());
@@ -191,8 +174,8 @@ class Game {
     window.addEventListener('keydown', (event) => this.Keyboard.keyDown(event));
     window.addEventListener('keyup', (event) => this.Keyboard.keyUp(event));
 
-    addScene(this.config.initialScene);
-    startScene(this.config.initialScene.key);
+    this.addScene(this.config.initialScene);
+    this.startScene(this.config.initialScene.key);
 
     this.middlewareManager.add('debug', new PostGeekDebugger(this._isDebugEnabled));
 
@@ -329,19 +312,4 @@ class Game {
 
     func(callback.bind(this));
   }
-}
-
-/**
- * Starts a new Game
- *
- * @param  {String} config the config to use when initializing the game
- * @returns {Game} the new instance of the game class.
- */
-function start(config) {
-  game = new Game(config);
-  game.init();
-  return game;
-}
-
-export { addScene, startScene };
-export default start;
+} export default Game;
