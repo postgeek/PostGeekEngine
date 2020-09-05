@@ -4,6 +4,7 @@ import SceneMock from './mocks/SceneMock';
 import GameConfiguration from '../src/GameConfiguration';
 import InitialSceneConfiguration from '../src/InitialSceneConfiguration';
 import ServiceLocator from '../src/core/ServiceLocator';
+import SceneManager from '../src/core/managers/SceneManager';
 
 let initialScene = null;
 let canvas = null;
@@ -25,33 +26,44 @@ describe('GameConfiguration', () => {
 });
 describe('Game', () => {
     let gameConfiguration = null;
-    let game = null;
     beforeEach(() => {
         gameConfiguration = new GameConfiguration(canvas, initialScene);
-        game = null;
+        ServiceLocator.instance.clear();
     });
     describe('Game - Scene setup', () => {
-        it.skip('Should throw an error ', () => {
+        it('Should add the scene to the SceneManager', () => {
+            // Arrange
+            const sceneManager = new SceneManager();
+            ServiceLocator.instance.register('sceneManager', sceneManager);
+            const key = 'scene1';
+            const scene = SceneMock;
+            const sceneManagerAdd = jest.spyOn(sceneManager, 'addScene');
+            const game = new Game(gameConfiguration);
 
-        });
-        it.skip('Should properly add a scene to the game', () => {
+            // Act
+            game.addScene({key, scene});
 
+            // Assert
+            expect(sceneManagerAdd).toHaveBeenCalledTimes(1);
+            expect(sceneManager.getScene(key)).toBe(SceneMock);
         });
     });
     it("Should correctly start the game", () => {
         // Arrange 
-        game = new Game(gameConfiguration);
+        var game = new Game(gameConfiguration);
         const gameStart = jest.spyOn(game, 'start');
+        var isStarted = true;
 
         // Act
         game.init();
 
         // Assert
         expect(gameStart).toHaveBeenCalledTimes(1);
+        expect(game.isStarted).toBe(isStarted);
     });
     it("Should get the canvas width", () => {
         // Arrange
-        game = new Game(gameConfiguration);
+        var game = new Game(gameConfiguration);
         var expectedWidth = 1200;
 
         // Act
@@ -62,7 +74,7 @@ describe('Game', () => {
     });
     it("Should get the canvas height", () => {
         // Arrange
-        game = new Game(gameConfiguration);
+        var game = new Game(gameConfiguration);
         var expectedHeight = 800;
 
         // Act

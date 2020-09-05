@@ -26,14 +26,19 @@ class Game {
     this.Canvas = this.config.canvas;
 
     this.middlewareManager = new MiddlewareManager();
-    this.sceneManager = new SceneManager();
+
+    // TODO: Move this to its own function
+    if(ServiceLocator.instance.containsKey('sceneManager')) {
+      this.sceneManager = ServiceLocator.instance.locate('sceneManager');
+    } else {
+      this.sceneManager = new SceneManager();
+      ServiceLocator.instance.register('sceneManager', this.sceneManager);
+    }
 
     this._canvasHeight = this.config.canvas.height;
     this._canvasWidth = this.config.canvas.width;
 
     this._isDebugEnabled = false;
-
-    ServiceLocator.instance.register('sceneManager', this.sceneManager);
   }
 
   set isStarted(value) {
