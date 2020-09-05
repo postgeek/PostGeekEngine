@@ -33,7 +33,7 @@ function startScene(key) {
   if (!game) {
     throw new InvalidStateOperationError(this);
   }
-
+  
   game.sceneManager.startScene(key, game);
 }
 
@@ -59,8 +59,8 @@ class Game {
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
 
-    this._canvasHeight = document.querySelector('#canvas').height;
-    this._canvasWidth = document.querySelector('#canvas').width;
+    this._canvasHeight = this.config.canvas.height;
+    this._canvasWidth = this.config.canvas.width;
 
     this._isDebugEnabled = false;
 
