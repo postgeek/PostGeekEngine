@@ -13,7 +13,7 @@ class Gradient {
   * @throws {BaseClassConstructedError}
   * throws an exception if the Gradientclass is contrstructed directly
   */
-  constructor(context) {
+  constructor() {
     if (this.constructor === Gradient) {
       throw new BaseClassConstructedError();
     }
@@ -48,7 +48,7 @@ class Gradient {
   * @throws {MethodNotImplementedError} throws an error if the buildGradient is called from here
   */
   buildGradient() {
-    throw new MethodNotImplementedError();
+    throw new MethodNotImplementedError(this);
   }
 }
 export default Gradient;

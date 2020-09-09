@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  quality_tests:
+    name: "Quality Tests"
+    runs-on: ubuntu-latest
+    container: node:14-slim
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install Task Dependencies 
+      run: npm install
+
+    - name: Run Tests
+      run: npm run test
+    
+    - name: Run Linting
+      run: npm run lint:ci

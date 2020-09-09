@@ -1,6 +1,5 @@
 import Color from './Color';
 
-
 /**
  * @type {Color[]}
  */

@@ -68,6 +68,7 @@ class Scene {
   * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
   */
   draw() {
+    throw new MethodNotImplementedError(this);
   }
 
   /**

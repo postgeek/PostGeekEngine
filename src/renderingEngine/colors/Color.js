@@ -1,4 +1,3 @@
-import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 
@@ -190,6 +189,7 @@ class Color {
     if (this.hslColor !== undefined) {
       return this.hslColor.toString();
     }
+    return new Color.WHITE();
   }
 
   // https://htmlcolorcodes.com/color-names/

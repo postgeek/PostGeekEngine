@@ -1,3 +1,5 @@
+import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
+
 class PhysicsComponent {
   constructor(gameObject, hitbox) {
     this._gameObject = gameObject;
@@ -64,6 +66,7 @@ class PhysicsComponent {
    * Override this function to update physics.
    */
   internalUpdate() {
+    throw new MethodNotImplementedError(this);
   }
 
   update() {

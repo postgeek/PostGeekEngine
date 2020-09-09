@@ -24,7 +24,6 @@ class Circle extends Shape {
     return this._point;
   }
 
-
   /**
    * Sets the starting {@link Point} of the circle
    *
@@ -60,7 +59,6 @@ class Circle extends Shape {
     return this.point.y;
   }
 
-
   /**
    * Sets the Y coordinate of the circle
    *
@@ -76,7 +74,6 @@ class Circle extends Shape {
   get radius() {
     return this._radius;
   }
-
 
   /**
    * Sets the circle's radius

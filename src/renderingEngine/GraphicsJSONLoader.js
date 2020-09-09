@@ -1,4 +1,4 @@
-import Line from './geometry/Line'
+import Line from './geometry/Line';
 import Circle from './geometry/Circle';
 import Rectangle from './geometry/Rectangle';
 import Ellipse from './geometry/Ellipse';
@@ -9,7 +9,6 @@ import GeometryStyle from './geometry/GeometryStyle';
 import TextGraphic from './text/TextGraphic';
 import TextStyle from './text/TextStyle';
 
-
 import Color from './colors/Color';
 import HSLAColor from './colors/HSLAColor';
 import HSLColor from './colors/HSLColor';
@@ -18,7 +17,6 @@ import RGBColor from './colors/RGBColor';
 
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
 import Point from '../core/Point';
-import ServiceLocator from '../core/ServiceLocator';
 
 /**
  * The graphic objects JSON loader
@@ -30,8 +28,8 @@ class GraphicsJSONLoader {
    * @param  {string} config The JSON configuration for the line
    * @return {Line}        The newly created line
    */
-  static createLine({startPoint, endPoint, geometryStyle}) {
-    if(startPoint === undefined || endPoint === undefined) {
+  static createLine({ startPoint, endPoint, geometryStyle }) {
+    if (startPoint === undefined || endPoint === undefined) {
       throw new InvalidArguementError();
     }
     const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
@@ -127,7 +125,6 @@ class GraphicsJSONLoader {
     return quadraticCurve;
   }
 
-
   /**
    * @static Creates a new ellipse with the supplied properties
    *
@@ -195,7 +192,6 @@ class GraphicsJSONLoader {
     return textObject;
   }
 
-
   /**
    * @static parse the point
    *
@@ -208,7 +204,6 @@ class GraphicsJSONLoader {
     }
     return new Point(x, y);
   }
-
 
   /**
    * @static parse the text styling

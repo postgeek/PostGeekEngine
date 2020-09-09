@@ -1,13 +1,6 @@
-import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
-
 import HUDComponent from '../HUDComponent';
-import ServiceLocator from '../../core/ServiceLocator';
 
 class ClickableComponent extends HUDComponent {
-  constructor(point) {
-    super(point);
-  }
-
   isMouseColliding(event) {
     const mouseX = event.x;
     const mouseY = event.y;

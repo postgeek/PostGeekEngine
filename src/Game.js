@@ -10,16 +10,6 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 let game = null;
 
 /**
- * Starts a new Game
- *
- * @param  {String} config the config to use when initializing the game
- */
-function start(config) {
-  game = new Game(config);
-  game.init();
-}
-
-/**
  * Adds a scene to the sceneManager
  *
  * @param  {String} key   the key for the scene
@@ -32,7 +22,6 @@ function addScene({ key, scene }) {
 
   game.sceneManager.addScene({ key, scene });
 }
-
 
 /**
  * Starts the scene corresponding to the provided key
@@ -65,6 +54,11 @@ class Game {
     this.Canvas = this.config.canvas;
     this.middlewareManager = new MiddlewareManager();
     this.sceneManager = new SceneManager();
+
+    this._canvasHeight = document.querySelector('#canvas').height;
+    this._canvasWidth = document.querySelector('#canvas').width;
+
+    this._isDebugEnabled = false;
 
     ServiceLocator.instance.register('sceneManager', this.sceneManager);
   }
@@ -141,6 +135,18 @@ class Game {
     return this._rafHandle;
   }
 
+  get isDebugEnabled() {
+    return this._isDebugEnabled;
+  }
+
+  get canvasHeight() {
+    return this._canvasHeight;
+  }
+
+  get canvasWidth() {
+    return this._canvasWidth;
+  }
+
   /**
    * Initializes all the necessary objects
    */
@@ -180,12 +186,10 @@ class Game {
     addScene(this.config.initialScene);
     startScene(this.config.initialScene.key);
 
-    if (this.config.debug) {
-      this.middlewareManager.add('debug', new PostGeekDebugger());
-    }
+    this.middlewareManager.add('debug', new PostGeekDebugger(this._isDebugEnabled));
 
-    if ('middleware' in this.config) {
-      for (const key in this.config.middleware) {
+    for (const key in this.config.middleware) {
+      if (!this.middlewareManager.hasKey(key)) {
         this.middlewareManager.add(key, this.config.middleware[key]);
       }
     }
@@ -211,8 +215,7 @@ class Game {
         this.lastFpsUpdate = timestamp;
         this.framesSinceLastFpsUpdate = 0;
 
-
-        this.rafHandle = requestAnimationFrame((timestamp) => this.gameLoop(timestamp));
+        this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
       });
     }
   }
@@ -229,11 +232,18 @@ class Game {
     console.log('panic');
   }
 
+  toggleDebug() {
+    this._isDebugEnabled = !this._isDebugEnabled;
+
+    const debugMiddleWare = this.middlewareManager.get('debug');
+    debugMiddleWare.enabled = this._isDebugEnabled;
+  }
+
   /**
    * gameLoop - The game loop takes care of polling for input and updating the game
    */
   gameLoop(timeStamp) {
-    this.rafHandle = requestAnimationFrame((timeStamp) => this.gameLoop(timeStamp));
+    this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
 
     this.deltaTime += timeStamp - this.lastFrameTimeMs;
     this.lastFrameTimeMs = timeStamp;
@@ -271,7 +281,6 @@ class Game {
     this.Keyboard.poll();
   }
 
-
   /**
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
@@ -280,7 +289,6 @@ class Game {
     this.middlewareManager.update(timeStep);
   }
 
-
   /**
    * draw - Draws the scene to the current canvas
    */
@@ -288,12 +296,11 @@ class Game {
     // Clear the canvas to prepare for next draw
     this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
     this._context.fillStyle = '#000000';
-    //this._context.fillRect(0, 0, 1550, 750);
+    this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
     this.sceneManager.runningScene.draw(deltaTime);
     this.middlewareManager.draw(deltaTime);
   }
-
 
   /**
    * requestAnimFrame - Method that allows us to draw everytime the browser allows us to.
@@ -309,11 +316,23 @@ class Game {
         || window.msRequestAnimationFrame;
 
     if (!func) {
-      func = (callback) => setTimeout(callback, 1000 / 24);
+      func = (cb) => setTimeout(cb, 1000 / 24);
     }
 
     func(callback.bind(this));
   }
+}
+
+/**
+ * Starts a new Game
+ *
+ * @param  {String} config the config to use when initializing the game
+ * @returns {Game} the new instance of the game class.
+ */
+function start(config) {
+  game = new Game(config);
+  game.init();
+  return game;
 }
 
 export { addScene, startScene };

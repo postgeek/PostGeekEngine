@@ -1,6 +1,5 @@
 import GeometryStyle from './GeometryStyle';
 import GraphicObject from '../GraphicObject';
-import Point from '../../core/Point';
 import MethodNotImplementedError from '../../core/errorHandling/errors/MethodNotImplementedError';
 
 /**
@@ -34,15 +33,6 @@ class Shape extends GraphicObject {
   set geometryStyle(value) {
     /** @private */
     this._geometryStyle = value;
-  }
-
-  /**
-   * Gets the center point of the shape
-   *
-   * @return {Point} the center point of the shape
-   */
-  get centerPoint() {
-    throw new Point(0,0);
   }
 
   /**

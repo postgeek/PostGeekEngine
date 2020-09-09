@@ -65,6 +65,5 @@ class ColorSlider extends ClickableComponent {
   draw() {
     this.rectangle.draw();
     this.rectangleSelector.draw();
-    // this.circleSelector.draw();
   }
 } export default ColorSlider;

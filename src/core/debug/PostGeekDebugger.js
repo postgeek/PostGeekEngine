@@ -1,4 +1,4 @@
-import IMiddleware from '../middleware/IMiddleware';
+import MiddlewareBase from '../middleware/MiddlewareBase';
 import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
@@ -6,7 +6,7 @@ import TextStyle from '../../renderingEngine/text/TextStyle';
 import Point from '../Point';
 import ServiceLocator from '../ServiceLocator';
 
-class PostGeekDebugger extends IMiddleware {
+class PostGeekDebugger extends MiddlewareBase {
   init(middlewareManager) {
     this.middlewareManager = middlewareManager;
     this.debugGeometryStyle = new GeometryStyle({
@@ -23,13 +23,14 @@ class PostGeekDebugger extends IMiddleware {
     this.Text.textStyle = this.debugTextStyle;
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
-    
+
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   update() {
     // console.log('Updating the PostGeekDebugger');
   }

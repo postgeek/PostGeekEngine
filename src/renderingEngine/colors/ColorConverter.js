@@ -9,7 +9,10 @@ If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
 class ColorConverter {
   static RGBToHSL(rgbColor) {
     let {
-      red, green, blue, alpha,
+      red, green, blue,
+    } = rgbColor;
+    const {
+      alpha,
     } = rgbColor;
     const maxValue = 255;
 
@@ -62,7 +65,10 @@ class ColorConverter {
    */
   static HSLToRGB(hslColor) {
     let {
-      hue, saturation, lightness, alpha,
+      saturation, lightness,
+    } = hslColor;
+    const {
+      hue, alpha,
     } = hslColor;
 
     saturation /= 100;
