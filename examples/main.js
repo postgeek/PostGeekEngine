@@ -21,7 +21,7 @@ class Main {
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
-      { key: 'physicsEngineDemoScene', scene: PhysicsEngineDemoScene, name: 'Theme Demo' },
+      { key: 'physicsEngineDemoScene', scene: PhysicsEngineDemoScene, name: 'Physics Demo' },
       { key: 'qaudTreeDemoScene', scene: QaudTreeDemoScene, name: 'Quad Demo' }
     ]
   }

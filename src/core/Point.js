@@ -34,10 +34,10 @@ class Point {
   /**
    * Adds any number of provided vectors to the current vector.
    */
-  add() {
-    let newPoint = new Point(this.x,this.y);
-    for (let i = 0; i < arguments.length; i++) {
-      let pointToAdd = arguments[i];
+  add(...points) {
+    const newPoint = new Point(this.x, this.y);
+    for (let i = 0; i < points.length; i++) {
+      const pointToAdd = points[i];
       newPoint.x += pointToAdd.x;
       newPoint.y += pointToAdd.y;
     }
@@ -48,17 +48,17 @@ class Point {
    * Calculates the magnitude of the vector.
    */
   magnitude() {
-    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
   }
 
   /**
    * Calculate the unit vector of the current vector.
    */
   unitVector() {
-    let magnitude = this.magnitude();
-    let newPoint = this.clone();
-    newPoint.x = newPoint.x / magnitude;
-    newPoint.y = newPoint.y / magnitude;
+    const magnitude = this.magnitude();
+    const newPoint = this.clone();
+    newPoint.x /= magnitude;
+    newPoint.y /= magnitude;
     return newPoint;
   }
 
@@ -84,19 +84,20 @@ class Point {
    * @param {Point} vector the vector to rotate from
    */
   rotate(degrees, vector) {
-    if(vector === undefined) {
-      vector = new Point(0,0);
+    let vectorCopy = vector;
+    if (vectorCopy === undefined) {
+      vectorCopy = new Point(0, 0);
     }
-    var x = this.x - vector.x;
-    var y = this.y - vector.y;
+    const x = this.x - vectorCopy.x;
+    const y = this.y - vectorCopy.y;
 
-    let radians = degrees * (Math.PI / 180);
-    let cos = Math.cos(radians);
-    let sin = Math.sin(radians);
+    const radians = degrees * (Math.PI / 180);
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
 
-    let xPrime = Math.round(x * cos - y * sin);
-    let yPrime = Math.round(x * sin + y * cos);
-    return new Point(xPrime,yPrime);
+    const xPrime = Math.round(x * cos - y * sin);
+    const yPrime = Math.round(x * sin + y * cos);
+    return new Point(xPrime, yPrime);
   }
 
   /**
@@ -116,7 +117,7 @@ class Point {
 
   /**
    * Returns the dot product of two vectors.
-   * @param {Point} firstPoint the first vector 
+   * @param {Point} firstPoint the first vector
    * @param {Point} secondPoint the second vector
    */
   static dot(firstPoint, secondPoint) {

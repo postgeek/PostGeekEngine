@@ -9,6 +9,7 @@ import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import Color from 'renderingEngine/colors/Color'
 import HSLAColor from 'renderingEngine/colors/HSLAColor'
 import Line from '../../src/renderingEngine/geometry/Line';
+import MouseButton from '../../src/inputEngine/MouseButton';
 
 export default class QuadTreeDemoScene extends Scene {  
   create() {
@@ -206,7 +207,7 @@ export default class QuadTreeDemoScene extends Scene {
   }
 
   handleInput() {
-    if(this.mouse.buttonDownOnce()) {
+    if(this.mouse.buttonDownOnce(MouseButton.LEFT_BUTTON)) {
       let mouseX = this.mouse.x;
       let mouseY = this.mouse.y;
       this.createRectangle(mouseX, mouseY);

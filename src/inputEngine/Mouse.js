@@ -1,4 +1,5 @@
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
+import Point from '../core/Point';
 import MouseButton, { MOUSE_BUTTON_STATE } from './MouseButton';
 
 class Mouse {
@@ -89,7 +90,7 @@ class Mouse {
   }
 
   get point() {
-    return new Point(this._dx, this._dy); 
+    return new Point(this._dx, this._dy);
   }
 
   /**

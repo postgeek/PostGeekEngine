@@ -15,7 +15,7 @@ export default class BoxSpring {
     constructor() {
         this.balls = [];
         this.lineSegments = [];
-        var MAX_BALLS = 50;
+        var MAX_BALLS = 20;
         var MAX_LINES = 4;
         this.height = 600;
         this.width = 1000;
