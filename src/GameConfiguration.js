@@ -7,6 +7,15 @@ class GameConfiguration {
     }
     this.canvas = canvas;
     this.initialScene = initialScene;
+    this.middleware = {};
+  }
+
+  set middleware(value) {
+    this._middleware = value;
+  }
+
+  get middleware() {
+    return this._middleware;
   }
 
   set initialScene(value) {

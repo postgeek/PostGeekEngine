@@ -25,6 +25,10 @@ class SceneMock extends Scene {
 
     }
 
+    update() {
+      
+    }
+
     draw() {
 
     }

@@ -1,3 +1,4 @@
+import Color from './renderingEngine/colors/Color';
 import Mouse from './inputEngine/Mouse';
 import Keyboard from './inputEngine/Keyboard';
 import SceneManager from './core/managers/SceneManager';
@@ -5,6 +6,7 @@ import MiddlewareManager from './core/managers/MiddlewareManager';
 import EventBus from './core/messaging/EventBus';
 import ServiceLocator from './core/ServiceLocator';
 import PostGeekDebugger from './core/debug/PostGeekDebugger';
+import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
 
 const game = null;
 
@@ -23,12 +25,17 @@ class Game {
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
 
-    this.Canvas = this.config.canvas;
+    this.canvas = this.config.canvas;
 
-    this.middlewareManager = new MiddlewareManager();
+    if (ServiceLocator.instance.containsKey('middlewareManager')) {
+      this.middlewareManager = ServiceLocator.instance.locate('middlewareManager');
+    } else {
+      this.middlewareManager = new MiddlewareManager();
+      ServiceLocator.instance.register('middlewareManager', this.middlewareManager);
+    }
 
     // TODO: Move this to its own function
-    if(ServiceLocator.instance.containsKey('sceneManager')) {
+    if (ServiceLocator.instance.containsKey('sceneManager')) {
       this.sceneManager = ServiceLocator.instance.locate('sceneManager');
     } else {
       this.sceneManager = new SceneManager();
@@ -39,6 +46,14 @@ class Game {
     this._canvasWidth = this.config.canvas.width;
 
     this._isDebugEnabled = false;
+  }
+
+  set canvas(value) {
+    this._canvas = value;
+  }
+
+  get canvas() {
+    return this._canvas;
   }
 
   set isStarted(value) {
@@ -97,14 +112,6 @@ class Game {
     return this._lastFpsUpdate;
   }
 
-  set framesSinceLastFpsUpdate(value) {
-    this._framesSinceLastFpsUpdate = value;
-  }
-
-  get framesSinceLastFpsUpdate() {
-    return this._framesSinceLastFpsUpdate;
-  }
-
   set rafHandle(value) {
     this._rafHandle = value;
   }
@@ -148,16 +155,7 @@ class Game {
    * Initializes all the necessary objects
    */
   init() {
-    if (!this.Canvas || !this.Canvas.getContext) {
-      // console.log('error getting the canvas or the canvas context');
-      return;
-    }
-
-    this._context = this.Canvas.getContext('2d');
-    if (!this._context) {
-      // console.log('error getting the canvas 2d context');
-      return;
-    }
+    this._context = this.canvas.getContext('2d');
 
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', this._context);
@@ -169,9 +167,9 @@ class Game {
     ServiceLocator.instance.register('keyboard', this.Keyboard);
     ServiceLocator.instance.register('mouse', this.Mouse);
 
-    this.Canvas.addEventListener('mousemove', (event) => this.Mouse.mouseMove(event), false);
-    this.Canvas.addEventListener('mouseup', (event) => this.Mouse.mouseUp(event), false);
-    this.Canvas.addEventListener('mousedown', (event) => this.Mouse.mouseDown(event), false);
+    this.canvas.addEventListener('mousemove', (event) => this.Mouse.mouseMove(event), false);
+    this.canvas.addEventListener('mouseup', (event) => this.Mouse.mouseUp(event), false);
+    this.canvas.addEventListener('mousedown', (event) => this.Mouse.mouseDown(event), false);
 
     // Attach the keyboard events to the window itself
     // (this way we don't need focus on the canvas, which is preferable)
@@ -195,27 +193,14 @@ class Game {
   start() {
     if (!this.isStarted) {
       this.isStarted = true;
-
-      this.rafHandle = requestAnimationFrame((timestamp) => {
-        // Render the initial state before any updates occur.
-        this.draw(1);
-
-        // The application isn't considered "running" until the
-        // application starts drawing.
-        this.isRunning = true;
-
-        // Reset variables that are used for tracking time so that we
-        // don't simulate time passed while the application was paused.
-        this.lastFrameTimeMs = timestamp;
-        this.lastFpsUpdate = timestamp;
-        this.framesSinceLastFpsUpdate = 0;
-
-        this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
-      });
+      this.rafHandle = requestAnimationFrame((timestamp) => this.initialStepThrough(timestamp));
     }
   }
 
   stop() {
+    if (!this.isStarted) {
+      throw new InvalidStateOperationError(this);
+    }
     this.isRunning = false;
     this.isStarted = false;
     cancelAnimationFrame(this.rafHandle);
@@ -224,7 +209,6 @@ class Game {
 
   panic() {
     this.deltaTime = 0;
-    console.log('panic');
   }
 
   toggleDebug() {
@@ -232,6 +216,22 @@ class Game {
 
     const debugMiddleWare = this.middlewareManager.get('debug');
     debugMiddleWare.enabled = this._isDebugEnabled;
+  }
+
+  initialStepThrough(timestamp) {
+    // Render the initial state before any updates occur.
+    this.draw(1);
+
+    // The application isn't considered "running" until the
+    // application starts drawing.
+    this.isRunning = true;
+
+    // Reset variables that are used for tracking time so that we
+    // don't simulate time passed while the application was paused.
+    this.lastFrameTimeMs = timestamp;
+    this.lastFpsUpdate = timestamp;
+
+    this.rafHandle = requestAnimationFrame((ts) => this.gameLoop(ts));
   }
 
   /**
@@ -243,11 +243,12 @@ class Game {
     this.deltaTime += timeStamp - this.lastFrameTimeMs;
     this.lastFrameTimeMs = timeStamp;
 
-    if (timeStamp > this.lastFPSUpdate + 1000) {
+    if (timeStamp > this.lastFpsUpdate + 1000) {
       this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond
       + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
 
-      this.lastFPSUpdate = timeStamp;
+      this.lastFpsUpdate = timeStamp;
+
       this.framesThisSecond = 0;
     }
     this.framesThisSecond += 1;
@@ -290,7 +291,7 @@ class Game {
   draw(deltaTime) {
     // Clear the canvas to prepare for next draw
     this._context.clearRect(0, 0, this._context.canvas.width, this._context.canvas.height);
-    this._context.fillStyle = '#000000';
+    this._context.fillStyle = Color.BLACK;
     this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
     this.sceneManager.runningScene.draw(deltaTime);
