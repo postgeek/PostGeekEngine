@@ -6,6 +6,7 @@ import MiddlewareManager from './core/managers/MiddlewareManager';
 import EventBus from './core/messaging/EventBus';
 import ServiceLocator from './core/ServiceLocator';
 import PostGeekDebugger from './core/debug/PostGeekDebugger';
+import PostGeekLogger from './core/debug/PostGeekLogger';
 
 let game = null;
 
@@ -165,6 +166,9 @@ class Game {
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', context);
 
+    // Register the PostGeekLogger service
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+
     this._context = ServiceLocator.instance.locate('context');
 
     // Register the eventbus into the service locator
@@ -229,7 +233,8 @@ class Game {
 
   panic() {
     this.deltaTime = 0;
-    console.log('panic');
+    const logger = ServiceLocator.instance.locate('logger');
+    logger.log('panic');
   }
 
   toggleDebug() {

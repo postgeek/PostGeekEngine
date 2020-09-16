@@ -1,7 +1,9 @@
 import UnhandledHtmlEventError from '../../src/core/errorHandling/errors/UnhandledHtmlEventError';
 import ItemAlreadyExistsError from '../../src/core/errorHandling/errors/ItemAlreadyExistsError';
+import ServiceLocator from '../../src/core/ServiceLocator';
 import Keyboard from '../../src/inputEngine/Keyboard';
 import KeyboardKey from '../../src/inputEngine/KeyboardKey';
+import PostGeekLogger from '../../src/core/debug/PostGeekLogger';
 
 describe('registerKey', () => {
   it('should register the key', () => {
@@ -17,14 +19,16 @@ describe('registerKey', () => {
   it('should warn the user if the key is already registered', () => {
     // Arrange
     const keyboard = new Keyboard();
-    const consoleWarnSpy = jest.spyOn(console, 'warn');
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+    const logger = ServiceLocator.instance.locate('logger'); 
+    const loggerWarnSpy = jest.spyOn(logger, 'warn');
 
     // Act
     keyboard.registerKey(KeyboardKey.A);
     keyboard.registerKey(KeyboardKey.A);
 
     // Assert
-    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(loggerWarnSpy).toHaveBeenCalledTimes(1);
   });
 });
 
