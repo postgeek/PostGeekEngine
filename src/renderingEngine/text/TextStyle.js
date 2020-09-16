@@ -1,6 +1,30 @@
 import DrawingStyle from '../DrawingStyle';
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 
-export default class TextStyle extends DrawingStyle {
+const DIRECTION = Object.freeze({
+  LTR: { value: 'ltr' },
+  RTL: { value: 'rtl' },
+  INHERIT: { value: 'inherit' },
+});
+
+const TEXT_BASELINE = Object.freeze({
+  TOP: { value: 'top' },
+  BOTTOM: { value: 'bottom' },
+  MIDDLE: { value: 'middle' },
+  HANGING: { value: 'hanging' },
+  ALPHABTIC: { value: 'alphabetic' },
+  IDEOGRAPHIC: { value: 'ideographic' },
+});
+
+const TEXT_ALIGN = Object.freeze({
+  LEFT: { value: 'left' },
+  RIGHT: { value: 'right' },
+  CENTER: { value: 'center' },
+  START: { value: 'start' },
+  END: { value: 'end' },
+});
+
+class TextStyle extends DrawingStyle {
   constructor({
     fillStyle,
     strokeStyle,
@@ -41,24 +65,81 @@ export default class TextStyle extends DrawingStyle {
     return this.textAlign;
   }
 
+  // TODO: Brealdown the methods in the setter to make it more readable
   set TextAlign(value) {
-    this.textAlign = value;
+    if (value !== undefined) {
+      if (TextStyle.isTextAlignValid(value)) {
+        this.textAlign = value;
+      } else {
+        throw new InvalidArguementError(this);
+      }
+    } else {
+      this.textAlign = value;
+    }
+  }
+
+  static isTextAlignValid(textAlignToCheck) {
+    for (const keyValuePair of Object.entries(TEXT_ALIGN)) {
+      const values = keyValuePair[1];
+      if (values.value === textAlignToCheck) {
+        return true;
+      }
+    }
+    return false;
   }
 
   get TextBaseline() {
     return this.textBaseline;
   }
 
+  // TODO: Brealdown the methods in the setter to make it more readable
   set TextBaseline(value) {
-    this.textBaseline = value;
+    if (value !== undefined) {
+      if (TextStyle.isTextBaselineValid(value)) {
+        this.textBaseline = value;
+      } else {
+        throw new InvalidArguementError(this);
+      }
+    } else {
+      this.textBaseline = value;
+    }
+  }
+
+  static isTextBaselineValid(textBaselineToCheck) {
+    for (const keyValuePair of Object.entries(TEXT_BASELINE)) {
+      const values = keyValuePair[1];
+      if (values.value === textBaselineToCheck) {
+        return true;
+      }
+    }
+    return false;
   }
 
   get Direction() {
     return this.direction;
   }
 
+  // TODO: Breakdown the methods in the setter to make it more readable
   set Direction(value) {
-    this.direction = value;
+    if (value !== undefined) {
+      if (TextStyle.isDirectionValid(value)) {
+        this.direction = value;
+      } else {
+        throw new InvalidArguementError(this);
+      }
+    } else {
+      this.direction = value;
+    }
+  }
+
+  static isDirectionValid(directionToCheck) {
+    for (const keyValuePair of Object.entries(DIRECTION)) {
+      const values = keyValuePair[1];
+      if (values.value === directionToCheck) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -99,4 +180,5 @@ export default class TextStyle extends DrawingStyle {
       direction: this.Direction,
     });
   }
-}
+} export default TextStyle;
+export { DIRECTION, TEXT_BASELINE, TEXT_ALIGN };

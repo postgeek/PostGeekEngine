@@ -119,4 +119,17 @@ class ContextMock {
   translate(x, y) {
 
   }
+
+  set textAlign(value) {
+    
+  }
+
+  set textBaseLine(value) {
+
+  }
+
+  set direction(value) {
+  
+  }
+
 } export default ContextMock;

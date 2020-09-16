@@ -54,21 +54,39 @@ describe('Constructor', () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
+    const textWidth = {width: 20 };
     const point = new Point(22, 33);
     const testGraphic = new TextGraphic(point, text);
     const contextSaveSpy = jest.spyOn(context, 'save');
-    const contextMeasureTextSpy = jest.spyOn(context, 'measureText');
+    const contextMeasureTextSpy = jest.spyOn(context, 'measureText')
+    contextMeasureTextSpy.mockImplementation(() =>  textWidth );
     const textStyleApplySpy = jest.spyOn(testGraphic.textStyle, 'apply');
     const contextRestoreSpy = jest.spyOn(context, 'restore');
 
     // Act
-    testGraphic.measureText();
+    var result = testGraphic.measureText();
 
     // Assert
     expect(contextSaveSpy).toHaveBeenCalledTimes(1);
     expect(contextMeasureTextSpy).toHaveBeenCalledTimes(1);
     expect(textStyleApplySpy).toHaveBeenCalledTimes(1);
     expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
+    expect(result).toBe(textWidth.width);
+  });
+  it('should return undefined if text measure is undefined', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const text = 'jest test text';
+    const point = new Point(22, 33);
+    const expectedWidth = undefined;
+    const testGraphic = new TextGraphic(point, text);
+    const contextMeasureTextSpy = jest.spyOn(context, 'measureText');
+
+    // Act
+    var result = testGraphic.measureText();
+
+    // Assert
+    expect(result).toBe(expectedWidth);
   });
   it('should measure the text height with the given style', () => {
     // Arrange
