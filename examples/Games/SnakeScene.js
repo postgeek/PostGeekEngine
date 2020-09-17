@@ -186,12 +186,10 @@ export default class ShapeDemoScene extends Scene {
         let cookieX = Math.floor(Math.random() * (maxX - minX) + minX);
         let cookieY = Math.floor(Math.random() * (maxY - minY) + minY);
         potentialCookie = new Rectangle(new Point(cookieX, cookieY), this.unitPixel, this.unitPixel);
-        for(let i = 0; i < this.snakeBody.length; i++) {
+        hasCollision = false;
+        for(let i = 0; i < this.snakeBody.length && !hasCollision; i++) {
             let snakePart = this.snakeBody[i];
             hasCollision = this.areSquaresTouching(snakePart, potentialCookie);
-            if(hasCollision) {
-                break;
-            }
         }
     } while(hasCollision);
     this.cookie = potentialCookie;
