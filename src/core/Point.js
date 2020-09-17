@@ -31,6 +31,16 @@ class Point {
     this._y = value;
   }
 
+  add(...points) {
+    const newPoint = new Point(this.x, this.y);
+    for (let i = 0; i < points.length; i++) {
+      const pointToAdd = points[i];
+      newPoint.x += pointToAdd.x;
+      newPoint.y += pointToAdd.y;
+    }
+    return newPoint;
+  }
+
   clone() {
     return new Point(this.x, this.y);
   }

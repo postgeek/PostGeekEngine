@@ -7,6 +7,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
+import SnakeScene from './Games/SnakeScene';
 
 import './style.scss';
 
@@ -21,7 +22,8 @@ class Main {
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
-      { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' }
+      { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
+      { key: 'SnakeScene', scene: SnakeScene, name: 'Snake' }
     ]
   }
 
@@ -60,9 +62,10 @@ class Main {
   }
 
   start() {
+    const indexToPlay = this._demos.length - 1;
     this._game = start({
       canvas: document.getElementById('canvas'),
-      initialScene: this._demos[0]
+      initialScene: this._demos[indexToPlay]
     });
   }
 }
