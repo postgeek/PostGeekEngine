@@ -30,7 +30,12 @@ export default class ShapeDemoScene extends Scene {
     this.snakeBody.push(snakeHead);
     this.snakeBody.push(snakeBody1);
     this.movementVector = new Point(this.scale, 0);
+    this.totalElapsedTime = 0;
+    this.snakeUpdatesPerSecond = 15;
     this.createNewSquare();
+
+    this.greenSquareStyle = this.snakeBody[0].geometryStyle = new GeometryStyle({ fillStyle: Color.GREEN });
+    this.whiteSquareStyle = this.snakeBody[0].geometryStyle = new GeometryStyle({ fillStyle: Color.WHITE, strokeStyle: Color.BLACK });
 
     this.scoreText = new TextGraphic(new Point(600,40), this.snakeBody.length - 1);
     this.scoreText.textStyle = new TextStyle({
@@ -67,6 +72,7 @@ export default class ShapeDemoScene extends Scene {
     this.snakeBody = [];
     this.snakeBody.push(snakeHead);
     this.snakeBody.push(snakeBody1);
+    this.direction = 'right';
     this.movementVector = new Point(this.scale, 0);
     this.scoreText.text = this.snakeBody.length - 1;
     this.createNewSquare();
@@ -74,9 +80,9 @@ export default class ShapeDemoScene extends Scene {
 
   update(timestep) {
     if(!this.paused) {
-        if(this.currentTicks >= this.ticksPerRound) {
+        if(this.totalElapsedTime >= (1000 / this.snakeUpdatesPerSecond)) {
+            this.totalElapsedTime -= (1000 / this.snakeUpdatesPerSecond);
             this.updateSnake();
-            this.currentTicks -= this.ticksPerRound;
         }
         if (this.direction !== 'down' && (this.keyboard.keyDownOnce(KeyboardKey.UP) || this.keyboard.keyDownOnce(KeyboardKey.W))) {
             this.movementVector = new Point(0, -this.scale);
@@ -102,19 +108,23 @@ export default class ShapeDemoScene extends Scene {
                 this.initGame();
             }
         }
-        this.currentTicks++;
+        this.totalElapsedTime += timestep;
     }
 
     if (this.keyboard.keyDownOnce(KeyboardKey.P)) {
         this.paused = !this.paused;
     }
-    if (this.keyboard.keyDownOnce(KeyboardKey.R)) {
+    if (this.keyboard.keyDownOnce(KeyboardKey.R) || this.gameOver) {
+        this.gameOver = false;
         this.initGame();
     }       
   }
 
   draw(timestep) {
-    for(let i = 0; i < this.snakeBody.length; i++) {
+    this.snakeBody[0].geometryStyle = this.greenSquareStyle;
+    this.snakeBody[0].draw();
+    for(let i = 1; i < this.snakeBody.length; i++) {
+        this.snakeBody[i].geometryStyle = this.whiteSquareStyle;
         this.snakeBody[i].draw();
     }
     if(this.paused) {
@@ -126,37 +136,28 @@ export default class ShapeDemoScene extends Scene {
     this.scoreText.draw();
   }
 
-  /*
-    this.movementVector = new Point(0, -this.scale);
-    this.direction = 'up';
-
-    this.movementVector = new Point(0, this.scale);
-    this.direction = 'down'
-
-    this.movementVector = new Point(-this.scale, 0);
-    this.direction = 'left'
-
-    this.movementVector = new Point(this.scale, 0);
-    this.direction = 'right'
-  */
   updateSnake() {
       let movementPoint = this.movementVector.clone();
-      movementPoint.x *= 20;
-      movementPoint.y *= 20;
+      movementPoint.x *= this.unitPixel;
+      movementPoint.y *= this.unitPixel;
       let newPoint = this.snakeBody[0].point.clone();
       newPoint = newPoint.add(movementPoint);
-      if(newPoint.x > this.width && this.direction === 'right') {
-          newPoint.x = 0;
+      if(newPoint.x >= this.width && this.direction === 'right') {
+          //newPoint.x = 0;
+          this.gameOver = true;
       }
       if(newPoint.x < 0 && this.direction === 'left') {
-          newPoint.x = this.width;
+          //newPoint.x = this.width - this.unitPixel;
+          this.gameOver = true;
       }
-      if(newPoint.y > this.height && this.direction === 'down') {
-          newPoint.y = 0;
+      if(newPoint.y >= this.height && this.direction === 'down') {
+          //newPoint.y = 0;
+          this.gameOver = true;
       }
       if(newPoint.y < 0 && this.direction === 'up') {
-        newPoint.y = this.height;
-    }
+        //newPoint.y = this.height - this.unitPixel;
+        this.gameOver = true;
+      }
       const head = new Rectangle(newPoint, this.unitPixel, this.unitPixel);
       this.snakeBody.unshift(head);
       if(!this.snakeDidEat) {
