@@ -1,8 +1,11 @@
+import Shape from './Shape';
+import Point from '../../core/Point';
+
 /**
  * Class that implements the basic pathing methods for the 2D context
  *
  */
-class PathBuilder {
+class PathBuilder extends Shape {
   /**
   *  Constructs the PathBuild object
   *
@@ -10,22 +13,7 @@ class PathBuilder {
   */
   constructor() {
     /** @private */
-    this._path = new Path2D();
-  }
-
-  /**
-  * Gets the Path2D.
-  * @return {Path2D} the path built by the path builder.
-  */
-  get path() {
-    return this._path;
-  }
-
-  /**
-  * Closes the current path.
-  */
-  closePath() {
-    this.path.closePath();
+    super();
   }
 
   /**
@@ -33,7 +21,7 @@ class PathBuilder {
   * @param {Point} point the point to move to.
   */
   moveTo(point) {
-    this.path.moveTo(point.X, point.Y);
+    this.context.moveTo(point.x, point.y);
   }
 
   /**
@@ -41,7 +29,7 @@ class PathBuilder {
   * @param {Point} point the point to draw a line to
   */
   lineTo(point) {
-    this.path.lineTo(point.X, point.Y);
+    this.context.lineTo(point.x, point.y);
   }
 
   /**
@@ -52,13 +40,13 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the bezier curve.
   */
   bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
-    this.path.bezierCurveTo(
+    this.context.bezierCurveTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,
       controlPoint2.Y,
-      endPoint.X,
-      endPoint.Y,
+      endPoint.x,
+      endPoint.y,
     );
   }
 
@@ -69,11 +57,11 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the quadratic curve.
   */
   quadraticCurveTo(controlPoint, endPoint) {
-    this.path.quadraticCurveTo(
-      controlPoint.X,
-      controlPoint.Y,
-      endPoint.X,
-      endPoint.Y,
+    this.context.quadraticCurveTo(
+      controlPoint.x,
+      controlPoint.y,
+      endPoint.x,
+      endPoint.y,
     );
   }
 
@@ -85,13 +73,20 @@ class PathBuilder {
   * @param {number} radius the radius to use for the arc.
   */
   arcTo(controlPoint1, controlPoint2, radius) {
-    this.path.arcTo(
+    this.context.arcTo(
       controlPoint1.X,
       controlPoint1.Y,
       controlPoint2.X,
       controlPoint2.Y,
       radius,
     );
+  }
+
+  internalDraw() {
+    this.moveTo(new Point(900, 100));
+    this.lineTo(new Point(920, 100));
+    this.lineTo(new Point(900, 110));
+    this.lineTo(new Point(920, 120));
   }
 }
 export default PathBuilder;

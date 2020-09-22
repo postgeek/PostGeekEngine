@@ -8,6 +8,7 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 import SnakeScene from './Games/SnakeScene';
+import MirrorsEdgeScene from './Games/MirrorsEdgeScene';
 
 import './style.scss';
 
@@ -23,7 +24,8 @@ class Main {
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
-      { key: 'SnakeScene', scene: SnakeScene, name: 'Snake' }
+      { key: 'SnakeScene', scene: SnakeScene, name: 'Snake' },
+      { key: 'MirrorsEdgeScene', scene: MirrorsEdgeScene, name: 'MirrorEdge' }
     ]
   }
 

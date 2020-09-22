@@ -6,10 +6,10 @@ import KeyboardKey from 'inputEngine/KeyboardKey';
 import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
-import GeometryStyle from '../../src/renderingEngine/geometry/GeometryStyle';
+import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 
 export default class ShapeDemoScene extends Scene {
-
+    
   create() {
     this.width = 1200;
     this.height = 500;
