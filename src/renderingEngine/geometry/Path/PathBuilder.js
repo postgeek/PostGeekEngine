@@ -44,7 +44,7 @@ class PathBuilder {
   * @param {Point} point the point to draw a line to
   */
   lineTo(point) {
-    const lineTo = () => this.path.context.lineTo(point.x, point.y);
+    const lineTo = () => this.path.context.lineTo(point.x, point.y)
     this.path.addStep(lineTo);
   }
 
