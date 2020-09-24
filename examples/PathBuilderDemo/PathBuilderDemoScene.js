@@ -16,6 +16,7 @@ export default class PathBuilderDemoScene extends Scene {
     
     const pathBuilder = new PathBuilder();
     pathBuilder.moveTo(new Point(200,200));
+
     pathBuilder.lineTo(new Point(200,250));
     pathBuilder.quadraticCurveTo(new Point(200,100), new Point(240,250));
     pathBuilder.quadraticCurveTo(new Point(200,150), new Point(200,300));

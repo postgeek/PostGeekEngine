@@ -7,6 +7,10 @@ class Path extends Shape {
         this.pathSteps = [];
     }
 
+    getSteps() {
+        return this.pathSteps;
+    }
+
     addStep(callback) {
         this.pathSteps.push(callback);
     }
