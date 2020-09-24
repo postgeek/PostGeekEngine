@@ -38,13 +38,22 @@ class ServiceLocator {
   }
 
   /**
+   *
+   * @param {String} key the key to store the service with
+   * @returns {Boolean} whether the service locator contains the key
+   */
+  containsKey(key) {
+    return this._services.has(key);
+  }
+
+  /**
    * Locate a service that is registered with the service locator instance
-   * @param {type} key the key to store the service with
+   * @param {String} key the key to store the service with
    * @returns {type} the service registed with the given key
    * @throws {InvalidArguementError} if the key is not registered
    */
   locate(key) {
-    if (this._services.has(key)) {
+    if (this.containsKey(key)) {
       return this._services.get(key);
     }
 

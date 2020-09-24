@@ -21,8 +21,6 @@ class PostGeekDebugger extends MiddlewareBase {
     });
     this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
     this.Text.textStyle = this.debugTextStyle;
-    console.log('Initialized the PostGeekDebugger');
-    console.log('================================');
 
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
