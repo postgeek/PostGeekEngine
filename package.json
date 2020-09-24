@@ -8,6 +8,11 @@
       "pre-push": "npm run test && npm run lint"
     }
   },
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -41,7 +46,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",
-    "esdoc": "^1.0.4",
+    "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
