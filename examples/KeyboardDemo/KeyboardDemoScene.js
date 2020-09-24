@@ -1,6 +1,6 @@
 import Scene from 'gameEngine/scene/Scene';
 import KeyboardKey from 'inputEngine/KeyboardKey';
-import ServiceLocator from '../../src/core/ServiceLocator';
+import ServiceLocator from 'core/ServiceLocator';
 
 export default class KeyboardDemoScene extends Scene {  
   create() {

@@ -1,3 +1,5 @@
+import Path from './Path';
+
 /**
  * Class that implements the basic pathing methods for the 2D context
  *
@@ -10,7 +12,7 @@ class PathBuilder {
   */
   constructor() {
     /** @private */
-    this._path = new Path2D();
+    this._path = new Path();
   }
 
   /**
@@ -22,10 +24,10 @@ class PathBuilder {
   }
 
   /**
-  * Closes the current path.
-  */
-  closePath() {
-    this.path.closePath();
+   * Builds and returns the path.
+   */
+  build() {
+    return this.path;
   }
 
   /**
@@ -33,7 +35,7 @@ class PathBuilder {
   * @param {Point} point the point to move to.
   */
   moveTo(point) {
-    this.path.moveTo(point.X, point.Y);
+    this.path.addStep(() => this.path.context.moveTo(point.x, point.y));
   }
 
   /**
@@ -41,7 +43,7 @@ class PathBuilder {
   * @param {Point} point the point to draw a line to
   */
   lineTo(point) {
-    this.path.lineTo(point.X, point.Y);
+    this.path.addStep(() => this.path.context.lineTo(point.x, point.y));
   }
 
   /**
@@ -52,13 +54,15 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the bezier curve.
   */
   bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
-    this.path.bezierCurveTo(
-      controlPoint1.X,
-      controlPoint1.Y,
-      controlPoint2.X,
-      controlPoint2.Y,
-      endPoint.X,
-      endPoint.Y,
+    this.path.addStep(() => 
+      this.path.context.bezierCurveTo(
+        controlPoint1.x,
+        controlPoint1.y,
+        controlPoint2.x,
+        controlPoint2.y,
+        endPoint.x,
+        endPoint.y,
+      )
     );
   }
 
@@ -69,11 +73,13 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the quadratic curve.
   */
   quadraticCurveTo(controlPoint, endPoint) {
-    this.path.quadraticCurveTo(
-      controlPoint.X,
-      controlPoint.Y,
-      endPoint.X,
-      endPoint.Y,
+    this.path.addStep(() => 
+      this.path.context.quadraticCurveTo(
+        controlPoint.x,
+        controlPoint.y,
+        endPoint.x,
+        endPoint.y,
+      )
     );
   }
 
@@ -85,12 +91,14 @@ class PathBuilder {
   * @param {number} radius the radius to use for the arc.
   */
   arcTo(controlPoint1, controlPoint2, radius) {
-    this.path.arcTo(
-      controlPoint1.X,
-      controlPoint1.Y,
-      controlPoint2.X,
-      controlPoint2.Y,
-      radius,
+    this.path.addStep(() => 
+      this.path.context.arcTo(
+        controlPoint1.x,
+        controlPoint1.y,
+        controlPoint2.x,
+        controlPoint2.y,
+        radius,
+      )
     );
   }
 }
