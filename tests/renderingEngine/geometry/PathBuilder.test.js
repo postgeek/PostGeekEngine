@@ -1,5 +1,5 @@
 import 'jest-canvas-mock';
-import PathBuilder from '../../../src/renderingEngine/geometry/PathBuilder';
+import PathBuilder from '../../../src/renderingEngine/geometry/Path/PathBuilder';
 import Point from '../../../src/core/Point';
 
 describe('constructor', () => {

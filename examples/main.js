@@ -7,6 +7,7 @@ import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
+import PathBuilderDemoScene from './PathBuilderDemo/PathBuilderDemoScene';
 
 import './style.scss';
 
@@ -14,12 +15,13 @@ import './style.scss';
 class Main {
   constructor() {
     this._demos = [
+      { key: 'PathBuilderDemo', scene: PathBuilderDemoScene, name: 'Path Demo' },
+      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
       { key: 'colorPickerDemoscene', scene: ColorPickerDemoScene, name: 'Color Demo' },
       { key: 'defaultColorDemoScene', scene: DefaultColorDemoScene, name: 'Default Color Demo' },
       { key: 'collisionscene', scene: CollisionScene, name: 'Collision Demo' },
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
-      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' }
     ]
