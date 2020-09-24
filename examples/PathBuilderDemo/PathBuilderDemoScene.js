@@ -2,7 +2,7 @@ import Scene from 'gameEngine/scene/Scene';
 import KeyboardKey from 'inputEngine/KeyboardKey';
 import Point from 'core/Point';
 import ServiceLocator from 'core/ServiceLocator';
-import PathBuilder from 'renderingEngine/geometry/Path/PathBuilder'
+import PathBuilder from 'renderingEngine/geometry/path/PathBuilder'
 import Transform from 'renderingEngine/context/Transform'
 import Circle from 'renderingEngine/geometry/Circle';
 import Color from 'renderingEngine/colors/Color';

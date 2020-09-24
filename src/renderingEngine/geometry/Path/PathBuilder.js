@@ -1,4 +1,4 @@
-import PathObject from './PathObject';
+import Path from './Path';
 
 /**
  * Class that implements the basic pathing methods for the 2D context
@@ -12,7 +12,7 @@ class PathBuilder {
   */
   constructor() {
     /** @private */
-    this._path = new PathObject();
+    this._path = new Path();
   }
 
   /**

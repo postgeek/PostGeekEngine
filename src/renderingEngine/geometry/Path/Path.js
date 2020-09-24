@@ -1,6 +1,6 @@
 import Shape from '../Shape';
 
-class PathObject extends Shape {
+class Path extends Shape {
   constructor() {
     super();
     this.pathSteps = [];
@@ -19,4 +19,4 @@ class PathObject extends Shape {
       pathStep();
     });
   }
-} export default PathObject;
+} export default Path;
