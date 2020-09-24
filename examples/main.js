@@ -11,6 +11,7 @@ import SnakeScene from './Games/SnakeScene';
 import MirrorsEdgeScene from './Games/MirrorsEdgeScene';
 
 import './style.scss';
+import Game from '../src/Game';
 
 
 class Main {
@@ -65,10 +66,11 @@ class Main {
 
   start() {
     const indexToPlay = this._demos.length - 1;
-    this._game = start({
+    this._game = new Game({
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[indexToPlay]
     });
+    this._game.init();
   }
 }
 
