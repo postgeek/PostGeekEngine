@@ -158,7 +158,6 @@ describe('Game', () => {
     it("should toggle the debug middleware", () => {
         // Arrange 
         var game = new Game(gameConfiguration);
-        // const gameToggleDebug = jest.spyOn(game, 'toggleDebug');
         var isDebugEnabled = true;
         game.init();
 
@@ -166,7 +165,6 @@ describe('Game', () => {
         game.toggleDebug();
 
         // Assert
-        // expect(gameToggleDebug).toHaveBeenCalledTimes(1);
         expect(game.isDebugEnabled).toBe(isDebugEnabled);
     });    
     it("should get the canvas width", () => {
