@@ -35,7 +35,8 @@ class PathBuilder {
   * @param {Point} point the point to move to.
   */
   moveTo(point) {
-    this.path.addStep(() => this.path.context.moveTo(point.x, point.y));
+    const moveTo = () => this.path.context.moveTo(point.x, point.y);
+    this.path.addStep(moveTo);
   }
 
   /**
@@ -43,7 +44,8 @@ class PathBuilder {
   * @param {Point} point the point to draw a line to
   */
   lineTo(point) {
-    this.path.addStep(() => this.path.context.lineTo(point.x, point.y));
+    const lineTo = () => this.path.context.lineTo(point.x, point.y);
+    this.path.addStep(lineTo);
   }
 
   /**
@@ -54,16 +56,15 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the bezier curve.
   */
   bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
-    this.path.addStep(() => 
-      this.path.context.bezierCurveTo(
-        controlPoint1.x,
-        controlPoint1.y,
-        controlPoint2.x,
-        controlPoint2.y,
-        endPoint.x,
-        endPoint.y,
-      )
+    const bezierCurveTo = () => this.path.context.bezierCurveTo(
+      controlPoint1.x,
+      controlPoint1.y,
+      controlPoint2.x,
+      controlPoint2.y,
+      endPoint.x,
+      endPoint.y,
     );
+    this.path.addStep(bezierCurveTo);
   }
 
   /**
@@ -73,14 +74,13 @@ class PathBuilder {
   * @param {Point} endPoint the end point of the quadratic curve.
   */
   quadraticCurveTo(controlPoint, endPoint) {
-    this.path.addStep(() => 
-      this.path.context.quadraticCurveTo(
-        controlPoint.x,
-        controlPoint.y,
-        endPoint.x,
-        endPoint.y,
-      )
+    const quadraticCurveTo = () => this.path.context.quadraticCurveTo(
+      controlPoint.x,
+      controlPoint.y,
+      endPoint.x,
+      endPoint.y,
     );
+    this.path.addStep(quadraticCurveTo);
   }
 
   /**
@@ -91,15 +91,14 @@ class PathBuilder {
   * @param {number} radius the radius to use for the arc.
   */
   arcTo(controlPoint1, controlPoint2, radius) {
-    this.path.addStep(() => 
-      this.path.context.arcTo(
-        controlPoint1.x,
-        controlPoint1.y,
-        controlPoint2.x,
-        controlPoint2.y,
-        radius,
-      )
+    const arcTo = () => this.path.context.arcTo(
+      controlPoint1.x,
+      controlPoint1.y,
+      controlPoint2.x,
+      controlPoint2.y,
+      radius,
     );
+    this.path.addStep(arcTo);
   }
 }
 export default PathBuilder;
