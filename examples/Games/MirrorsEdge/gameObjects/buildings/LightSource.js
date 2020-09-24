@@ -1,6 +1,6 @@
 import Point from 'core/Point';
 import Circle from 'renderingEngine/geometry/Circle';
-import PathBuilder from 'renderingEngine/geometry/PathBuilder';
+import PathBuilder from 'renderingEngine/geometry/path/PathBuilder';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import Color from 'renderingEngine/colors/Color';
 

@@ -1,11 +1,10 @@
-import Shape from './Shape';
-import Point from '../../core/Point';
+import PathObject from './PathObject';
 
 /**
  * Class that implements the basic pathing methods for the 2D context
  *
  */
-class PathBuilder extends Shape {
+class PathBuilder {
   /**
   *  Constructs the PathBuild object
   *
@@ -13,7 +12,22 @@ class PathBuilder extends Shape {
   */
   constructor() {
     /** @private */
-    super();
+    this._path = new PathObject();
+  }
+
+  /**
+  * Gets the Path2D.
+  * @return {Path2D} the path built by the path builder.
+  */
+  get path() {
+    return this._path;
+  }
+
+  /**
+   * Builds and returns the path.
+   */
+  build() {
+    return this.path;
   }
 
   /**
@@ -21,7 +35,8 @@ class PathBuilder extends Shape {
   * @param {Point} point the point to move to.
   */
   moveTo(point) {
-    this.context.moveTo(point.x, point.y);
+    const moveTo = () => this.path.context.moveTo(point.x, point.y);
+    this.path.addStep(moveTo);
   }
 
   /**
@@ -29,7 +44,8 @@ class PathBuilder extends Shape {
   * @param {Point} point the point to draw a line to
   */
   lineTo(point) {
-    this.context.lineTo(point.x, point.y);
+    const lineTo = () => this.path.context.lineTo(point.x, point.y);
+    this.path.addStep(lineTo);
   }
 
   /**
@@ -40,14 +56,15 @@ class PathBuilder extends Shape {
   * @param {Point} endPoint the end point of the bezier curve.
   */
   bezierCurveTo(controlPoint1, controlPoint2, endPoint) {
-    this.context.bezierCurveTo(
-      controlPoint1.X,
-      controlPoint1.Y,
-      controlPoint2.X,
-      controlPoint2.Y,
+    const bezierCurveTo = () => this.path.context.bezierCurveTo(
+      controlPoint1.x,
+      controlPoint1.y,
+      controlPoint2.x,
+      controlPoint2.y,
       endPoint.x,
       endPoint.y,
     );
+    this.path.addStep(bezierCurveTo);
   }
 
   /**
@@ -57,12 +74,13 @@ class PathBuilder extends Shape {
   * @param {Point} endPoint the end point of the quadratic curve.
   */
   quadraticCurveTo(controlPoint, endPoint) {
-    this.context.quadraticCurveTo(
+    const quadraticCurveTo = () => this.path.context.quadraticCurveTo(
       controlPoint.x,
       controlPoint.y,
       endPoint.x,
       endPoint.y,
     );
+    this.path.addStep(quadraticCurveTo);
   }
 
   /**
@@ -73,13 +91,14 @@ class PathBuilder extends Shape {
   * @param {number} radius the radius to use for the arc.
   */
   arcTo(controlPoint1, controlPoint2, radius) {
-    this.context.arcTo(
-      controlPoint1.X,
-      controlPoint1.Y,
-      controlPoint2.X,
-      controlPoint2.Y,
+    const arcTo = () => this.path.context.arcTo(
+      controlPoint1.x,
+      controlPoint1.y,
+      controlPoint2.x,
+      controlPoint2.y,
       radius,
     );
+    this.path.addStep(arcTo);
   }
 
   internalDraw() {
