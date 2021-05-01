@@ -43,6 +43,9 @@ class ToolBar {
             // Deselect previous tool
             if(this.selectedIndex !== undefined) {
                 this.tools[this.selectedIndex].toolContainer.geometryStyle = tool.defaultToolStyle;
+                if(this.tools[this.selectedIndex].toolBuilding !== undefined) {
+                    this.tools[this.selectedIndex].toolBuilding.setRotation(0);
+                }
             }
 
             // Select new tool
@@ -50,6 +53,9 @@ class ToolBar {
             tool.toolContainer.geometryStyle = tool.selectedToolStyle;
         } else {
             this.tools[this.selectedIndex].toolContainer.geometryStyle = tool.defaultToolStyle;
+            if(this.tools[this.selectedIndex].toolBuilding !== undefined) {
+                this.tools[this.selectedIndex].toolBuilding.setRotation(0);
+            }
             this.selectedIndex = undefined;
         }
     }

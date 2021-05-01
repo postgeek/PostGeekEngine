@@ -7,7 +7,7 @@ import Point from 'core/Point';
 
 class Tool {
 
-    constructor(name, hotkey, quantity) {
+    constructor(name, hotkey, quantity, building) {
         this.name = name;
         this.hotKey = hotkey.hotKey;
         this.quantity = quantity;
@@ -16,14 +16,28 @@ class Tool {
         this.point = new Point(20,20);
         this.toolSize = 64;
 
+        this.toolBuilding = building;
+        if(this.toolBuilding !== undefined) {
+            this.toolBuilding.point = this.point.clone();
+        }
+
+        this.whiteBackground = new Rectangle(this.point, this.toolSize, this.toolSize);
+        this.whiteBackground.geometryStyle = new GeometryStyle({
+            fillStyle: Color.WHITE,
+        });
+
+        let mediumPurple = Color.MEDIUMPURPLE.hslaColor;
+        mediumPurple.alpha = 0.5;
         this.selectedToolStyle = new GeometryStyle({
-            fillStyle: Color.MEDIUMPURPLE,
+            fillStyle: mediumPurple,
             strokeStyle: Color.WHITE,
             lineWidth: 3,
         });
 
+        let purple = Color.PURPLE.hslaColor;
+        purple.alpha = 0.5;
         this.defaultToolStyle = new GeometryStyle({
-            fillStyle: Color.PURPLE,
+            fillStyle: purple,
             strokeStyle: Color.WHITE,
             lineWidth: 3,
         });
@@ -36,7 +50,7 @@ class Tool {
         this.hotKeyText = new TextGraphic(textPosition, this.toolTip);
         this.hotKeyText.textStyle = new TextStyle({
             fillStyle: Color.WHITE,
-            font: "18px Arial"
+            font: "18px Arial",
         });
         this.hotKeyText.point.y = this.hotKeyText.point.y + this.hotKeyText.determineFontHeight() - 2;
 
@@ -83,9 +97,18 @@ class Tool {
         this.quantityText.point = quantityTextPosition;
         this.quantityText.point.x = this.quantityText.point.x + this.toolSize - this.quantityText.measureText() - 5;
         this.quantityText.point.y = this.quantityText.point.y + (this.toolSize - this.quantityText.determineFontHeight()) + 10;  
+        if(this.toolBuilding !== undefined) {
+            this.toolBuilding.point = this.point.clone();
+        }
+        var whiteBackgroundPosition = this.point.clone();
+        this.whiteBackground.point = whiteBackgroundPosition;
     }
 
     draw() {
+        this.whiteBackground.draw();
+        if(this.toolBuilding !== undefined) {
+            this.toolBuilding.draw();
+        }
         this.toolContainer.draw();
         this.hotKeyText.draw();
         this.quantityText.draw();

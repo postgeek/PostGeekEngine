@@ -34,11 +34,22 @@ class GameMap {
             var tile = new Tile(position, this.tileSize, this.tileSize);
             this.tiles.push(tile);
         }
+    }1
+
+    getGoalPoint() {
+        return this.goaldPoint;
+    }
+
+    setGoalAt(point) {
+        this.goalPoint = point;
     }
 
     draw() {
         this.tiles.forEach(function(tile) {
             tile.tileGraphic.draw();
+            if(tile.building !== undefined) {
+                tile.building.draw();
+            }
             tile.tileText.draw();
         });
     }

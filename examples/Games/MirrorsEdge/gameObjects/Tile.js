@@ -34,8 +34,21 @@ class Tile {
         this._tileText.point.x = textPoint.x + 4;
     }
 
+    set color(value) {
+        this._color = value;
+        this.defaultTileStyle.fillStyle = value;
+    }
+
+    get color() {
+        this._color;
+    }
+
     set building(value) {
         this._building = value;
+    }
+
+    get building() {
+        return this._building;
     }
 
     set isSelectable(value) {

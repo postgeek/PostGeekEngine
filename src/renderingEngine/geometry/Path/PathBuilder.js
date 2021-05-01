@@ -100,12 +100,5 @@ class PathBuilder {
     );
     this.path.addStep(arcTo);
   }
-
-  internalDraw() {
-    this.moveTo(new Point(900, 100));
-    this.lineTo(new Point(920, 100));
-    this.lineTo(new Point(900, 110));
-    this.lineTo(new Point(920, 120));
-  }
 }
 export default PathBuilder;
