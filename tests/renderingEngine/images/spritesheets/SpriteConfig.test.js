@@ -1,4 +1,6 @@
 import SpriteConfig from '../../../../src/renderingEngine/images/spritesheets/SpriteConfig';
+import ServiceLocator from '../../../../src/core/ServiceLocator';
+import PostGeekLogger from '../../../../src/core/debug/PostGeekLogger';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -61,14 +63,16 @@ describe('width', () => {
   it('should have a warning if the width value is not a power of 2', () => {
     // Arrange
     const spriteConfig = new SpriteConfig('', 16, 16, 16, 16);
-    const consoleWarnSpy = jest.spyOn(console, 'warn');
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+    const logger = ServiceLocator.instance.locate('logger'); 
+    const loggerWarnSpy = jest.spyOn(logger, 'warn');
     const width = 5;
 
     // Act
     spriteConfig.width = width;
 
     // Assert
-    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(loggerWarnSpy).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -87,13 +91,15 @@ describe('height', () => {
   it('should have a warning if the height value is not a power of 2', () => {
     // Arrange
     const spriteConfig = new SpriteConfig('', 16, 16, 16, 16);
-    const consoleWarnSpy = jest.spyOn(console, 'warn');
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+    const logger = ServiceLocator.instance.locate('logger'); 
+    const loggerWarnSpy = jest.spyOn(logger, 'warn');
     const height = 5;
 
     // Act
     spriteConfig.height = height;
 
     // Assert
-    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(loggerWarnSpy).toHaveBeenCalledTimes(1);
   });
 });
