@@ -1,4 +1,4 @@
-import PathBuilder from '../../../src/renderingEngine/geometry/Path/PathBuilder';
+import PathBuilder from '../../../src/renderingEngine/geometry/path/PathBuilder';
 import Point from '../../../src/core/Point';
 import ContextMock from '../../mocks/ContextMock';
 import ServiceLocator from '../../../src/core/ServiceLocator';
