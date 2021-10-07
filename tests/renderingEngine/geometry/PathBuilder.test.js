@@ -1,4 +1,6 @@
-import 'jest-canvas-mock';
+/**
+ * @jest-environment jsdom
+ */
 import PathBuilder from '../../../src/renderingEngine/geometry/PathBuilder';
 import Point from '../../../src/core/Point';
 
