@@ -24,8 +24,7 @@
     "test": "jest --config jest-config.js",
     "test:new": "jest --config jest-config-new.js -o",
     "start": "webpack serve --config ./webpack.dev.js",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
-    "prepublish": "npm run clean && npm run lint && npm run test && npm run build"
+    "build": "cross-env BABEL_ENV=production babel src --out-dir lib"
   },
   "author": "PostGeek",
   "license": "MIT",
