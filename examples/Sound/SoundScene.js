@@ -1,6 +1,7 @@
 import Scene from 'gameEngine/scene/Scene';
 import AssetCache from 'core/managers/AssetCache';
-import SoundObject from 'soundEngine/SoundObject';
+import ComplexSoundObject from 'soundEngine/ComplexSoundObject';
+import SimpleSoundObject from 'soundEngine/SimpleSoundObject';
 import Point from 'core/Point';
 import Button from 'HUDEngine/components/Button';
 import MouseButton from 'inputEngine/MouseButton';
@@ -11,14 +12,22 @@ import Color from 'renderingEngine/colors/Color';
 import HSLColor from 'renderingEngine/colors/HSLColor';
 
 export default class SoundScene extends Scene {
+  registerAssets() {
+    this.cache.registerAsset('audio', './assets/sound/gametheme.mp3');
+    this.cache.registerAsset('audio-2', './assets/sound/music_zapsplat_game_music_action_uplifting_electro_house_anthem_retro_melody_026.mp3');
+    this.cache.registerAsset('audio-3', './assets/sound/Retro - Chip Power.wav');
+    this.cache.registerAsset('audio-4', './assets/sound/Short - Digital Crystal.wav');
+    this.cache.registerAsset('audio-5', './assets/sound/Short - Sad Little Sonar.wav');
+  }
+
   create() {
     this.cache = new AssetCache();
-    this.cache.registerAsset('audio', './assets/sound/gametheme.mp3');
+    this.registerAssets();
     this.cache.loadAsset('audio').then(() => {
-      this.sound = new SoundObject(this.cache.getAsset('audio'));
+      this.sound = new ComplexSoundObject(this.cache.getAsset('audio'));
       /*
       var t0 = performance.now()
-      this.sound = new SoundObject(this.cache.getAsset('audio'));
+      this.sound = new ComplexSoundObject(this.cache.getAsset('audio'));
       var t1 = performance.now()
       this.sound.play(1000);
       var t2 = performance.now()
@@ -29,9 +38,8 @@ export default class SoundScene extends Scene {
      console.log("loaded asset #1");
     });
 
-    this.cache.registerAsset('audio-2', './assets/sound/music_zapsplat_game_music_action_uplifting_electro_house_anthem_retro_melody_026.mp3');
     this.cache.loadAsset('audio-2').then(() => {
-      this.sound2 = new SoundObject(this.cache.getAsset('audio-2'));
+      this.sound2 = new ComplexSoundObject(this.cache.getAsset('audio-2'));
       console.log("loaded asset #2");
       this.playPauseButton.disabled = false;
       this.stopButton.disabled = false;
@@ -46,21 +54,18 @@ export default class SoundScene extends Scene {
       }
     });
 
-    this.cache.registerAsset('audio-3', './assets/sound/Retro - Chip Power.wav');
     this.cache.loadAsset('audio-3').then(() => {
-      this.sound3 = new SoundObject(this.cache.getAsset('audio-3'));
+      this.sound3 = new SimpleSoundObject(this.cache.getAsset('audio-3'));
       console.log("loaded asset #3");
     });
 
-    this.cache.registerAsset('audio-4', './assets/sound/Short - Digital Crystal.wav');
     this.cache.loadAsset('audio-4').then(() => {
-      this.sound4 = new SoundObject(this.cache.getAsset('audio-4'));
+      this.sound4 = new SimpleSoundObject(this.cache.getAsset('audio-4'));
       console.log("loaded asset #4");
     });
 
-    this.cache.registerAsset('audio-5', './assets/sound/Short - Sad Little Sonar.wav');
     this.cache.loadAsset('audio-5').then(() => {
-      this.sound5 = new SoundObject(this.cache.getAsset('audio-5'));
+      this.sound5 = new SimpleSoundObject(this.cache.getAsset('audio-5'));
       console.log("loaded asset #5");
     });
 
@@ -189,8 +194,8 @@ export default class SoundScene extends Scene {
     }
     if(this.sound2 != undefined) {
       this.currentStateText.text = `CurrentState: ${this.sound2._state.value}`;
-      this.currentAudioTimeText.text = `CurrentTime: ${this.sound2.currentTime}`;
-      this.durationTimeText.text = `Max: ${this.sound2.duration}`;
+      this.currentAudioTimeText.text = `CurrentTime: ${this.sound2.currentTime.toFixed(2)}`;
+      this.durationTimeText.text = `Max: ${this.sound2.duration.toFixed(2)}`;
     }
   }
 
@@ -222,15 +227,15 @@ export default class SoundScene extends Scene {
   }
 
   playChipPower() {
-    this.sound3.play2();
+    this.sound3.play();
   }
 
   PlayCrystal() {
-    this.sound4.play2();
+    this.sound4.play();
   }
 
   PlaySonar() {
-    this.sound5.play2();
+    this.sound5.play();
   }
 
   playOrResumeSound() {
@@ -249,6 +254,10 @@ export default class SoundScene extends Scene {
   }
 
   setVolumeLeft(volume) {
+    this.sound3.volume = volume;
+    this.sound4.volume = volume;
+    this.sound5.volume = volume;
+
     this.sound2.setVolumeLeft(volume);
   }
 

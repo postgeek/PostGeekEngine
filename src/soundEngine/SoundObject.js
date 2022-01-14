@@ -1,10 +1,5 @@
 import ServiceLocator from '../core/ServiceLocator';
-
-const SOUND_PLAY_STATE = Object.freeze({
-  PLAYING: { id: 0, value: 'PLAYING' }, // Playing
-  PAUSED: { id: 1, value: 'PAUSED' }, // Paused
-  STOPPED: { id: 2, value: 'STOPPED' }, // Stopped
-});
+import PLAY_STATE from './enums/PlayState';
 
 /**
  * ABSTRACT THE AUDIO CONTEXT OUT OF HERE
@@ -18,22 +13,21 @@ class SoundObject {
   constructor(audioBuffer) {
     this._audioContext = ServiceLocator.instance.locate('audioContext');
     this._audioBuffer = audioBuffer;
-    this._state = SOUND_PLAY_STATE.STOPPED;
-    this._volumeLeft = 1;
-    this._volumeRight = 1;
+    this._state = PLAY_STATE.STOPPED;
+    this._volume = 1;
     this.NodeIndex = 0;
   }
 
   get isPlaying() {
-    return this._state === SOUND_PLAY_STATE.PLAYING;
+    return this._state === PLAY_STATE.PLAYING;
   }
 
   get isPaused() {
-    return this._state === SOUND_PLAY_STATE.PAUSED;
+    return this._state === PLAY_STATE.PAUSED;
   }
 
   get isStopped() {
-    return this._state === SOUND_PLAY_STATE.STOPPED;
+    return this._state === PLAY_STATE.STOPPED;
   }
 
   get currentTime() {
@@ -56,120 +50,54 @@ class SoundObject {
     return 0;
   }
 
-  set nodeIndex(value) {
-    this._nodeIndex = value;
+  get volume() {
+      return this._volume;
   }
 
-  get nodeIndex() {
-    return this._nodeIndex;
-  }
-
-  createNewBufferSource() {
-    if (this.nodeIndex === 0) {
-      return this.createSoundWithGainNode();
-    }
-    if (this.nodeIndex === 1) {
-      return this.createSoundWithLeftAndRightChannel();
-    }
-
-    return this.createSoundWithGainNode();
-  }
-
-  setVolumeLeft(volume) {
-    this._volumeLeft = volume;
-  }
-
-  setVolumeRight(volume) {
-    this._volumeRight = volume;
-  }
-
-  getSound() {
-    return this._sound;
+  set volume(value) {
+    this._volume = value;
   }
 
   pause() {
     if (this.isPlaying) {
       const { currentTime } = this._sound.context;
-      this.getSound().stop();
+      this._sound.stop();
       this._restartAt = currentTime - this._startTime;
-      this._state = SOUND_PLAY_STATE.PAUSED;
+      this._state = PLAY_STATE.PAUSED;
     }
+  }
+
+  createAudioBufferSoundNode() {
+    var sound = new AudioBufferSourceNode(this._audioContext, {
+      buffer: this._audioBuffer,
+      onended: () => {
+        if (!this.isPaused) {
+          this._state = PLAY_STATE.STOPPED;
+        }
+      }
+    });
+    return sound;
   }
 
   createSoundWithGainNode() {
     this._gainNode = this._audioContext.createGain();
-    this._sound = this._audioContext.createBufferSource();
-    this._sound.buffer = this._audioBuffer;
-    this._sound.onended = () => {
-      if (!this.isPaused) {
-        this._state = SOUND_PLAY_STATE.STOPPED;
-      }
-    };
+    this._sound = this.createAudioBufferSoundNode();
     this._sound.connect(this._gainNode);
     this._gainNode.connect(this._audioContext.destination);
-    this._gainNode.gain.setValueAtTime(this._volumeLeft, this._sound.context.currentTime);
+    this._gainNode.gain.setValueAtTime(this._volume, this._sound.context.currentTime);
   }
 
-  createSoundWithLeftAndRightChannel() {
-    this._sound = this._audioContext.createBufferSource();
-    this._sound.buffer = this._audioBuffer;
-    this._sound.onended = () => {
-      if (!this.isPaused) {
-        this._state = SOUND_PLAY_STATE.STOPPED;
-      }
-    };
-
-    const splitter = this._audioContext.createChannelSplitter(2);
-    this._sound.connect(splitter);
-    const merger = this._audioContext.createChannelMerger(2);
-
-    const gainNodeL = this._audioContext.createGain();
-    const gainNodeR = this._audioContext.createGain();
-    gainNodeL.gain.setValueAtTime(this._volumeLeft, this._audioContext.currentTime);
-    gainNodeR.gain.setValueAtTime(this._volumeRight, this._audioContext.currentTime);
-    splitter.connect(gainNodeL, 0);
-    splitter.connect(gainNodeR, 1);
-
-    gainNodeL.connect(merger, 0, 0);
-    gainNodeR.connect(merger, 0, 1);
-
-    merger.connect(this._audioContext.destination);
-  }
-
-  play2() {
-    this.createNewBufferSource();
-    const sound = this.getSound();
+  play() {
+    this.createSoundWithGainNode();
+    const sound = this._sound;
     sound.start(0);
-    this._state = SOUND_PLAY_STATE.PLAYING;
-  }
-
-  play(ms) {
-    if (this.isPaused) {
-      this.createNewBufferSource();
-      const sound = this.getSound();
-      sound.start(0, this._restartAt);
-      this._startTime = this._sound.context.currentTime - this._restartAt;
-      this._state = SOUND_PLAY_STATE.PLAYING;
-    } else if (this.isStopped) {
-      this.createNewBufferSource();
-      const sound = this.getSound();
-      this._startTime = this._sound.context.currentTime;
-      sound.start(this._startTime);
-      this._state = SOUND_PLAY_STATE.PLAYING;
-
-      if (ms) {
-        setTimeout(() => {
-          this.stop();
-        }, ms);
-      }
-    }
+    this._state = PLAY_STATE.PLAYING;
   }
 
   stop() {
     if (!this.isStopped) {
-      const sound = this.getSound();
-      this._state = SOUND_PLAY_STATE.STOPPED;
-      sound.stop();
+      this._state = PLAY_STATE.STOPPED;
+      this._sound.stop();
       this._restartAt = 0;
     }
   }
