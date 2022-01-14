@@ -51,7 +51,7 @@ class SoundObject {
   }
 
   get volume() {
-      return this._volume;
+    return this._volume;
   }
 
   set volume(value) {
@@ -68,13 +68,13 @@ class SoundObject {
   }
 
   createAudioBufferSoundNode() {
-    var sound = new AudioBufferSourceNode(this._audioContext, {
+    const sound = new AudioBufferSourceNode(this._audioContext, {
       buffer: this._audioBuffer,
       onended: () => {
         if (!this.isPaused) {
           this._state = PLAY_STATE.STOPPED;
         }
-      }
+      },
     });
     return sound;
   }

@@ -1,10 +1,6 @@
 import SoundObject from './SoundObject';
 
 class SimpleSoundObject extends SoundObject {
-  constructor(audioBuffer) {
-    super(audioBuffer);
-  }
-
   pause() {
     super.pause();
   }
@@ -16,6 +12,5 @@ class SimpleSoundObject extends SoundObject {
   stop() {
     super.stop();
   }
-  
 }
 export default SimpleSoundObject;

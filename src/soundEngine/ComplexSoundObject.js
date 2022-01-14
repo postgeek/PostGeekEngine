@@ -53,13 +53,13 @@ class ComplexSoundObject extends SoundObject {
   }
 
   createAudioBufferSoundNode() {
-    var sound = new AudioBufferSourceNode(this._audioContext, {
+    const sound = new AudioBufferSourceNode(this._audioContext, {
       buffer: this._audioBuffer,
       onended: () => {
         if (!this.isPaused) {
           this._state = PLAY_STATE.STOPPED;
         }
-      }
+      },
     });
     return sound;
   }
