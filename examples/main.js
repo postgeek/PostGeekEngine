@@ -1,4 +1,3 @@
-import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
 import CollisionScene from './Collision/CollisionScene';
@@ -68,7 +67,7 @@ class Main {
 
   start() {
     var index = 0; //this._demos.length - 1;
-    this._game = start({
+    this._game = new Game({
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[index]
     });
