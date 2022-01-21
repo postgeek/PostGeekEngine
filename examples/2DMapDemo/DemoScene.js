@@ -28,7 +28,7 @@ export default class DemoScene extends Scene {
   }
 
   draw() {
-    if (this.mapLoaded) {
+    if (this.mapLoaded)  {
       this.Map.draw();
     }
   }
