@@ -21,7 +21,7 @@ import Point from '../core/Point';
 /**
  * The graphic objects JSON loader
  */
- export default class GraphicsJSONLoader {
+export default class GraphicsJSONLoader {
   /**
    * @static Creates a line with the supplied properties
    *

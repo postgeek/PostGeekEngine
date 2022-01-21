@@ -21,10 +21,6 @@ export default class DemoScene extends Scene {
     this.anim = 0
 
     var imageLoader = new ImageLoader(this.cache);
-    /*imageLoader.loadImage('george', './assets/george.png').then((image) => {
-      this.georgeLoaded = true;
-      this.georgeImage = new GraphicImage(image);
-    });*/
 
     var imageAssets = [
       new ImageAsset('george', './assets/george.png'),

@@ -57,10 +57,10 @@ class Shape extends GraphicObject {
    * Restores the previously saved context.
    */
   postDraw() {
-    if(this.geometryStyle.lineDash !== undefined) {
+    if (this.geometryStyle.lineDash !== undefined) {
       this.context.setLineDash(this.geometryStyle.lineDash);
     }
-    if(this.geometryStyle.lineDashOffset !== undefined) {
+    if (this.geometryStyle.lineDashOffset !== undefined) {
       this.context.setLineDash(this.geometryStyle.lineDashOffset);
     }
     if (this.geometryStyle.fillStyle !== undefined) {
