@@ -16,7 +16,7 @@ export default class ImageLoader {
   async loadImage(imageId, imageUrl) {
     this.cache.registerAsset(imageId, imageUrl);
     await this.cache.loadAsset(imageId);
-    return this.addImageAsync(imageId, this.cache.getAsset(imageId));
+    return ImageLoader.addImageAsync(imageId, this.cache.getAsset(imageId));
   }
 
   async loadImages(imageAssets) {

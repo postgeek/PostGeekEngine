@@ -16,14 +16,51 @@ export default class DemoScene extends Scene {
     this.mapLoaded = false;
     this.georgeLoaded = false;
 
+    this.spriteSheetJson ={
+      "George": {
+      "ID": "george",
+      "SPRITE_SHEET_URL": "./assets/george.png",
+      "FRAMES_PER_ANIMATION": 20,
+      "WALK_DOWN": [
+      { "point": {x: 0, y: 0},"width": 48,"height": 48 },
+      { "point": {x: 0, y: 48},"width": 48,"height": 48 },
+      { "point": {x: 0, y: 96},"width": 48,"height": 48 },
+      { "point": {x: 0, y: 144},"width": 48,"height": 48 }
+      ],
+      "WALK_LEFT": [
+      { "point": {x: 48, y: 0},"width": 48,"height": 48 },
+      { "point": {x: 48, y: 48},"width": 48,"height": 48 },
+      { "point": {x: 48, y: 96},"width": 48,"height": 48 },
+      { "point": {x: 48, y: 144},"width": 48,"height": 48 }
+      ],
+      "WALK_UP": [
+      { "point": {x: 96, y: 0},"width": 48,"height": 48 },
+      { "point": {x: 96, y: 48},"width": 48,"height": 48 },
+      { "point": {x: 96, y: 96},"width": 48,"height": 48 },
+      { "point": {x: 96, y: 144},"width": 48,"height": 48 }
+      ],
+      "WALK_RIGHT": [
+      { "point": {x: 144, y: 0},"width": 48,"height": 48 },
+      { "point": {x: 144, y: 48},"width": 48,"height": 48 },
+      { "point": {x: 144, y: 96},"width": 48,"height": 48 },
+      { "point": {x: 144, y: 144},"width": 48,"height": 48 }
+      ]
+      }
+      };
+
+      this.currentDirection = "WALK_LEFT";
+
+
     this.loadedImages = {};
 
-    this.anim = 0
+    this.anim = 0;
+    this.ticks = 0;
+    this.framesPerAnimation = Number(this.spriteSheetJson["George"]["FRAMES_PER_ANIMATION"]);
 
     var imageLoader = new ImageLoader(this.cache);
 
     var imageAssets = [
-      new ImageAsset('george', './assets/george.png'),
+      new ImageAsset(this.spriteSheetJson["George"]["ID"], this.spriteSheetJson["George"]["SPRITE_SHEET_URL"]),
       new ImageAsset('postgeek', './assets/post-geek-logo.png'),
     ];
 
@@ -55,8 +92,17 @@ export default class DemoScene extends Scene {
       this.Map.draw();
     }
     if(this.georgeLoaded) {
-      this.loadedImages['george'].drawImageWithMask(new Point(20,20), new Point(0,48 * (this.anim % 4)), 48, 48);
-      this.anim++;
+      var currentAnimation = this.spriteSheetJson["George"][this.currentDirection][this.anim % 4];
+      var point = new Point(currentAnimation.point.x, currentAnimation.point.y);
+      this.loadedImages[this.spriteSheetJson["George"]["ID"]].drawImageWithMask(
+        new Point(20,20), 
+        point, currentAnimation.width, currentAnimation.height);
+
+      this.ticks++;
+      if(this.ticks > this.framesPerAnimation) {
+        this.ticks = 0;
+        this.anim++;
+      }
     }
   }
 }
