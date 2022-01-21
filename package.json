@@ -24,7 +24,8 @@
     "test": "jest --config jest-config.js",
     "test:new": "jest --config jest-config-new.js -o",
     "start": "webpack serve --config ./webpack.dev.js",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir lib"
+    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
+    "prepare": "husky install"
   },
   "author": "PostGeek",
   "license": "MIT",
@@ -41,7 +42,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.3.0",
-    "esdoc": "^1.0.4",
+    "esdoc": "^0.0.2",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -51,7 +52,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.3.2",
-    "husky": "^7.0.2",
+    "husky": "^7.0.0",
     "jest": "^27.2.4",
     "jest-canvas-mock": "^2.3.1",
     "rimraf": "^3.0.2",
