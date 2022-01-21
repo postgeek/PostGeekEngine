@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "husky": {
     "hooks": {
-      "prepush": "npm run test && npm run lint"
+      "pre-push": "npm run test && npm run lint"
     }
   },
   "publishConfig": {
