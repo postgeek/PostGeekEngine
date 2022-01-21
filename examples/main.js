@@ -67,12 +67,8 @@ class Main {
   }
 
   start() {
-<<<<<<< HEAD
     var index = 0; //this._demos.length - 1;
     this._game = start({
-=======
-    this._game = new Game({
->>>>>>> develop
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[index]
     });
