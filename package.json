@@ -9,6 +9,7 @@
     }
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "setupFiles": [
       "jest-canvas-mock"
     ]

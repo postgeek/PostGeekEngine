@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import Game from '../src/Game'
 import InvalidArguementError from '../src/core/errorHandling/errors/InvalidArguementError';
 import SceneMock from './mocks/SceneMock';

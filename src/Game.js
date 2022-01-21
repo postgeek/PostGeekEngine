@@ -161,7 +161,7 @@ class Game {
     // Register the PostGeekLogger service
     ServiceLocator.instance.register('logger', new PostGeekLogger());
 
-        // Register the rendering context into the service locator
+    // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', this._context);
 
     // Register the eventbus into the service locator
