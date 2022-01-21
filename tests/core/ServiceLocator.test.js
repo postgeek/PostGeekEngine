@@ -41,6 +41,33 @@ describe('locate', () => {
   });
 });
 
+describe('containsKey', () => {
+  it('should return true when key exists', () => {
+    // Arrange
+    const key = "someKey";
+    const service = "someService";
+    const expectedResult = true;
+    ServiceLocator.instance.register(key, service);
+
+    // Act
+    var result = ServiceLocator.instance.containsKey(key);
+
+    // Assert
+    expect(result).toBe(expectedResult);
+  });
+  it('should return false when key does not exist', () => {
+    // Arrange
+    const key = "someKey";
+    const expectedResult = false;
+
+    // Act
+    var result = ServiceLocator.instance.containsKey(key);
+
+    // Assert
+    expect(result).toBe(expectedResult);
+  });
+});
+
 describe('clear', () => {
   it('should remove all registered services', () => {
     // Arange
