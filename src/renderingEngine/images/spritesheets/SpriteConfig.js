@@ -1,5 +1,6 @@
 import Point from '../../../core/Point';
 import { isPowerOfTwo } from '../../../core/utils/Math';
+import ServiceLocator from '../../../core/ServiceLocator';
 
 /**
  * Defines the configuration object for a Sprite
@@ -50,7 +51,8 @@ class SpriteConfig {
 
   set width(value) {
     if (!isPowerOfTwo(value)) {
-      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
     }
     this._width = value;
   }
@@ -61,7 +63,8 @@ class SpriteConfig {
 
   set height(value) {
     if (!isPowerOfTwo(value)) {
-      console.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
     }
     this._height = value;
   }

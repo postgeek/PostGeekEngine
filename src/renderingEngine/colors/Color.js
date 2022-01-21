@@ -1,3 +1,4 @@
+import InvalidArguementError from '../../core/errorHandling/errors/InvalidArguementError';
 import RGBAColor from './RGBAColor';
 import HSLAColor from './HSLAColor';
 
@@ -170,6 +171,25 @@ class Color {
     return this._alpha;
   }
 
+  /**
+   * Specifies the alpha value of the color.
+   *
+   * @param {Number} value the alpha value
+   * @return {undefined}
+   */
+  set alpha(value) {
+    if (value < 0 || value > 1) {
+      throw new InvalidArguementError(this);
+    }
+    this._alpha = value;
+    if (this.rgbaColor !== undefined) {
+      this.rgbaColor.alpha = this.alpha;
+    }
+    if (this.hslaColor !== undefined) {
+      this.hslaColor.alpha = this.alpha;
+    }
+  }
+
   toString() {
     if (this.name !== undefined) {
       return this.name;
@@ -189,7 +209,7 @@ class Color {
     if (this.hslColor !== undefined) {
       return this.hslColor.toString();
     }
-    return new Color.WHITE();
+    return Color.WHITE;
   }
 
   // https://htmlcolorcodes.com/color-names/

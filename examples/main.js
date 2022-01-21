@@ -2,23 +2,29 @@ import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
 import CollisionScene from './Collision/CollisionScene';
+import DefaultColorDemoScene from './DefaultColorDemo/DefaultColorDemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 import SoundScene from './Sound/SoundScene';
 import HUDDesignerScene from './Tools/HUDDesigner/HUDDesignerScene';
+import PathBuilderDemoScene from './PathBuilderDemo/PathBuilderDemoScene';
 
 import './style.scss';
+import Game from '../src/Game';
+
 
 class Main {
   constructor() {
     this._demos = [
+      { key: 'PathBuilderDemo', scene: PathBuilderDemoScene, name: 'Path Demo' },
+      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
       { key: 'colorPickerDemoscene', scene: ColorPickerDemoScene, name: 'Color Demo' },
+      { key: 'defaultColorDemoScene', scene: DefaultColorDemoScene, name: 'Default Color Demo' },
       { key: 'collisionscene', scene: CollisionScene, name: 'Collision Demo' },
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
-      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
       { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' },
@@ -61,11 +67,16 @@ class Main {
   }
 
   start() {
+<<<<<<< HEAD
     var index = 0; //this._demos.length - 1;
     this._game = start({
+=======
+    this._game = new Game({
+>>>>>>> develop
       canvas: document.getElementById('canvas'),
       initialScene: this._demos[index]
     });
+    this._game.init();
   }
 }
 

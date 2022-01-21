@@ -6,9 +6,14 @@ jobs:
   quality_tests:
     name: "Quality Tests"
     runs-on: ubuntu-latest
-    container: node:14-slim
+    container: node:slim
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 16
+        cache: 'npm'
+        cache-dependency-path: package-lock.json
       
     - name: Install Task Dependencies 
       run: npm install
