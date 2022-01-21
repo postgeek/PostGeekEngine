@@ -79,7 +79,7 @@ class TextGraphic extends GraphicObject {
     const textMetrics = this.context.measureText(this.text);
     this.context.restore();
     if (textMetrics !== undefined) {
-      return textMetrics.width;
+      return Math.round(textMetrics.width);
     }
     return undefined;
   }

@@ -7,6 +7,7 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 import SoundScene from './Sound/SoundScene';
+import HUDDesignerScene from './Tools/HUDDesigner/HUDDesignerScene';
 
 import './style.scss';
 
@@ -20,7 +21,8 @@ class Main {
       { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
-      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' }
+      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' },
+      { key: 'HUDTool', scene: HUDDesignerScene, name: "Hud Designer"},
     ]
   }
 
@@ -59,9 +61,10 @@ class Main {
   }
 
   start() {
+    var index = 0; //this._demos.length - 1;
     this._game = start({
       canvas: document.getElementById('canvas'),
-      initialScene: this._demos[0]
+      initialScene: this._demos[index]
     });
   }
 }
