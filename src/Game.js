@@ -290,7 +290,7 @@ class Game {
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
   update(timeStep) {
-    if(this.sceneManager.runningScene !== undefined) {
+    if (this.sceneManager.runningScene !== undefined) {
       this.sceneManager.runningScene.update(timeStep);
     }
     this.middlewareManager.update(timeStep);
@@ -305,7 +305,7 @@ class Game {
     this._context.fillStyle = Color.BLACK;
     this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-    if(this.sceneManager.runningScene !== null) {
+    if (this.sceneManager.runningScene !== null) {
       this.sceneManager.runningScene.draw(deltaTime);
     }
     this.middlewareManager.draw(deltaTime);

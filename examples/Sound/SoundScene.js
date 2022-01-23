@@ -16,6 +16,7 @@ export default class SoundScene extends Scene {
   registerAssets() {
     this.cache.registerAsset('audio', './assets/sound/gametheme.mp3');
     this.cache.registerAsset('audio-2', './assets/sound/music_zapsplat_game_music_action_uplifting_electro_house_anthem_retro_melody_026.mp3');
+    this.cache.registerAsset('audio-2', './assets/sound/music_zapsplat_game_music_action_uplifting_electro_house_anthem_retro_melody_026.mp3');
     this.cache.registerAsset('audio-3', './assets/sound/Retro - Chip Power.wav');
     this.cache.registerAsset('audio-4', './assets/sound/Short - Digital Crystal.wav');
     this.cache.registerAsset('audio-5', './assets/sound/Short - Sad Little Sonar.wav');
@@ -23,6 +24,7 @@ export default class SoundScene extends Scene {
 
   create() {
     this.soundManager = new SoundManager();
+
     this.cache = new AssetCache();
     this.registerAssets();
     this.cache.loadAsset('audio').then(() => {

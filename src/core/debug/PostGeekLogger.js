@@ -1,4 +1,5 @@
 class PostGeekLogger {
+  // TODO: Do something useful with these logs at some point.
   constructor() {
     this.messages = [];
   }

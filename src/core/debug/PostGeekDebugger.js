@@ -25,8 +25,8 @@ class PostGeekDebugger extends MiddlewareBase {
     logger.log('Initialized the PostGeekDebugger');
     logger.log('================================');
 
-    //this._worldRectangle = new Rectangle(new Point(0,0), this.game.canvas.width, this.game.canvas.height);
-    //this._worldRectangle.geometryStyle = this.debugGeometryStyle;
+    // this._worldRectangle = new Rectangle(new Point(0,0), this.game.canvas.width, this.game.canvas.height);
+    // this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -36,7 +36,7 @@ class PostGeekDebugger extends MiddlewareBase {
 
   draw() {
     this.Text.draw();
-    //this._worldRectangle.draw();
+    // this._worldRectangle.draw();
   }
 
   drawDebug(graphicObject) {

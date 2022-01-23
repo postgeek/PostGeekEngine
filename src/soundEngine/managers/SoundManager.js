@@ -1,25 +1,25 @@
 export default class SoundManager {
-    constructor() {
-        this._sounds = {};
-    }
+  constructor() {
+    this._sounds = {};
+  }
 
-    addSound(key, sound) {
-        this.sounds[key] = sound;
-    }
+  addSound(key, sound) {
+    this.sounds[key] = sound;
+  }
 
-    getSound(key) {
-        return this.sounds[key];
-    }
+  getSound(key) {
+    return this.sounds[key];
+  }
 
-    stopAllSounds() {
-        for (const [key, sound] of Object.entries(this.sounds)) {
-            if(sound.isPlaying) {
-                sound.stop()
-            }
-        }
-    }
+  stopAllSounds() {
+    Object.entries(this.sounds).forEach(([key, sound]) => { // eslint-disable-line no-unused-vars
+      if (sound.isPlaying) {
+        sound.stop();
+      }
+    });
+  }
 
-    get sounds() {
-        return this._sounds;
-    }
+  get sounds() {
+    return this._sounds;
+  }
 }

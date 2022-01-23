@@ -72,7 +72,7 @@ class Scene {
   }
 
   /**
-   * updates the scene 
+   * updates the scene
    * @throws {MethodNotImplementedError} throws an error if method is not overriden.
    */
   update() {

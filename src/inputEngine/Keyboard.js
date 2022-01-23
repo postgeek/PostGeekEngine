@@ -33,7 +33,6 @@ class Keyboard {
   registerKey(key) {
     const keyToAdd = key;
     if (this.retrieveKey(key) !== undefined) {
-      // TODO: Implement a warning system instead of using console.warn
       const logger = ServiceLocator.instance.locate('logger');
       logger.warn(`Key: ${key} is already registered`);
     }

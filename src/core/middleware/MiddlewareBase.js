@@ -3,9 +3,8 @@ import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplemen
 class MiddlewareBase {
   constructor(enabled = true) {
     this._enabled = enabled;
-
   }
-  
+
   get enabled() {
     return this._enabled;
   }
