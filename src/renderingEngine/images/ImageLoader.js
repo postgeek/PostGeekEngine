@@ -1,6 +1,13 @@
+import GraphicImage from "./GraphicImage";
+
 export default class ImageLoader {
   constructor(cache) {
     this.cache = cache;
+    this._loadedImages = {};
+  }
+
+  getImage(key) {
+    return this._loadedImages[`image-${key}`];
   }
 
   static addImageAsync(imageId, assetUrl) {
@@ -16,7 +23,14 @@ export default class ImageLoader {
   async loadImage(imageId, imageUrl) {
     this.cache.registerAsset(imageId, imageUrl);
     await this.cache.loadAsset(imageId);
-    return ImageLoader.addImageAsync(imageId, this.cache.getAsset(imageId));
+    return new Promise((resolve) => {
+      ImageLoader.addImageAsync(imageId, this.cache.getAsset(imageId)).then((image) => {
+        var loadedimage =  new GraphicImage(image.image);
+        loadedimage.isLoaded = true;
+        this._loadedImages[`image-${imageId}`] = loadedimage;
+        resolve(loadedimage);
+      });
+    });
   }
 
   async loadImages(imageAssets) {

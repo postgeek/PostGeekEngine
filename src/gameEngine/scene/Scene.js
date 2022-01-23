@@ -4,6 +4,8 @@ import World from './World';
 import ServiceLocator from '../../core/ServiceLocator';
 import Point from '../../core/Point';
 import Camera from '../Camera';
+import AssetCache from '../../core/managers/AssetCache';
+import ImageLoader from '../../renderingEngine/images/ImageLoader';
 
 class Scene {
   /**
@@ -17,19 +19,23 @@ class Scene {
     }
 
     this._context = ServiceLocator.instance.locate('context');
+    this.cache = new AssetCache();
+
+    this.imageLoader = new ImageLoader(this.cache);
+    this._imageLoadPromises = [];
 
     // TODO: For simplicity, the world and camera are the same size as the canvas for now.
     this._world = new World(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
     this._camera = new Camera(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
 
-    this.create();
+    this._preload().then(() => {
+      this.create();
+      this.isReady = true;
+    });
   }
 
-  /**
-   * Get the world for this scene
-   */
-  get world() {
-    return this._world;
+  get assetCache() {
+    return this._assetCache;
   }
 
   /**
@@ -53,6 +59,49 @@ class Scene {
    */
   set world(value) {
     this._world = value;
+  }
+
+  /**
+   * Get the world for this scene
+   */
+  get world() {
+    return this._world;
+  }
+
+  set areAssetsPreloaded(value) {
+    this._areAssetsPreloaded = value;
+  }
+
+  get areAssetsPreloaded() {
+    return this._areAssetsPreloaded;
+  }
+
+  set isReady(value) {
+    this._isReady = value;
+  }
+
+  get isReady() {
+    return this._isReady;
+  }
+
+  retrieveImage(key) {
+    return this.imageLoader.getImage(key);
+  }
+
+  loadImage(key, url) {
+    this._imageLoadPromises.push(this.imageLoader.loadImage(key, url));
+  }
+
+  _preload() {
+    this.preload();
+    return Promise.all(this._imageLoadPromises);
+  }
+
+  /**
+  * Preloads assets the scene will need.
+  */
+  preload() {
+    return new Promise((resolve) => resolve());
   }
 
   /**
