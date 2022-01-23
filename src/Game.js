@@ -188,7 +188,7 @@ class Game {
     this.addScene(this.config.initialScene);
     this.startScene(this.config.initialScene.key);
 
-    this.middlewareManager.add('debug', new PostGeekDebugger(this, this._isDebugEnabled));
+    this.middlewareManager.add('debug', new PostGeekDebugger(this._isDebugEnabled));
 
     for (const key in this.config.middleware) {
       if (!this.middlewareManager.hasKey(key)) {
