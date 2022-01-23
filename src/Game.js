@@ -9,8 +9,6 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 import PostGeekLogger from './core/debug/PostGeekLogger';
 import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
 
-const game = null;
-
 class Game {
   /**
    * Constructs a new Game object
@@ -149,7 +147,7 @@ class Game {
    * @param  {String} key the key associated to a scene
    */
   startScene(key) {
-    this.sceneManager.startScene(key, game);
+    this.sceneManager.startScene(key, this);
   }
 
   /**
@@ -163,6 +161,13 @@ class Game {
 
     // Register the rendering context into the service locator
     ServiceLocator.instance.register('context', this._context);
+
+    // Create the audio context
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioContext = new AudioContext();
+    ServiceLocator.instance.register('audioContext', audioContext);
+
+    this._audioContext = ServiceLocator.instance.locate('audioContext');
 
     // Register the eventbus into the service locator
     ServiceLocator.instance.register('eventbus', new EventBus());
@@ -285,7 +290,9 @@ class Game {
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
   update(timeStep) {
-    this.sceneManager.runningScene.update(timeStep);
+    if (this.sceneManager.runningScene !== undefined) {
+      this.sceneManager.runningScene.update(timeStep);
+    }
     this.middlewareManager.update(timeStep);
   }
 
@@ -298,7 +305,9 @@ class Game {
     this._context.fillStyle = Color.BLACK;
     this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-    this.sceneManager.runningScene.draw(deltaTime);
+    if (this.sceneManager.runningScene !== null) {
+      this.sceneManager.runningScene.draw(deltaTime);
+    }
     this.middlewareManager.draw(deltaTime);
   }
 

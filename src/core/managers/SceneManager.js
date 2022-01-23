@@ -18,8 +18,12 @@ class SceneManager {
     this.runningScene.IsActive = true;
   }
 
-  get RunningScene() {
-    return this.runningScene;
+  set runningScene(value) {
+    this._runningScene = value;
+  }
+
+  get runningScene() {
+    return this._runningScene;
   }
 }
 

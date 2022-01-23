@@ -65,9 +65,17 @@ class Scene {
 
   /**
   * draws the scene to the canvas.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.ß
+  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
   */
   draw() {
+    throw new MethodNotImplementedError(this);
+  }
+
+  /**
+   * updates the scene
+   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
+   */
+  update() {
     throw new MethodNotImplementedError(this);
   }
 

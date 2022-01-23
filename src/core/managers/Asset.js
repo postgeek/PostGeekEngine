@@ -1,6 +1,7 @@
 const AssetType = Object.freeze({
   BLOB: Symbol('blob'),
   TEXT: Symbol('text'),
+  AUDIO: Symbol('audio'),
   UNKNOWN: Symbol('unknown'),
 });
 
