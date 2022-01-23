@@ -100,8 +100,8 @@ class Scene {
   /**
   * Preloads assets the scene will need.
   */
-  preload() {
-    return new Promise((resolve) => resolve());
+  preload() { // eslint-disable-line class-methods-use-this
+    // is possibly overridden in subclasses.
   }
 
   /**

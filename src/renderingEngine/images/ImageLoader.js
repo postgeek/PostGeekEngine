@@ -1,4 +1,4 @@
-import GraphicImage from "./GraphicImage";
+import GraphicImage from './GraphicImage';
 
 export default class ImageLoader {
   constructor(cache) {
@@ -25,7 +25,7 @@ export default class ImageLoader {
     await this.cache.loadAsset(imageId);
     return new Promise((resolve) => {
       ImageLoader.addImageAsync(imageId, this.cache.getAsset(imageId)).then((image) => {
-        var loadedimage =  new GraphicImage(image.image);
+        const loadedimage = new GraphicImage(image.image);
         loadedimage.isLoaded = true;
         this._loadedImages[`image-${imageId}`] = loadedimage;
         resolve(loadedimage);

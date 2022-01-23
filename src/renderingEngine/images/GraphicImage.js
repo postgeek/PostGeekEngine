@@ -74,7 +74,7 @@ class GraphicImage extends GraphicObject {
    * Draws the image on screen at 0,0.
    */
   draw() {
-    if(this.isLoaded) { 
+    if (this.isLoaded) {
       this.context.drawImage(this.image, 0, 0);
     }
   }
@@ -90,7 +90,7 @@ class GraphicImage extends GraphicObject {
    * @param  {Number} height the sub-image's height
    */
   drawImageWithMask(destinationPoint, subRectanglePoint, width, height) {
-    if(this.isLoaded) {
+    if (this.isLoaded) {
       this.context.drawImage(
         this.image,
         subRectanglePoint.x,
