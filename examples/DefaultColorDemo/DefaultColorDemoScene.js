@@ -10,10 +10,6 @@ import TextStyle from '../../src/renderingEngine/text/TextStyle';
 
 export default class DefaultColorDemoScene extends Scene {
   create() {
-    console.log(this.game.canvasWidth);
-    console.log(this.game.canvasHeight);
-    console.log(DefaultColors.length);
-
     this.rectangles = [];
     this.textGraphics = [];
 
@@ -24,8 +20,8 @@ export default class DefaultColorDemoScene extends Scene {
       var pointX = (this.game.canvasWidth / 12) * (index % 12) + xOffset;
       var pointY = (this.game.canvasHeight / 12) * Math.floor(index / 12) + yOffset;
 
-      var width = 60;//this.game.canvasWidth / (12 * 6);
-      var height = 40;//this.game.canvasHeight / (12 * 6);
+      var width = this.game.canvasWidth / 20;
+      var height = this.game.canvasHeight / 20;
 
       let text = new TextGraphic(new Point(pointX, pointY - 6), defaultColor.name);
       text.textStyle = new TextStyle({
@@ -39,7 +35,6 @@ export default class DefaultColorDemoScene extends Scene {
         fillStyle: defaultColor.name,
         strokeStyle: Color.WHITE,
       });
-      console.log(`${pointX}, ${pointY}`);
     
       this.rectangles.push(rectangle);
     }, this);

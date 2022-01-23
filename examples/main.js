@@ -57,11 +57,16 @@ class Main {
 
   runDemo(key) {
     const demo = this._demos.find(d => d.key === key);
+    try {
+      this._game.sceneManager.runningScene.close();
+    } catch(e) {
+
+    }
     this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
     this._game.sceneManager.startScene(demo.key, this._game);
   }
   
-  debugClicked(checked) {
+  debugClicked() {
     this._game.toggleDebug()
   }
 

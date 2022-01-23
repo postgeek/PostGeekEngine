@@ -1,8 +1,13 @@
 import MethodNotImplementedError from '../errorHandling/errors/MethodNotImplementedError';
 
 class MiddlewareBase {
-  constructor(enabled = true) {
+  constructor(game, enabled) {
+    this._game = game;
     this._enabled = enabled;
+  }
+
+  get game() {
+    return this._game;
   }
 
   get enabled() {

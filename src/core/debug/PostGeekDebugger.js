@@ -25,9 +25,10 @@ class PostGeekDebugger extends MiddlewareBase {
     logger.log('Initialized the PostGeekDebugger');
     logger.log('================================');
 
+    // TODO: Don't rely on the scene manager for things we need access to the game object here.
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
-    this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
+    this._worldRectangle = new Rectangle(new Point(0,0), this.game.canvas.width, this.game.canvas.height);
     this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 

@@ -35,9 +35,13 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    const extension = utils.getExtension(path);
-    const assetType = utils.getAssetTypeFromExtension(extension);
-    this.assetDictionary[key] = new Asset(key, path, assetType);
+    if(!this.assetDictionary.hasOwnProperty(key)) {
+      const extension = utils.getExtension(path);
+      const assetType = utils.getAssetTypeFromExtension(extension);
+      this.assetDictionary[key] = new Asset(key, path, assetType);
+    } else {
+      console.warn(`key ${key} already exists in asset cache`);
+    }
   }
 
   /**

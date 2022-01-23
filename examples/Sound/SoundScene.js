@@ -1,5 +1,4 @@
 import Scene from 'gameEngine/scene/Scene';
-import AssetCache from 'core/managers/AssetCache';
 import ComplexSoundObject from 'soundEngine/ComplexSoundObject';
 import SimpleSoundObject from 'soundEngine/SimpleSoundObject';
 import Point from 'core/Point';
@@ -10,6 +9,8 @@ import TextGraphic from 'renderingEngine/text/TextGraphic';
 import TextStyle from 'renderingEngine/text/TextStyle';
 import Color from 'renderingEngine/colors/Color';
 import HSLColor from 'renderingEngine/colors/HSLColor';
+import AssetCache from '../../src/core/managers/AssetCache';
+import SoundManager from '../../src/soundEngine/managers/SoundManager';
 
 export default class SoundScene extends Scene {
   registerAssets() {
@@ -21,6 +22,7 @@ export default class SoundScene extends Scene {
   }
 
   create() {
+    this.soundManager = new SoundManager();
     this.cache = new AssetCache();
     this.registerAssets();
     this.cache.loadAsset('audio').then(() => {
@@ -39,7 +41,8 @@ export default class SoundScene extends Scene {
     });
 
     this.cache.loadAsset('audio-2').then(() => {
-      this.sound2 = new ComplexSoundObject(this.cache.getAsset('audio-2'));
+      this.soundManager.addSound("sound-2", new ComplexSoundObject(this.cache.getAsset('audio-2')));
+      this.sound2 = this.soundManager.getSound("sound-2");
       console.log("loaded asset #2");
       this.playPauseButton.disabled = false;
       this.stopButton.disabled = false;
@@ -224,6 +227,10 @@ export default class SoundScene extends Scene {
       let nodeButton = this.nodeButtons[i];
       nodeButton.draw();
     }
+  }
+
+  close() {
+    this.soundManager.stopAllSounds();
   }
 
   playChipPower() {
