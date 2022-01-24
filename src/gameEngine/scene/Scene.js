@@ -101,7 +101,7 @@ class Scene {
 
   loadImage(key, url) {
     this._imageLoadPromises.push(this.imageLoader.loadImageAsync(key, url));
-    //this.imageLoader.registerForLoading(key, url);
+    // this.imageLoader.registerForLoading(key, url);
   }
 
   _preload() {

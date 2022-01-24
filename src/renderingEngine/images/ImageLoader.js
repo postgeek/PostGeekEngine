@@ -23,8 +23,8 @@ export default class ImageLoader {
   async loadImageAsync(imageId, imageUrl) {
     this.cache.registerAsset(imageId, imageUrl);
     await this.cache.loadAsset(imageId);
-    var asset = await this.cache.getAsset(imageId);
-    var image = await ImageLoader.addImage(asset);
+    const asset = await this.cache.getAssetAsync(imageId);
+    const image = await ImageLoader.addImage(asset);
     const loadedimage = new GraphicImage(image);
     loadedimage.isLoaded = true;
     this._loadedImages[`image-${imageId}`] = loadedimage;
