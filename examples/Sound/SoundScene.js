@@ -39,13 +39,11 @@ export default class SoundScene extends Scene {
       console.log("Call to New Sound Object took " + (t1 - t0) + " milliseconds.")
       console.log("Call to play sound took " + (t2 - t1) + " milliseconds.")
       */
-     console.log("loaded asset #1");
     });
 
     this.cache.loadAsset('audio-2').then(() => {
       this.soundManager.addSound("sound-2", new ComplexSoundObject(this.cache.getAsset('audio-2')));
       this.sound2 = this.soundManager.getSound("sound-2");
-      console.log("loaded asset #2");
       this.playPauseButton.disabled = false;
       this.stopButton.disabled = false;
       for(let i = 0; i < 10; i++) {
@@ -61,17 +59,14 @@ export default class SoundScene extends Scene {
 
     this.cache.loadAsset('audio-3').then(() => {
       this.sound3 = new SimpleSoundObject(this.cache.getAsset('audio-3'));
-      console.log("loaded asset #3");
     });
 
     this.cache.loadAsset('audio-4').then(() => {
       this.sound4 = new SimpleSoundObject(this.cache.getAsset('audio-4'));
-      console.log("loaded asset #4");
     });
 
     this.cache.loadAsset('audio-5').then(() => {
       this.sound5 = new SimpleSoundObject(this.cache.getAsset('audio-5'));
-      console.log("loaded asset #5");
     });
 
     this.mouse = ServiceLocator.instance.locate('mouse');

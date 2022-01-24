@@ -7,6 +7,14 @@ class Sprite {
     this._spriteConfig = spriteConfig;
   }
 
+  get isLoaded() {
+    return this._isLoaded;
+  }
+
+  set isLoaded(value) {
+    this._isLoaded = value;
+  }
+
   get x() {
     return this._x;
   }

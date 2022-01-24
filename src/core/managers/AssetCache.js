@@ -70,7 +70,6 @@ class AssetCache {
         throw e;
       }
     }
-
     return asset;
   }
 
@@ -79,13 +78,15 @@ class AssetCache {
    * @param {string} key The key used when the asset was registered.
    * @returns {object} The value of the loaded asset.
    */
-  getAsset(key) {
+  async getAsset(key) {
     const asset = this.assetDictionary[key];
-    if (asset.status === AssetLoadingStatus.LOADED) {
-      return asset.value;
-    }
-    return undefined;
+    return new Promise((resolve) => {
+      if (asset.status === AssetLoadingStatus.LOADED) {
+        resolve(asset.value);
+      } 
+    });
   }
+
 
   /**
    * Remove the asset from cache.

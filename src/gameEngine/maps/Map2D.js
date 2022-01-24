@@ -38,7 +38,7 @@ class Map2D {
 
     this.cache.registerAsset(tileSetId, tileset.imagePath);
     await this.cache.loadAsset(tileSetId);
-    return addImageAsync(this.cache.getAsset(tileSetId));
+    return addImageAsync(await this.cache.getAsset(tileSetId));
   }
 
   draw() {

@@ -6,6 +6,7 @@ import Point from '../../core/Point';
 import Camera from '../Camera';
 import AssetCache from '../../core/managers/AssetCache';
 import ImageLoader from '../../renderingEngine/images/ImageLoader';
+import SpriteLoader from '../../renderingEngine/images/spritesheets/SpriteLoader';
 
 class Scene {
   /**
@@ -22,7 +23,9 @@ class Scene {
     this.cache = new AssetCache();
 
     this.imageLoader = new ImageLoader(this.cache);
+    this.spriteLoader = new SpriteLoader(this.cache, this.imageLoader);
     this._imageLoadPromises = [];
+    this._spriteLoadPomises = [];
 
     // TODO: For simplicity, the world and camera are the same size as the canvas for now.
     this._world = new World(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
@@ -84,12 +87,21 @@ class Scene {
     return this._isReady;
   }
 
+  retrieveSprite(key) {
+    this.spriteLoader.getSprite(key);
+  }
+
+  loadSprite(key, url) {
+    this._spriteLoadPomises.push(this.spriteLoader.loadSpriteAsync(key, url));
+  }
+
   retrieveImage(key) {
     return this.imageLoader.getImage(key);
   }
 
   loadImage(key, url) {
-    this._imageLoadPromises.push(this.imageLoader.loadImage(key, url));
+    this._imageLoadPromises.push(this.imageLoader.loadImageAsync(key, url));
+    //this.imageLoader.registerForLoading(key, url);
   }
 
   _preload() {

@@ -1,6 +1,10 @@
 {
 	"ID": "george",
 	"SPRITE_SHEET_URL": "./assets/george.png",
+	"SpriteSheet" : {
+		"width": 192,
+		"height": 192
+	},
 	"FRAMES_PER_ANIMATION": 20,
 	"animations": [
 		{
