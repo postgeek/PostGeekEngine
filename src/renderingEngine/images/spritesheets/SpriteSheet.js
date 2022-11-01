@@ -34,4 +34,5 @@ class SpriteSheet extends GraphicImage {
   draw() {
     super.draw();
   }
-} export default SpriteSheet;
+}
+export default SpriteSheet;

@@ -60,4 +60,5 @@ class Sprite {
       this.spriteConfig.height,
     );
   }
-} export default Sprite;
+}
+export default Sprite;

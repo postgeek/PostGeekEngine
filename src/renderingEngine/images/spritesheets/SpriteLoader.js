@@ -31,9 +31,17 @@ export default class SpriteLoader {
     await this._cache.loadAsset(spriteId);
     const asset = await this._cache.getAssetAsync(spriteId);
     const spriteAssetJSON = JSON.parse(asset);
-    const image = await this._imageLoader.loadImageAsync(spriteAssetJSON.ID, spriteAssetJSON.SPRITE_SHEET_URL);
-    const spriteSheet = new SpriteSheet(image, new SpriteSheetConfig(spriteAssetJSON.SpriteSheet));
-    const spriteAnimationConfiguration = new AnimatedSpriteConfig(spriteAssetJSON.animations[0].sprites);
+    const image = await this._imageLoader.loadImageAsync(
+      spriteAssetJSON.ID,
+      spriteAssetJSON.SPRITE_SHEET_URL,
+    );
+    const spriteSheet = new SpriteSheet(
+      image,
+      new SpriteSheetConfig(spriteAssetJSON.SpriteSheet),
+    );
+    const spriteAnimationConfiguration = new AnimatedSpriteConfig(
+      spriteAssetJSON.animations[0].sprites,
+    );
     const sprite = new Sprite(spriteSheet, spriteAssetJSON);
     this._loadedSprites[`sprite-${spriteId}`] = image;
     return image;
