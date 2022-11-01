@@ -4,9 +4,9 @@ import SpriteSheet from './SpriteSheet';
 import SpriteSheetConfig from './SpriteSheetConfig';
 
 export default class SpriteLoader {
-  constructor(cache, imageLoader) {
-    this.cache = cache;
-    this._imageLoader = imageLoader;
+  constructor(cache, imageCache) {
+    this._cache = cache;
+    this._imageCache = imageCache;
     this._loadedSprites = {};
   }
 
@@ -27,14 +27,15 @@ export default class SpriteLoader {
     */
 
   async loadSpriteAsync(spriteId, spriteJSONUrl) {
-    this.cache.registerAsset(spriteId, spriteJSONUrl);
-    await this.cache.loadAsset(spriteId);
-    const asset = await this.cache.getAssetAsync(spriteId);
+    this._cache.registerAsset(spriteId, spriteJSONUrl);
+    await this._cache.loadAsset(spriteId);
+    const asset = await this._cache.getAssetAsync(spriteId);
     const spriteAssetJSON = JSON.parse(asset);
     const image = await this._imageLoader.loadImageAsync(spriteAssetJSON.ID, spriteAssetJSON.SPRITE_SHEET_URL);
-    const spriteSheetImage = this._imageLoader.getImage(spriteAssetJSON.ID);
-    const spriteSheet = new SpriteSheet(spriteSheetImage, new SpriteSheetConfig(spriteAssetJSON.SpriteSheet));
+    const spriteSheet = new SpriteSheet(image, new SpriteSheetConfig(spriteAssetJSON.SpriteSheet));
     const spriteAnimationConfiguration = new AnimatedSpriteConfig(spriteAssetJSON.animations[0].sprites);
     const sprite = new Sprite(spriteSheet, spriteAssetJSON);
+    this._loadedSprites[`sprite-${spriteId}`] = image;
+    return image;
   }
 }

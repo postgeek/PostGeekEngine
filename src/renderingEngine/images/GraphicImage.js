@@ -79,6 +79,12 @@ class GraphicImage extends GraphicObject {
     }
   }
 
+  drawAtPoint(point) {
+    if (this.isLoaded) {
+      this.context.drawImage(this.image, point.x, point.y);
+    }
+  }
+
   /**
    * Draws and image within an image.
    *

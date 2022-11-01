@@ -48,6 +48,10 @@ class Sprite {
     this._spriteSheet = value;
   }
 
+  debugDraw() {
+    this.spriteSheet.draw();
+  }
+
   drawAtPoint(drawPoint) {
     this.spriteSheet.drawImageWithMask(
       drawPoint,

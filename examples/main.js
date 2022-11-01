@@ -59,7 +59,7 @@ class Main {
     const demo = this._demos.find(d => d.key === key);
     if(this._game.sceneManager.activeSceneKey !== key) {
       try {
-        this._game.sceneManager.runningScene.close();
+        this._game.sceneManager.runningScene.cleanUp();
       } catch(e) {
 
       }

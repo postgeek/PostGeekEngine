@@ -1,5 +1,4 @@
 import Scene from 'gameEngine/scene/Scene';
-import KeyboardKey from 'inputEngine/KeyboardKey';
 import Point from 'core/Point';
 import ServiceLocator from 'core/ServiceLocator';
 import PathBuilder from 'renderingEngine/geometry/Path/PathBuilder'
@@ -7,12 +6,18 @@ import Transform from 'renderingEngine/context/Transform'
 import Circle from 'renderingEngine/geometry/Circle';
 import Color from 'renderingEngine/colors/Color';
 import GeometryStyle from '../../src/renderingEngine/geometry/GeometryStyle';
+import KeyboardKey from '../../src/inputEngine/KeyboardKey';
 
 export default class PathBuilderDemoScene extends Scene {  
+  preload() {
+    this.loadImage('george', './assets/george.png');
+  }
+
   create() {
     this.transform = new Transform();
 
     this.keyboard = ServiceLocator.instance.locate('keyboard');
+    this.keyboard.registerKey(KeyboardKey.D);
     
     const pathBuilder = new PathBuilder();
     pathBuilder.moveTo(new Point(200,200));
@@ -37,6 +42,10 @@ export default class PathBuilderDemoScene extends Scene {
     this.rotationAngle += 1;
     if(this.rotationAngle >= 360) {
       this.rotationAngle = 0
+    }
+    if (this.keyboard.keyDownOnce(KeyboardKey.D)) {
+      console.log("KEYBOARD DOWN");
+      this.deleteImage('george');
     }
   }
 

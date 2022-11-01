@@ -1,22 +1,10 @@
+import { AssetLoadingStatus } from '../../core/managers/Asset';
+
 export default class ImageAsset {
-  constructor(id, imageUrl) {
-    this.id = id;
+  constructor(key, imageUrl) {
+    this.key = key;
     this.imageUrl = imageUrl;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  set id(value) {
-    this._id = value;
-  }
-
-  get imageUrl() {
-    return this._imageUrl;
-  }
-
-  set imageUrl(value) {
-    this._imageUrl = value;
+    this.image = null;
+    this.status = AssetLoadingStatus.NEW;
   }
 }

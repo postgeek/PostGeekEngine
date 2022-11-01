@@ -2,12 +2,12 @@ import Scene from 'gameEngine/scene/Scene';
 import Point from 'core/Point';
 import FromTiledJsonToMap2DConfig from 'gameEngine/maps/converters/FromTiledJsonToMap2DConfig';
 import Map2D from 'gameEngine/maps/Map2D';
+import GraphicImage from '../../src/renderingEngine/images/GraphicImage';
 
 export default class DemoScene extends Scene {
-
   preload() {
     this.loadImage('george', './assets/george.png');
-    this.loadSprite('georgeSprite', './assets/json/george2.json');
+    // this.loadSprite('georgeSprite', './assets/json/george2.json');
   }
 
   create() {
@@ -16,10 +16,10 @@ export default class DemoScene extends Scene {
     this.loaded = false;
     this.mapLoaded = false;
 
-    this.george = this.retrieveImage('george');
+    this.george = new GraphicImage(this.retrieveImage('george'), true);
+    // this.george2 = this.retrieveSprite('georgeSprite');
 
-
-    this.currentDirection = "WALK_LEFT";
+    this.currentDirection = 'WALK_LEFT';
 
     this.loadedImages = {};
 
@@ -46,6 +46,7 @@ export default class DemoScene extends Scene {
     if (this.mapLoaded) {
       this.Map.draw();
     }
-    this.george.draw();
+    // this.george2.draw();
+    this.george.drawAtPoint(new Point(600, 0));
   }
 }

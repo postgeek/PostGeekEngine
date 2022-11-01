@@ -7,6 +7,7 @@ import Camera from '../Camera';
 import AssetCache from '../../core/managers/AssetCache';
 import ImageLoader from '../../renderingEngine/images/ImageLoader';
 import SpriteLoader from '../../renderingEngine/images/spritesheets/SpriteLoader';
+import ImageCache from '../../renderingEngine/images/managers/ImageCache';
 
 class Scene {
   /**
@@ -21,9 +22,9 @@ class Scene {
 
     this._context = ServiceLocator.instance.locate('context');
     this.cache = new AssetCache();
+    this.imageCache = new ImageCache(this.cache);
 
-    this.imageLoader = new ImageLoader(this.cache);
-    this.spriteLoader = new SpriteLoader(this.cache, this.imageLoader);
+    this.spriteLoader = new SpriteLoader(this.cache, this.imageCache);
     this._imageLoadPromises = [];
     this._spriteLoadPomises = [];
 
@@ -34,6 +35,8 @@ class Scene {
     this._preload().then(() => {
       this.create();
       this.isReady = true;
+    }).catch((err) => {
+      console.log(err);
     });
   }
 
@@ -88,7 +91,7 @@ class Scene {
   }
 
   retrieveSprite(key) {
-    this.spriteLoader.getSprite(key);
+    return this.spriteLoader.getSprite(key);
   }
 
   loadSprite(key, url) {
@@ -96,17 +99,21 @@ class Scene {
   }
 
   retrieveImage(key) {
-    return this.imageLoader.getImage(key);
+    return this.imageCache.getImage(key);
+  }
+
+  deleteImage(key) {
+    this.imageCache.removeImage(key);
   }
 
   loadImage(key, url) {
-    this._imageLoadPromises.push(this.imageLoader.loadImageAsync(key, url));
-    // this.imageLoader.registerForLoading(key, url);
+    this.imageCache.registerImage(key, url);
+    this._imageLoadPromises.push(this.imageCache.loadImageAsync(key));
   }
 
   _preload() {
     this.preload();
-    return Promise.all(this._imageLoadPromises);
+    return Promise.all(this._imageLoadPromises.concat(this._spriteLoadPomises));
   }
 
   /**
@@ -148,12 +155,16 @@ class Scene {
     throw new MethodNotImplementedError(this);
   }
 
+  cleanUp() {
+    this.imageCache.destroy();
+    this.close();
+  }
+
   /**
   * Closes the scene and cleans up the neccessary resources.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
   */
   close() {
-    throw new MethodNotImplementedError(this);
+    // is possibly overriden in subclasses.
   }
 }
 export default Scene;

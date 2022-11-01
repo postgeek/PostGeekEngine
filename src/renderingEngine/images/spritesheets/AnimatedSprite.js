@@ -10,7 +10,11 @@ export default class AnimatedSprite {
   update() {
     this.ticks++;
     if (this.tick >= this.maxTicks) {
-      if (this._animatedSpriteConfig.numberOfFrames > this.currentSpriteIndex) { this.currentSpriteIndex++; } else { this.currentSpriteIndex = 0; }
+      if (this._animatedSpriteConfig.numberOfFrames > this.currentSpriteIndex) {
+        this.currentSpriteIndex++;
+      } else {
+        this.currentSpriteIndex = 0;
+      }
       this.ticks = 0;
     }
   }
