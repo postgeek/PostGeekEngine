@@ -5,14 +5,13 @@ import ServiceLocator from '../../core/ServiceLocator';
 import Point from '../../core/Point';
 import Camera from '../Camera';
 import AssetCache from '../../core/managers/AssetCache';
-import ImageLoader from '../../renderingEngine/images/ImageLoader';
 import SpriteLoader from '../../renderingEngine/images/spritesheets/SpriteLoader';
 import ImageCache from '../../renderingEngine/images/managers/ImageCache';
 
 class Scene {
   /**
-  * Creates a new Scene
-  */
+   * Creates a new Scene
+   */
   constructor(game) {
     this.game = game;
     this.drawableObjects = [];
@@ -23,21 +22,31 @@ class Scene {
     this._context = ServiceLocator.instance.locate('context');
     this.cache = new AssetCache();
     this.imageCache = new ImageCache(this.cache);
-
     this.spriteLoader = new SpriteLoader(this.cache, this.imageCache);
+
     this._imageLoadPromises = [];
     this._spriteLoadPomises = [];
 
     // TODO: For simplicity, the world and camera are the same size as the canvas for now.
-    this._world = new World(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
-    this._camera = new Camera(new Point(0, 0), this._context.canvas.width, this._context.canvas.height);
+    this._world = new World(
+      new Point(0, 0),
+      this._context.canvas.width,
+      this._context.canvas.height,
+    );
+    this._camera = new Camera(
+      new Point(0, 0),
+      this._context.canvas.width,
+      this._context.canvas.height,
+    );
 
-    this._preload().then(() => {
-      this.create();
-      this.isReady = true;
-    }).catch((err) => {
-      console.log(err);
-    });
+    this._preload()
+      .then(() => {
+        this.create();
+        this.isReady = true;
+      })
+      .catch((err) => {
+        console.log(`error ${err}`);
+      });
   }
 
   get assetCache() {
@@ -117,24 +126,25 @@ class Scene {
   }
 
   /**
-  * Preloads assets the scene will need.
-  */
-  preload() { // eslint-disable-line class-methods-use-this
+   * Preloads assets the scene will need.
+   */
+  preload() {
+    // eslint-disable-line class-methods-use-this
     // is possibly overridden in subclasses.
   }
 
   /**
-  * Creates the scene.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
-  */
+   * Creates the scene.
+   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
+   */
   create() {
     throw new MethodNotImplementedError(this);
   }
 
   /**
-  * draws the scene to the canvas.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
-  */
+   * draws the scene to the canvas.
+   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
+   */
   draw() {
     throw new MethodNotImplementedError(this);
   }
@@ -148,9 +158,9 @@ class Scene {
   }
 
   /**
-  * Suspends the scene.
-  * @throws {MethodNotImplementedError} throws an error if method is not overriden.
-  */
+   * Suspends the scene.
+   * @throws {MethodNotImplementedError} throws an error if method is not overriden.
+   */
   suspend() {
     throw new MethodNotImplementedError(this);
   }
@@ -161,8 +171,8 @@ class Scene {
   }
 
   /**
-  * Closes the scene and cleans up the neccessary resources.
-  */
+   * Closes the scene and cleans up the neccessary resources.
+   */
   close() {
     // is possibly overriden in subclasses.
   }

@@ -110,4 +110,5 @@ class GraphicImage extends GraphicObject {
       );
     }
   }
-} export default GraphicImage;
+}
+export default GraphicImage;

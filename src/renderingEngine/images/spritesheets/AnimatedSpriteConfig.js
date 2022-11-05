@@ -5,7 +5,13 @@ export default class AnimatedSpriteConfig {
     this._animations = [];
     animations.forEach((animation) => {
       this._animations.push(
-        new AnimationConfiguration(animation.point, animation.width, animation.height),
+        new AnimationConfiguration(
+          animation.point,
+          animation.width,
+          animation.height,
+          animation.position,
+          animation.tickDuration,
+        ),
       );
     });
   }

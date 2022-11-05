@@ -42,16 +42,6 @@ export default class SoundScene extends Scene {
     this.registerAssets();
     this.cache.loadAsset('audio').then(() => {
       this.sound = new ComplexSoundObject(this.cache.getAsset('audio'));
-      /*
-      var t0 = performance.now()
-      this.sound = new ComplexSoundObject(this.cache.getAsset('audio'));
-      var t1 = performance.now()
-      this.sound.play(1000);
-      var t2 = performance.now()
-
-      console.log("Call to New Sound Object took " + (t1 - t0) + " milliseconds.")
-      console.log("Call to play sound took " + (t2 - t1) + " milliseconds.")
-      */
     });
 
     this.cache.loadAsset('audio-2').then(() => {

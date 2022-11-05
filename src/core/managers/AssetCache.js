@@ -35,7 +35,7 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    if (!(Object.prototype.hasOwnProperty.call(this.assetDictionary, key))) {
+    if (!Object.prototype.hasOwnProperty.call(this.assetDictionary, key)) {
       const extension = utils.getExtension(path);
       const assetType = utils.getAssetTypeFromExtension(extension);
       this.assetDictionary[key] = new Asset(key, path, assetType);
@@ -89,9 +89,12 @@ class AssetCache {
   async getAssetAsync(key) {
     const asset = this.assetDictionary[key];
     return new Promise((resolve) => {
-      if (asset.status === AssetLoadingStatus.LOADED) {
-        resolve(asset.value);
-      }
+      (function waitForAssetLoaded() {
+        if (asset.status === AssetLoadingStatus.LOADED) {
+          resolve(asset.value);
+        }
+        setTimeout(waitForAssetLoaded, 30);
+      })();
     });
   }
 

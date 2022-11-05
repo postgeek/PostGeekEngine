@@ -1,16 +1,18 @@
 {
-	"ID": "george",
-	"SPRITE_SHEET_URL": "./assets/george.png",
-	"SpriteSheet" : {
+	"Id": "george",
+	"Type": "animatedSprite",
+	"SpriteSheetUrl": "./assets/george.png",
+	"SpriteSheet": {
 		"width": 192,
 		"height": 192
 	},
-	"FRAMES_PER_ANIMATION": 20,
 	"animations": [
 		{
 			"animationName": "WALK_DOWN",
 			"sprites": [
 				{
+					"tickDuration": 10,	
+					"position": 0,
 					"point": {
 						"x": 0,
 						"y": 0
@@ -19,6 +21,8 @@
 					"height": 48
 				},
 				{
+					"tickDuration": 10,
+					"position": 1,
 					"point": {
 						"x": 0,
 						"y": 48
@@ -27,6 +31,8 @@
 					"height": 48
 				},
 				{
+					"tickDuration": 10,
+					"position": 2,
 					"point": {
 						"x": 0,
 						"y": 96
@@ -35,6 +41,8 @@
 					"height": 48
 				},
 				{
+					"tickDuration": 10,
+					"position": 3,
 					"point": {
 						"x": 0,
 						"y": 144

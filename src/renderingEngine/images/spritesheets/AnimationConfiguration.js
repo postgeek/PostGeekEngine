@@ -1,8 +1,26 @@
 export default class AnimationConfiguration {
-  constructor(point, width, height) {
+  constructor(point, width, height, position, tickDuration) {
     this.point = point;
     this.width = width;
     this.height = height;
+    this.position = position;
+    this.tickDuration = tickDuration;
+  }
+
+  set position(value) {
+    this._position = value;
+  }
+
+  get position() {
+    return this._position;
+  }
+
+  set tickDuration(value) {
+    this._tickDuration = value;
+  }
+
+  get tickDuration() {
+    this._tickDuration;
   }
 
   set point(value) {
