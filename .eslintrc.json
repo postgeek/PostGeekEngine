@@ -1,19 +1,33 @@
 {
-    "extends": "airbnb-base",
-    "parser": "@babel/eslint-parser",
-    "env": {
-      "browser": true
-    },
-    "rules": {
-      "no-underscore-dangle": "off",
-      "no-restricted-syntax": [
-        "error",
-        {
-          "selector": "FunctionExpression[operator='in']"
-        }
-      ],
-      "no-underscore-dangle": "off",
-      "no-plusplus": "off",
-      "max-len": "off"
-    }
+  "extends": "airbnb-base",
+  "parser": "@babel/eslint-parser",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-underscore-dangle": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "FunctionExpression[operator='in']"
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "object": true,
+        "array": false
+      }
+    ],
+    "wrap-iife": [
+      "error",
+      "any"
+    ],
+    "no-underscore-dangle": "off",
+    "no-plusplus": "off",
+    "max-len": "off",
+    "object-curly-newline": 0,
+    "implicit-arrow-linebreak": 0,
+    "function-paren-newline": 0
+  }
 }
