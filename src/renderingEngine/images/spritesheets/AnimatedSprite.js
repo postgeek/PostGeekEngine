@@ -5,7 +5,7 @@ export default class AnimatedSprite extends Sprite {
   constructor(spriteSheet, animatedSpriteConfig) {
     super(spriteSheet, animatedSpriteConfig._animations[0]);
     this.animatedSpriteConfig = animatedSpriteConfig;
-    this.currentSpriteConfiguration = animatedSpriteConfig._animations[0];
+    this.currentSpriteConfiguration = animatedSpriteConfig._animations;
     this.ticks = 0;
     this.tickDuration = animatedSpriteConfig._animations[0]._tickDuration;
     this.numberOfFrames = animatedSpriteConfig._animations.length;
@@ -15,7 +15,9 @@ export default class AnimatedSprite extends Sprite {
 
   update() {
     this.ticks++;
-    this.currentSpriteConfiguration = this.animatedSpriteConfig._animations[this.currentSpriteIndex];
+    this.currentSpriteConfiguration = this.getCurrentAnimation(
+      this.currentSpriteIndex,
+    );
     if (this.ticks >= this.tickDuration) {
       if (this.numberOfFrames - 1 > this.currentSpriteIndex) {
         this.currentSpriteIndex++;
@@ -36,5 +38,9 @@ export default class AnimatedSprite extends Sprite {
       this.currentSpriteConfiguration.width,
       this.currentSpriteConfiguration.height,
     );
+  }
+
+  getCurrentAnimation(index) {
+    return this.animatedSpriteConfig._animations[index];
   }
 }

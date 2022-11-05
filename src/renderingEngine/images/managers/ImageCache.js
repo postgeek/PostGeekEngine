@@ -51,8 +51,9 @@ export default class ImageCache {
     return imageCacheItem;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async downloadImageAsync(assetCacheItem) {
-    return await new Promise((resolve) => {
+    return new Promise((resolve) => {
       const image = new Image();
       image.src = window.URL.createObjectURL(assetCacheItem);
       image.onload = () => {
@@ -87,7 +88,7 @@ export default class ImageCache {
           resolve(image.image);
         }
         setTimeout(waitForImageAssetLoaded, 30);
-      }());
+      })();
     });
   }
 

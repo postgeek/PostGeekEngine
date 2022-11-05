@@ -20,7 +20,7 @@ export default class AnimationConfiguration {
   }
 
   get tickDuration() {
-    this._tickDuration;
+    return this._tickDuration;
   }
 
   set point(value) {
