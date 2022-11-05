@@ -87,7 +87,7 @@ export default class ImageCache {
           resolve(image.image);
         }
         setTimeout(waitForImageAssetLoaded, 30);
-      })();
+      }());
     });
   }
 

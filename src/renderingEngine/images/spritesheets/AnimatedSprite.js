@@ -15,8 +15,7 @@ export default class AnimatedSprite extends Sprite {
 
   update() {
     this.ticks++;
-    this.currentSpriteConfiguration =
-      this.animatedSpriteConfig._animations[this.currentSpriteIndex];
+    this.currentSpriteConfiguration = this.animatedSpriteConfig._animations[this.currentSpriteIndex];
     if (this.ticks >= this.tickDuration) {
       if (this.numberOfFrames - 1 > this.currentSpriteIndex) {
         this.currentSpriteIndex++;

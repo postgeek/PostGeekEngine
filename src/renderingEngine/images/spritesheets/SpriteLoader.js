@@ -21,7 +21,7 @@ export default class SpriteLoader {
     const asset = await this._cache.getAssetAsync(spriteId);
     const spriteAssetJSON = JSON.parse(asset);
 
-    var imageExistsInCache = this._imageCache.imageExists(spriteAssetJSON.Id);
+    const imageExistsInCache = this._imageCache.imageExists(spriteAssetJSON.Id);
     if (!imageExistsInCache) {
       this._imageCache.registerImage(
         spriteAssetJSON.Id,
@@ -38,14 +38,14 @@ export default class SpriteLoader {
       spriteAssetJSON.animations[0].sprites,
     );
     if (spriteAssetJSON.Type === 'animatedSprite') {
-      //// TODO: Load the sprite properly
+      /// / TODO: Load the sprite properly
       const sprite = new AnimatedSprite(
         spriteSheet,
         spriteAnimationConfiguration,
       );
       this._loadedSprites[`sprite-${spriteId}`] = sprite;
     } else {
-      //// TODO: Fix for normal sprites
+      /// / TODO: Fix for normal sprites
       const sprite = new Sprite(spriteSheet, spriteAssetJSON);
       this._loadedSprites[`sprite-${spriteId}`] = sprite;
     }
