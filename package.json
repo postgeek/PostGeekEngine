@@ -1,6 +1,6 @@
 {
   "name": "@postgeek/post-geek-engine",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Building a game engine one line of code at a time",
   "main": "lib/index.js",
   "husky": {
@@ -30,7 +30,8 @@
     "test": "jest --config jest-config.js",
     "test:new": "jest --config jest-config-new.js -o",
     "start": "webpack serve --config ./webpack.dev.js",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir lib"
+    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
+    "prepare": "husky install"
   },
   "author": "PostGeek",
   "license": "MIT",
@@ -58,7 +59,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.3.2",
-    "husky": "^7.0.2",
+    "husky": "^7.0.0",
     "jest": "^27.2.4",
     "jest-canvas-mock": "^2.3.1",
     "rimraf": "^3.0.2",
