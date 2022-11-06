@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     container: node:slim
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout
+      - uses: actions/setup-node
         with:
-            node-version: 16
-            cache: 'npm'
-            cache-dependency-path: package-lock.json
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       - run: npm install
       - run: npm test
 
@@ -23,8 +23,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout
+      - uses: actions/setup-node
         with:
           node-version: 16
           cache: 'npm'
