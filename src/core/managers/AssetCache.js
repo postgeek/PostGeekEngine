@@ -94,7 +94,7 @@ class AssetCache {
           resolve(asset.value);
         }
         setTimeout(waitForAssetLoaded, 30);
-      }());
+      })();
     });
   }
 

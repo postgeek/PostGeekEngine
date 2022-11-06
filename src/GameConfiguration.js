@@ -36,8 +36,11 @@ class GameConfiguration {
 
   static isConfigValid(gameConfiguration) {
     const { canvas, initialScene } = gameConfiguration;
-    return (gameConfiguration !== undefined)
-        && (canvas !== undefined)
-        && (initialScene !== undefined);
+    return (
+      gameConfiguration !== undefined
+      && canvas !== undefined
+      && initialScene !== undefined
+    );
   }
-} export default GameConfiguration;
+}
+export default GameConfiguration;
