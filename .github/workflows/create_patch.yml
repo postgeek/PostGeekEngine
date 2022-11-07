@@ -37,12 +37,12 @@ jobs:
           scope: '@postgeek'
       - run: npm install
       - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: git checkout master
+      - run: git pull
       - run: git checkout develop
       - run: git pull
       - run: git checkout -b release-minor-version
       - run: npm version patch
-      - run: git checkout master
-      - run: git pull
       - run: git merge release-minor-version
       - run: git push --tags && git push
         env:
