@@ -1,16 +1,19 @@
-name: Publish Node.js Package
+name:
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
-      - master
+      - 'develop'
 
 jobs:
-  name:
   build:
+  name: Build
     runs-on: ubuntu-latest
     container: node:slim
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -20,10 +23,11 @@ jobs:
       - run: npm test
 
   publish-gpr:
-    name: Publish Package
+    name: Create Patch Branch
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -32,6 +36,14 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@postgeek'
       - run: npm install
-      - run: npm publish
+      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: git checkout develop
+      - run: git pull
+      - run: git checkout -b release-minor-version
+      - run: npm version patch
+      - run: git checkout master
+      - run: git pull
+      - run: git merge release-minor-version
+      - run: git push --tags && git push
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
