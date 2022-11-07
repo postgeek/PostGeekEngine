@@ -1,46 +1,47 @@
 import ServiceLocator from '../core/ServiceLocator';
 
 class SoundObject {
-  constructor(audioBuffer) {
+  constructor(audioBuffer) {    
+    this._logger = ServiceLocator.instance.locate('logger');
+
     if(ServiceLocator.instance.containsKey('audioContext')) {
       this._audioContext = ServiceLocator.instance.locate('audioContext');
+      this._audioSupported = true;
+    }
+    else {
+      this._logger.error('Unable to retrieve audio context. Audio may not be supported.')
+      this._audioSupported = false;
     }
 
     this._audioBuffer = audioBuffer;
+
+    this.decodeSound();
   }
 
-  get audioContext() {
-    return this._audioContext;
+  get sound() {
+    return this._sound;
   }
 
-  set audioContext(value) {
-    this._audioContext = value;
-  }
-
-  getSound() {
-    if (!this._sound) {
+  decodeSound() {
+    if(this._audioSupported && !this._sound) {
       this._sound = this._audioContext.createBufferSource();
       this._audioContext.decodeAudioData(this._audioBuffer).then((buffer) => {
         this._sound.buffer = buffer;
         this._sound.connect(this._audioContext.destination);
       });
     }
-
-    return this._sound;
   }
 
   play(ms) {
-    const sound = this.getSound();
-    sound.start(0);
+    this._sound.start(0);
 
     if (ms) {
-      setTimeout(() => { sound.stop(0); }, ms);
+      setTimeout(() => { this._sound.stop(0); }, ms);
     }
   }
 
   stop() {
-    const sound = this.getSound();
-    sound.stop(0);
+    this._sound.stop(0);
   }
 }
 export default SoundObject;

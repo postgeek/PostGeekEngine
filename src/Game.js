@@ -165,9 +165,9 @@ class Game {
     ServiceLocator.instance.register('context', this._context);
 
     // Create the audio context
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    if(AudioContext) {
-      ServiceLocator.instance.register('audioContext', new AudioContext());
+    let audioContext = window.AudioContext || window.webkitAudioContext;
+    if(audioContext) {
+      ServiceLocator.instance.register('audioContext', new audioContext());
     }
 
     // Register the eventbus into the service locator
