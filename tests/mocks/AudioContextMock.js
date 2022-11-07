@@ -1,3 +1,5 @@
+import AudioBufferSourceNodeMock from './AudioBufferSourceNodeMock';
+
 class AudioContextMock {
   get destination() {
     return undefined;

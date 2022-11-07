@@ -1,6 +1,5 @@
 import Asset, { AssetLoadingStatus, AssetType } from './Asset';
 import * as utils from './AssetUtils';
-import ServiceLocator from '../ServiceLocator';
 
 /**
  * @example
@@ -19,7 +18,6 @@ class AssetCache {
    */
   constructor() {
     this.assetDictionary = [];
-    this._audioContext = ServiceLocator.instance.locate('audioContext');
   }
 
   /**
@@ -52,13 +50,7 @@ class AssetCache {
       asset.status = AssetLoadingStatus.LOADING;
 
       try {
-        let value = await utils.downloadAsset(asset);
-
-        if (asset.type === AssetType.AUDIO) {
-          value = await this._audioContext.decodeAudioData(value);
-        }
-
-        asset.value = value;
+        asset.value = await utils.downloadAsset(asset);
         asset.status = AssetLoadingStatus.LOADED;
       } catch (e) {
         asset.status = AssetLoadingStatus.ERROR;

@@ -1,7 +1,6 @@
-const { default: ServiceLocator } = require("../../src/core/ServiceLocator");
-
 import AudioContextMock from '../mocks/AudioContextMock';
 import SoundObject from '../../src/soundEngine/SoundObject';
+import ServiceLocator from '../../src/core/ServiceLocator';
 
 beforeEach(() => {
   ServiceLocator.instance.clear();
@@ -12,12 +11,13 @@ describe('play', () => {
   it('should play the sound', () => {
     // Arrange
     const soundObject = new SoundObject();
-    soundObject.getSound
+    const soundBuffer = soundObject.getSound();
+    const soundBufferStartFn = jest.spyOn(soundBuffer, 'start');
     
     // Act
     soundObject.play();
     
     // Assert
-    expect(audioContextdecodeAudioDataSpy).toHaveBeenCalledTimes(1);
+    expect(soundBufferStartFn).toHaveBeenCalledTimes(1);
   });
 });
