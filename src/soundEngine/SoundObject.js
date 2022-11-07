@@ -1,13 +1,9 @@
-import { Exception } from 'sass';
 import ServiceLocator from '../core/ServiceLocator';
 
 class SoundObject {
   constructor(audioBuffer) {
     if(ServiceLocator.instance.containsKey('audioContext')) {
       this._audioContext = ServiceLocator.instance.locate('audioContext');
-    }
-    else {
-      throw new Exception('Audio not supported.')
     }
 
     this._audioBuffer = audioBuffer;
