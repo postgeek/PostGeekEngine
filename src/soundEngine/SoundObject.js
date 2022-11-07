@@ -1,6 +1,16 @@
 import ServiceLocator from '../core/ServiceLocator';
 
+/**
+ * Creates a sound object that controls an audio buffer.
+ */
 class SoundObject {
+
+  /**
+   * Creates the Sound Object and validates audio support.
+   * 
+   * @constructor
+   * @param {arrayBuffer} audioBuffer 
+   */
   constructor(audioBuffer) {    
     this._logger = ServiceLocator.instance.locate('logger');
 
@@ -15,14 +25,6 @@ class SoundObject {
 
     this._audioBuffer = audioBuffer;
 
-    this.decodeSound();
-  }
-
-  get sound() {
-    return this._sound;
-  }
-
-  decodeSound() {
     if(this._audioSupported && !this._sound) {
       this._sound = this._audioContext.createBufferSource();
       this._audioContext.decodeAudioData(this._audioBuffer).then((buffer) => {
@@ -32,6 +34,18 @@ class SoundObject {
     }
   }
 
+  /**
+   * Get the Audio Buffer Source Node used by the Audio Context for this sound object.
+   * @returns {AudioBufferSourceNode}
+   */
+  get sound() {
+    return this._sound;
+  }
+
+  /**
+   * Play the sound for a set ammount of time. If ms is omited, the sound will play until the end of the buffer.
+   * @param {int} ms Number of milliseconds to play the sound before stopping it.
+   */
   play(ms) {
     this._sound.start(0);
 
@@ -40,8 +54,12 @@ class SoundObject {
     }
   }
 
+  /**
+   * Stop the sound from playing.
+   */
   stop() {
     this._sound.stop(0);
   }
 }
+
 export default SoundObject;
