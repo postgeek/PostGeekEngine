@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  name:
+  name: Build
   build:
     runs-on: ubuntu-latest
     container: node:slim
