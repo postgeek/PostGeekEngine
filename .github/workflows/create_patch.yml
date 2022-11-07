@@ -45,6 +45,6 @@ jobs:
       - run: git checkout -b release-minor-version
       - run: npm version patch
       - run: git merge release-minor-version
-      - run: git push --tags && git push
+      - run: git push --tags && git push --set-upstream origin release-minor-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
