@@ -27,6 +27,7 @@
       "any"
     ],
     "no-underscore-dangle": "off",
+    "linebreak-style": "off",
     "no-plusplus": "off",
     "max-len": "off",
     "object-curly-newline": 0,
