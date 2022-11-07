@@ -6,6 +6,8 @@ import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
 import PhysicsComponent from '../../src/physicsEngine/PhysicsComponent';
 import GraphicsComponent from '../../src/renderingEngine/GraphicsComponent';
 import Rectangle from '../../src/renderingEngine/geometry/Rectangle';
+import TextStyle from '../../src/renderingEngine/text/TextStyle';
+import Color from '../../src/renderingEngine/colors/Color';
 
 class RectangleGraphicsComponent extends GraphicsComponent {
   constructor() {
@@ -13,9 +15,7 @@ class RectangleGraphicsComponent extends GraphicsComponent {
 
     this._rectangle = new Rectangle(new Point(100, 100), 100, 100);
 
-    this.graphicObjects = [
-      this._rectangle,
-    ];
+    this.graphicObjects = [this._rectangle];
   }
 
   get rectangle() {
@@ -54,7 +54,14 @@ class RectangleGameObject extends GameObject {
 export default class CollisionScene extends Scene {
   create() {
     this.rectangle = new RectangleGameObject(this);
-    this.rectangleText = new TextGraphic(new Point(3, 12), '');
+    this.rectangleText = new TextGraphic(
+      new Point(3, 12),
+      '',
+      new TextStyle({
+        fillStyle: Color.WHITE,
+        font: '14px serif',
+      }),
+    );
   }
 
   update() {

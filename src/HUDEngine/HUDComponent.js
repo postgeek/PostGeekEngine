@@ -1,9 +1,17 @@
-import GraphicObject from '../renderingEngine/GraphicObject';
+import MethodNotImplementedError from '../core/errorHandling/errors/MethodNotImplementedError';
 
-class HUDComponent extends GraphicObject {
+class HUDComponent {
   constructor(point) {
-    super();
-    this._point = point;
+    this.point = point;
+    this.isVisible = true;
+  }
+
+  set isVisible(value) {
+    this._isVisible = value;
+  }
+
+  get isVisible() {
+    return this._isVisible;
   }
 
   set point(value) {
@@ -13,4 +21,15 @@ class HUDComponent extends GraphicObject {
   get point() {
     return this._point;
   }
-} export default HUDComponent;
+
+  internalDraw() {
+    throw new MethodNotImplementedError(this);
+  }
+
+  draw() {
+    if (this.isVisible) {
+      this.internalDraw();
+    }
+  }
+}
+export default HUDComponent;

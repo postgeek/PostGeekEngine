@@ -34,4 +34,5 @@ class PostGeekLogger {
     const warings = this.messages;
     return warings;
   }
-} export default PostGeekLogger;
+}
+export default PostGeekLogger;

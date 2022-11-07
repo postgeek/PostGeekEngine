@@ -6,15 +6,12 @@ class TextArea extends HUDComponent {
   constructor(point, text, width, height, textStyle) {
     super(point);
 
-    this.TextStyle = textStyle;
-
-    this.Text = new TextGraphic(point.clone(), text);
-    this.Text.textStyle = this.TextStyle;
+    this.textStyle = textStyle;
+    this.Text = new TextGraphic(point.clone(), text, textStyle);
     this.Border = new Rectangle(point.clone(), width, height);
     this.firstDraw = true;
 
     this.Texts = [];
-
     this.Text.point.x += 5;
 
     this.fitTextToContainer();
@@ -24,41 +21,42 @@ class TextArea extends HUDComponent {
     const containerWidth = this.Border.width - 10;
     const containerHeight = this.Border.height - 20;
 
-    const textWidth = this.Text.measureText().width;
+    const textWidth = this.Text.getTextWidth();
     let textHeight = 0;
 
     const amountOfLines = Math.ceil(textWidth / containerWidth);
 
-    let temporaryTextObject = new TextGraphic(this.Text.point.clone(), '');
-    temporaryTextObject.textStyle = this.TextStyle;
+    let temporaryTextObject = new TextGraphic(this.Text.point.clone(), '', this.Text.textStyle);
 
     if (amountOfLines > 1) {
       for (let i = 0; i < this.Text.text.length; i += 1) {
         temporaryTextObject.text += this.Text.text[i];
 
-        if (temporaryTextObject.measureText().width > containerWidth
-              && textHeight < containerHeight) {
+        if (temporaryTextObject.getTextWidth() > containerWidth && textHeight < containerHeight) {
           let tempText = temporaryTextObject.text;
           tempText = tempText.substring(0, tempText.length - 1);
           i -= 1;
           temporaryTextObject.text = tempText;
           this.Texts.push(temporaryTextObject);
           temporaryTextObject = new TextGraphic(this.Text.point.clone(), '');
-          temporaryTextObject.textStyle = this.TextStyle;
+          temporaryTextObject.textStyle = this.textStyle;
 
           textHeight += this.Text.determineFontHeight();
         }
       }
+    } else {
+      temporaryTextObject.text = this.Text.text;
+      temporaryTextObject.textStyle = this.textStyle;
+      this.Texts.push(temporaryTextObject); // Remove this later it constraints the height
     }
-    this.Texts.push(temporaryTextObject); // Remove this later it constraints the height
   }
 
-  get TextStyle() {
-    return this.textStyle;
+  get textStyle() {
+    return this._textStyle;
   }
 
-  set TextStyle(value) {
-    this.textStyle = value;
+  set textStyle(value) {
+    this._textStyle = value;
   }
 
   get Text() {
@@ -77,17 +75,17 @@ class TextArea extends HUDComponent {
     this.border = value;
   }
 
-  draw() {
+  internalDraw() {
+    this.Border.draw();
     if (this.firstDraw) {
-      for (let i = 0; i < this.Texts.length; i += 1) {
+      for (let i = 0; i < this.Texts.length; i++) {
         this.Texts[i].point.y += this.Texts[i].determineFontHeight() * (i + 1);
       }
       this.firstDraw = false;
     }
-    for (let i = 0; i < this.Texts.length; i += 1) {
+    for (let i = 0; i < this.Texts.length; i++) {
       this.Texts[i].draw();
     }
-    this.Border.draw();
   }
 }
 export default TextArea;

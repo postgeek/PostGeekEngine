@@ -38,9 +38,7 @@ class TextInput extends ClickableComponent {
 
     this.height += 8;
 
-    this.rectangle = new Rectangle(point.clone(),
-      this.width,
-      this.height);
+    this.rectangle = new Rectangle(point.clone(), this.width, this.height);
 
     this.focus = false;
     this.text = '';
@@ -140,13 +138,13 @@ class TextInput extends ClickableComponent {
   }
 
   updateText() {
-    const widthBefore = this.textGraphic.measureText();
+    const widthBefore = this.textGraphic.getTextWidth();
     if (this.textGraphic.text !== this.text) {
       this.textGraphic.text = this.text;
     }
-    const widthAfter = this.textGraphic.measureText();
+    const widthAfter = this.textGraphic.getTextWidth();
     const deltaWidth = widthAfter - widthBefore;
-    if ((widthAfter) > (this.width)) {
+    if (widthAfter > this.width) {
       this.offsetX += deltaWidth;
       this.textGraphic.point.x -= deltaWidth;
     } else {
@@ -159,4 +157,5 @@ class TextInput extends ClickableComponent {
     this.rectangle.draw();
     this.textGraphic.draw();
   }
-} export default TextInput;
+}
+export default TextInput;

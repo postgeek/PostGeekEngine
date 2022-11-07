@@ -27,7 +27,7 @@ describe('Constructor', () => {
     expect(textGraphic.point.x).toBe(point.x);
     expect(textGraphic.point.y).toBe(point.y);
   });
-  it('should properly set the X coordinate of the textGraphic\'s point', () => {
+  it("should properly set the X coordinate of the textGraphic's point", () => {
     // Arrange
     const text = 'jest test text';
     const point = new Point(22, 33);
@@ -40,7 +40,7 @@ describe('Constructor', () => {
     // Assert
     expect(textGraphic.point.x).toBe(newX);
   });
-  it('should properly set the Y coordinate of the textGraphic\'s point', () => {
+  it("should properly set the Y coordinate of the textGraphic's point", () => {
     // Arrange
     const text = 'jest test text';
     const point = new Point(22, 33);
@@ -110,12 +110,13 @@ describe('Constructor', () => {
     expect(textStyleApplySpy).toHaveBeenCalledTimes(1);
     expect(contextRestoreSpy).toHaveBeenCalledTimes(1);
   });
-  it('should correctly apply the text\'s fill style', () => {
+  it("should correctly apply the text's fill style", () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
     const point = new Point(22, 33);
     const testGraphic = new TextGraphic(point, text);
+    testGraphic.textStyle.fillStyle = 'red';
     const contextFillTextSpy = jest.spyOn(context, 'fillText');
 
     // Act
@@ -124,7 +125,7 @@ describe('Constructor', () => {
     // Assert
     expect(contextFillTextSpy).toHaveBeenCalledTimes(1);
   });
-  it('should not apply the text\'s fill style if it\'s undefined', () => {
+  it("should not apply the text's fill style if it's undefined", () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
@@ -139,7 +140,7 @@ describe('Constructor', () => {
     // Assert
     expect(contextFillTextSpy).toHaveBeenCalledTimes(0);
   });
-  it('should correctly apply the text\'s stroke style', () => {
+  it("should correctly apply the text's stroke style", () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';
@@ -154,7 +155,7 @@ describe('Constructor', () => {
     // Assert
     expect(contextStrokeTextSpy).toHaveBeenCalledTimes(1);
   });
-  it('should not apply the text\'s stroke style if it\'s undefined', () => {
+  it("should not apply the text's stroke style if it's undefined", () => {
     // Arrange
     const context = ServiceLocator.instance.locate('context');
     const text = 'jest test text';

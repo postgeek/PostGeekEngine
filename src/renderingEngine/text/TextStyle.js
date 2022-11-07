@@ -1,19 +1,7 @@
 import DrawingStyle from '../DrawingStyle';
 
 export default class TextStyle extends DrawingStyle {
-  constructor({
-    fillStyle,
-    strokeStyle,
-    lineWidth,
-    shadowBlur,
-    shadowColor,
-    shadowOffsetX,
-    shadowOffsetY,
-    font,
-    textAlign,
-    textBaseline,
-    direction,
-  } = {}) {
+  constructor({ fillStyle, strokeStyle, lineWidth, shadowBlur, shadowColor, shadowOffsetX, shadowOffsetY, font, textAlign, textBaseline, direction } = {}) {
     super({
       fillStyle,
       strokeStyle,
@@ -87,7 +75,7 @@ export default class TextStyle extends DrawingStyle {
   clone() {
     return new TextStyle({
       fillStyle: this.fillStyle,
-      strokeStyle: this.StrokeStyle,
+      strokeStyle: this.strokeStyle,
       lineWidth: this.LineWidth,
       shadowBlur: this.ShadowBlur,
       shadowColor: this.ShadowColor,

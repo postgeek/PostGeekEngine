@@ -2,14 +2,15 @@ import GraphicObject from '../GraphicObject';
 import TextStyle from './TextStyle';
 
 class TextGraphic extends GraphicObject {
-  constructor(point, text) {
+  constructor(point, text, textStyle = undefined) {
     super();
     this.point = point;
     this.text = text;
-    this.textStyle = new TextStyle({
-      fillStyle: 'black',
-      font: '12px serif',
-    });
+    if (textStyle === undefined) {
+      this.textStyle = new TextStyle();
+    } else {
+      this.textStyle = textStyle;
+    }
   }
 
   /**
@@ -35,8 +36,8 @@ class TextGraphic extends GraphicObject {
   }
 
   /**
-  *  The Y coordinate of the text.
-  */
+   *  The Y coordinate of the text.
+   */
   get y() {
     return this.point.y;
   }
@@ -68,20 +69,24 @@ class TextGraphic extends GraphicObject {
   }
 
   /**
-  * Measure the provided text.
-  * https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics
-  *
-  * @param {TextMetrics} textMetrics the textMetrics for the current text.
-  */
+   * Measure the provided text.
+   * https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics
+   *
+   * @param {TextMetrics} textMetrics the textMetrics for the current text.
+   */
   measureText() {
     this.context.save();
     this.context = this.textStyle.apply(this.context);
     const textMetrics = this.context.measureText(this.text);
     this.context.restore();
     if (textMetrics !== undefined) {
-      return Math.round(textMetrics.width);
+      return textMetrics;
     }
     return undefined;
+  }
+
+  getTextWidth() {
+    return Math.round(this.measureText().width);
   }
 
   /**
@@ -106,7 +111,7 @@ class TextGraphic extends GraphicObject {
     if (this.textStyle.fillStyle !== undefined) {
       this.context.fillText(this.text, this.point.x, this.point.y);
     }
-    if (this.textStyle.StrokeStyle !== undefined) {
+    if (this.textStyle.strokeStyle !== undefined) {
       this.context.strokeText(this.text, this.point.x, this.point.y);
     }
   }

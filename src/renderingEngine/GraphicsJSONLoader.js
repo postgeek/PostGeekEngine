@@ -67,15 +67,8 @@ export default class GraphicsJSONLoader {
    * @param  {string} config  The JSON configuration for the bezier curve
    * @return {BezierCurve}    The newly created bezier curve
    */
-  static createBezierCurve({
-    startPoint,
-    firstControlPoint,
-    secondControlPoint,
-    endPoint,
-    geometryStyle,
-  }) {
-    if (startPoint === undefined || firstControlPoint === undefined
-    || secondControlPoint === undefined || endPoint === undefined) {
+  static createBezierCurve({ startPoint, firstControlPoint, secondControlPoint, endPoint, geometryStyle }) {
+    if (startPoint === undefined || firstControlPoint === undefined || secondControlPoint === undefined || endPoint === undefined) {
       throw new InvalidArguementError();
     }
     const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
@@ -83,9 +76,7 @@ export default class GraphicsJSONLoader {
     const parsedSecondControlPoint = GraphicsJSONLoader.parsePoint2D(secondControlPoint);
     const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
-    const bezierCurve = new BezierCurve(
-      parsedStartPoint, parsedFirstControlPoint, parsedSecondControlPoint, parsedEndPoint,
-    );
+    const bezierCurve = new BezierCurve(parsedStartPoint, parsedFirstControlPoint, parsedSecondControlPoint, parsedEndPoint);
 
     if (geometryStyle !== undefined) {
       bezierCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -100,23 +91,15 @@ export default class GraphicsJSONLoader {
    * @param  {string} config  The JSON configuration for the bezier curve
    * @return {QuadraticCurve} The newly created quadratic curve
    */
-  static createQuadraticCurve({
-    startPoint,
-    controlPoint,
-    endPoint,
-    geometryStyle,
-  }) {
-    if (startPoint === undefined || controlPoint === undefined
-      || endPoint === undefined) {
+  static createQuadraticCurve({ startPoint, controlPoint, endPoint, geometryStyle }) {
+    if (startPoint === undefined || controlPoint === undefined || endPoint === undefined) {
       throw new InvalidArguementError();
     }
     const parsedStartPoint = GraphicsJSONLoader.parsePoint2D(startPoint);
     const parsedControlPoint = GraphicsJSONLoader.parsePoint2D(controlPoint);
     const parsedEndPoint = GraphicsJSONLoader.parsePoint2D(endPoint);
 
-    const quadraticCurve = new QuadraticCurve(
-      parsedStartPoint, parsedControlPoint, parsedEndPoint,
-    );
+    const quadraticCurve = new QuadraticCurve(parsedStartPoint, parsedControlPoint, parsedEndPoint);
 
     if (geometryStyle !== undefined) {
       quadraticCurve.geometryStyle = GraphicsJSONLoader.parseGeometryStyle(geometryStyle);
@@ -131,11 +114,8 @@ export default class GraphicsJSONLoader {
    * @param  {string} config  The JSON configuration for the ellipse
    * @return {Ellipse}        The newly created ellipse
    */
-  static createEllipse({
-    point, radiusX, radiusY, rotation, geometryStyle,
-  }) {
-    if (point === undefined || radiusX === undefined
-    || radiusY === undefined || rotation === undefined) {
+  static createEllipse({ point, radiusX, radiusY, rotation, geometryStyle }) {
+    if (point === undefined || radiusX === undefined || radiusY === undefined || rotation === undefined) {
       throw new InvalidArguementError();
     }
     const newPoint = GraphicsJSONLoader.parsePoint2D(point);
@@ -154,9 +134,7 @@ export default class GraphicsJSONLoader {
    * @param  {string} config  The JSON configuration for the rectangle
    * @return {Rectangle}      The newly created rectangle
    */
-  static createRectangle({
-    point, height, width, geometryStyle,
-  }) {
+  static createRectangle({ point, height, width, geometryStyle }) {
     if (point === undefined || height === undefined || width === undefined) {
       throw new InvalidArguementError();
     }
@@ -249,12 +227,7 @@ export default class GraphicsJSONLoader {
    * @param  {string} colorStyle   The JSON for the color styling
    * @return {GeometryStyle}       The created Color object
    */
-  static parseColor({
-    name,
-    hue, lightness, saturation,
-    red, blue, green,
-    alpha,
-  }) {
+  static parseColor({ name, hue, lightness, saturation, red, blue, green, alpha }) {
     if (hue !== undefined && lightness !== undefined && saturation !== undefined) {
       if (alpha !== undefined) {
         return new HSLAColor(hue, saturation, lightness, alpha);

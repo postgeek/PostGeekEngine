@@ -1,9 +1,5 @@
 import Scene from 'gameEngine/scene/Scene';
 import Point from 'core/Point';
-import Rectangle from 'renderingEngine/geometry/Rectangle';
-import Circle from 'renderingEngine/geometry/Circle';
-import Transform from 'renderingEngine/context/Transform';
-import QuadraticCurve from 'renderingEngine/geometry/QuadraticCurve';
 import Color from 'renderingEngine/colors/Color';
 import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
 import TextStyle from 'renderingEngine/text/TextStyle';
@@ -35,10 +31,15 @@ export default class DesignSystemScene extends Scene {
     const paragraph1 = new TextGraphic(new Point(500, 100), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
     const paragraph2 = new TextGraphic(new Point(500, 117), 'Lorem ipsum dolor sit amet, ac erat etiam suscipit odio egestas, viverra id.');
 
-    const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 0, strokeStyle, undefined);
-    const textArea = new TextArea(new Point(500, 200),
+    const textAreaStyle = DesignSystemScene.createTextStyle(paragraphFont, 1, strokeStyle, undefined);
+    const textArea = new TextArea(
+      new Point(500, 200),
       'Lorem ipsum dolor sit amet, elit rutrum fusce pulvinar, lorem fermentum pellentesque mauris. Risus commodo tristique per quis, hendrerit a morbi. Nunc quis. Condimentum amet quisque ligula, consectetuer sodales placerat cras etiam egestas ultrices. Ligula lobortis non non varius, sociosqu viverra vel in aliquet phasellus tortor, lacus tincidunt molestie consectetuer vitae ullamcorper sit.',
-      300, 200, textAreaStyle);
+      300,
+      200,
+      textAreaStyle,
+    );
+    textArea.isVisible = true;
 
     heading1.textStyle = DesignSystemScene.createTextStyle(heading1Font, 2, fillStyle, strokeStyle);
     heading2.textStyle = DesignSystemScene.createTextStyle(heading2Font, 2, fillStyle, strokeStyle);
@@ -81,8 +82,7 @@ export default class DesignSystemScene extends Scene {
     });
   }
 
-  update() {
-  }
+  update() {}
 
   draw() {
     for (let i = 0; i < this.components.length; i += 1) {

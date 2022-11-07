@@ -3,30 +3,22 @@
  */
 class DrawingStyle {
   /**
-  * Constructs a new DrawingStyle object.
-  *
-  * @param {config} config a configuration object, which respects the following configuration
-  * {
-  *   'fillStyle' : fillStyle,
-  *   'strokeStyle' : StrokeStyle,
-  *   'lineWidth' : float,
-  *   'shadowBlur' : float,
-  *   'shadowColor' : Color,
-  *   'shadowOffsetX' : float,
-  *   'shadowOffsetY' : float
-  * }
-  */
-  constructor({
-    fillStyle,
-    strokeStyle,
-    lineWidth,
-    shadowBlur,
-    shadowColor,
-    shadowOffsetX,
-    shadowOffsetY,
-  } = {}) {
+   * Constructs a new DrawingStyle object.
+   *
+   * @param {config} config a configuration object, which respects the following configuration
+   * {
+   *   'fillStyle' : fillStyle,
+   *   'strokeStyle' : StrokeStyle,
+   *   'lineWidth' : float,
+   *   'shadowBlur' : float,
+   *   'shadowColor' : Color,
+   *   'shadowOffsetX' : float,
+   *   'shadowOffsetY' : float
+   * }
+   */
+  constructor({ fillStyle, strokeStyle, lineWidth, shadowBlur, shadowColor, shadowOffsetX, shadowOffsetY } = {}) {
     this.fillStyle = fillStyle;
-    this.StrokeStyle = strokeStyle;
+    this.strokeStyle = strokeStyle;
     this.LineWidth = lineWidth;
     this.ShadowBlur = shadowBlur;
     this.ShadowColor = shadowColor;
@@ -35,9 +27,9 @@ class DrawingStyle {
   }
 
   /**
-  * Gets the fillStyle for the drawing context
-  * @return {Object} the fillstyle
-  */
+   * Gets the fillStyle for the drawing context
+   * @return {Object} the fillstyle
+   */
   get fillStyle() {
     return this._fillStyle;
   }
@@ -61,8 +53,8 @@ class DrawingStyle {
    *
    * @return {Object}  the strokestyle to use outside drawings.
    */
-  get StrokeStyle() {
-    return this.strokeStyle;
+  get strokeStyle() {
+    return this._strokeStyle;
   }
 
   /**
@@ -71,12 +63,12 @@ class DrawingStyle {
    * @param  {Object} value the strokestyle to use outside (contour) of drawings.
    * @return {undefined}
    */
-  set StrokeStyle(value) {
+  set strokeStyle(value) {
     /**
      * @private
      * @type {Object}
      */
-    this.strokeStyle = value;
+    this._strokeStyle = value;
   }
 
   /**
@@ -205,8 +197,8 @@ class DrawingStyle {
     if (this.fillStyle) {
       newContext.fillStyle = this.fillStyle;
     }
-    if (this.StrokeStyle) {
-      newContext.strokeStyle = this.StrokeStyle;
+    if (this.strokeStyle) {
+      newContext.strokeStyle = this.strokeStyle;
     }
     if (this.LineWidth) {
       newContext.lineWidth = this.LineWidth;
@@ -229,7 +221,7 @@ class DrawingStyle {
   clone() {
     return new DrawingStyle({
       fillStyle: this.fillStyle,
-      strokeStyle: this.StrokeStyle,
+      strokeStyle: this.strokeStyle,
       lineWidth: this.LineWidth,
       shadowBlur: this.ShadowBlur,
       shadowColor: this.ShadowColor,

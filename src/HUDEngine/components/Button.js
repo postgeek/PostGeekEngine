@@ -1,5 +1,4 @@
 import ClickableComponent from './ClickableComponent';
-
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
 import TextGraphic from '../../renderingEngine/text/TextGraphic';
@@ -25,11 +24,10 @@ class Button extends ClickableComponent {
       lineJoin: 'round',
     });
 
-    this.textGraphic = new TextGraphic(point.clone(), this.text);
-    this.textGraphic.textStyle = textStyle;
+    this.textGraphic = new TextGraphic(point.clone(), this.text, textStyle);
 
     const height = this.textGraphic.determineFontHeight() + 8;
-    const width = this.textGraphic.measureText() + 10;
+    const width = this.textGraphic.getTextWidth() + 10;
 
     this.rectangle = new Rectangle(point.clone(), width, height);
     this.rectangle.geometryStyle = geometryStyle;
@@ -73,7 +71,7 @@ class Button extends ClickableComponent {
 
   recalculateBorders() {
     this.height = this.textGraphic.determineFontHeight() + 8;
-    this.width = this.textGraphic.measureText() + 10;
+    this.width = this.textGraphic.getTextWidth() + 10;
     this.rectangle.width = this.width;
     this.rectangle.height = this.height;
   }
@@ -84,8 +82,9 @@ class Button extends ClickableComponent {
     }
   }
 
-  draw() {
+  internalDraw() {
     this.rectangle.draw();
     this.textGraphic.draw();
   }
-} export default Button;
+}
+export default Button;
