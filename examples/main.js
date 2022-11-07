@@ -1,35 +1,43 @@
-import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
 import CollisionScene from './Collision/CollisionScene';
+import DefaultColorDemoScene from './DefaultColorDemo/DefaultColorDemoScene';
 import ShapeDemoScene from './ShapeDemo/ShapeDemoScene';
 import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import QaudTreeDemoScene from './QuadTreeDemo/QuadTreeDemoScene';
 import PhysicsEngineDemoScene from './PhysicsEngineDemo/PhysicsEngineDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
+import SoundScene from './Sound/SoundScene';
+import HUDDesignerScene from './Tools/HUDDesigner/HUDDesignerScene';
+import PathBuilderDemoScene from './PathBuilderDemo/PathBuilderDemoScene';
 
 import './style.scss';
+import Game from '../src/Game';
 
 class Main {
   constructor() {
     this._demos = [
+      { key: 'PathBuilderDemo', scene: PathBuilderDemoScene, name: 'Path Demo' },
+      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'demoScene', scene: DemoScene, name: '2D Map Demo' },
       { key: 'colorPickerDemoscene', scene: ColorPickerDemoScene, name: 'Color Demo' },
+      { key: 'defaultColorDemoScene', scene: DefaultColorDemoScene, name: 'Default Color Demo' },
       { key: 'collisionscene', scene: CollisionScene, name: 'Collision Demo' },
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
-      { key: 'KeyboardDemoScene', scene: KeyboardDemoScene, name: 'Keyboard Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
       { key: 'physicsEngineDemoScene', scene: PhysicsEngineDemoScene, name: 'Physics Demo' },
-      { key: 'qaudTreeDemoScene', scene: QaudTreeDemoScene, name: 'Quad Demo' }
-    ]
+      { key: 'qaudTreeDemoScene', scene: QaudTreeDemoScene, name: 'Quad Demo' },
+      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' },
+      { key: 'HUDTool', scene: HUDDesignerScene, name: 'Hud Designer' },
+    ];
   }
 
   initMenu() {
     const menuElement = document.getElementById('menu');
 
-    this._demos.forEach(demo => {      
+    this._demos.forEach((demo) => {
       const demoElement = document.createElement('li');
       demoElement.id = demo.key;
       demoElement.className = 'menu-item';
@@ -51,20 +59,27 @@ class Main {
   }
 
   runDemo(key) {
-    const demo = this._demos.find(d => d.key === key);
-    this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
-    this._game.sceneManager.startScene(demo.key, this._game);
+    const demo = this._demos.find((d) => d.key === key);
+    if (this._game.sceneManager.activeSceneKey !== key) {
+      try {
+        this._game.sceneManager.runningScene.cleanUp();
+      } catch (e) {}
+      this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
+      this._game.sceneManager.startScene(demo.key, this._game);
+    }
   }
-  
-  debugClicked(checked) {
-    this._game.toggleDebug()
+
+  debugClicked() {
+    this._game.toggleDebug();
   }
 
   start() {
-    this._game = start({
+    var index = 0; //this._demos.length - 1;
+    this._game = new Game({
       canvas: document.getElementById('canvas'),
-      initialScene: this._demos[0]
+      initialScene: this._demos[index],
     });
+    this._game.init();
   }
 }
 

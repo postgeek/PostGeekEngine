@@ -21,7 +21,7 @@ import Point from '../core/Point';
 /**
  * The graphic objects JSON loader
  */
-class GraphicsJSONLoader {
+export default class GraphicsJSONLoader {
   /**
    * @static Creates a line with the supplied properties
    *
@@ -268,8 +268,8 @@ class GraphicsJSONLoader {
       return new RGBColor(red, green, blue);
     }
     if (name !== undefined) {
-      return new Color({ name }).name; // TODO: Log a bug and fix this by adding an HTMLColor class
+      return new Color({ name }); // TODO: Log a bug and fix this by adding an HTMLColor class
     }
     throw new InvalidArguementError();
   }
-} export default GraphicsJSONLoader;
+}

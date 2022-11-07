@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 /* eslint no-undef: 0 */
 import TextGraphic from '../../../src/renderingEngine/text/TextGraphic';
 import Point from '../../../src/core/Point';

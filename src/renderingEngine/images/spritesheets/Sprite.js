@@ -7,6 +7,14 @@ class Sprite {
     this._spriteConfig = spriteConfig;
   }
 
+  get isLoaded() {
+    return this._isLoaded;
+  }
+
+  set isLoaded(value) {
+    this._isLoaded = value;
+  }
+
   get x() {
     return this._x;
   }
@@ -40,6 +48,10 @@ class Sprite {
     this._spriteSheet = value;
   }
 
+  debugDraw() {
+    this.spriteSheet.draw();
+  }
+
   drawAtPoint(drawPoint) {
     this.spriteSheet.drawImageWithMask(
       drawPoint,
@@ -48,4 +60,5 @@ class Sprite {
       this.spriteConfig.height,
     );
   }
-} export default Sprite;
+}
+export default Sprite;

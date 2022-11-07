@@ -21,13 +21,12 @@ class PostGeekDebugger extends MiddlewareBase {
     });
     this.Text = new TextGraphic(new Point(20, 50), 'Debug mode enabled');
     this.Text.textStyle = this.debugTextStyle;
-    console.log('Initialized the PostGeekDebugger');
-    console.log('================================');
+    const logger = ServiceLocator.instance.locate('logger');
+    logger.log('Initialized the PostGeekDebugger');
+    logger.log('================================');
 
-    this._sceneManager = ServiceLocator.instance.locate('sceneManager');
-    this._activeScene = this._sceneManager.runningScene;
-    this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
-    this._worldRectangle.geometryStyle = this.debugGeometryStyle;
+    // this._worldRectangle = new Rectangle(new Point(0,0), this.game.canvas.width, this.game.canvas.height);
+    // this._worldRectangle.geometryStyle = this.debugGeometryStyle;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -37,7 +36,7 @@ class PostGeekDebugger extends MiddlewareBase {
 
   draw() {
     this.Text.draw();
-    this._worldRectangle.draw();
+    // this._worldRectangle.draw();
   }
 
   drawDebug(graphicObject) {

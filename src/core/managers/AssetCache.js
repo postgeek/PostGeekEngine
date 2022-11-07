@@ -1,5 +1,6 @@
-import Asset, { AssetLoadingStatus } from './Asset';
+import Asset, { AssetLoadingStatus, AssetType } from './Asset';
 import * as utils from './AssetUtils';
+import ServiceLocator from '../ServiceLocator';
 
 /**
  * @example
@@ -18,6 +19,7 @@ class AssetCache {
    */
   constructor() {
     this.assetDictionary = [];
+    this._audioContext = ServiceLocator.instance.locate('audioContext');
   }
 
   /**
@@ -33,9 +35,14 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    const extension = utils.getExtension(path);
-    const assetType = utils.getAssetTypeFromExtension(extension);
-    this.assetDictionary[key] = new Asset(key, path, assetType);
+    if (!Object.prototype.hasOwnProperty.call(this.assetDictionary, key)) {
+      const extension = utils.getExtension(path);
+      const assetType = utils.getAssetTypeFromExtension(extension);
+      this.assetDictionary[key] = new Asset(key, path, assetType);
+    } else {
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Key: ${key} is already registered`);
+    }
   }
 
   /**
@@ -44,20 +51,34 @@ class AssetCache {
    * @returns {Asset} The registered asset information.
    */
   async loadAsset(key) {
-    if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
-      this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
+    const asset = this.assetDictionary[key];
+
+    if (asset.status === AssetLoadingStatus.NEW) {
+      asset.status = AssetLoadingStatus.LOADING;
 
       try {
-        const value = await utils.downloadAsset(this.assetDictionary[key]);
-        this.assetDictionary[key].value = value;
-        this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
+        let value = await utils.downloadAsset(asset);
+
+        if (asset.type === AssetType.AUDIO) {
+          value = await this._audioContext.decodeAudioData(value);
+        }
+
+        asset.value = value;
+        asset.status = AssetLoadingStatus.LOADED;
       } catch (e) {
-        this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
+        asset.status = AssetLoadingStatus.ERROR;
         throw e;
       }
     }
+    return asset;
+  }
 
-    return this.assetDictionary[key];
+  getAsset(key) {
+    const asset = this.assetDictionary[key];
+    if (asset.status === AssetLoadingStatus.LOADED) {
+      return asset.value;
+    }
+    return undefined;
   }
 
   /**
@@ -65,12 +86,16 @@ class AssetCache {
    * @param {string} key The key used when the asset was registered.
    * @returns {object} The value of the loaded asset.
    */
-  getAsset(key) {
+  async getAssetAsync(key) {
     const asset = this.assetDictionary[key];
-    if (asset.status === AssetLoadingStatus.LOADED) {
-      return asset.value;
-    }
-    return undefined;
+    return new Promise((resolve) => {
+      (function waitForAssetLoaded() {
+        if (asset.status === AssetLoadingStatus.LOADED) {
+          resolve(asset.value);
+        }
+        setTimeout(waitForAssetLoaded, 30);
+      })();
+    });
   }
 
   /**
