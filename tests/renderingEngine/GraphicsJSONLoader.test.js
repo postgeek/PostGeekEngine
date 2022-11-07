@@ -523,11 +523,11 @@ describe('parseTextStyle', () => {
 
     // Assert
     expect(textStyle).toBeDefined();
-    expect(textStyle.StrokeStyle).toBe(strokeStyle);
+    expect(textStyle.StrokeStyle.name).toBe(strokeStyle);
   });
 });
 
-describe('parsegeometryStyle', () => {
+describe('parseGeometryStyle', () => {
   it('should throw an error when parsing a geometry style if no parameters are passed', () => {
     const geometryStyleProperty = undefined;
     // Assert
@@ -543,7 +543,7 @@ describe('parsegeometryStyle', () => {
 
     // Assert
     expect(geometryStyle).toBeDefined();
-    expect(geometryStyle.StrokeStyle).toBe(strokeStyle);
+    expect(geometryStyle.StrokeStyle.name).toBe(strokeStyle);
   });
 });
 
@@ -638,6 +638,6 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color).toBe(colorName);
+    expect(color.name).toBe(colorName);
   });
 });
