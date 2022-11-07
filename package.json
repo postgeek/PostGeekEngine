@@ -1,6 +1,6 @@
 {
   "name": "@postgeek/post-geek-engine",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Building a game engine one line of code at a time",
   "main": "lib/index.js",
   "husky": {
