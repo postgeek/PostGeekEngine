@@ -4,17 +4,22 @@ on: [push]
 
 jobs:
   quality_tests:
-    name: "Quality Tests"
+    name: 'Quality Tests'
     runs-on: ubuntu-latest
-    container: node:14-slim
+    container: node:slim
     steps:
-    - uses: actions/checkout@v2
-      
-    - name: Install Task Dependencies 
-      run: npm install
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-    - name: Run Tests
-      run: npm run test
-    
-    - name: Run Linting
-      run: npm run lint:ci
+      - name: Install Task Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Run Linting
+        run: npm run lint:ci

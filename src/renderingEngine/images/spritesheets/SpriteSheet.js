@@ -14,6 +14,7 @@ class SpriteSheet extends GraphicImage {
     super(image);
     // TODO: Check if the spritesheetconfig is a JSON object or not and then parse it into a spriteSheetConfig if needed
     this._spriteSheetConfig = spriteSheetConfig;
+    this.isLoaded = true;
   }
 
   /**
@@ -33,4 +34,5 @@ class SpriteSheet extends GraphicImage {
   draw() {
     super.draw();
   }
-} export default SpriteSheet;
+}
+export default SpriteSheet;

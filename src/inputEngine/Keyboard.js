@@ -1,3 +1,5 @@
+import ServiceLocator from '../core/ServiceLocator';
+
 /**
  * Class that defines a keyboard input
  */
@@ -31,8 +33,8 @@ class Keyboard {
   registerKey(key) {
     const keyToAdd = key;
     if (this.retrieveKey(key) !== undefined) {
-      // TODO: Implement a warning system instead of using console.warn
-      console.warn(`Key: ${key} is already registered`);
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Key: ${key} is already registered`);
     }
     keyToAdd.state = this.KEY_STATE.RELEASED;
     this._registeredKeys.push(keyToAdd);

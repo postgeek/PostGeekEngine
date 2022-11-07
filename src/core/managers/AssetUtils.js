@@ -31,6 +31,15 @@ function isImageFileExtension(extension) {
 }
 
 /**
+ * Returns true if the extention is mp3 or wav.
+ * @param {string} extension the extention, excluding the '.' of the filename.
+ * @return {boolean} is audio file extention
+ */
+function isAudioFileExtention(extension) {
+  return extension === 'mp3' || extension === 'wav';
+}
+
+/**
  * Get the AssetType from the extention of the filename.
  * @param {string} extension the extention, excluding the '.' of the filename.
  * @return {AssetType} the file type.
@@ -41,6 +50,9 @@ function getAssetTypeFromExtension(extension) {
   }
   if (isImageFileExtension(extension)) {
     return AssetType.BLOB;
+  }
+  if (isAudioFileExtention(extension)) {
+    return AssetType.AUDIO;
   }
 
   return AssetType.UNKNOWN;
@@ -57,6 +69,8 @@ function extractAssetType(asset) {
   switch (asset.type) {
     case AssetType.BLOB:
       return 'blob';
+    case AssetType.AUDIO:
+      return 'arraybuffer';
     case AssetType.TEXT:
     default:
       return 'text';
@@ -85,7 +99,7 @@ function downloadAsset(asset) {
   if (isValidUrl(url)) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
+      xhr.open('GET', url, true);
       // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType
       xhr.responseType = responseType;
       xhr.onload = () => {
@@ -110,6 +124,7 @@ export {
   getAssetTypeFromExtension,
   isTextFileExtension,
   isImageFileExtension,
+  isAudioFileExtention,
   extractAssetType,
   isValidUrl,
   downloadAsset,

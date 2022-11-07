@@ -1,4 +1,6 @@
 import SpriteSheetConfig from '../../../../src/renderingEngine/images/spritesheets/SpriteSheetConfig';
+import ServiceLocator from '../../../../src/core/ServiceLocator';
+import PostGeekLogger from '../../../../src/core/debug/PostGeekLogger';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -39,13 +41,15 @@ describe('width', () => {
     // Arrange
     const spriteSheetConfig = new SpriteSheetConfig();
     const newWidth = 33;
-    const consoleWarnSpy = jest.spyOn(console, 'warn');
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+    const logger = ServiceLocator.instance.locate('logger'); 
+    const loggerWarnSpy = jest.spyOn(logger, 'warn');
 
     // Act
     spriteSheetConfig.width = newWidth;
 
     // Assert
-    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(loggerWarnSpy).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -65,12 +69,14 @@ describe('height', () => {
     // Arrange
     const spriteSheetConfig = new SpriteSheetConfig();
     const newHeight = 33;
-    const consoleWarnSpy = jest.spyOn(console, 'warn');
+    ServiceLocator.instance.register('logger', new PostGeekLogger());
+    const logger = ServiceLocator.instance.locate('logger'); 
+    const loggerWarnSpy = jest.spyOn(logger, 'warn');
 
     // Act
     spriteSheetConfig.height = newHeight;
 
     // Assert
-    expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+    expect(loggerWarnSpy).toHaveBeenCalledTimes(1);
   });
 });
