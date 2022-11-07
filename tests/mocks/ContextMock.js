@@ -44,6 +44,10 @@ class ContextMock {
 
   }
 
+  lineTo(x, y) {
+    
+  }
+
   arc(x, y, radius, angleDirection, circumference) {
 
   }

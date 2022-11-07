@@ -93,7 +93,9 @@ class HSLColor {
    * @return {string} The string represenation of the HSLColor.
    */
   toString() {
-    return `hsl(${Math.round(this.hue)},${Math.round(this.saturation)}%,${Math.round(this.lightness)}%)`;
+    return `hsl(${Math.round(this.hue)},${Math.round(
+      this.saturation,
+    )}%,${Math.round(this.lightness)}%)`;
   }
 
   clone() {
@@ -109,9 +111,7 @@ class HSLColor {
    */
   static FromJSON(hslJSON) {
     const parseColorJson = JSON.parse(hslJSON);
-    const {
-      hue, saturation, lightness,
-    } = parseColorJson;
+    const { hue, saturation, lightness } = parseColorJson;
     return new HSLColor(hue, saturation, lightness);
   }
 }

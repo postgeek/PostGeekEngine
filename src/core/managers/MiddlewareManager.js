@@ -21,6 +21,15 @@ class MiddlewareManager {
   }
 
   /**
+   * Does the middleware already exists in the manger?
+   * @param {string} key the key for the middleware.
+   * @return true if the middleware already exists in the manager.
+   */
+  hasKey(key) {
+    return this._middleware.has(key);
+  }
+
+  /**
    * Get the middleware with the given key.
    * @param {string} key the key for the middleware
    * @return the middleware for the provided key.
@@ -38,7 +47,9 @@ class MiddlewareManager {
    */
   update() {
     this._middleware.forEach((middleware) => {
-      middleware.update();
+      if (middleware.enabled) {
+        middleware.update();
+      }
     });
   }
 
@@ -47,7 +58,10 @@ class MiddlewareManager {
    */
   draw(timeStep) {
     this._middleware.forEach((middleware) => {
-      middleware.draw(timeStep);
+      if (middleware.enabled) {
+        middleware.draw(timeStep);
+      }
     });
   }
-} export default MiddlewareManager;
+}
+export default MiddlewareManager;

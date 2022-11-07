@@ -1,4 +1,4 @@
-import IMiddleware from '../middleware/IMiddleware';
+import MiddlewareBase from '../middleware/MiddlewareBase';
 import TextGraphic from '../../renderingEngine/text/TextGraphic';
 import Rectangle from '../../renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../renderingEngine/geometry/GeometryStyle';
@@ -7,7 +7,7 @@ import Color from '../../renderingEngine/colors/Color';
 import Vec2D from '../Vec2D';
 import ServiceLocator from '../ServiceLocator';
 
-class PostGeekDebugger extends IMiddleware {
+class PostGeekDebugger extends MiddlewareBase {
   init(middlewareManager) {
     this.middlewareManager = middlewareManager;
     this.debugGeometryStyle = new GeometryStyle({
@@ -41,7 +41,6 @@ class PostGeekDebugger extends IMiddleware {
     console.log('Initialized the PostGeekDebugger');
     console.log('================================');
 
-
     this._sceneManager = ServiceLocator.instance.locate('sceneManager');
     this._activeScene = this._sceneManager.runningScene;
     this._worldRectangle = new Rectangle(this._activeScene.world.point, this._activeScene.world.width, this._activeScene.world.height);
@@ -50,9 +49,8 @@ class PostGeekDebugger extends IMiddleware {
     this.SceneTitleText.textStyle = this.sceneTitleStyle;
   }
 
-  update() {
-
-  }
+  // eslint-disable-next-line class-methods-use-this
+  update() {}
 
   draw(timeStep) {
     this.Text.draw();
@@ -76,9 +74,9 @@ class PostGeekDebugger extends IMiddleware {
     const rectangle = new Rectangle(rectPoint, rectSize, rectSize);
     rectangle.GeometryStyle = this.debugGeometryStyle;
 
-    const circleTextX = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
+    const circleTextX = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + rectSize * 2), `X : ${circle.X}`);
     circleTextX.TextStyle = this.debugTextStyle;
-    const circleTextY = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
+    const circleTextY = new TextGraphic(new Vec2D(rectPoint.X, rectPoint.Y + rectSize * 2 + 30), `Y : ${circle.Y}`);
     circleTextY.TextStyle = this.debugTextStyle;
 
     rectangle.draw();

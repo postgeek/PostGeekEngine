@@ -1,6 +1,6 @@
-import Component from 'core/Component';
-import Vec2D from 'core/Vec2D';
-import RectangleHitBox from 'physicsEngine/hitBoxes/RectangleHitBox';
+import Component from '../../src/core/Component';
+import Vec2D from '../../src/core/Vec2D';
+import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
 
 class HipSquarePhysicsComponent extends Component {
   constructor(containerObject) {
@@ -23,10 +23,12 @@ class HipSquarePhysicsComponent extends Component {
   }
 
   isCollidingWithWorldBounds() {
-    return this.isCollidingWithLeftBound(this.world)
-    || this.isCollidingWithRightBound(this.world)
-    || this.isCollidingWithTopBound(this.world)
-    || this.isCollidingWithBottomBound(this.world);
+    return (
+      this.isCollidingWithLeftBound(this.world) ||
+      this.isCollidingWithRightBound(this.world) ||
+      this.isCollidingWithTopBound(this.world) ||
+      this.isCollidingWithBottomBound(this.world)
+    );
   }
 
   isCollidingWithLeftBound() {
@@ -44,4 +46,5 @@ class HipSquarePhysicsComponent extends Component {
   isCollidingWithBottomBound() {
     return this.hitBox.y + this.hitBox.height >= this.world.y + this.world.height;
   }
-} export default HipSquarePhysicsComponent;
+}
+export default HipSquarePhysicsComponent;

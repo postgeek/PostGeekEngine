@@ -7,27 +7,80 @@ beforeEach(() => {
   ServiceLocator.instance.register('context', undefined);
 });
 
+describe('createLine', () => {
+  it('should throw an error when creating a line if no parameters are passed', () => {
+    // Arrange
+    const lineJson = '{}';
+
+    // Assert
+    expect(() => {
+      GraphicsJSONLoader.createLine(JSON.parse(lineJson));
+    }).toThrow(InvalidArguementError);
+  });
+  it('should throw an error when creating a line if no startPoint is passed', () => {
+    // Arrange
+    const lineJson = '{"endPoint":{"x":50,"y":50}}';
+
+    // Assert
+    expect(() => {
+      GraphicsJSONLoader.createLine(JSON.parse(lineJson));
+    }).toThrow(InvalidArguementError);
+  });
+  it('should throw an error when creating a line if no endPoint is passed', () => {
+    // Arrange
+    const lineJson = '{"startPoint":{"x":50,"y":50}}';
+
+    // Assert
+    expect(() => {
+      GraphicsJSONLoader.createLine(JSON.parse(lineJson));
+    }).toThrow(InvalidArguementError);
+  });
+  it('should create a line with the configuration provided', () => {
+    // Arrange
+    const lineJson = '{"startPoint":{"x":231,"y":745},"endPoint":{"x":123,"y":456}}';
+    const startX = 231;
+    const startY = 745;
+    const endX = 123;
+    const endY = 456;
+
+    // Assert
+    const line = GraphicsJSONLoader.createLine(JSON.parse(lineJson));
+
+    // Assert
+    expect(line).toBeDefined();
+    expect(line.startPoint.x).toBe(startX);
+    expect(line.startPoint.y).toBe(startY);
+    expect(line.endPoint.x).toBe(endX);
+    expect(line.endPoint.y).toBe(endY);
+  });
+});
 describe('createCircle', () => {
   it('should throw an error when creating a circle if no parameters are passed', () => {
     // Arange
     const circleJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createCircle(JSON.parse(circleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createCircle(JSON.parse(circleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a circle if a point parameter is not passed', () => {
     // Arange
     const circleJson = '{"radius":20}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createCircle(JSON.parse(circleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createCircle(JSON.parse(circleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a circle if a radius is not passed', () => {
     // Arange
     const circleJson = '{"point":{"x":20,"y":30}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createCircle(JSON.parse(circleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createCircle(JSON.parse(circleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create a circle with the configuration provided', () => {
     // Arange
@@ -47,7 +100,8 @@ describe('createCircle', () => {
   });
   it('should create a circle with the  provided geometryStyle', () => {
     // Arange
-    const circleJson = '{"point":{"x":100,"y":150},"radius":20, "geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1},"lineWidth":3}}';
+    const circleJson =
+      '{"point":{"x":100,"y":150},"radius":20, "geometryStyle":{"strokeStyle":{"hue":195,"saturation":53,"lightness":79,"alpha":1},"lineWidth":3}}';
     const x = 100;
     const y = 150;
     const radius = 20;
@@ -76,39 +130,50 @@ describe('createBezierCurve', () => {
     const bezierCurveJson = '{"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a bezier curve if the first control point parameter is not passed', () => {
     // Arrange
     const bezierCurveJson = '{"startPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a bezier curve if the second control point parameter is not passed', () => {
     // Arrange
     const bezierCurveJson = '{"startPoint":{"x":80,"y":90},"firstControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a bezier curve if the end point parameter is not passed', () => {
     // Arrange
     const bezierCurveJson = '{"startPoint":{"x":80,"y":90},"firstControlPoint":{"x":110,"y":140},"secondControlPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a bezier curve if no parameters are passed', () => {
     // Arrange
     const bezierCurveJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createBezierCurve(JSON.parse(bezierCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create a bezier curve with the configuration provided', () => {
     // Arrange
-    const bezierCurveJson = '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
+    const bezierCurveJson =
+      '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190}}';
     const startPointX = 100;
     const startPointY = 130;
     const firstControlPointX = 80;
@@ -134,7 +199,8 @@ describe('createBezierCurve', () => {
   });
   it('should create a bezier curve with the provided geometryStyle', () => {
     // Arrange
-    const bezierCurveJson = '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const bezierCurveJson =
+      '{"startPoint":{"x":100,"y":130},"firstControlPoint":{"x":80,"y":90},"secondControlPoint":{"x":110,"y":140},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
     const hue = 32;
     const saturation = 64;
     const lightness = 78;
@@ -160,28 +226,36 @@ describe('createQuadraticCurve', () => {
     const quadraticCurveJson = '{"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a quadratic curve if the start point parameter is not passed', () => {
     // Arrange
     const quadraticCurveJson = '{"controlPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a quadratic curve if the end point parameter is not passed', () => {
     // Arrange
     const quadraticCurveJson = '{"startPoint":{"x":80,"y":90},"controlPoint":{"x":180,"y":190}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a circle if no parameters are passed', () => {
     // Arange
     const quadraticCurveJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createQuadraticCurve(JSON.parse(quadraticCurveJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create a quadratic curve with the configuration provided', () => {
     // Arrange
@@ -207,7 +281,8 @@ describe('createQuadraticCurve', () => {
   });
   it('should create a quadratic curve with the provided geometryStyle', () => {
     // Arrange
-    const quadraticCurveJson = '{"controlPoint":{"x":100,"y":130},"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const quadraticCurveJson =
+      '{"controlPoint":{"x":100,"y":130},"startPoint":{"x":80,"y":90},"endPoint":{"x":180,"y":190},"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
     const hue = 32;
     const saturation = 64;
     const lightness = 78;
@@ -233,35 +308,45 @@ describe('createEllipse', () => {
     const ellipseJson = '{"radiusX":50,"radiusY":75,"rotation":0.7853981633974483}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating an ellipse if the horizontal radius parameter is not passed', () => {
     // Arrange
     const ellipseJson = '{"point":{"x":300,"y":300},"radiusY":75,"rotation":0.7853981633974483}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating an ellipse if the vertical radius parameter is not passed', () => {
     // Arrange
     const ellipseJson = '{"point":{"x":300,"y":300},"radiusX":75,"rotation":0.7853981633974483}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating an ellipse if the rotation parameter is not passed', () => {
     // Arrange
     const ellipseJson = '{"point":{"x":300,"y":300},"radiusY":75,"radiusX":75}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating an ellipse if no parameters are passed', () => {
     // Arange
     const ellipseJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createEllipse(JSON.parse(ellipseJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create an ellipse with the configuration provided', () => {
     // Arrange
@@ -285,7 +370,8 @@ describe('createEllipse', () => {
   });
   it('should create an ellipse with the provided geometryStyle()', () => {
     // Arrange
-    const ellipseJson = '{"point":{"x":120,"y":130},"radiusX":50,"radiusY":66,"rotation":0.666,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const ellipseJson =
+      '{"point":{"x":120,"y":130},"radiusX":50,"radiusY":66,"rotation":0.666,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
     const hue = 32;
     const saturation = 64;
     const lightness = 78;
@@ -311,28 +397,36 @@ describe('createRectangle', () => {
     const rectangleJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a rectangle if a point parameter is not passed', () => {
     // Arange
     const rectangleJson = '{"width":3,"height":400}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a rectangle if a width is not passed', () => {
     // Arange
     const rectangleJson = '{"point":{"x":0,"y":0},"height":400}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a rectangle if a height is not passed', () => {
     // Arange
     const rectangleJson = '{"point":{"x":0,"y":0},"width":400}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createRectangle(JSON.parse(rectangleJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create a rectangle with the configuration provided', () => {
     // Arange
@@ -354,7 +448,8 @@ describe('createRectangle', () => {
   });
   it('should create a rectangle with the provided geometryStyle', () => {
     // Arange
-    const rectangleJson = '{"point":{"x":10,"y":20},"width":30,"height":40,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const rectangleJson =
+      '{"point":{"x":10,"y":20},"width":30,"height":40,"geometryStyle":{"strokeStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
     const hue = 32;
     const saturation = 64;
     const lightness = 78;
@@ -380,21 +475,27 @@ describe('createText', () => {
     const textJson = '{}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createText(JSON.parse(textJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createText(JSON.parse(textJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a text if a point parameter is not passed', () => {
     // Arange
     const textJson = '{"text":"Hello World from JSON!"}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createText(JSON.parse(textJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createText(JSON.parse(textJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when creating a text if a radius is not passed', () => {
     // Arange
     const textJson = '{"point":{"x":200,"y":100}}';
 
     // Assert
-    expect(() => { GraphicsJSONLoader.createText(JSON.parse(textJson)); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.createText(JSON.parse(textJson));
+    }).toThrow(InvalidArguementError);
   });
   it('should create a text with the configuration provided', () => {
     // Arange
@@ -414,7 +515,8 @@ describe('createText', () => {
   });
   it('should create a text with the provided textStyle', () => {
     // Arange
-    const textJson = '{"point":{"x":200,"y":100},"text":"Hello World from JSON!","textStyle":{"fillStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
+    const textJson =
+      '{"point":{"x":200,"y":100},"text":"Hello World from JSON!","textStyle":{"fillStyle":{"hue":32,"saturation":64,"lightness":78,"alpha":0.66},"lineWidth":4}}';
     const hue = 32;
     const saturation = 64;
     const lightness = 78;
@@ -434,21 +536,27 @@ describe('createText', () => {
   });
 });
 
-describe('parsePoint2D', () => {
+describe('parseVec2D', () => {
   it('should throw an error when parsing a point if no parameters are passed', () => {
     const pointProperty = {};
     // Assert
-    expect(() => { GraphicsJSONLoader.parsePoint2D(pointProperty); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseVec2D(pointProperty);
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when parsing a point if no y parameter is passed', () => {
     const pointProperty = { x: 30 };
     // Assert
-    expect(() => { GraphicsJSONLoader.parsePoint2D(pointProperty); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseVec2D(pointProperty);
+    }).toThrow(InvalidArguementError);
   });
   it('should throw an error when parsing a point if no x parameter is passed', () => {
     const pointProperty = { y: 40 };
     // Assert
-    expect(() => { GraphicsJSONLoader.parsePoint2D(pointProperty); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseVec2D(pointProperty);
+    }).toThrow(InvalidArguementError);
   });
   it('should properly parse a point if the correct parameters are provided', () => {
     // Arrange
@@ -457,7 +565,7 @@ describe('parsePoint2D', () => {
     const y = 40;
 
     // Act
-    const point = GraphicsJSONLoader.parsePoint2D(pointProperty);
+    const point = GraphicsJSONLoader.parseVec2D(pointProperty);
 
     // Assert
     expect(point).toBeDefined();
@@ -470,7 +578,9 @@ describe('parseTextStyle', () => {
   it('should throw an error when parsing a text style if no parameters are passed', () => {
     const textStyleProperty = undefined;
     // Assert
-    expect(() => { GraphicsJSONLoader.parseTextStyle(textStyleProperty); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseTextStyle(textStyleProperty);
+    }).toThrow(InvalidArguementError);
   });
   it('should properly parse a text style if the correct parameters are provided', () => {
     // Arrange
@@ -482,15 +592,17 @@ describe('parseTextStyle', () => {
 
     // Assert
     expect(textStyle).toBeDefined();
-    expect(textStyle.StrokeStyle).toBe(strokeStyle);
+    expect(textStyle.StrokeStyle.name).toBe(strokeStyle);
   });
 });
 
-describe('parsegeometryStyle', () => {
+describe('parseGeometryStyle', () => {
   it('should throw an error when parsing a geometry style if no parameters are passed', () => {
     const geometryStyleProperty = undefined;
     // Assert
-    expect(() => { GraphicsJSONLoader.parseGeometryStyle(geometryStyleProperty); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseGeometryStyle(geometryStyleProperty);
+    }).toThrow(InvalidArguementError);
   });
   it('should properly parse a geometry style if the correct parameters are provided', () => {
     // Arrange
@@ -502,7 +614,7 @@ describe('parsegeometryStyle', () => {
 
     // Assert
     expect(geometryStyle).toBeDefined();
-    expect(geometryStyle.StrokeStyle).toBe(strokeStyle);
+    expect(geometryStyle.StrokeStyle.name).toBe(strokeStyle);
   });
 });
 
@@ -512,7 +624,9 @@ describe('parseColor', () => {
     const colorProperties = {};
 
     // Assert
-    expect(() => { GraphicsJSONLoader.parseColor(colorProperties); }).toThrow(InvalidArguementError);
+    expect(() => {
+      GraphicsJSONLoader.parseColor(colorProperties);
+    }).toThrow(InvalidArguementError);
   });
   it('should correctly create an RGB color if the correct parameters are provided', () => {
     // Arrange
@@ -533,7 +647,10 @@ describe('parseColor', () => {
   it('should correctly create an RGBA color if the correct parameters are provided', () => {
     // Arrange
     const colorProperties = {
-      red: 200, blue: 66, green: 230, alpha: 0.4,
+      red: 200,
+      blue: 66,
+      green: 230,
+      alpha: 0.4,
     };
     const red = 200;
     const blue = 66;
@@ -570,7 +687,10 @@ describe('parseColor', () => {
   it('should correctly create an HSLA color if the correct parameters are provided', () => {
     // Arrange
     const colorProperties = {
-      hue: 30, lightness: 66, saturation: 90, alpha: 0.66,
+      hue: 30,
+      lightness: 66,
+      saturation: 90,
+      alpha: 0.66,
     };
     const hue = 30;
     const lightness = 66;
@@ -597,6 +717,6 @@ describe('parseColor', () => {
 
     // Assert
     expect(color).toBeDefined();
-    expect(color).toBe(colorName);
+    expect(color.name).toBe(colorName);
   });
 });

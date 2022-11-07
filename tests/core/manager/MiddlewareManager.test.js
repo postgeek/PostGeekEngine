@@ -42,6 +42,31 @@ describe('add', () => {
     expect(middlewareInitSpy).toHaveBeenCalledTimes(1);
   });
 });
+describe('hasKey', () => {
+  it('should return true when the given key exists', () => {
+    // Arrange
+    const middlewareManager = new MiddlewareManager();
+    const middleware = new MiddlewareMock();
+    const key = 'jestKey';
+    middlewareManager.add(key, middleware);
+
+    // Act
+    const hasKey = middlewareManager.hasKey(key);
+
+    // Assert
+    expect(hasKey).toBe(true);
+  });
+  it('should return false when the given key does not exist', () => {
+    // Arrange
+    const middlewareManager = new MiddlewareManager();
+
+    // Act
+    const hasKey = middlewareManager.hasKey('someKey');
+
+    // Assert
+    expect(hasKey).toBe(false);
+  });
+});
 describe('get', () => {
   it('should return a middleware with the given key', () => {
     // Arrange
@@ -83,6 +108,19 @@ describe('update', () => {
     expect(middlewareUpdateSpy).toHaveBeenCalledTimes(1);
     expect(middleware2UpdateSpy).toHaveBeenCalledTimes(1);
   });
+  it('should not update disabled middleware', () => {
+    // Arrange
+    const middlewareManager = new MiddlewareManager();
+    const middleware = new MiddlewareMock(false);
+    const middlewareUpdateSpy = jest.spyOn(middleware, 'update');
+    const key = 'jestKey';
+    middlewareManager.add(key, middleware);
+
+    // Act
+    middlewareManager.update();
+
+    expect(middlewareUpdateSpy).toHaveBeenCalledTimes(0);
+  })
 });
 describe('draw', () => {
   it('should draw all the middleware registered in the manager', () => {
@@ -103,4 +141,17 @@ describe('draw', () => {
     expect(middlewareDrawSpy).toHaveBeenCalledTimes(1);
     expect(middleware2DrawSpy).toHaveBeenCalledTimes(1);
   });
+  it('should not draw disabled middleware', () => {
+    // Arrange
+    const middlewareManager = new MiddlewareManager();
+    const middleware = new MiddlewareMock(false);
+    const middlewareDrawSpy = jest.spyOn(middleware, 'draw');
+    const key = 'jestKey';
+    middlewareManager.add(key, middleware);
+
+    // Act
+    middlewareManager.update();
+
+    expect(middlewareDrawSpy).toHaveBeenCalledTimes(0);
+  })
 });

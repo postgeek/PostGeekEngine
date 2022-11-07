@@ -1,15 +1,10 @@
-import Vec2D from 'core/Vec2D';
-import KeyboardKey from 'inputEngine/KeyboardKey';
-import ServiceLocator from 'core/ServiceLocator';
-import TextGraphic from 'renderingEngine/text/TextGraphic';
-import PhysicsEngine from 'physicsEngine/PhysicsEngine';
-import PhysicsComponent  from 'physicsEngine/PhysicsComponent';
-import RectangleHitBox from 'physicsEngine/hitBoxes/RectangleHitBox';
-import Rectangle from 'renderingEngine/geometry/Rectangle';
-import Circle from 'renderingEngine/geometry/Circle';
-import GeometryStyle from 'renderingEngine/geometry/GeometryStyle';
-import Color from 'renderingEngine/colors/Color';
-import PathBuilder from 'renderingEngine/geometry/PathBuilder';
+import Vec2D from '../../../../src/core/Vec2D';
+import KeyboardKey from '../../../../src/inputEngine/KeyboardKey';
+import ServiceLocator from '../../../../src/core/ServiceLocator';
+import Rectangle from '../../../../src/renderingEngine/geometry/Rectangle';
+import PathBuilder from '../../../../src/renderingEngine/geometry/Path/PathBuilder';
+import GeometryStyle from '../../../../src/renderingEngine/geometry/GeometryStyle';
+import Color from '../../../../src/renderingEngine/colors/Color';
 
 class BoxStack {
   create() {
@@ -24,29 +19,31 @@ class BoxStack {
     this.rectangles.push(this.createRectangle(200, 100, 2, 2));
 
     this.pathBuilder = new PathBuilder();
-    this.pathBuilder.moveTo(new Vec2D(200,100));
-    this.pathBuilder.lineTo(new Vec2D(200,200));
-    this.pathBuilder.closePath();
+    this.pathBuilder.moveTo(new Vec2D(200, 100));
+    this.pathBuilder.lineTo(new Vec2D(200, 200));
+    this.path = this.pathBuilder.build();
+    this.path.geometryStyle = new GeometryStyle({
+      strokeStyle: Color.RED,
+    });
   }
 
   update(timeStep) {
-    for(let i = 0; i < this.rectangles.length; i++) {
+    for (let i = 0; i < this.rectangles.length; i++) {
       let rectangle = this.rectangles[i];
-      //rectangle.y += 10;
       this.checkBottomCollision(rectangle);
     }
   }
 
   draw(timeStep) {
-    for(let i = 0; i < this.rectangles.length; i++) {
+    for (let i = 0; i < this.rectangles.length; i++) {
       this.rectangles[i].draw();
     }
-    this.pathBuilder.draw();
+    this.path.draw();
   }
 
   checkBottomCollision(rectangle) {
     let rectangleHeight = rectangle.y + rectangle.height;
-    if(rectangleHeight > this.MAX_HEIGHT) {
+    if (rectangleHeight > this.MAX_HEIGHT) {
       rectangle.y = 100;
     }
   }
@@ -54,4 +51,5 @@ class BoxStack {
   createRectangle(x, y, width, height) {
     return new Rectangle(new Vec2D(x, y), width, height);
   }
-} export default BoxStack;
+}
+export default BoxStack;

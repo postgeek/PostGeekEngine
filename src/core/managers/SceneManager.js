@@ -2,6 +2,11 @@ class SceneManager {
   constructor() {
     this.scenes = [];
     this.runningScene = null;
+    this._activeSceneKey = null;
+  }
+
+  get activeSceneKey() {
+    return this._activeSceneKey;
   }
 
   addScene({ key, scene }) {
@@ -12,15 +17,19 @@ class SceneManager {
     return this.scenes[key];
   }
 
-  startScene(key) {
+  startScene(key, game) {
     const scene = this.getScene(key);
-    // TODO: Change to initialize the scene and not instantiate it here ??
-    this.runningScene = new (scene)();
+    this.runningScene = new scene(game); // eslint-disable-line new-cap
     this.runningScene.IsActive = true;
+    this._activeSceneKey = key;
   }
 
-  get RunningScene() {
-    return this.runningScene;
+  set runningScene(value) {
+    this._runningScene = value;
+  }
+
+  get runningScene() {
+    return this._runningScene;
   }
 }
 

@@ -7,8 +7,8 @@ import ServiceLocator from '../core/ServiceLocator';
  */
 class GraphicObject {
   /**
-  * Constructs a new GraphicObject.
-  */
+   * Constructs a new GraphicObject.
+   */
   constructor() {
     this._context = ServiceLocator.instance.locate('context');
     this.transform = new Transform(this.context);

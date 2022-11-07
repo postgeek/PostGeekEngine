@@ -1,5 +1,6 @@
-import AssetLoader from './AssetLoader';
 import Asset, { AssetLoadingStatus, AssetType } from './Asset';
+import * as utils from './AssetUtils';
+import ServiceLocator from '../ServiceLocator';
 
 /**
  * @example
@@ -18,7 +19,7 @@ class AssetCache {
    */
   constructor() {
     this.assetDictionary = [];
-    this.assetLoader = new AssetLoader();
+    this._audioContext = ServiceLocator.instance.locate('audioContext');
   }
 
   /**
@@ -34,65 +35,50 @@ class AssetCache {
    * @param {string} path The relative or absolute local path to the asset.
    */
   registerAsset(key, path) {
-    const extension = this.getExtension(path);
-    const assetType = this.getAssetTypeFromExtension(extension);
-    this.assetDictionary[key] = new Asset(key, path, assetType);
-  }
-
-
-  /**
-   * @todo Move to a utility class.
-   * getExtension - Gets the files extension
-   *
-   * @param  {type} path the path to the file
-   * @return {string}    the file's extension
-   */
-  getExtension(path) {
-    const fileParts = path.split('.');
-    return fileParts[fileParts.length - 1];
-  }
-
-  getAssetTypeFromExtension(extension) {
-    if (this.isTextFileExtension(extension)) {
-      return AssetType.TEXT;
+    if (!Object.prototype.hasOwnProperty.call(this.assetDictionary, key)) {
+      const extension = utils.getExtension(path);
+      const assetType = utils.getAssetTypeFromExtension(extension);
+      this.assetDictionary[key] = new Asset(key, path, assetType);
+    } else {
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Key: ${key} is already registered`);
     }
-    if (this.isImageFileExtension(extension)) {
-      return AssetType.BLOB;
-    }
-  }
-
-  /** @todo Move to a utility class or to the asset loader */
-  isTextFileExtension(extension) {
-    return extension === 'json';
-  }
-
-  /** @todo Move to a utility class or to the asset loader */
-  isImageFileExtension(extension) {
-    return extension === 'png' || extension === 'jpeg';
   }
 
   /**
    * Load the asset into memory.
    * @param {string} key The key used when the asset you want to load was registered.
-   * @returns {Promise} The registered asset information.
+   * @returns {Asset} The registered asset information.
    */
-  loadAsset(key) {
-    return new Promise(async (resolve, reject) => {
-      if (this.assetDictionary[key].status === AssetLoadingStatus.NEW) {
-        this.assetDictionary[key].status = AssetLoadingStatus.LOADING;
+  async loadAsset(key) {
+    const asset = this.assetDictionary[key];
 
-        try {
-          const value = await this.assetLoader.load(this.assetDictionary[key]);
-          this.assetDictionary[key].value = value;
-          this.assetDictionary[key].status = AssetLoadingStatus.LOADED;
-        } catch (e) {
-          this.assetDictionary[key].status = AssetLoadingStatus.ERROR;
-          reject();
+    if (asset.status === AssetLoadingStatus.NEW) {
+      asset.status = AssetLoadingStatus.LOADING;
+
+      try {
+        let value = await utils.downloadAsset(asset);
+
+        if (asset.type === AssetType.AUDIO) {
+          value = await this._audioContext.decodeAudioData(value);
         }
 
-        resolve(this.assetDictionary[key]);
+        asset.value = value;
+        asset.status = AssetLoadingStatus.LOADED;
+      } catch (e) {
+        asset.status = AssetLoadingStatus.ERROR;
+        throw e;
       }
-    });
+    }
+    return asset;
+  }
+
+  getAsset(key) {
+    const asset = this.assetDictionary[key];
+    if (asset.status === AssetLoadingStatus.LOADED) {
+      return asset.value;
+    }
+    return undefined;
   }
 
   /**
@@ -100,12 +86,16 @@ class AssetCache {
    * @param {string} key The key used when the asset was registered.
    * @returns {object} The value of the loaded asset.
    */
-  getAsset(key) {
+  async getAssetAsync(key) {
     const asset = this.assetDictionary[key];
-    if (asset.status === AssetLoadingStatus.LOADED) {
-      return asset.value;
-    }
-    return undefined;
+    return new Promise((resolve) => {
+      (function waitForAssetLoaded() {
+        if (asset.status === AssetLoadingStatus.LOADED) {
+          resolve(asset.value);
+        }
+        setTimeout(waitForAssetLoaded, 30);
+      })();
+    });
   }
 
   /**

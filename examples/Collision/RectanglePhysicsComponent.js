@@ -1,6 +1,5 @@
-import Vec2D from 'core/Vec2D';
-import RectangleHitBox from 'physicsEngine/hitBoxes/RectangleHitBox';
-import PhysicsComponent from 'physicsEngine/PhysicsComponent';
+import RectangleHitBox from '../../src/physicsEngine/hitBoxes/RectangleHitBox';
+import PhysicsComponent from '../../src/physicsEngine/PhysicsComponent';
 
 class RectanglePhysicsComponent extends PhysicsComponent {
   constructor(gameObject, world) {
@@ -27,4 +26,5 @@ class RectanglePhysicsComponent extends PhysicsComponent {
     this.hitBox.point.x += this._velocity;
     this.gameObject.point.x += this._velocity;
   }
-} export default RectanglePhysicsComponent;
+}
+export default RectanglePhysicsComponent;

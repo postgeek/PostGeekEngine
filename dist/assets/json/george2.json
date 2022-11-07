@@ -1,0 +1,167 @@
+{
+	"Id": "george",
+	"Type": "animatedSprite",
+	"SpriteSheetUrl": "./assets/george.png",
+	"SpriteSheet": {
+		"width": 192,
+		"height": 192
+	},
+	"animations": [
+		{
+			"animationName": "WALK_DOWN",
+			"sprites": [
+				{
+					"tickDuration": 10,	
+					"position": 0,
+					"point": {
+						"x": 0,
+						"y": 0
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"tickDuration": 10,
+					"position": 1,
+					"point": {
+						"x": 0,
+						"y": 48
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"tickDuration": 10,
+					"position": 2,
+					"point": {
+						"x": 0,
+						"y": 96
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"tickDuration": 10,
+					"position": 3,
+					"point": {
+						"x": 0,
+						"y": 144
+					},
+					"width": 48,
+					"height": 48
+				}
+			]
+		},
+		{
+			"animationName": "WALK_LEFT",
+			"sprites": [
+				{
+					"point": {
+						"x": 48,
+						"y": 0
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 48,
+						"y": 48
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 48,
+						"y": 96
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 48,
+						"y": 144
+					},
+					"width": 48,
+					"height": 48
+				}
+			]
+		},
+		{
+			"animationName": "WALK_UP",
+			"sprites": [
+				{
+					"point": {
+						"x": 96,
+						"y": 0
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 96,
+						"y": 48
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 96,
+						"y": 96
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 96,
+						"y": 144
+					},
+					"width": 48,
+					"height": 48
+				}
+			]
+		},
+		{
+			"animationName": "WALK_RIGHT",
+			"sprites": [
+				{
+					"point": {
+						"x": 144,
+						"y": 0
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 144,
+						"y": 48
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 144,
+						"y": 96
+					},
+					"width": 48,
+					"height": 48
+				},
+				{
+					"point": {
+						"x": 144,
+						"y": 144
+					},
+					"width": 48,
+					"height": 48
+				}
+			]
+		}
+	]
+}

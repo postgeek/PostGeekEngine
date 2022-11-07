@@ -12,14 +12,7 @@ class Color {
    * @param  {type} config the configuration for the color
    * @return {undefined}
    */
-  constructor({
-    name,
-    hex,
-    hslColor,
-    hslaColor,
-    rgbColor,
-    rgbaColor,
-  }) {
+  constructor({ name, hex, hslColor, hslaColor, rgbColor, rgbaColor }) {
     if (name !== undefined) {
       this.name = name;
     }
@@ -171,6 +164,25 @@ class Color {
     return this._alpha;
   }
 
+  /**
+   * Specifies the alpha value of the color.
+   *
+   * @param {Number} value the alpha value
+   * @return {undefined}
+   */
+  set alpha(value) {
+    if (value < 0 || value > 1) {
+      throw new InvalidArguementError(this);
+    }
+    this._alpha = value;
+    if (this.rgbaColor !== undefined) {
+      this.rgbaColor.alpha = this.alpha;
+    }
+    if (this.hslaColor !== undefined) {
+      this.hslaColor.alpha = this.alpha;
+    }
+  }
+
   toString() {
     if (this.name !== undefined) {
       return this.name;
@@ -190,6 +202,7 @@ class Color {
     if (this.hslColor !== undefined) {
       return this.hslColor.toString();
     }
+    return Color.WHITE;
   }
 
   // https://htmlcolorcodes.com/color-names/
@@ -1593,11 +1606,13 @@ class Color {
     });
   }
 
+  /** @static */
   static get TRANSPARENT() {
     return new Color({
       name: 'transparent',
       rgbaColor: new RGBAColor(0, 0, 0, 0),
       hslaColor: new HSLAColor(0, 0, 0, 0),
+      hex: '#000000',
     });
   }
 }

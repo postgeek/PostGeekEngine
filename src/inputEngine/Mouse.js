@@ -1,6 +1,5 @@
-import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import InvalidArguementError from '../core/errorHandling/errors/InvalidArguementError';
-import ServiceLocator from '../core/ServiceLocator';
+import MouseButton, { MOUSE_BUTTON_STATE } from './MouseButton';
 
 class Mouse {
   /**
@@ -9,34 +8,32 @@ class Mouse {
   constructor() {
     this._dx = 0;
     this._dy = 0;
-    this._buttonDown = false;
 
-    // The possible mouse states
-    this.MOUSE_STATE = Object.freeze({
-      RELEASED: { id: 0, value: 'RELEASED' }, // Not down
-      PRESSED: { id: 1, value: 'PRESSED' }, // Down but not the first time
-      DOWN_ONCE: { id: 2, value: 'DOWN_ONCE' }, // Down for the first time
-    });
+    this._registeredMouseButtons = [];
+    this.registerButton(MouseButton.LEFT_BUTTON);
+    this.registerButton(MouseButton.RIGHT_BUTTON);
+    this.registerButton(MouseButton.MIDDLE_BUTTON);
+  }
 
-    this._mouseState = this.MOUSE_STATE.RELEASED;
+  registerButton(mouseButton) {
+    this._registeredMouseButtons.push(mouseButton);
   }
 
   /**
   * Polls the input from the mouse
   */
   poll() {
-    if (this._buttonDown) {
-      switch (this._mouseState) {
-        case this.MOUSE_STATE.DOWN_ONCE:
-          this._mouseState = this.MOUSE_STATE.PRESSED;
-          break;
-        case this.MOUSE_STATE.RELEASED:
-          this._mouseState = this.MOUSE_STATE.DOWN_ONCE;
-          break;
-        default:
+    for (let i = 0; i < this._registeredMouseButtons.length; i++) {
+      const buttonToCheck = this._registeredMouseButtons[i];
+      if (buttonToCheck.isButtonDown) {
+        if (buttonToCheck.state === MOUSE_BUTTON_STATE.RELEASED) {
+          buttonToCheck.state = MOUSE_BUTTON_STATE.DOWN_ONCE;
+        } else if (buttonToCheck.state === MOUSE_BUTTON_STATE.DOWN_ONCE) {
+          buttonToCheck.state = MOUSE_BUTTON_STATE.PRESSED;
+        }
+      } else {
+        buttonToCheck.state = MOUSE_BUTTON_STATE.RELEASED;
       }
-    } else {
-      this._mouseState = this.MOUSE_STATE.RELEASED;
     }
   }
 
@@ -57,14 +54,20 @@ class Mouse {
    * Handles the mouse down event.
    */
   mouseDown(e) {
-    this._buttonDown = true;
+    const currentButton = this.retrieveMouseButton(e);
+    if (currentButton !== undefined) {
+      currentButton.isButtonDown = true;
+    }
   }
 
   /**
    * Handles the mouse up event.
    */
   mouseUp(e) {
-    this._buttonDown = false;
+    const currentButton = this.retrieveMouseButton(e);
+    if (currentButton !== undefined) {
+      currentButton.isButtonDown = false;
+    }
   }
 
   /**
@@ -88,16 +91,34 @@ class Mouse {
   /**
    * Checks if the mouse button is down for the first time.
    */
-  buttonDownOnce() {
-    return this._mouseState === this.MOUSE_STATE.DOWN_ONCE;
+  buttonDownOnce(mouseButton) {
+    const button = this.retrieveMouseButton(mouseButton);
+    return button.state === MOUSE_BUTTON_STATE.DOWN_ONCE;
   }
 
   /**
    * Checks if the mouse button is down.
    */
-  buttonPressed() {
-    return this._mouseState === this.MOUSE_STATE.DOWN_ONCE
-    || this._mouseState === this.MOUSE_STATE.PRESSED;
+  buttonPressed(mouseButton) {
+    const button = this.retrieveMouseButton(mouseButton);
+    return button.state === MOUSE_BUTTON_STATE.DOWN_ONCE
+    || button.state === MOUSE_BUTTON_STATE.PRESSED;
+  }
+
+  retrieveMouseButton({ button, which }) {
+    for (let i = 0; i < this._registeredMouseButtons.length; i++) {
+      const buttonToSearch = this._registeredMouseButtons[i];
+      if (which !== undefined) {
+        if (buttonToSearch.which === which) {
+          return buttonToSearch;
+        }
+      } else if (button !== undefined) {
+        if (buttonToSearch.button === button) {
+          return buttonToSearch;
+        }
+      }
+    }
+    return undefined;
   }
 }
 export default Mouse;

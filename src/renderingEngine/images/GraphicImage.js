@@ -10,9 +10,10 @@ class GraphicImage extends GraphicObject {
    *
    * @param  {Image} image  The image associated to the GraphicImage
    */
-  constructor(image) {
+  constructor(image, isLoaded = false) {
     super();
     this.image = image;
+    this.isLoaded = isLoaded;
   }
 
   /**
@@ -33,6 +34,14 @@ class GraphicImage extends GraphicObject {
   set image(value) {
     /** @private */
     this._image = value;
+  }
+
+  get isLoaded() {
+    return this._isLoaded;
+  }
+
+  set isLoaded(value) {
+    this._isLoaded = value;
   }
 
   /**
@@ -65,7 +74,15 @@ class GraphicImage extends GraphicObject {
    * Draws the image on screen at 0,0.
    */
   draw() {
-    this.context.drawImage(this.image, 0, 0);
+    if (this.isLoaded) {
+      this.context.drawImage(this.image, 0, 0);
+    }
+  }
+
+  drawAtPoint(point) {
+    if (this.isLoaded) {
+      this.context.drawImage(this.image, point.x, point.y);
+    }
   }
 
   /**
@@ -79,16 +96,19 @@ class GraphicImage extends GraphicObject {
    * @param  {Number} height the sub-image's height
    */
   drawImageWithMask(destinationPoint, subRectanglePoint, width, height) {
-    this.context.drawImage(
-      this.image,
-      subRectanglePoint.x,
-      subRectanglePoint.y,
-      width,
-      height,
-      destinationPoint.x,
-      destinationPoint.y,
-      width,
-      height,
-    );
+    if (this.isLoaded) {
+      this.context.drawImage(
+        this.image,
+        subRectanglePoint.x,
+        subRectanglePoint.y,
+        width,
+        height,
+        destinationPoint.x,
+        destinationPoint.y,
+        width,
+        height,
+      );
+    }
   }
-} export default GraphicImage;
+}
+export default GraphicImage;

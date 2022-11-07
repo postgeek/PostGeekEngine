@@ -1,4 +1,3 @@
-import UnhandledHtmlEventError from '../core/errorHandling/errors/UnhandledHtmlEventError';
 import KeyboardKey from './KeyboardKey';
 import ServiceLocator from '../core/ServiceLocator';
 
@@ -29,7 +28,7 @@ class Keyboard {
   }
 
   registerAllKeys() {
-    KeyboardKey.ALL_KEYS.forEach(key => this.registerKey(key));
+    KeyboardKey.ALL_KEYS.forEach((key) => this.registerKey(key));
     /*
     var allKeys = KeyboardKey.ALL_KEYS;
     for(let i = 0; i < allKeys.length; i++) {
@@ -51,16 +50,16 @@ class Keyboard {
   registerKey(key) {
     const keyToAdd = key;
     if (this.retrieveKey(key) !== undefined) {
-      // TODO: Implement a warning system instead of using console.warn
-      console.warn(`Key: ${key} is already registered`);
+      const logger = ServiceLocator.instance.locate('logger');
+      logger.warn(`Key: ${key} is already registered`);
     }
     keyToAdd.state = this.KEY_STATE.RELEASED;
     this._registeredKeys.push(keyToAdd);
   }
 
   /**
-  * Polls the input from the keyboard
-  */
+   * Polls the input from the keyboard
+   */
   poll() {
     for (let i = 0; i < this._registeredKeys.length; i += 1) {
       const keyToCheck = this._registeredKeys[i];
@@ -74,12 +73,6 @@ class Keyboard {
         keyToCheck.state = this.KEY_STATE.RELEASED;
       }
     }
-  }
-
-  typedKeyHandler(keyboardEvent) {
-    const typedKey = keyboardEvent.key || String.fromCharCode(keyboardEvent.charCode);
-    const eventbus = ServiceLocator.instance.locate('eventbus');
-    eventbus.emit(this.KEY_TYPED_EVENT, typedKey);
   }
 
   /**
@@ -104,15 +97,13 @@ class Keyboard {
     }
   }
 
-
   /**
    * Handles the key down held event
    * @param {KeyCode} keyCode The key code for the key to check.
    */
   keyDownHeld(keyboardKey) {
     const currentKey = this.retrieveKey(keyboardKey);
-    return currentKey.state === this.KEY_STATE.DOWN_ONCE
-        || currentKey.state === this.KEY_STATE.PRESSED;
+    return currentKey.state === this.KEY_STATE.DOWN_ONCE || currentKey.state === this.KEY_STATE.PRESSED;
   }
 
   /**
@@ -149,4 +140,5 @@ class Keyboard {
     }
     return undefined;
   }
-} export default Keyboard;
+}
+export default Keyboard;

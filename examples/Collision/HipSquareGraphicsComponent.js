@@ -1,6 +1,6 @@
-import Component from 'core/Component';
-import Vec2D from 'core/Vec2D';
-import Rectangle from 'renderingEngine/geometry/Rectangle';
+import Component from '../../src/core/Component';
+import Vec2D from '../../src/core/Vec2D';
+import Rectangle from '../../src/renderingEngine/geometry/Rectangle';
 
 class HipSquareGraphicsComponent extends Component {
   constructor(containerObject) {
@@ -17,4 +17,5 @@ class HipSquareGraphicsComponent extends Component {
   draw(timeStep) {
     this.rectangle.draw(timeStep);
   }
-} export default HipSquareGraphicsComponent;
+}
+export default HipSquareGraphicsComponent;

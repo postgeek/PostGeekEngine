@@ -11,6 +11,11 @@
       "presets": [
         ["@babel/preset-env", { "modules": "commonjs" }]
       ]
+    },  
+     "production": {
+      "presets": [
+        ["@babel/preset-env", { "modules": "commonjs" }]
+      ]
     }
   }
 }

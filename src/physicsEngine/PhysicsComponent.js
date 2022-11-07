@@ -37,10 +37,12 @@ class PhysicsComponent {
    * TODO: Move this to an actual collision detection engine.
    */
   isCollidingWithWorldBounds() {
-    return this.isCollidingWithLeftBound(this.world)
-    || this.isCollidingWithRightBound(this.world)
-    || this.isCollidingWithTopBound(this.world)
-    || this.isCollidingWithBottomBound(this.world);
+    return (
+      this.isCollidingWithLeftBound(this.world) ||
+      this.isCollidingWithRightBound(this.world) ||
+      this.isCollidingWithTopBound(this.world) ||
+      this.isCollidingWithBottomBound(this.world)
+    );
   }
 
   isCollidingWithLeftBound() {

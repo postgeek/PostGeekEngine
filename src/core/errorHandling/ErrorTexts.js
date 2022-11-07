@@ -7,3 +7,4 @@ export const InvalidStateOperationErrorText = 'Invalid operation, this method ca
 export const UndefinedErrorText = 'Value is undefined.';
 export const UnhandledHtmlEventErrorText = 'Event is unhandled';
 export const ItemAlreadyExistsErrorText = 'unable to add the object, it already exists in the current collection';
+export const LoadImageErrorText = 'unable to load image {0}.';

@@ -35,8 +35,8 @@ class TextGraphic extends GraphicObject {
   }
 
   /**
-  *  The Y coordinate of the text.
-  */
+   *  The Y coordinate of the text.
+   */
   get y() {
     return this.point.y;
   }
@@ -68,18 +68,18 @@ class TextGraphic extends GraphicObject {
   }
 
   /**
-  * Measure the provided text.
-  * https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics
-  *
-  * @param {TextMetrics} textMetrics the textMetrics for the current text.
-  */
+   * Measure the provided text.
+   * https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics
+   *
+   * @param {TextMetrics} textMetrics the textMetrics for the current text.
+   */
   measureText() {
     this.context.save();
     this.context = this.textStyle.apply(this.context);
     const textMetrics = this.context.measureText(this.text);
     this.context.restore();
     if (textMetrics !== undefined) {
-      return textMetrics.width;
+      return Math.round(textMetrics.width);
     }
     return undefined;
   }

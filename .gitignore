@@ -2,6 +2,7 @@ node_modules/
 docs/
 .DS_Store
 
+lib/*
 dist/*
 !dist/assets
 

@@ -1,8 +1,7 @@
 import Shape from '../../../src/renderingEngine/geometry/Shape';
-import BezierCurve from '../../../src/renderingEngine/geometry/BezierCurve';
 import Circle from '../../../src/renderingEngine/geometry/Circle';
+import Line from '../../../src/renderingEngine/geometry/Line';
 import Ellipse from '../../../src/renderingEngine/geometry/Ellipse';
-import QuadraticCurve from '../../../src/renderingEngine/geometry/QuadraticCurve';
 import Rectangle from '../../../src/renderingEngine/geometry/Rectangle';
 import GeometryStyle from '../../../src/renderingEngine/geometry/GeometryStyle';
 import Vec2D from '../../../src/core/Vec2D';
@@ -24,7 +23,9 @@ describe('Shape', () => {
     const shape = new Shape();
 
     // Assert
-    expect(() => { shape.internalDraw(); }).toThrow(MethodNotImplementedError);
+    expect(() => {
+      shape.internalDraw();
+    }).toThrow(MethodNotImplementedError);
   });
   it('Should save the current context and apply the correct stylings', () => {
     // Arrange
@@ -103,6 +104,39 @@ describe('Shape', () => {
   });
 });
 
+describe('Line', () => {
+  it('Should properly draw the line to the screen', () => {
+    // Arrange
+    const context = ServiceLocator.instance.locate('context');
+    const line = new Line(new Vec2D(10, 20), new Vec2D(21, 45));
+    const lineInternalDrawSpy = jest.spyOn(line, 'internalDraw');
+    const contextMoveToSpy = jest.spyOn(context, 'moveTo');
+    const contextLineToSpy = jest.spyOn(context, 'lineTo');
+
+    // Act
+    line.draw();
+
+    // Assert
+    expect(lineInternalDrawSpy).toHaveBeenCalledTimes(1);
+    expect(contextMoveToSpy).toHaveBeenCalledTimes(1);
+    expect(contextLineToSpy).toHaveBeenCalledTimes(1);
+  });
+  it('Should copy the given circle', () => {
+    // Arrange
+    const line = new Line(new Vec2D(10, 20), new Vec2D(21, 45));
+
+    // Act
+    const clonedLine = line.clone();
+
+    // Asset
+    expect(clonedLine).toBeDefined();
+    expect(clonedLine.startPoint.x).toBe(line.startPoint.x);
+    expect(clonedLine.startPoint.y).toBe(line.startPoint.y);
+    expect(clonedLine.endPoint.x).toBe(line.endPoint.x);
+    expect(clonedLine.endPoint.y).toBe(line.endPoint.y);
+  });
+});
+
 describe('Circle', () => {
   it('Should properly draw the circle to the screen', () => {
     // Arrange
@@ -118,7 +152,7 @@ describe('Circle', () => {
     expect(circleInternalDrawSpy).toHaveBeenCalledTimes(1);
     expect(contextArcSpy).toHaveBeenCalledTimes(1);
   });
-  it('Should properly set the point\'s x coordinate', () => {
+  it("Should properly set the point's x coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const circle = new Circle(point, 20);
@@ -132,7 +166,7 @@ describe('Circle', () => {
     expect(point.x).toBe(newX);
     expect(circle.x).toBe(newX);
   });
-  it('Should properly set the point\'s y coordinate', () => {
+  it("Should properly set the point's y coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const circle = new Circle(point, 20);
@@ -150,7 +184,7 @@ describe('Circle', () => {
     // Arrange
     const circle = new Circle(new Vec2D(10, 20), 20);
 
-    // GraphicObject
+    // Act
     const clonedCircle = circle.clone();
 
     // Asset
@@ -158,6 +192,19 @@ describe('Circle', () => {
     expect(clonedCircle.point.x).toBe(circle.point.x);
     expect(clonedCircle.point.y).toBe(circle.point.y);
     expect(clonedCircle.radius).toBe(circle.radius);
+  });
+  it('Should get the center point of the circle', () => {
+    // Arrange
+    const circle = new Circle(new Vec2D(10, 20), 20);
+    const circleCenterPointX = 10;
+    const circleCenterPointY = 20;
+
+    // Act
+    const centerPointOfCircle = circle.centerPoint;
+
+    // Asset
+    expect(centerPointOfCircle.x).toBe(circleCenterPointX);
+    expect(centerPointOfCircle.y).toBe(circleCenterPointY);
   });
 });
 
@@ -176,7 +223,7 @@ describe('Ellipse', () => {
     expect(ellipseInternalDrawSpy).toHaveBeenCalledTimes(1);
     expect(contextEllipseSpy).toHaveBeenCalledTimes(1);
   });
-  it('Should properly set the point\'s x coordinate', () => {
+  it("Should properly set the point's x coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const ellipse = new Ellipse(point, 20, 45, 49);
@@ -190,7 +237,7 @@ describe('Ellipse', () => {
     expect(point.x).toBe(newX);
     expect(ellipse.x).toBe(newX);
   });
-  it('Should properly set the point\'s y coordinate', () => {
+  it("Should properly set the point's y coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const ellipse = new Ellipse(point, 20);
@@ -208,7 +255,7 @@ describe('Ellipse', () => {
     // Arrange
     const ellipse = new Ellipse(new Vec2D(10, 20), 20, 56, 75);
 
-    // GraphicObject
+    // Act
     const clonedEllipse = ellipse.clone();
 
     // Asset
@@ -236,7 +283,7 @@ describe('Rectangle', () => {
     expect(rectangleInternalDraw).toHaveBeenCalledTimes(1);
     expect(contextRectSpy).toHaveBeenCalledTimes(1);
   });
-  it('Should properly set the point\'s x coordinate', () => {
+  it("Should properly set the point's x coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const rectangle = new Rectangle(point, 20, 89);
@@ -250,7 +297,7 @@ describe('Rectangle', () => {
     expect(point.x).toBe(newX);
     expect(rectangle.x).toBe(newX);
   });
-  it('Should properly set the point\'s y coordinate', () => {
+  it("Should properly set the point's y coordinate", () => {
     // Arrange
     const point = new Vec2D(10, 20);
     const rectangle = new Rectangle(point, 20, 90);
@@ -268,14 +315,27 @@ describe('Rectangle', () => {
     // Arrange
     const rectangle = new Rectangle(new Vec2D(10, 20), 20, 65);
 
-    // GraphicObject
+    // Act
     const clonedRectangle = rectangle.clone();
 
-    // Asset
+    // Assert
     expect(clonedRectangle).toBeDefined();
     expect(clonedRectangle.point.x).toBe(rectangle.point.x);
     expect(clonedRectangle.point.y).toBe(rectangle.point.y);
     expect(clonedRectangle.width).toBe(rectangle.width);
     expect(clonedRectangle.height).toBe(rectangle.height);
+  });
+  it('Should retrieve the center point of the rectangle', () => {
+    // Arrange
+    const rectangle = new Rectangle(new Vec2D(20, 20), 20, 65);
+    const rectangleCenterPointX = 30;
+    const rectangleCenterPointY = 53;
+
+    // Act
+    const centerPointOfRectangle = rectangle.centerPoint;
+
+    // Assert
+    expect(centerPointOfRectangle.x).toBe(rectangleCenterPointX);
+    expect(centerPointOfRectangle.y).toBe(rectangleCenterPointY);
   });
 });

@@ -1,8 +1,7 @@
-import Vec2D from 'core/Vec2D';
-import GameObject from 'gameEngine/gameObjects/GameObject';
+import Vec2D from '../../src/core/Vec2D';
+import GameObject from '../../src/gameEngine/gameObjects/GameObject';
 import RectangleGraphicsComponent from './RectangleGraphicsComponent';
 import RectanglePhysicsComponent from './RectanglePhysicsComponent';
-
 
 class RectangleGameObject extends GameObject {
   constructor(scene) {
@@ -12,4 +11,5 @@ class RectangleGameObject extends GameObject {
     this.graphics = new RectangleGraphicsComponent(this);
     this.physics = new RectanglePhysicsComponent(this, scene.world);
   }
-} export default RectangleGameObject;
+}
+export default RectangleGameObject;
