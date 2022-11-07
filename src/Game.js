@@ -46,7 +46,7 @@ class Game {
     this.config = config;
     this.deltaTime = 0;
     this.UPDATE_RATE = 60;
-    this.TIME_STEP = (1000 / this.UPDATE_RATE);
+    this.TIME_STEP = 1000 / this.UPDATE_RATE;
 
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
@@ -249,8 +249,7 @@ class Game {
     this.lastFrameTimeMs = timeStamp;
 
     if (timeStamp > this.lastFPSUpdate + 1000) {
-      this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond
-      + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
+      this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
 
       this.lastFPSUpdate = timeStamp;
       this.framesThisSecond = 0;
@@ -309,11 +308,12 @@ class Game {
    */
   requestAnimFrame(callback) {
     // shim layer with setTimeout fallback
-    let func = window.requestAnimationFrame
-        || window.webkitRequestAnimationFrame
-        || window.mozRequestAnimationFrame
-        || window.oRequestAnimationFrame
-        || window.msRequestAnimationFrame;
+    let func =
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame;
 
     if (!func) {
       func = (cb) => setTimeout(cb, 1000 / 24);
