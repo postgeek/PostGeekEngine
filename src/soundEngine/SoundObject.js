@@ -14,19 +14,17 @@ class SoundObject {
   constructor(arrayBuffer) {
     this._logger = ServiceLocator.instance.locate('logger');
 
-    if(ServiceLocator.instance.containsKey('audioContext')) {
+    if (ServiceLocator.instance.containsKey('audioContext')) {
       this._audioContext = ServiceLocator.instance.locate('audioContext');
       this._audioSupported = true;
-    }
-    else {
-      this._logger.error('Unable to retrieve audio context. Audio may not be supported.')
+      this._volume = new Volume(this._audioContext, 1);
+    } else {
+      this._logger.error('Unable to retrieve audio context. Audio may not be supported.');
       this._audioSupported = false;
     }
-    
+
     this._arrayBuffer = arrayBuffer;
     this._state = PLAY_STATE.STOPPED;
-    this._volume = new Volume(this._audioContext, 1);
-    this.NodeIndex = 0;
   }
 
   get isPlaying() {
@@ -75,7 +73,7 @@ class SoundObject {
   }
 
   async getAudioBufferAsync() {
-    if(!this._audioBuffer) {
+    if (!this._audioBuffer) {
       this._audioBuffer = await this._audioContext.decodeAudioData(this._arrayBuffer);
     }
 
@@ -83,13 +81,13 @@ class SoundObject {
   }
 
   async createSoundNodeAsync() {
-      this._sound = this._audioContext.createBufferSource();
-      this._sound.buffer = await this.getAudioBufferAsync();
-      this._sound.onended = () => {
-        if (!this.isPaused) {
-          this._state = PLAY_STATE.STOPPED;
-        }
-      };
+    this._sound = this._audioContext.createBufferSource();
+    this._sound.buffer = await this.getAudioBufferAsync();
+    this._sound.onended = () => {
+      if (!this.isPaused) {
+        this._state = PLAY_STATE.STOPPED;
+      }
+    };
 
     return this._sound;
   }
@@ -120,11 +118,10 @@ class SoundObject {
 
   play(ms) {
     this.createSoundWithGainNodeAsync().then(() => {
-      if(this.isPaused) {
+      if (this.isPaused) {
         this._sound.start(0, this._restartAt, ms);
         this._startTime = this._sound.context.currentTime - this._restartAt;
-      }
-      else if (this.isStopped) {
+      } else if (this.isStopped) {
         this._startTime = this._sound.context.currentTime;
         this._sound.start(0, 0, ms);
       }

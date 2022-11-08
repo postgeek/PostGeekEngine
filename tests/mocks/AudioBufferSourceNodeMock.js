@@ -1,4 +1,10 @@
+import AudioContextMock from './AudioContextMock';
+
 class AudioBufferSourceNodeMock {
+  get context() {
+    return new AudioContextMock();
+  }
+
   get buffer() {
     return this._buffer;
   }
@@ -7,14 +13,11 @@ class AudioBufferSourceNodeMock {
     this._buffer = value;
   }
 
-  connect(destination) {
-  }
+  connect(destination) {}
 
-  start(ms) {
-  }
+  start(ms) {}
 
-  stop(ms) {
-  }
+  stop(ms) {}
 }
 
 export default AudioBufferSourceNodeMock;

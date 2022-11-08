@@ -1,8 +1,20 @@
 import AudioBufferSourceNodeMock from './AudioBufferSourceNodeMock';
+import ChannelMergerNodeMock from './ChannelMergerNodeMock';
+import ChannelSplitterNodeMock from './ChannelSplitterNodeMock';
+import GainNodeMock from './GainNodeMock';
 
 class AudioContextMock {
   get destination() {
     return undefined;
+  }
+
+  get currentTime() {}
+
+  createChannelSplitter() {
+    return new ChannelSplitterNodeMock();
+  }
+  createChannelMerger() {
+    return new ChannelMergerNodeMock();
   }
 
   createBufferSource() {
@@ -11,12 +23,12 @@ class AudioContextMock {
 
   decodeAudioData(audioData) {
     return new Promise((resolve) => {
-      resolve({});
+      resolve();
     });
   }
 
   createGain() {
-    return new GainNode();
+    return new GainNodeMock();
   }
 }
 
