@@ -52,7 +52,9 @@ class SpriteConfig {
   set width(value) {
     if (!isPowerOfTwo(value)) {
       const logger = ServiceLocator.instance.locate('logger');
-      logger.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+      logger.warn(
+        `Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`,
+      );
     }
     this._width = value;
   }
@@ -64,8 +66,11 @@ class SpriteConfig {
   set height(value) {
     if (!isPowerOfTwo(value)) {
       const logger = ServiceLocator.instance.locate('logger');
-      logger.warn(`Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`);
+      logger.warn(
+        `Value ${value} is not a power of two to optimize please make sure all your sprites are power of 2`,
+      );
     }
     this._height = value;
   }
-} export default SpriteConfig;
+}
+export default SpriteConfig;

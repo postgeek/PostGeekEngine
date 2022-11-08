@@ -4,7 +4,6 @@ import ServiceLocator from 'core/ServiceLocator';
 
 export default class KeyboardDemoScene extends Scene {  
   create() {
-    console.log(KeyboardKey.A);
     this.keyboard = ServiceLocator.instance.locate('keyboard');
     this.keyboard.registerKey(KeyboardKey.A);
   }

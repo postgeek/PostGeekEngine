@@ -1,4 +1,3 @@
-import start from 'Game';
 import DemoScene from './2DMapDemo/DemoScene';
 import ColorPickerDemoScene from './Colors/ColorPickerDemoScene';
 import CollisionScene from './Collision/CollisionScene';
@@ -8,6 +7,7 @@ import ThemeDemoScene from './Theme/ThemeDemoScene';
 import KeyboardDemoScene from './KeyboardDemo/KeyboardDemoScene';
 import MouseDemoScene from './mouseDemo/MouseDemoScene';
 import SoundScene from './Sound/SoundScene';
+import HUDDesignerScene from './Tools/HUDDesigner/HUDDesignerScene';
 import PathBuilderDemoScene from './PathBuilderDemo/PathBuilderDemoScene';
 
 import './style.scss';
@@ -26,7 +26,8 @@ class Main {
       { key: 'shapeDemoScene', scene: ShapeDemoScene, name: 'Shape Demo' },
       { key: 'MouseDemoScene', scene: MouseDemoScene, name: 'Mouse Demo' },
       { key: 'themeDemoScene', scene: ThemeDemoScene, name: 'Theme Demo' },
-      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' }
+      { key: 'soundScene', scene: SoundScene, name: 'Sound Demo' },
+      { key: 'HUDTool', scene: HUDDesignerScene, name: "Hud Designer"},
     ]
   }
 
@@ -56,18 +57,26 @@ class Main {
 
   runDemo(key) {
     const demo = this._demos.find(d => d.key === key);
-    this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
-    this._game.sceneManager.startScene(demo.key, this._game);
+    if(this._game.sceneManager.activeSceneKey !== key) {
+      try {
+        this._game.sceneManager.runningScene.cleanUp();
+      } catch(e) {
+
+      }
+      this._game.sceneManager.addScene({ key: demo.key, scene: demo.scene });
+      this._game.sceneManager.startScene(demo.key, this._game);
+    }
   }
   
-  debugClicked(checked) {
+  debugClicked() {
     this._game.toggleDebug()
   }
 
   start() {
+    var index = 0;
     this._game = new Game({
       canvas: document.getElementById('canvas'),
-      initialScene: this._demos[0]
+      initialScene: this._demos[index]
     });
     this._game.init();
   }

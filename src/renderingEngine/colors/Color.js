@@ -1612,5 +1612,15 @@ class Color {
       hex: '#000000',
     });
   }
+
+  /** @static */
+  static get TRANSPARENT() {
+    return new Color({
+      name: 'transparent',
+      rgbaColor: new RGBAColor(0, 0, 0, 0),
+      hslaColor: new HSLAColor(0, 0, 0, 0),
+      hex: '#000000',
+    });
+  }
 }
 export default Color;

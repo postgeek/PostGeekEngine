@@ -9,8 +9,6 @@ import PostGeekDebugger from './core/debug/PostGeekDebugger';
 import PostGeekLogger from './core/debug/PostGeekLogger';
 import InvalidStateOperationError from './core/errorHandling/errors/InvalidStateOperationError';
 
-const game = null;
-
 class Game {
   /**
    * Constructs a new Game object
@@ -149,7 +147,7 @@ class Game {
    * @param  {String} key the key associated to a scene
    */
   startScene(key) {
-    this.sceneManager.startScene(key, game);
+    this.sceneManager.startScene(key, this);
   }
 
   /**
@@ -291,7 +289,9 @@ class Game {
    * update - Updates the current running scene. This method updates the backend of all obejcts
    */
   update(timeStep) {
-    this.sceneManager.runningScene.update(timeStep);
+    if (this.sceneManager.runningScene.isReady) {
+      this.sceneManager.runningScene.update(timeStep);
+    }
     this.middlewareManager.update(timeStep);
   }
 
@@ -304,7 +304,9 @@ class Game {
     this._context.fillStyle = Color.BLACK;
     this._context.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-    this.sceneManager.runningScene.draw(deltaTime);
+    if (this.sceneManager.runningScene.isReady) {
+      this.sceneManager.runningScene.draw(deltaTime);
+    }
     this.middlewareManager.draw(deltaTime);
   }
 

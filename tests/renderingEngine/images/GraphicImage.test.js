@@ -56,9 +56,10 @@ describe('width', () => {
 });
 
 describe('draw', () => {
-  it('should draw the image on screen', () => {
+  it('should draw the image on screen if the graphic image isLoaded = true', () => {
     // Arrange
     const image = new GraphicImage();
+    image.isLoaded = true;
     const context = ServiceLocator.instance.locate('context');
     const contextDrawImageSpy = jest.spyOn(context, 'drawImage');
 
@@ -68,9 +69,23 @@ describe('draw', () => {
     // Assert
     expect(contextDrawImageSpy).toHaveBeenCalledTimes(1);
   });
-  it('should draw the imag with a mask on screen', () => {
+  it('should not draw the image on screen if the graphic image isLoaded = false', () => {
     // Arrange
     const image = new GraphicImage();
+    image.isLoaded = false;
+    const context = ServiceLocator.instance.locate('context');
+    const contextDrawImageSpy = jest.spyOn(context, 'drawImage');
+
+    // Act
+    image.draw();
+
+    // Assert
+    expect(contextDrawImageSpy).toHaveBeenCalledTimes(0);
+  });
+  it('should draw the image with a mask on screen if isLoaded = true', () => {
+    // Arrange
+    const image = new GraphicImage();
+    image.isLoaded = true;
     const context = ServiceLocator.instance.locate('context');
     const contextDrawImageSpy = jest.spyOn(context, 'drawImage');
 
@@ -79,5 +94,18 @@ describe('draw', () => {
 
     // Assert
     expect(contextDrawImageSpy).toHaveBeenCalledTimes(1);
+  });
+  it('should not draw the image with a mask on screen if isLoaded = false', () => {
+    // Arrange
+    const image = new GraphicImage();
+    image.isLoaded = false;
+    const context = ServiceLocator.instance.locate('context');
+    const contextDrawImageSpy = jest.spyOn(context, 'drawImage');
+
+    // Act
+    image.drawImageWithMask(new Point(0, 0), new Point(11, 22), 12, 12);
+
+    // Assert
+    expect(contextDrawImageSpy).toHaveBeenCalledTimes(0);
   });
 });

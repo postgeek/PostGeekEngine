@@ -15,6 +15,9 @@ class AudioContextMock {
     });
   }
 
+  createGain() {
+    return new GainNode();
+  }
 }
 
 export default AudioContextMock;
