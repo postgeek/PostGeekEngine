@@ -19,7 +19,7 @@ class Game {
     this.config = config;
     this.deltaTime = 0;
     this.UPDATE_RATE = 60;
-    this.TIME_STEP = (1000 / this.UPDATE_RATE);
+    this.TIME_STEP = 1000 / this.UPDATE_RATE;
 
     this.Mouse = new Mouse();
     this.Keyboard = new Keyboard();
@@ -163,9 +163,9 @@ class Game {
     ServiceLocator.instance.register('context', this._context);
 
     // Create the audio context
-    let audioContext = window.AudioContext || window.webkitAudioContext;
-    if(audioContext) {
-      ServiceLocator.instance.register('audioContext', new audioContext());
+    const GameAudioContext = window.AudioContext || window.webkitAudioContext;
+    if (GameAudioContext) {
+      ServiceLocator.instance.register('audioContext', new GameAudioContext());
     }
 
     // Register the eventbus into the service locator
@@ -252,8 +252,7 @@ class Game {
     this.lastFrameTimeMs = timeStamp;
 
     if (timeStamp > this.lastFpsUpdate + 1000) {
-      this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond
-      + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
+      this.framesPerSecond = this.weightedFPSMultipler * this.framesThisSecond + (1 - this.weightedFPSMultipler) * this.framesPerSecond;
 
       this.lastFpsUpdate = timeStamp;
 
@@ -318,10 +317,10 @@ class Game {
   requestAnimFrame(callback) {
     // shim layer with setTimeout fallback
     let func = window.requestAnimationFrame
-        || window.webkitRequestAnimationFrame
-        || window.mozRequestAnimationFrame
-        || window.oRequestAnimationFrame
-        || window.msRequestAnimationFrame;
+      || window.webkitRequestAnimationFrame
+      || window.mozRequestAnimationFrame
+      || window.oRequestAnimationFrame
+      || window.msRequestAnimationFrame;
 
     if (!func) {
       func = (cb) => setTimeout(cb, 1000 / 24);
@@ -329,4 +328,5 @@ class Game {
 
     func(callback.bind(this));
   }
-} export default Game;
+}
+export default Game;

@@ -1,4 +1,4 @@
-import Asset, { AssetLoadingStatus, AssetType } from './Asset';
+import Asset, { AssetLoadingStatus } from './Asset';
 import * as utils from './AssetUtils';
 import ServiceLocator from '../ServiceLocator';
 

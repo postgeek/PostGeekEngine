@@ -69,7 +69,7 @@ class SoundObject {
   }
 
   get sound() {
-    this._sound;
+    return this._sound;
   }
 
   async getAudioBufferAsync() {
