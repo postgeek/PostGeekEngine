@@ -55,9 +55,9 @@ class PostGeekDebugger extends MiddlewareBase {
     const rectangle = new Rectangle(rectPoint, rectSize, rectSize);
     rectangle.GeometryStyle = this.debugGeometryStyle;
 
-    const circleTextX = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2)), `X : ${circle.X}`);
+    const circleTextX = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + rectSize * 2), `X : ${circle.X}`);
     circleTextX.TextStyle = this.debugTextStyle;
-    const circleTextY = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + (rectSize * 2) + 30), `Y : ${circle.Y}`);
+    const circleTextY = new TextGraphic(new Point(rectPoint.X, rectPoint.Y + rectSize * 2 + 30), `Y : ${circle.Y}`);
     circleTextY.TextStyle = this.debugTextStyle;
 
     rectangle.draw();
