@@ -11,9 +11,64 @@ import ServiceLocator from '../src/core/ServiceLocator';
 import SceneManager from '../src/core/managers/SceneManager';
 import MiddlewareManager from '../src/core/managers/MiddlewareManager';
 import InvalidStateOperationError from '../src/core/errorHandling/errors/InvalidStateOperationError';
-import { AudioContext } from 'standardized-audio-context-mock';
 
-global.AudioContext = AudioContext;
+// Manual AudioContext mock for better compatibility
+class MockAudioContext {
+  constructor() {
+    this.destination = {};
+    this.sampleRate = 44100;
+    this.currentTime = 0;
+    this.state = 'running';
+  }
+  
+  createOscillator() {
+    return {
+      connect: jest.fn(),
+      start: jest.fn(),
+      stop: jest.fn(),
+      frequency: { value: 440 }
+    };
+  }
+  
+  createGain() {
+    return {
+      connect: jest.fn(),
+      gain: { value: 1 }
+    };
+  }
+  
+  createBuffer() {
+    return {};
+  }
+  
+  createBufferSource() {
+    return {
+      connect: jest.fn(),
+      start: jest.fn(),
+      stop: jest.fn(),
+      buffer: null
+    };
+  }
+  
+  decodeAudioData() {
+    return Promise.resolve({});
+  }
+  
+  close() {
+    return Promise.resolve();
+  }
+  
+  resume() {
+    return Promise.resolve();
+  }
+  
+  suspend() {
+    return Promise.resolve();
+  }
+}
+
+global.AudioContext = MockAudioContext;
+global.webkitAudioContext = MockAudioContext;
 let initialScene = null;
 let canvas = null; 
 
