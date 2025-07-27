@@ -1,4 +1,8 @@
 class AudioBufferSourceNodeMock {
+  constructor() {
+    this._buffer = null;
+  }
+
   get buffer() {
     return this._buffer;
   }
@@ -7,14 +11,9 @@ class AudioBufferSourceNodeMock {
     this._buffer = value;
   }
 
-  connect(destination) {
-  }
-
-  start(ms) {
-  }
-
-  stop(ms) {
-  }
+  connect = jest.fn();
+  start = jest.fn();
+  stop = jest.fn();
 }
 
 export default AudioBufferSourceNodeMock;
