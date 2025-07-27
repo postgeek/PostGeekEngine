@@ -31,6 +31,6 @@ describe('draw', () => {
     spriteSheet.draw();
 
     // Assert
-    expect(contextDrawSpy).toBeCalledTimes(1);
+    expect(contextDrawSpy).toHaveBeenCalledTimes(1);
   });
 });

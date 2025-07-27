@@ -1,6 +1,6 @@
 function isPowerOfTwo(numberToCheck) {
   return (numberToCheck !== 0)
-  && ((numberToCheck & (numberToCheck - 1)) === 0); // eslint-disable-line no-bitwise
+  && ((numberToCheck & (numberToCheck - 1)) === 0);  
 }
 
-export { isPowerOfTwo }; // eslint-disable-line import/prefer-default-export
+export { isPowerOfTwo };

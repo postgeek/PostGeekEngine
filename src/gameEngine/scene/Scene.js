@@ -129,7 +129,7 @@ class Scene {
   /**
    * Preloads assets the scene will need.
    */
-  // eslint-disable-next-line class-methods-use-this
+   
   preload() {
     // is possibly overridden in subclasses.
   }
@@ -174,7 +174,7 @@ class Scene {
   /**
    * Closes the scene and cleans up the neccessary resources.
    */
-  // eslint-disable-next-line class-methods-use-this
+   
   close() {
     // is possibly overriden in subclasses.
   }

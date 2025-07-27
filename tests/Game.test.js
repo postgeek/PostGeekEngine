@@ -11,9 +11,12 @@ import ServiceLocator from '../src/core/ServiceLocator';
 import SceneManager from '../src/core/managers/SceneManager';
 import MiddlewareManager from '../src/core/managers/MiddlewareManager';
 import InvalidStateOperationError from '../src/core/errorHandling/errors/InvalidStateOperationError';
-import { AudioContext } from 'standardized-audio-context-mock';
+import AudioContextMock from './mocks/AudioContextMock';
 
-global.AudioContext = AudioContext;
+// Set up global AudioContext mocks
+global.AudioContext = AudioContextMock;
+global.webkitAudioContext = AudioContextMock;
+
 let initialScene = null;
 let canvas = null; 
 

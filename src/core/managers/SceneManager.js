@@ -19,7 +19,7 @@ class SceneManager {
 
   startScene(key, game) {
     const scene = this.getScene(key);
-    this.runningScene = new (scene)(game); // eslint-disable-line new-cap
+    this.runningScene = new (scene)(game);  
     this.runningScene.IsActive = true;
     this._activeSceneKey = key;
   }
