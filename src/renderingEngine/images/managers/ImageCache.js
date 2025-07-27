@@ -51,7 +51,7 @@ export default class ImageCache {
     return imageCacheItem;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+   
   async downloadImageAsync(assetCacheItem) {
     return new Promise((resolve) => {
       const image = new Image();
