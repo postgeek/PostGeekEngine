@@ -6,6 +6,6 @@
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "template": "node_modules/minami"
+    "template": "node_modules/docdash"
   }
 }
