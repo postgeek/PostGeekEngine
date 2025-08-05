@@ -13,7 +13,7 @@ class GeometryStyle extends DrawingStyle {
   *   'lineCap' : "butt" || "round" || "square"
   *   'lineJoin' : "round" || "bevel" || "miter",
   *   'miterLimit' : float,
-  *   'lineDash' : Array[float],
+  *   'lineDash' : Array.<number>,
   *   'lineDashOffset' : float,
   * }
   */
@@ -133,7 +133,7 @@ class GeometryStyle extends DrawingStyle {
   /**
    * Specifies the line dashes
    *
-   * @param  {Array[float]} value the new line dashes
+   * @param  {Array.<number>} value the new line dashes
    * @return {undefined}
    */
   set lineDash(value) {

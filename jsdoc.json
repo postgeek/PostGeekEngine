@@ -1,0 +1,11 @@
+{
+  "plugins": [],
+  "source": {
+    "include": ["src"]
+  },
+  "opts": {
+    "destination": "./docs",
+    "recurse": true,
+    "template": "node_modules/minami"
+  }
+}
